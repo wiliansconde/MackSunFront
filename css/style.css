@@ -42,3 +42,7 @@ ul {
   gap: 1.25rem;
   justify-content: center;
 }
+
+.logoMackenzie {
+  max-height: 4rem;
+}
