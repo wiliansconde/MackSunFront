@@ -4,8 +4,7 @@ body {
   gap: 3.75rem;
   justify-items: center;
   margin-top: 3rem;
-  background: black;
-  background-image: url(.\img\ceuEstrelado.png.jpg);
+  background-image: url(../img/ceuEstrelado.jpg);
   color: var(--branco);
 }
 
@@ -72,3 +71,10 @@ span {
   justify-content: center;
   align-items: center;
 }
+
+.fotoSol{
+  width: 500px;
+  height: 500px;
+  float: left; 
+  margin-right: 10px; 
+}  
