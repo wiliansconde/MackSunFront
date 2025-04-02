@@ -4,77 +4,87 @@ body {
   gap: 3.75rem;
   justify-items: center;
   margin-top: 3rem;
+  font-family: Arial, Helvetica, sans-serif;
   background-image: url(../img/ceuEstrelado.jpg);
   color: var(--branco);
-}
-
-.logoMackenzie {
-  display: block;
-  align-items: left;
-  position: left;
-  float: left;
+  min-height: 100vh;
 }
 
 .header {
-  display: grid;
-  justify-items: center;
-  gap: 60px;
-}
-
-.cabecalho {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-a {
-  text-decoration: none;
-  color: var(--branco);
-}
-
-ul {
-  list-style: none;
-  gap: 1.25rem;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-span {
-  color: var(--vermelho);
+.logoMackenzie {
+  width: 17rem;
+  max-width: 100%;
+  margin-bottom: .2rem;
 }
 
 .menu {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25rem;
   justify-content: center;
+  align-items: center;
 }
 
 .cadastro a {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
   background-color: var(--branco);
   color: var(--preto);
-  width: 5rem;
-  height: 2rem;
+  width: 8rem;
+  height: 3rem;
   font-weight: bold;
+  border-radius: 10px;  
 }
 
-.logoMackenzie {
-  max-height: 4rem;
+.cadastro a:hover {
+  background: var(--vermelho);
+  color: var(--branco);
+  transition: .2s ease-in-out;
 }
 
-.tituloPrincipal {
+ul {
   display: flex;
-  justify-content: center;
+  list-style: none;
+  gap: 2rem
+}
+
+li a {
+  text-decoration: none;
+  color: var(--branco);
+  font-size: 1.2rem;
+}
+
+li a:hover {
+  color: var(--vermelho);
+  transition: .2s ease-in-out;
+}
+
+li a:focus {
+  outline: none;
+  border: 2px solid var(--vermelho);
+}
+
+.tituloPrincipalComImg {
+  display: flex;
+  justify-content: space-around;
   align-items: center;
 }
 
-.fotoSol{
-  width: 500px;
-  height: 500px;
-  float: left; 
-  margin-right: 10px; 
-}  
+.fotoSol {
+  width: 31.25rem;
+}
+
+.titulo1 {
+  font-size: 4rem;
+}
+
+.titulo2 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-left: 13rem;
+}
