@@ -3,7 +3,6 @@ body {
   background-image: url(../img/ceuEstrelado.jpg);
   color: var(--branco);
   min-height: 100vh;
-  min-height: 100vh;
 }
 
 .header {
