@@ -14,7 +14,7 @@ body {
 .logoMackenzie {
   width: 17rem;
   max-width: 100%;
-  margin-bottom: .2rem;
+  margin-bottom: 0.2rem;
 }
 
 .menu {
@@ -33,19 +33,19 @@ body {
   width: 8rem;
   height: 3rem;
   font-weight: bold;
-  border-radius: 10px;  
+  border-radius: 10px;
 }
 
 .cadastro a:hover {
   background: var(--vermelho);
   color: var(--branco);
-  transition: .2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 ul {
   display: flex;
   list-style: none;
-  gap: 2rem
+  gap: 2rem;
 }
 
 li a {
@@ -56,12 +56,17 @@ li a {
 
 li a:hover {
   color: var(--vermelho);
-  transition: .2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 li a:focus {
   outline: none;
   border: 2px solid var(--vermelho);
+}
+
+.login {
+  color: var(--vermelho);
+  font-size: 1.2rem;
 }
 
 .tituloPrincipalComImg {
