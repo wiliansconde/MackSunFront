@@ -9,12 +9,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 2rem;
 }
 
 .logoMackenzie {
-  width: 17rem;
+  width: 10.5rem;
   max-width: 100%;
-  margin-bottom: 0.2rem;
+  margin-bottom: .3rem;
 }
 
 .menu {
@@ -30,8 +31,8 @@ body {
   align-items: center;
   background-color: var(--branco);
   color: var(--preto);
-  width: 8rem;
-  height: 3rem;
+  width: 5rem;
+  height: 2rem;
   font-weight: bold;
   border-radius: 10px;
 }
@@ -45,13 +46,13 @@ body {
 ul {
   display: flex;
   list-style: none;
-  gap: 2rem;
+  gap: 4rem;
 }
 
 li a {
   text-decoration: none;
   color: var(--branco);
-  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 li a:hover {
@@ -66,7 +67,7 @@ li a:focus {
 
 .login {
   color: var(--vermelho);
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .tituloPrincipalComImg {
@@ -76,25 +77,23 @@ li a:focus {
 }
 
 .fotoSol {
-  width: 31.25rem;
+  width: 20rem;
+  margin-bottom: 1rem;
 }
 
 .titulo1 {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .titulo2 {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: bold;
   margin-left: 13rem;
 }
 
 main {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 5px;
-  align-items: center;
+  gap: 2rem;
   justify-content: center;
   background-color: var(--branco);
   text-align: center;
@@ -102,7 +101,13 @@ main {
 
 .graficoPoemas,
 .graficoSst {
-  margin-top: 30px;
+  margin-top: .625rem;
+}
+
+.graficoPoemas img,
+.graficoSst img {
+  width: 34.375rem;
+  height: 31.25rem;
 }
 
 .graficoSolarFlares {
@@ -112,11 +117,30 @@ main {
 .graficoLatestData {
   grid-column: span 2 / span 2;
   grid-row-start: 3;
+  margin-bottom: .625rem;
 }
 
-.rodape {
-  text-decoration: none;
-  color: var(--branco);
-  font-size: 1.2rem;
+.graficoSolarFlares img,
+.graficoLatestData img {
+  width: 70.75rem;
+}
+
+footer {
   background: var(--vermelho);
+  color: var(--branco);
+  font-size: .8rem;
+  padding: 1rem 0;
+  height: auto;
+  
+}
+
+footer a:hover{
+  color: var(--preto);
+}
+
+.rodape,
+.direitosAutorais {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2rem;
 }
