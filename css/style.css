@@ -88,3 +88,35 @@ li a:focus {
   font-weight: bold;
   margin-left: 13rem;
 }
+
+main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--branco);
+  text-align: center;
+}
+
+.graficoPoemas,
+.graficoSst {
+  margin-top: 30px;
+}
+
+.graficoSolarFlares {
+  grid-column: span 2 / span 2;
+}
+
+.graficoLatestData {
+  grid-column: span 2 / span 2;
+  grid-row-start: 3;
+}
+
+.rodape {
+  text-decoration: none;
+  color: var(--branco);
+  font-size: 1.2rem;
+  background: var(--vermelho);
+}
