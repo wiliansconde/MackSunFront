@@ -1,6 +1,6 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-image: url(../img/ceuEstrelado.jpg);
+  background-image: url(../assets/img/ceuEstrelado.jpg);
   color: var(--branco);
   min-height: 100vh;
 }
