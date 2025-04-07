@@ -142,4 +142,5 @@ footer a:hover {
   display: flex;
   justify-content: space-evenly;
   margin-top: 2rem;
+  margin-bottom: 1rem;
 }
