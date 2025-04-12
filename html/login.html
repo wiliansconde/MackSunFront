@@ -2,53 +2,61 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="\css\style.css">
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="\css\global.css">
+    <link rel="stylesheet" href="\css\global.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
 
-  <title>MackSun</title>
+    <script src="../js/login.js" defer></script>
+
+    <title>MackSun</title>
 </head>
 
 <body>
-  <header class="header">
-    <nav aria-label="cabecalho">
-      <ul class="menu">
-        <img class="logoMackenzie" src="\assets\img\logoMackenzie.png" alt="LogoMackenzie">
-        <li><a href="/">Wiki</a></li>
-        <li><a href="/">About</a></li>
-        <li><a href="/">Dowload Data</a></li>
-        <li><a href="/">Request Access</a></li>
-        <li><a href="/">Contact</a></li>
-        <li class="login"><a href="/">Login</a></li>
-        <li class="cadastro"><a href="/">Register</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main class="loginBody">
-    <div class="containerLogin">
-      <h1 class="titleLogin">Login</h1>
-      <div class="cardLogin">
-        <form action="" class="formLogin">
-          <div class="formGroup">
-            <label class="emailSenha" for="email">Email</label>
-            <input class="inputEmailSenha" type="email" id="email" name="email" required>
-          </div>
-          <div class="formGroup">
-            <label class="emailSenha" for="senha">Password</label>
-            <input class="inputEmailSenha" type="password" id="senha" name="senha" required>
-          </div>
-          <div class="formGroup2">
-            <a href="#">I forgot my password</a>
-          </div>
-        </form>
-      </div>
-      <div> <button class="buttonTelaLogin" type="botaoEnter">Enter</button></div>
+    <div class="estruturaLogin">
+
+        <div class="caixaGeral">
+
+            <div class="botaoFechar">
+                <ion-icon name="close"></ion-icon>
+            </div>
+
+            <div class="blocoFormulario login">
+                <h2>Login</h2>
+                <form action="#">
+
+                    <div class="campoInput">
+                        <input type="email" id="input_email" required>
+                        <label>Email</label>
+                    </div>
+
+                    <div class="campoInput">
+                        <input type="password" id="input_senha" required>
+                        <label>Password</label>
+                    </div>
+
+                    <div class="lembrarSenha">
+                        <label><input type="checkbox">Remember me</label>
+                        <a href="">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="botaoLogin" id="bt_login">Login</button>
+
+                    <div class="loginCadastro">
+                        <p>Don't have an accont?<a href="#" class="registerLink"> Register</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </main>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    </script>
 </body>
 
 </html>
