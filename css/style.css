@@ -230,7 +230,7 @@ footer a:hover {
 
 .buttonTelaLogin {
   background-color: var(--vermelho);
-  color: var(--preto);
+  color: var(--branco);
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
