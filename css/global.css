@@ -1,0 +1,41 @@
+:root {
+  --branco: #ffffff;
+  --preto: #000000;
+  --vermelho: #cc141d;
+  --vermelhoescuro: #97161d;
+  --azul: #3198d3;
+  --azulescuro: #1b5e84;
+  --cinzaclaro: #e0e0e0;
+  --cinza: #292929;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url(../assets/img/ceuEstrelado.jpg);
+  color: var(--branco);
+  min-height: 100vh;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  gap: 4rem;
+}
+
+li a {
+  text-decoration: none;
+  color: var(--branco);
+  font-weight: bold;
+}
+
+li a:focus {
+  outline: none;
+  border: 1px solid var(--branco);
+  border-radius: 2px;
+}

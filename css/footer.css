@@ -1,0 +1,19 @@
+footer {
+    background: var(--vermelho);
+    color: var(--branco);
+    font-size: 0.8rem;
+    padding: 1rem 0;
+    height: auto;
+}
+
+footer a:hover {
+    color: var(--preto);
+}
+
+.rodape,
+.direitosAutorais {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}

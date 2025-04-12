@@ -10,6 +10,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 0.5rem;
+  background-image: url(../assets/img/ceuEstrelado.jpg);
 }
 
 .logoMackenzie {
