@@ -14,3 +14,4 @@ function loadHTML(id, file) {
 
 loadHTML("header", "header.html");
 loadHTML("footer", "footer.html");
+loadHTML("headersimple", "headersimple.html")

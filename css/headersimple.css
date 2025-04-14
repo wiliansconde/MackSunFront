@@ -1,12 +1,9 @@
-body {
-  background-image: url(../assets/img/ceuEstrelado.jpg);
-}
-
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: black;
 }
 
 .logoMackenzie {
@@ -57,17 +54,6 @@ body {
 li a:hover {
   color: var(--vermelho);
   transition: 0.2s ease-in-out;
-}
-
-.tituloPrincipalComImg {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.fotoSol {
-  width: 20rem;
-  margin-bottom: 1rem;
 }
 
 .titulo1 {
