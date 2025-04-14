@@ -18,6 +18,20 @@
   align-items: center;
 }
 
+.botaoLoginMenu {
+  color: var(--branco);
+  background: transparent;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.botaoLoginMenu:hover {
+  color: var(--vermelho);
+  transition: 0.2s ease-in-out;
+}
+
 .cadastro a {
   display: flex;
   justify-content: center;
@@ -36,16 +50,9 @@
   transition: 0.2s ease-in-out;
 }
 
-
 li a:hover {
   color: var(--vermelho);
   transition: 0.2s ease-in-out;
-}
-
-
-.login a {
-  color: var(--vermelho);
-  font-size: 1rem;
 }
 
 .tituloPrincipalComImg {
@@ -68,5 +75,3 @@ li a:hover {
   font-weight: bold;
   margin-left: 13rem;
 }
-
-
