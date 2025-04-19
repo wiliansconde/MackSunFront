@@ -45,7 +45,7 @@ body {
   width: 5rem;
   height: 2rem;
   font-weight: bold;
-  border-radius: 10px;
+  border-radius: 0.375rem;
 }
 
 .cadastro a:hover {

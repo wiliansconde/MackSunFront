@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="\css\global.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/register.css">
+
+  <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
+
+  <title>Register</title>
+</head>
+
+<body>
+  <header class="header">
+    <nav aria-label="cabecalho">
+      <ul class="menu">
+        <img class="logoMackenzie" src="\assets\img\logoMackenzie.png" alt="LogoMackenzie">
+        <li><a href="/">Wiki</a></li>
+        <li><a href="/">About</a></li>
+        <li><a href="/">Dowload Data</a></li>
+        <li><a href="/">Request Access</a></li>
+        <li><a href="/">Contact</a></li>
+        <li><button class="botaoLoginMenu">Login</button></li>
+        <li class="cadastro"><a href="/">Register</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <main class="register">
+    <div class="containerRegister">
+      <h1 class="titleRegister">Register</h1>
+      <form class="formRegister">
+
+        <div class="container-input-label">
+          <label class="labelRegister" for="name">Name</label>
+          <input class="inputRegister" type="text" id="name" name="name">
+        </div>
+
+        <div class="container-input-label">
+          <label class="labelRegister" for="email">Email</label>
+          <input class="inputRegister" type="email" id="email" name="email">
+        </div>
+
+        <div class="container-input-label">
+          <label class="labelRegister" for="password">Password</label>
+          <input class="inputRegister" type="password" id="password" name="password">
+        </div>
+
+      </form>
+
+      <h2 class="Requested">Requested profile:</h2>
+
+      <div class="radioGroupRegister">
+        <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="profile" value="CRAAM Researcher"> CRAAM Researcher</label>
+        <labe class="labelRadioRegister"><input class="inputRadio" type="radio" name="profile" value="Solar Physicist"> Solar Physicist</labe>
+        <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="profile" value="Administrator"> Administrator</label>
+      </div>
+
+      <div class="containerJustification">
+        <label class="justificationLabel" for="justification">Justification:</label>
+        <textarea id="justification" name="justification"></textarea>
+      </div>
+
+      <button class="btnRegister" type="submit">Register</button>
+
+    </div>
+  </main>
+
+
+</body>
+
+</html>

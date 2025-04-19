@@ -1,5 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
-  loadHTML("estruturaLogin", "login.html", () => {
+document.addEventListener('DOMContentLoaded', () => {
+  loadHTML('estruturaLogin', 'login.html', () => {
     inicializarLoginPopup();
     submit();
   });
@@ -7,33 +7,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function loadHTML(id, file, callback) {
   fetch(file)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) throw new Error(`Erro ao carregar ${file}`);
       return response.text();
     })
-    .then(data => {
+    .then((data) => {
       document.getElementById(id).innerHTML = data;
       if (callback) callback();
     })
-    .catch(error => {
+    .catch((error) => {
       console.error(error);
     });
 }
 
 function inicializarLoginPopup() {
-  const botaoAbrirPopup = document.querySelector(".botaoLoginMenu");
-  const estruturaLogin = document.querySelector(".estruturaLogin");
+  const botaoAbrirPopup = document.querySelector('.botaoLoginMenu');
+  const estruturaLogin = document.querySelector('.estruturaLogin');
 
   if (botaoAbrirPopup && estruturaLogin) {
-    botaoAbrirPopup.addEventListener("click", () => {
-      estruturaLogin.style.display = "flex";
+    botaoAbrirPopup.addEventListener('click', () => {
+      estruturaLogin.style.display = 'flex';
     });
   }
 
-  const botaoFechar = document.querySelector(".botaoFechar");
+  const botaoFechar = document.querySelector('.botaoFechar');
   if (botaoFechar) {
-    botaoFechar.addEventListener("click", () => {
-      estruturaLogin.style.display = "none";
+    botaoFechar.addEventListener('click', () => {
+      estruturaLogin.style.display = 'none';
     });
   }
 }
@@ -55,35 +55,38 @@ function submit() {
     }
 
     try {
-      const response = await fetch("https://macksunback.azurewebsites.net/auth/login", {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: email,
-          password: senha
-        })
-      });
+      const response = await fetch(
+        'https://macksunback.azurewebsites.net/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: email,
+            password: senha,
+          }),
+        }
+      );
 
       const result = await response.json();
-      console.log("Resposta da API:", result);
+      console.log('Resposta da API:', result);
 
       if (result.success) {
         const token = result.data.token;
-        const name = result.data.user.fullName
-        console.log("Token recebido:", token);
-        console.log("Nome recebido", name)
-        localStorage.setItem('name', name)
+        const name = result.data.user.fullName;
+        console.log('Token recebido:', token);
+        console.log('Nome recebido', name);
+        localStorage.setItem('name', name);
         localStorage.setItem('token', token);
-        console.log("Token salvo com sucesso!");
+        console.log('Token salvo com sucesso!');
 
-        window.location.href = "/html/homelogado.html";
+        window.location.href = '/html/homelogado.html';
       } else {
         alert(result.message || 'Login denied.');
       }
     } catch (error) {
-      console.error("Erro ao fazer login", error);
+      console.error('Erro ao fazer login', error);
       alert('Something went wrong. Please try again later.');
     }
   });

@@ -3,6 +3,8 @@
   --preto: #000000;
   --vermelho: #cc141d;
   --cinza-claro: #E0E0E0;
+  --azul: #0E7AB4;
+ 
 }
 
 * {
@@ -13,7 +15,6 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  color: var(--branco);
   min-height: 100vh;
 }
 
