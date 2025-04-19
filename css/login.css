@@ -1,19 +1,18 @@
 .estruturaLogin {
-    display: none;
-    justify-content: center;
+    display: flex;
+    justify-content: flex-end;
     position: absolute;
     width: 100%;
-    margin-top: 5rem;
+    margin-top: 3.5rem;
+    transform: translateX(-22%);
 }
 
 .caixaGeral {
-    width: 25rem;
-    height: 27.5rem;
+    width: 17rem;
+    height: 20rem;
     background: transparent;
-    border: 2px solid var(--branco);
     border-radius: 20px;
-    backdrop-filter: blur(80px);
-    box-shadow: 0 0 30px;
+    background-color: var(--branco);
 }
 
 .caixaGeral .botaoFechar {
@@ -23,8 +22,8 @@
     width: 2.8125rem;
     height: 2.8125rem;
     background: transparent;
-    font-size: 2rem;
-    color: var(--branco);
+    font-size: 1.5rem;
+    color: var(--preto);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,41 +31,20 @@
 }
 
 .botaoFechar:hover {
-    color: var(--vermelho);
+    color: var(--azul);
 }
 
 .caixaGeral .blocoFormulario {
     width: 100%;
-    padding: 40px;
-}
-
-.blocoFormulario h2 {
-    font-size: 2rem;
-    text-align: center;
+    padding: 0 25px;
 }
 
 .campoInput {
     position: relative;
     width: 100%;
-    height: 3.124rem;
-    border-bottom: 2px solid;
-    margin: 30px 0;
-}
-
-.campoInput label {
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    font-size: 1rem;
-    font-weight: 500;
-    pointer-events: none;
-    transition: 0.5s ease-in-out;
-}
-
-.campoInput input:focus~label,
-.campoInput input:valid~label {
-    top: -5px;
+    height: 3rem;
+    border-bottom: 2px solid var(--preto);
+    margin: 1rem 0;
 }
 
 .campoInput input {
@@ -76,70 +54,61 @@
     border: none;
     outline: none;
     font-size: 1rem;
-    color: var(--branco);
+    color: var(--preto);
     font-weight: 600;
-    padding: 0 35px 0 5px;
+    padding: 25px 35px 0 5px;
 }
 
 .lembrarSenha {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 500;
-    margin: -15px 0 15px;
-    display: flex;
-    justify-content: space-between;
+    margin: -10px 0 15px;
+    color: var(--preto);
 }
 
 .lembrarSenha label input {
-    accent-color: var(--vermelho);
-    margin-right: 3px;
-}
-
-.lembrarSenha a {
-    color: var(--branco);
-    text-decoration: none;
-}
-
-.lembrarSenha a:hover {
-    text-decoration: underline;
-    color: var(--vermelho);
-    opacity: 0.6;
+    accent-color: var(--preto);
+    margin-right: 4px;
+    margin-top: 1rem;
 }
 
 .botaoLogin {
     width: 100%;
     height: 2.8125rem;
-    background: var(--branco);
-    color: var(--preto);
+    background: var(--preto);
+    color: var(--branco);
     border: none;
     outline: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 500;
-    transition: ease-in-out 0.5s;
+    transition: ease-in-out 0.3s;
+    margin-top: 0.7rem;
 }
 
 .botaoLogin:hover {
-    font-weight: bold;
-    background: var(--vermelho);
-    opacity: 0.8;
+    background: var(--azul);
 }
 
-.loginCadastro {
-    font-size: 0.9rem;
-    text-align: center;
-    font-size: 500;
-    margin: 25px 0 10px;
-}
-
-.loginCadastro p a {
-    color: var(--branco);
+.esqueceuSenha {
+    display: flex;
+    justify-content: center;
     text-decoration: none;
-    font-weight: 600;
+    color: var(--preto);
+    font-size: 1rem;
+    font-weight: 500;
+    padding-top: 1rem;
+    transition: ease-in-out 0.3s;
 }
 
-.loginCadastro p a:hover {
-    text-decoration: underline;
+.esqueceuSenha:hover {
+    color: var(--azul);
+}
+
+.senhaOuEmailErrado {
+    display: none;
     color: var(--vermelho);
-    opacity: 0.6;
+    font-weight: bold;
+    font-size: 1rem;
 }

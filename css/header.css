@@ -40,8 +40,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--branco);
-  color: var(--preto);
+  color: var(--branco);
   width: 5rem;
   height: 2rem;
   font-weight: bold;
@@ -49,8 +48,7 @@ body {
 }
 
 .cadastro a:hover {
-  background: var(--vermelho);
-  color: var(--branco);
+  color: var(--vermelho);
   transition: 0.2s ease-in-out;
 }
 
@@ -98,12 +96,12 @@ li a:hover {
   display: block;
 }
 
-.divconta:hover a{
+.divconta:hover a {
   color: var(--vermelho);
   transition: 0.2s ease-in-out;
 }
 
-.sair{
+.sair {
   text-decoration: none;
   color: var(--vermelho);
   font-weight: bold;
