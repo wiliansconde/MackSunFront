@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="/css/requisicaosenha.css">
+
+    <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
+
+    <script src="../js/login.js" defer></script>
+
+    <title>MackSun</title>
+</head>
+
+<body>
+    <div id="estruturaLogin"></div>
+    <header class="header">
+        <nav aria-label="cabecalho">
+            <ul class="menu">
+                <a href="/html/home.html"><img class="logoMackenzie" src="\assets\img\logoMackenzie.png"
+                        alt="LogoMackenzie"></a>
+                <li><a href="/">Wiki</a></li>
+                <li><a href="/">About</a></li>
+                <li><a href="/">Dowload Data</a></li>
+                <li><a href="/">Request Access</a></li>
+                <li><a href="/">Contact</a></li>
+                <li><button class="botaoLoginMenu">Login</button></li>
+                <li class="cadastro"><a href="/">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="requisicao-senha">
+        <div class="requisicao-senha_container">
+            <h1 class="requisicao-senha_titulo">Enter your new password</h1>
+            <form class="requisicao-senha_formulario">
+                <div class="requisicao-senha-label">
+                    <label for="password">Password:</label>
+                    <input type="password" id="new-password" name="new-password">
+                </div>
+                <div class="requisicao-senha-label">
+                    <label for="password">Confirm <br> password:</label>
+                    <input type="password" id="confirm_password" name="confirm_password">
+                </div>
+            </form>
+
+            <button class="formulario_bnt" type="submit">Confirm</button>
+        </div>
+    </main>
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

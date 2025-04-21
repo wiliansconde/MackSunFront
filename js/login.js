@@ -23,6 +23,7 @@ function loadHTML(id, file, callback) {
 function inicializarLoginPopup() {
   const botaoAbrirPopup = document.querySelector('.botaoLoginMenu');
   const estruturaLogin = document.querySelector('.estruturaLogin');
+  const errorLogin = document.getElementById('error_login')
 
   if (botaoAbrirPopup && estruturaLogin) {
     botaoAbrirPopup.addEventListener('click', () => {
@@ -34,12 +35,20 @@ function inicializarLoginPopup() {
   if (botaoFechar) {
     botaoFechar.addEventListener('click', () => {
       estruturaLogin.style.display = 'none';
+      errorLogin.style.display = 'none'
+      document.getElementById('input_email').value = '';
+      document.getElementById('input_senha').value = '';
+
     });
   }
 }
 
 function submit() {
   const bt_login = document.getElementById('bt_login');
+  const errorLogin = document.getElementById('error_login')
+
+  document.getElementById('input_email').value = '';
+  document.getElementById('input_senha').value = '';
 
   if (!bt_login) return;
 
@@ -50,7 +59,7 @@ function submit() {
     const senha = document.getElementById('input_senha').value.trim();
 
     if (!email || !senha) {
-      alert('Please fill in all fields.');
+      errorLogin.style.display = 'flex';
       return;
     }
 
@@ -83,11 +92,15 @@ function submit() {
 
         window.location.href = '/html/homelogado.html';
       } else {
-        alert(result.message || 'Login denied.');
+        errorLogin.style.display = 'flex';
+        document.getElementById('input_email').value = '';
+        document.getElementById('input_senha').value = '';
       }
     } catch (error) {
       console.error('Erro ao fazer login', error);
-      alert('Something went wrong. Please try again later.');
+      errorLogin.style.display = 'flex';
+      document.getElementById('input_email').value = '';
+      document.getElementById('input_senha').value = '';
     }
   });
 }

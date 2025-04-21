@@ -1,4 +1,4 @@
-.register{
+.register {
   background: var(--branco);
   min-height: 100vh;
   display: flex;
@@ -6,7 +6,7 @@
   font-weight: bold;
 }
 
-.containerRegister{
+.containerRegister {
   color: var(--preto);
   background-color: var(--branco);
   padding: 3.125rem;
@@ -17,77 +17,77 @@
   margin: 2.5rem;
 }
 
-.titleRegister{
+.titleRegister {
   color: var(--vermelho);
   font-size: 1.563rem;
 }
 
-.formRegister{
+.formRegister {
   display: flex;
   margin-top: 1.875rem;
   flex-direction: column;
 }
 
-.container-input-label{
+.container-input-label {
   display: flex;
   margin-bottom: 0.938rem;
   justify-content: space-between;
- 
-  }
-
-.labelRegister{
- margin-top: 0.75rem;
- margin-bottom: 1.25rem;
 
 }
 
-.inputRegister{
- display: flex;
- margin-right: 15.625rem;
- order: 1;
- width: 15.625rem;
- height: 2.188rem;
- padding: 0.5rem;
- margin-top: 0.313rem;
- border: 0.063rem solid var(--cinza-claro);
- border-radius: 0.625rem;
+.labelRegister {
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+
 }
 
-.Requested{
+.inputRegister {
+  display: flex;
+  margin-right: 15.625rem;
+  order: 1;
+  width: 15.625rem;
+  height: 2.188rem;
+  padding: 0.5rem;
+  margin-top: 0.313rem;
+  border: 0.063rem solid var(--cinza-claro);
+  border-radius: 0.625rem;
+}
+
+.Requested {
   font-size: 1.063rem;
   margin-top: 0.625rem;
   margin-bottom: 1.25rem;
 }
 
-.radioGroupRegister{
+.radioGroupRegister {
   display: flex;
   flex-direction: row;
   margin-bottom: 1.875rem;
 }
 
-.labelRadioRegister{
+.labelRadioRegister {
   margin-right: 1.875rem;
 }
 
-.inputRadio{
-margin-right: 0.313rem;
-accent-color: var(--azul);
-cursor: pointer;
+.inputRadio {
+  margin-right: 0.313rem;
+  accent-color: var(--azul);
+  cursor: pointer;
 }
 
-.containerJustification{
+.containerJustification {
   display: flex;
   margin-bottom: 0.938rem;
   font-size: 1.063rem;
   flex-direction: row;
 }
 
-.justificationLabel{
+.justificationLabel {
   margin-right: 1.25rem;
 }
 
 
-#justification{
+#justification {
   display: flex;
   border: 0.063rem solid var(--cinza-claro);
   border-radius: 0.625rem;
@@ -97,7 +97,7 @@ cursor: pointer;
   font-style: none;
 }
 
-.btnRegister{
+.btnRegister {
   display: flex;
   font-size: 1.063rem;
   background-color: var(--preto);
@@ -106,9 +106,9 @@ cursor: pointer;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
- margin-left: 30.313rem;  
+  margin-left: 30.313rem;
 }
 
-.btnRegister:hover{
-background-color: var(--azul);
+.btnRegister:hover {
+  background-color: var(--azul);
 }
