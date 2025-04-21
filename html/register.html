@@ -18,7 +18,9 @@
   <header class="header">
     <nav aria-label="cabecalho">
       <ul class="menu">
-        <img class="logoMackenzie" src="\assets\img\logoMackenzie.png" alt="LogoMackenzie">
+        <a href="\html\home.html">
+          <img class="logoMackenzie" src="\assets\img\logoMackenzie.png" alt="LogoMackenzie">
+        </a>
         <li><a href="/">Wiki</a></li>
         <li><a href="/">About</a></li>
         <li><a href="/">Dowload Data</a></li>
@@ -34,7 +36,7 @@
   <main class="register">
     <div class="containerRegister">
       <h1 class="titleRegister">Register</h1>
-      <form class="formRegister">
+      <form id="registrationForm" class="formRegister">
 
         <div class="container-input-label">
           <label class="labelRegister" for="name">Name</label>
@@ -51,27 +53,27 @@
           <input class="inputRegister" type="password" id="password" name="password">
         </div>
 
-      </form>
+        <h2 class="Requested">Requested profile:</h2>
 
-      <h2 class="Requested">Requested profile:</h2>
+        <div class="radioGroupRegister">
+          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="CRAAM Researcher"> CRAAM Researcher</label>
+          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="Solar Physicist"> Solar Physicist</label>
+          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="Administrator"> Administrator</label>
+        </div>
 
-      <div class="radioGroupRegister">
-        <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="profile" value="CRAAM Researcher"> CRAAM Researcher</label>
-        <labe class="labelRadioRegister"><input class="inputRadio" type="radio" name="profile" value="Solar Physicist"> Solar Physicist</labe>
-        <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="profile" value="Administrator"> Administrator</label>
-      </div>
+        <div class="containerJustification">
+          <label class="justificationLabel" for="justification">Justification:</label>
+          <textarea id="justification" name="justification"></textarea>
+        </div>
 
-      <div class="containerJustification">
-        <label class="justificationLabel" for="justification">Justification:</label>
-        <textarea id="justification" name="justification"></textarea>
-      </div>
-
-      <button class="btnRegister" type="submit">Register</button>
+        <button class="btnRegister" type="submit">Request</button>
 
     </div>
+    </form>
+
+
   </main>
-
-
+  <script src="../js/register.js"></script>
 </body>
 
 </html>
