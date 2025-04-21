@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
         existingMessage.remove();
       }
       
-      
       const messageElement = document.createElement('div');
       messageElement.id = 'form-message';
       messageElement.textContent = message;
@@ -110,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
       showMessage('Processing your request...', 'success');
       
       //Enviar dados para o endpoint:
-      fetch('https://68068ad0e81df7060eb781c4.mockapi.io/api/users', {
+      fetch('https://macksunback.azurewebsites.net/access-requests' {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
