@@ -7,11 +7,12 @@
 
     <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/trocarsenha.css">
+    <link rel="stylesheet" href="../css/esqueci-senha.css">
 
     <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
 
     <script src="../js/login.js" defer></script>
+    <script src="../js/requisicaosenha.js" defer></script>
 
     <title>MackSun</title>
 </head>
@@ -22,7 +23,7 @@
         <nav aria-label="cabecalho">
             <ul class="menu">
                 <a href="/html/home.html"><img class="logoMackenzie" src="\assets\img\logoMackenzie.png"
-                    alt="LogoMackenzie"></a>
+                        alt="LogoMackenzie"></a>
                 <li><a href="/">Wiki</a></li>
                 <li><a href="/">About</a></li>
                 <li><a href="/">Dowload Data</a></li>
@@ -41,11 +42,12 @@
                 link.</p>
             <form class="recuperar-senha_formulario">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email_valido" name="email">
             </form>
 
             <p class="email-invalido">Invalid email address. Please check and try again.</p>
-            <button class="formulario_bnt" type="submit">To send</button>
+            <p class="recuperar-senha_sucesso">Email sent successfully! Please check your inbox and spam folder.</p>
+            <button class="formulario_btn" id="formulario_btn" type="submit">To send</button>
         </div>
     </main>
 
