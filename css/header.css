@@ -109,3 +109,116 @@ a:hover {
   font-weight: bold;
   display: block;
 }
+
+.menu-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-hamburger img {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 767px) {
+  .menu {
+    display: none;
+    flex-direction: column;
+    background-color: var(--branco);
+    position: absolute;
+    top: 2.725rem;
+    right: 0;
+    z-index: 1000;
+    padding: 1rem;
+    border-radius: 10px;
+    gap: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  .logoMackenzie {
+    display: none;
+  }
+
+  .menu.active {
+    display: flex;
+  }
+
+  .menu li {
+  margin: 0rem;
+  }
+
+  .menu a {
+    color: var(--preto);
+  }
+
+  .menu a:hover {
+    color: var(--vermelho);
+  }
+
+  .botaoLoginMenu {
+    color: var(--preto);
+  }
+
+  .cadastro a:hover {
+    background: var(--vermelho);
+    color: var(--branco);
+  }
+
+  .menu-hamburger {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1001;
+  }
+
+  .tituloPrincipalComImg {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .titulo2 {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .logoMackenzie {
+    width: 8rem; /* reduz um pouco a logo */
+  }
+
+  .menu {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .tituloPrincipalComImg {
+    align-items: center;
+    text-align: center;
+  }
+
+  .fotoSol {
+    width: 15rem; /* reduz imagem do Sol */
+    margin-bottom: 1rem;
+  }
+
+  .titulo1 {
+    font-size: 2.5rem; /* diminui um pouco */
+  }
+
+  .titulo2 {
+    font-size: 3rem; /* diminui um pouco */
+    margin-left: 0; /* zera o margin que era 13rem */
+  }
+
+  .menu-hamburger {
+    display: none; /* hamburguer escondido no tablet */
+  }
+}
