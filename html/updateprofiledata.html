@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <link rel="stylesheet" href="/css/updateprofiledata.css">
+
     <script src="/js/headerfooter.js" defer></script>
 </head>
 <body>
@@ -12,9 +14,38 @@
     <div id="headersimple"></div>
 
     <main>
-        <div class = "container">
-            
-        </div>
+        <div class="user-info-section">
+            <h2 class="section-title">Suas Informações</h2>
+        
+            <div class="container-input-label">
+                <label class="labelRegister" for="username">Username</label>
+                <input class="inputRegister" type="text" id="username" name="username" disabled>
+            </div>
+        
+            <div class="container-input-label">
+                <label class="labelRegister" for="fullname">Nome Completo</label>
+                <input class="inputRegister" type="text" id="fullname" name="fullname" disabled>
+            </div>
+        
+            <div class="container-input-label">
+                <label class="labelRegister" for="email">Email</label>
+                <input class="inputRegister" type="email" id="email" name="email" disabled>
+            </div>
+        
+            <h2 class="section-title">Alterar Senha</h2>
+        
+            <div class="container-input-label">
+                <label class="labelRegister" for="new-password">Nova Senha</label>
+                <input class="inputRegister" type="password" id="new-password" name="new-password">
+            </div>
+        
+            <div class="container-input-label">
+                <label class="labelRegister" for="confirm-password">Confirmar Nova Senha</label>
+                <input class="inputRegister" type="password" id="confirm-password" name="confirm-password">
+            </div>
+        
+            <button class="btn-change-password">Alterar Senha</button>
+        </div>        
     </main>
 
 
