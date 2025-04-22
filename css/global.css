@@ -17,6 +17,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
   color: var(--branco);
+  height: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 ul {

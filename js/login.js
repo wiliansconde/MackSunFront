@@ -84,10 +84,13 @@ function submit() {
       if (result.success) {
         const token = result.data.token;
         const name = result.data.user.fullName;
+        const email = result.data.user.email;
         console.log('Token recebido:', token);
         console.log('Nome recebido', name);
+        console.log('Email recebido', email)
         localStorage.setItem('name', name);
         localStorage.setItem('token', token);
+        localStorage.setItem('email', email)
         console.log('Token salvo com sucesso!');
 
         window.location.href = '/html/homelogado.html';
