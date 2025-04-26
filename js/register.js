@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
       showMessage('Processing your request...', 'success');
       
       //Enviar dados para o endpoint:
-      fetch('https://macksunback.azurewebsites.net/access-requests' {
+      fetch('https://macksunback.azurewebsites.net/access-requests',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
