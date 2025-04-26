@@ -1,0 +1,10 @@
+.formulario_padrão {
+    color: var(--preto);
+    background-color: var(--branco);
+    padding: 3.125rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+    width: 43.75rem;
+    height: 36.875rem;
+    margin: 2.5rem;
+}

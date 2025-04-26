@@ -16,10 +16,7 @@
     margin: 2.5rem;
 }
 
-.requisicao-senha_titulo {
-    color: var(--vermelho); 
-    font-size: 1.563rem;
-}
+
 
 .requisicao-senha_formulario {
     display: flex;

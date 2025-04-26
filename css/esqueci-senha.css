@@ -15,11 +15,6 @@
     margin: 2.5rem;
 }
 
-.recuperar-senha_titulo {
-    color: var(--vermelho);
-    font-size: 1.563rem;
-}
-
 .recuperar-senha_text {
     font-size: 1rem;
     font-weight: 600;

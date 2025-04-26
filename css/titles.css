@@ -1,0 +1,24 @@
+.titulo_banner {
+    font-size: 3rem;
+}
+
+.titulo2_banner {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-left: 13rem;
+}
+
+.titulo_padrao {
+    display: inline-block;
+    color: var(--azul-dark);
+    font-size: 1.563rem;
+    border-bottom: 3px solid var(--vermelho);
+    border-radius: 3px;
+}
+
+.subtitulo_padrao {
+    font-size: 1.063rem;
+    margin-top: 0.625rem;
+    margin-bottom: 1.25rem;
+    color: var(--azul-dark);
+}
