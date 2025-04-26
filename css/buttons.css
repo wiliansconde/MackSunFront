@@ -1,0 +1,43 @@
+
+
+.btnBlack {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    background-color: var(--preto);
+    color: var(--branco);
+    padding: 1rem 1.50rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    vertical-align: middle;
+}
+  
+.btnBlack:hover {
+    background-color: var(--azul);
+}
+
+.btnPositionRight {
+    display: block;
+    margin-left: auto;
+}
+
+.btnPositionCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.btnSizeFull {
+    width: 100%
+}
+
+.btnSizeSmall {
+    width: 20%
+}
+
+.btnSizeMedium {
+    width: 25%;
+}
