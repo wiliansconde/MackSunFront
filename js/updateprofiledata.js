@@ -22,11 +22,54 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const data = await response.json();
 
-        // Acessando os dados dentro de 'data.data'
         document.getElementById('username').value = data.data.username || '';
         document.getElementById('fullname').value = data.data.fullName || '';
         document.getElementById('email').value = data.data.email || '';
     } catch (error) {
         console.error('Erro ao buscar dados do usuário:', error);
     }
+
+    const changePasswordButton = document.querySelector('.btn-change-password');
+    changePasswordButton.addEventListener('click', async () => {
+        const currentPassword = document.getElementById('current-password').value;
+        const newPassword = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        if (!currentPassword || !newPassword || !confirmPassword) {
+            alert('Preencha todos os campos de senha.');
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            alert('As novas senhas não coincidem.');
+            return;
+        }
+
+        try {
+            const updateResponse = await fetch('https://macksunback.azurewebsites.net/users/update-password', {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    currentPassword: currentPassword,
+                    newPassword: newPassword
+                })
+            });
+
+            if (!updateResponse.ok) {
+                throw new Error(`Erro ao atualizar senha: ${updateResponse.status}`);
+            }
+
+            alert('Senha atualizada com sucesso!');
+            document.getElementById('current-password').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+        } catch (error) {
+            console.error('Erro ao mudar senha:', error);
+            alert('Erro ao mudar senha. Verifique sua senha atual.');
+        }
+    });
 });

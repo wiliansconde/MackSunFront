@@ -95,19 +95,3 @@
   font-size: 1.063rem;
   font-style: none;
 }
-
-.btnRegister {
-  display: flex;
-  font-size: 1.063rem;
-  background-color: var(--preto);
-  color: var(--branco);
-  padding: 0.938rem 1.563rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  margin-left: 30.313rem;
-}
-
-.btnRegister:hover {
-  background-color: var(--azul);
-}
