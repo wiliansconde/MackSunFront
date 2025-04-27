@@ -38,7 +38,6 @@ function inicializarLoginPopup() {
       errorLogin.style.display = 'none'
       document.getElementById('input_email').value = '';
       document.getElementById('input_senha').value = '';
-
     });
   }
 }

@@ -1,5 +1,3 @@
-
-
 .btnBlack {
     display: flex;
     justify-content: center;
@@ -40,4 +38,43 @@
 
 .btnSizeMedium {
     width: 25%;
+}
+
+@media (max-width: 767px) {
+    .btnBlack {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .btnPositionRight {
+        margin: 0;
+    }
+
+    .btnSizeSmall {
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .btnSizeMedium {
+        width: 100%;
+    }
+
+    .btnPositionCenter {
+        margin: 0 auto;
+    }
+
+    .invalid_message_error {
+        color: var(--vermelho);
+        font-weight: bold;
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .success-message {
+        color: var(--verde);
+        font-weight: bold;
+        margin-top: 1rem;
+        text-align: center;
+    }
 }

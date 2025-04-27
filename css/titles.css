@@ -22,3 +22,30 @@
     margin-bottom: 1.25rem;
     color: var(--azul-dark);
 }
+
+@media (max-width: 767px) {
+    .titulo_banner {
+        font-size: 2rem;
+    }
+
+    .titulo2_banner {
+        display: flex;
+        justify-content: center;
+        font-size: 3rem;
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .titulo_banner {
+        font-size: 2rem;
+    }
+
+    .titulo2_banner {
+        display: flex;
+        justify-content: center;
+        font-size: 3rem;
+        margin-left: 0;
+    }
+
+}

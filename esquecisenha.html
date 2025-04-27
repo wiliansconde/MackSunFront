@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/esqueci-senha.css">
     <link rel="stylesheet" href="/css/titles.css">
+    <link rel="stylesheet" href="/css/formulario.css">
 
     <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
 
@@ -35,8 +36,8 @@
         </nav>
     </header>
 
-    <main class="recuperar-senha">
-        <div class="recuperar-senha_container">
+    <main class="container_padrao">
+        <div class="formulario-card_menor">
             <h1 class="titulo_padrao">Forgot password</h1>
             <p class="recuperar-senha_text">Please enter your registered email address to receive the password reset
                 link.</p>
@@ -45,9 +46,9 @@
                 <input type="email" id="email_valido" name="email">
             </form>
 
-            <p class="email-invalido">Invalid email address. Please check and try again.</p>
-            <p class="recuperar-senha_sucesso">Email sent successfully! Please check your inbox and spam folder.</p>
-            <button class="formulario_btn" id="formulario_btn" type="submit">To send</button>
+            <p class="invalid_message_error">Invalid email address. Please check and try again.</p>
+            <p class="success-message">Email sent successfully! Please check your inbox and spam folder.</p>
+            <button class="btnBlack btnSizeSmall btnPositionRight" id="formulario_btn" type="submit">To send</button>
         </div>
     </main>
 

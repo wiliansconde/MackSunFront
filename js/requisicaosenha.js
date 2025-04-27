@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function recuperarSenha() {
     const btnRecuperar = document.getElementById('formulario_btn')
     const email_valido = document.getElementById('email_valido')
-    const msgErro = document.querySelector('.email-invalido')
-    const msgSucesso = document.querySelector('.recuperar-senha_sucesso')
+    const msgErro = document.querySelector('.invalid_message_error')
+    const msgSucesso = document.querySelector('.success-message')
 
     btnRecuperar.addEventListener('click', async (event) => {
         event.preventDefault();
@@ -14,7 +14,7 @@ function recuperarSenha() {
         const email = email_valido.value.trim();
 
         if (!email || !email.includes('@')) {
-            msgErro.style.display = 'block';
+            msgErro.style.display = 'inline-block';
             return;
         }
         try {
@@ -30,10 +30,10 @@ function recuperarSenha() {
             console.log('Resposta da API', result)
 
             if (response.ok) {
-                msgSucesso.style.display = 'block'
+                msgSucesso.style.display = 'inline-block'
                 email_valido.value = '';
             } else {
-                msgErro.style.display = 'block'
+                msgErro.style.display = 'inline-block'
             }
 
         } catch (error) {

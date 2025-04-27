@@ -71,7 +71,6 @@ a:hover {
   margin-bottom: 1rem;
 }
 
-
 /* home logado*/
 
 .nome_logado {
@@ -132,6 +131,11 @@ a:hover {
     display: none;
   }
 
+  .fotoSol {
+    width: 15rem;
+    margin-bottom: 1rem;
+  }
+
   .menu.active {
     display: flex;
   }
@@ -170,10 +174,6 @@ a:hover {
     align-items: center;
     justify-content: center;
   }
-
-  .titulo2 {
-    margin-left: 0;
-  }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -196,17 +196,8 @@ a:hover {
   }
 
   .fotoSol {
-    width: 15rem; /* reduz imagem do Sol */
+    width: 15rem;
     margin-bottom: 1rem;
-  }
-
-  .titulo1 {
-    font-size: 2.5rem; /* diminui um pouco */
-  }
-
-  .titulo2 {
-    font-size: 3rem; /* diminui um pouco */
-    margin-left: 0; /* zera o margin que era 13rem */
   }
 
   .menu-hamburger {

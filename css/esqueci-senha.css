@@ -1,23 +1,4 @@
-.recuperar-senha {
-    background: var(--branco);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-}
-
-.recuperar-senha_container {
-    color: var(--preto);
-    background-color: var(--branco);
-    padding: 3.125rem;
-    border-radius: 0.625rem;
-    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
-    height: 25.875rem;
-    margin: 2.5rem;
-}
-
 .recuperar-senha_text {
-    font-size: 1rem;
-    font-weight: 600;
     margin-top: 2rem;
 }
 
@@ -25,8 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2rem;
-    font-weight: bold;
+    margin: 2rem 0;
 }
 
 .recuperar-senha_formulario input {
@@ -39,81 +19,32 @@
     border-radius: 0.625rem;
 }
 
-.email-invalido {
-    display: none;
-    color: var(--vermelho);
-    font-weight: bold;
-    margin: 1rem;
-}
-
 .recuperar-senha_sucesso {
-    display: none;
+    display: flex;
     color: var(--verde);
     font-weight: bold;
     margin: 1rem;
 }
 
-.formulario_btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.063rem;
-    background-color: var(--preto);
-    color: var(--branco);
-    padding: 0.938rem 1.563rem;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    margin-left: 30.313rem;
-}
-
-.formulario_btn:hover {
-    background-color: var(--azul);
-}
-
 @media (max-width: 767px) {
-    .recuperar-senha_container {
-        width: 90%;
-        padding: 2rem;
-        margin: 2rem 0.5rem;
-    }
-
-    .recuperar-senha_formulario {
-        flex-direction: column;
-        margin: 1rem 0;
-    }
-
-    .recuperar-senha_formulario input {
-        width: 100%;
-    }
-
-    .formulario_btn {
-        margin-left: 0;
+    .recuperar-senha_text {
+        font-size: 1rem;
         margin-top: 1rem;
-        width: 100%;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-    .recuperar-senha_container {
-        width: 70%;
-        padding: 2.5rem;
-        height: auto;
-        margin: 3rem auto;
     }
 
     .recuperar-senha_formulario {
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
         margin: 1.5rem 0;
     }
 
     .recuperar-senha_formulario input {
         width: 100%;
-    }
-
-    .formulario_btn {
-        margin-left: 0;
-        margin-top: 1rem;
-        width: 60%;
+        max-width: 100%;
+        height: 2.5rem;
+        margin: 0.5rem 0;
+        padding: 0.75rem;
     }
 }

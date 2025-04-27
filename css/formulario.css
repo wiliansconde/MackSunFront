@@ -1,4 +1,11 @@
-.formulario_padrão {
+.container_padrao {
+    background: var(--branco);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.formulario_padrao {
     color: var(--preto);
     background-color: var(--branco);
     padding: 3.125rem;
@@ -7,4 +14,44 @@
     width: 43.75rem;
     height: 36.875rem;
     margin: 2.5rem;
+}
+
+.formulario-card_menor {
+    color: var(--preto);
+    background-color: var(--branco);
+    padding: 3.125rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+    height: 22.875rem;
+    margin: 2.5rem;
+}
+
+.invalid_message_error {
+    display: none;
+    color: var(--vermelho);
+    background-color: rgba(204, 20, 29, 0.1);
+    padding: 0 1rem;
+    font-weight: bold;
+}
+
+.success-message {
+    display: none;
+    color: var(--verde);
+    background-color: rgba(28, 168, 61, 0.2);
+    padding: 0 1rem;
+    font-weight: bold;
+    margin-bottom: 2rem; 
+}
+
+@media (max-width: 767px) {
+    .formulario_padrao {
+        height: auto;
+    }
+
+    .formulario-card_menor {
+        width: 100%; 
+        padding: 2rem; 
+        margin: 1rem; 
+        height: auto; 
+    }
 }
