@@ -1,4 +1,4 @@
-.user-info-section {
+/* .user-info-section {
     justify-content: center;
     max-width: 600px;
     margin: 40px auto;
@@ -6,15 +6,21 @@
     background-color: #f9f9f9;
     border-radius: 12px;
     box-shadow: 0 0 8px rgba(0,0,0,0.1);
+} */
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.section-title {
+/* .section-title {
     font-size: 1.5rem;
     margin-bottom: 20px;
     color: black;
-}
+} */
 
-.btn-change-password {
+/* .btn-change-password {
     margin: 1rem auto 0 auto;
     padding: 1rem 20px;
     background-color: #007BFF;
@@ -26,11 +32,11 @@
     transition: background-color 0.3s ease;
     display: block;
     font-size: medium;
-}
+} */
 
-.btn-change-password:hover {
+/* .btn-change-password:hover {
     background-color: #0056b3;
-}
+} */
 
 .labelRegister {
     color: black;
@@ -38,7 +44,7 @@
     width: 10rem;
     margin-right: 1rem;
 }
-  
+
 .inputRegister {
     display: flex;
     margin-left: 1rem;
@@ -52,11 +58,6 @@
     border-radius: 0.625rem;
 }
 
-.titleRegister {
-    color: var(--vermelho);
-    font-size: 1.563rem;
-    margin-bottom: 1rem;
-}
 
 .container-input-label {
     display: flex;

@@ -5,6 +5,7 @@
   --cinza-claro: #E0E0E0;
   --azul: #0E7AB4;
   --verde: #1ca83d;
+  --azul-dark: #011825;
 }
 
 * {
@@ -18,9 +19,6 @@ body {
   min-height: 100vh;
   color: var(--branco);
   height: 100%;
-  margin: 0;
-  display: grid;
-  grid-template-rows: 1fr auto;
 }
 
 ul {

@@ -13,7 +13,7 @@
     cursor: pointer;
     vertical-align: middle;
 }
-  
+
 .btnBlack:hover {
     background-color: var(--azul);
 }

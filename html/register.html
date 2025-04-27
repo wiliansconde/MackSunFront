@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="../css/register.css">
 
   <link rel="stylesheet" href="../css/buttons.css">
+  <link rel="stylesheet" href="../css/titles.css">
+  <link rel="stylesheet" href="../css/formulario.css">
 
 
   <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
@@ -37,26 +39,26 @@
   </header>
 
   <main class="register">
-    <div class="containerRegister">
-      <h1 class="titleRegister">Register</h1>
+    <div class="formulario_padrão">
+      <h1 class="titulo_padrao">Register</h1>
       <form id="registrationForm" class="formRegister">
 
         <div class="container-input-label">
-          <label class="labelRegister" for="name">Name</label>
+          <label class="labelRegister" for="name">Name: <span>*</span></label>
           <input class="inputRegister" type="text" id="name" name="name">
         </div>
 
         <div class="container-input-label">
-          <label class="labelRegister" for="email">Email</label>
+          <label class="labelRegister" for="email">Email: <span>*</span></label>
           <input class="inputRegister" type="email" id="email" name="email">
         </div>
 
         <div class="container-input-label">
-          <label class="labelRegister" for="password">Password</label>
+          <label class="labelRegister" for="password">Password: <span>*</span></label>
           <input class="inputRegister" type="password" id="password" name="password">
         </div>
 
-        <h2 class="Requested">Requested profile:</h2>
+        <h2 class="subtitulo_padrao">Requested profile:</h2>
 
         <div class="radioGroupRegister">
           <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="CRAAM_RESEARCHER"> CRAAM Researcher</label>
