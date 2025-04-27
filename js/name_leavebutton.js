@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      window.location.href = "/html/home.html";
+      window.location.href = "/index.html";
       return;
     }
   
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     if (storedName && nameElement) {
       nameElement.textContent = storedName;
-      nameElement.href = "/html/updateprofiledata.html";
+      nameElement.href = "/updateprofiledata.html";
     }
   
     const leaveButton = document.getElementById("leave");
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         localStorage.removeItem("token");
         localStorage.removeItem("name");
-        window.location.href = "/html/home.html";
+        window.location.href = "/index.html";
       });
     }
 });

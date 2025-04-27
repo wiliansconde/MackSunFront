@@ -93,7 +93,7 @@ function submit() {
         localStorage.setItem('email', email)
         console.log('Token salvo com sucesso!');
 
-        window.location.href = '/html/homelogado.html';
+        window.location.href = '/homelogado.html';
       } else {
         errorLogin.style.display = 'flex';
         document.getElementById('input_email').value = '';
