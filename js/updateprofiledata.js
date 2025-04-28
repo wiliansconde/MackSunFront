@@ -1,4 +1,4 @@
-import { BASE_URL } from './const';
+import { BASE_URL } from './const,js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
