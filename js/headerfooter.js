@@ -17,14 +17,14 @@ function loadHTML(id, file) {
     });
 }
 
-<<<<<<< HEAD
+
 loadHTML("header", "./header.html");
 loadHTML("footer", "footer.html");
 loadHTML("headersimple", "headersimple.html")
-=======
+
 document.addEventListener('DOMContentLoaded', () => {
   loadHTML("header", "header.html");
   loadHTML("footer", "footer.html");
   loadHTML("headersimple", "headersimple.html");
 });
->>>>>>> 3afe40a381a4e0cc19fb42ba25c127037410338a
+
