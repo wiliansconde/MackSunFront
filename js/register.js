@@ -1,3 +1,5 @@
+import { BASE_URL } from './const';
+
 document.addEventListener('DOMContentLoaded', function() {
     
     function showMessage(message, type) {
@@ -109,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
       showMessage('Processing your request...', 'success');
       
       //Enviar dados para o endpoint:
-      fetch('https://macksunback.azurewebsites.net/access-requests',{
+      fetch(BASE_URL + 'access-requests',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
