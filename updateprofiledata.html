@@ -14,11 +14,12 @@
     
     <script src="/js/name_leavebutton.js" defer></script>
     <script src="/js/headerfooter.js" defer></script>
-    <script src="/js/updateprofiledata.js" defer></script>
+    <script type="module" src="/js/updateprofiledata.js" defer></script>
     
 </head>
 
 <body>
+    
     <div id="headersimple"></div>
 
     <main>
@@ -42,22 +43,24 @@
 
             <h2 class="subtitulo_padrao">Change password</h2>
 
-            <div class="container-input-label">
-                <label class="labelRegister" for="current-password">Current password</label>
-                <input class="inputRegister" type="password" id="current-password" name="current-password">
-            </div>
-
-            <div class="container-input-label">
-                <label class="labelRegister" for="new-password">New password</label>
-                <input class="inputRegister" type="password" id="new-password" name="new-password">
-            </div>
-
-            <div class="container-input-label">
-                <label class="labelRegister" for="confirm-password">Confirm new<br>password</label>
-                <input class="inputRegister" type="password" id="confirm-password" name="confirm-password">
-            </div>
-
-            <button class="btnBlack btnSizeMedium btnPositionCenter">Submit</button>
+            <form id="update-password-form" action="/update-profile" method="POST">
+                <div class="container-input-label">
+                    <label class="labelRegister" for="current-password">Current password</label>
+                    <input class="inputRegister" type="password" id="current-password" name="current-password" autocomplete="on">
+                </div>
+            
+                <div class="container-input-label">
+                    <label class="labelRegister" for="new-password">New password</label>
+                    <input class="inputRegister" type="password" id="new-password" name="new-password" autocomplete="on">
+                </div>
+            
+                <div class="container-input-label">
+                    <label class="labelRegister" for="confirm-password">Confirm new<br>password</label>
+                    <input class="inputRegister" type="password" id="confirm-password" name="confirm-password" autocomplete="on">
+                </div>
+            
+                <button class="btnBlack btnSizeMedium btnPositionCenter">Submit</button>
+            </form>
         </div>
     </main>
 
