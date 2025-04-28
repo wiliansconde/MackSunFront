@@ -17,6 +17,7 @@ function loadHTML(id, file) {
     });
 }
 
+<<<<<<< HEAD
 
 loadHTML("header", "./header.html");
 loadHTML("footer", "footer.html");
@@ -28,3 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
   loadHTML("headersimple", "headersimple.html");
 });
 
+=======
+loadHTML("header", "./header.html");
+loadHTML("footer", "footer.html");
+loadHTML("headersimple", "headersimple.html")
+>>>>>>> 6440d3419513bda6287910f86043d48ff4e33c3d
