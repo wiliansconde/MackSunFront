@@ -1,4 +1,3 @@
-import { BASE_URL } from './const.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   loadHTML('estruturaLogin', 'login.html', () => {
