@@ -3,9 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const menuHamburger = document.getElementById('menu_hamburger');
         const menu = document.querySelector('.menu');
 
-        menuHamburger.addEventListener('click', () => {
-            menu.classList.toggle('active');
-        })
+        if (menuHamburger && menu) {
+            menuHamburger.addEventListener('click', () => {
+                menu.classList.toggle('active');
+            });
+        } else {
+            console.error('menuHamburger ou menu não encontrado!');
+        }
     });
 });
 
@@ -16,8 +20,13 @@ function loadHTML(id, file, callback) {
             return response.text();
         })
         .then((data) => {
-            document.getElementById(id).innerHTML = data;
-            if (callback) callback();
+            const container = document.getElementById(id);
+            if (container) {
+                container.innerHTML = data;
+                if (callback) callback();
+            } else {
+                console.error(`Elemento com id '${id}' não encontrado.`);
+            }
         })
         .catch((error) => {
             console.error(error);

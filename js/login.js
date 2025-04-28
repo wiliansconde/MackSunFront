@@ -1,3 +1,5 @@
+import { BASE_URL } from './const.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   loadHTML('estruturaLogin', 'login.html', () => {
     inicializarLoginPopup();
@@ -64,7 +66,7 @@ function submit() {
 
     try {
       const response = await fetch(
-        'https://macksunback.azurewebsites.net/auth/login',
+        BASE_URL + 'auth/login',
         {
           method: 'POST',
           headers: {

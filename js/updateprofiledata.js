@@ -1,3 +1,5 @@
+import { BASE_URL } from './const,js';
+
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
     const email = localStorage.getItem('email');
@@ -8,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch(`https://macksunback.azurewebsites.net/users/${email}`, {
+        const response = await fetch(BASE_URL + 'users/${email}', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -46,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         try {
-            const updateResponse = await fetch('https://macksunback.azurewebsites.net/users/update-password', {
+            const updateResponse = await fetch(BASE_URL + 'users/update-password', {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,

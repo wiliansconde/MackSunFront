@@ -1,3 +1,5 @@
+import { BASE_URL } from './const.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     recuperarSenha();
 });
@@ -18,7 +20,7 @@ function recuperarSenha() {
             return;
         }
         try {
-            const response = await fetch('https://macksunback.azurewebsites.net/users/forgot-password', {
+            const response = await fetch(BASE_URL + 'users/forgot-password', {
                 method: 'PATCH',
                 headers: {
                     'Content-type': 'application/json'
