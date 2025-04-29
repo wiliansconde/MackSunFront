@@ -1,5 +1,3 @@
-import { BASE_URL } from './const.js';
-
 document.addEventListener('DOMContentLoaded', function() {
     
     function showMessage(message, type) {
