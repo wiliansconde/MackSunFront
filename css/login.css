@@ -98,5 +98,13 @@
 @media (max-width: 767px) {
     .estruturaLogin {
         align-items: center;
+        justify-content: center;
+        transform: none;
+        margin-top: 0;
     }
+
+    .caixaGeral .botaoFechar {
+        right: 4.9375rem;
+    }
+
 }

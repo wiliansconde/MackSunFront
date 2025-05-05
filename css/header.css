@@ -15,6 +15,10 @@ body {
   margin-bottom: 0.3rem;
 }
 
+.home_menuHamburger {
+  display: none;
+}
+
 .menu {
   display: flex;
   flex-wrap: wrap;
@@ -130,6 +134,10 @@ a:hover {
 
   .logoMackenzie {
     display: none;
+  }
+  
+  .home_menuHamburger {
+    display: flex;
   }
 
   .fotoSol {
