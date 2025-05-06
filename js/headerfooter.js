@@ -22,15 +22,14 @@ function loadHTML(id, file) {
     });
 }
 
-<<<<<<< HEAD
+
 
 
 loadHTML("header", "./header.html");
 loadHTML("footer", "footer.html");
 loadHTML("headersimple", "headersimple.html")
 
-=======
->>>>>>> 51130c38cc1d172c45e3856b16a1d5fa89f0035e
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM completamente carregado. Chamando loadHTML.");
   if (document.getElementById('header')) {
@@ -43,11 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadHTML('headersimple.html');
   }
 });
-<<<<<<< HEAD
 
 
 loadHTML("header", "./header.html");
 loadHTML("footer", "footer.html");
 loadHTML("headersimple", "headersimple.html")
-=======
->>>>>>> 51130c38cc1d172c45e3856b16a1d5fa89f0035e
