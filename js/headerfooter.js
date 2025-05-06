@@ -22,17 +22,6 @@ function loadHTML(id, file) {
     });
 }
 
-<<<<<<< HEAD
-
-
-
-loadHTML("header", "./header.html");
-loadHTML("footer", "footer.html");
-loadHTML("headersimple", "headersimple.html")
-
-
-=======
->>>>>>> 3b64ee2463c97014d77b0229ec8cfc1969e18b01
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM completamente carregado. Chamando loadHTML.");
   if (document.getElementById('header')) {
@@ -42,14 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loadHTML('footer', 'footer.html');
   }
   if (document.getElementById('headersimple')) {
-    loadHTML('headersimple.html');
+    loadHTML('headersimple', 'headersimple.html');
   }
 });
-<<<<<<< HEAD
-
-
-loadHTML("header", "./header.html");
-loadHTML("footer", "footer.html");
-loadHTML("headersimple", "headersimple.html")
-=======
->>>>>>> 3b64ee2463c97014d77b0229ec8cfc1969e18b01
