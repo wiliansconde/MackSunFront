@@ -9,7 +9,7 @@
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    vertical-align: middle;
+    transition: ease-in-out 0.2s;
 }
 
 .btnBlack:hover {

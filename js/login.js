@@ -25,12 +25,19 @@ function inicializarLoginPopup() {
   const botaoAbrirPopup = document.querySelector('.botaoLoginMenu');
   const estruturaLogin = document.querySelector('.estruturaLogin');
   const errorLogin = document.getElementById('error_login')
+  const menu = document.querySelector('.menu')
 
   if (botaoAbrirPopup && estruturaLogin) {
     botaoAbrirPopup.addEventListener('click', () => {
       estruturaLogin.style.display = 'flex';
+
+
+      if (menu && menu.classList.contains('active')) {
+        menu.classList.remove('active');
+      }
     });
   }
+
 
   const botaoFechar = document.querySelector('.botaoFechar');
   if (botaoFechar) {

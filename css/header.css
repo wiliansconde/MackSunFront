@@ -15,11 +15,16 @@ body {
   margin-bottom: 0.3rem;
 }
 
+.home_menuHamburger {
+  display: none;
+}
+
 .menu {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 4rem;
 }
 
 .botaoLoginMenu {
@@ -130,6 +135,10 @@ a:hover {
   .logoMackenzie {
     display: none;
   }
+  
+  .home_menuHamburger {
+    display: flex;
+  }
 
   .fotoSol {
     width: 15rem;
@@ -182,7 +191,7 @@ a:hover {
   }
 
   .logoMackenzie {
-    width: 8rem; /* reduz um pouco a logo */
+    width: 8rem;
   }
 
   .menu {
@@ -201,6 +210,6 @@ a:hover {
   }
 
   .menu-hamburger {
-    display: none; /* hamburguer escondido no tablet */
+    display: none;
   }
 }
