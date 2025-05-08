@@ -39,7 +39,6 @@ function inicializarLoginPopup() {
     });
   }
 
-
   const botaoFechar = document.querySelector('.botaoFechar');
   if (botaoFechar) {
     botaoFechar.addEventListener('click', () => {
@@ -93,6 +92,8 @@ function submit() {
         const token = result.data.token;
         const name = result.data.user.fullName;
         const email = result.data.user.email;
+        const perfilUsuario = result.data.user.profile;
+        localStorage.setItem('perfilUsuario', JSON.stringify(perfilUsuario))
         console.log('Token recebido:', token);
         console.log('Nome recebido', name);
         console.log('Email recebido', email)
