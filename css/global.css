@@ -24,7 +24,6 @@ body {
 ul {
   display: flex;
   list-style: none;
-  gap: 4rem;
 }
 
 li a {

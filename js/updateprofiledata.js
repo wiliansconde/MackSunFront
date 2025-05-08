@@ -1,5 +1,3 @@
-import { BASE_URL } from './const.js';
-
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
     const email = localStorage.getItem('email');

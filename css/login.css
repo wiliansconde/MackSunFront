@@ -3,13 +3,13 @@
     justify-content: flex-end;
     position: absolute;
     width: 100%;
-    margin-top: 3.5rem;
+    margin-top: 3.8rem;
     transform: translateX(-22%);
 }
 
 .caixaGeral {
     width: 17rem;
-    height: 20rem;
+    height: 21rem;
     background: transparent;
     border-radius: 20px;
     background-color: var(--branco);
@@ -37,6 +37,7 @@
 .caixaGeral .blocoFormulario {
     width: 100%;
     padding: 0 25px;
+    margin-top: 2.5rem;
 }
 
 .campoInput {
@@ -92,4 +93,18 @@
     color: var(--vermelho);
     font-weight: bold;
     font-size: 1rem;
+}
+
+@media (max-width: 767px) {
+    .estruturaLogin {
+        align-items: center;
+        justify-content: center;
+        transform: none;
+        margin-top: 0;
+    }
+
+    .caixaGeral .botaoFechar {
+        right: 4.9375rem;
+    }
+
 }

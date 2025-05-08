@@ -1,4 +1,3 @@
-import { BASE_URL } from './const.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   loadHTML('estruturaLogin', 'login.html', () => {
@@ -26,12 +25,20 @@ function inicializarLoginPopup() {
   const botaoAbrirPopup = document.querySelector('.botaoLoginMenu');
   const estruturaLogin = document.querySelector('.estruturaLogin');
   const errorLogin = document.getElementById('error_login')
+  const menu = document.querySelector('.menu')
 
   if (botaoAbrirPopup && estruturaLogin) {
     botaoAbrirPopup.addEventListener('click', () => {
       estruturaLogin.style.display = 'flex';
+
+      preencherCamposSalvos();
+
+      if (menu && menu.classList.contains('active')) {
+        menu.classList.remove('active');
+      }
     });
   }
+
 
   const botaoFechar = document.querySelector('.botaoFechar');
   if (botaoFechar) {
@@ -94,6 +101,18 @@ function submit() {
         localStorage.setItem('email', email)
         console.log('Token salvo com sucesso!');
 
+        const lembrarSenha = document.getElementById('lembrar_senha').querySelector('input').checked;
+
+        if (lembrarSenha) {
+          localStorage.setItem('lembrarSenha', 'true');
+          localStorage.setItem('salvarEmail', email);
+          localStorage.setItem('salvarSenha', senha);
+        } else {
+          localStorage.removeItem('lembrarSenha');
+          localStorage.removeItem('salvarEmail');
+          localStorage.removeItem('salvarSenha');
+        }
+
         window.location.href = '/homelogado.html';
       } else {
         errorLogin.style.display = 'flex';
@@ -107,4 +126,18 @@ function submit() {
       document.getElementById('input_senha').value = '';
     }
   });
+}
+
+function preencherCamposSalvos() {
+  const lembrar = localStorage.getItem('lembrarSenha') === 'true';
+  if (lembrar) {
+    const salvarEmail = localStorage.getItem('salvarEmail');
+    const salvarSenha = localStorage.getItem('salvarSenha');
+
+    if (salvarEmail && salvarSenha) {
+      document.getElementById('input_email').value = salvarEmail;
+      document.getElementById('input_senha').value = salvarSenha;
+      document.getElementById('lembrar_senha').querySelector('input').checked = true;
+    }
+  }
 }

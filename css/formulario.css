@@ -44,6 +44,10 @@
 }
 
 @media (max-width: 767px) {
+    .container_padrao {
+        margin-top: 3rem;
+    }
+
     .formulario_padrao {
         height: auto;
     }
