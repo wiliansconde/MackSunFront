@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch(BASE_URL + 'users/${email}', {
+        const response = await fetch(`${BASE_URL}users/${email}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert('As novas senhas não coincidem.');
             return;
         }
-
+        console.log(email, currentPassword, newPassword,)
         try {
             const updateResponse = await fetch(BASE_URL + 'users/update-password', {
                 method: 'PATCH',
