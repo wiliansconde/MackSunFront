@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { loadHTML } from './loaders.js'; 
 import {verifyToken, loadUserData, inicializarLoginPopup, submit} from './login.js';   
 
@@ -41,6 +42,21 @@ document.addEventListener('DOMContentLoaded', () => {
         leaveButton.addEventListener('click', handleLogout);
       } else {
         console.log("Botão Leave não encontrado");
+=======
+function loadHTML(id, file, callback) {
+  fetch(file)
+    .then(response => {
+      if (!response.ok) throw new Error(`Erro ao carregar ${file}`);
+      return response.text();
+    })
+    .then(data => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.innerHTML = data;
+        if (typeof callback === 'function') {
+          callback();
+        }
+>>>>>>> 1d78d0bf14477d15a201d76205b8d7c7cf251404
       }
       
       // Adicionar também ao botão-sair do menu suspenso
@@ -86,6 +102,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }   
 });    
 
+<<<<<<< HEAD
 // loadHTML("header", "./header.html"); 
 // loadHTML("footer", "./footer.html"); 
 // loadHTML("headersimple", "./headersimple.html");
+=======
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('header')) {
+    loadHTML('header', 'header.html');
+  }
+
+  if (document.getElementById('footer')) {
+    loadHTML('footer', 'footer.html');
+  }
+
+  if (document.getElementById('headersimple')) {
+    loadHTML('headersimple', 'headersimple.html', () => {
+      const script = document.createElement("script");
+      script.src = "/js/name_leavebutton.js";
+      script.defer = true;
+      document.body.appendChild(script);
+    });
+  }
+});
+>>>>>>> 1d78d0bf14477d15a201d76205b8d7c7cf251404
