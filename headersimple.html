@@ -19,20 +19,19 @@
 <body>
   <header class="header" id="headersimple">
     <nav aria-label="cabecalho">
-      <ul class="menu">
-        <a href="\index.html"><img class="logoMackenzie" src="/assets/img/logoMackenzie.png" alt="LogoMackenzie"></a>
+      <ul class="menu" id="menu">
+        <li><a href="/index.html"><img class="logoMackenzie" src="/assets/img/logoMackenzie.png" alt="LogoMackenzie"></a></li>
         <li><a href="/">Wiki</a></li>
         <li><a href="/">About</a></li>
         <li><a href="/">Dowload Data</a></li>
         <li><a href="/">Request Access</a></li>
         <li><a href="/">Contact</a></li>
-        <div class="divconta" id="conta">
-          <a class="nome_logado" id="name" href="/">placeholder</a>
+        <li id="conta" class="divconta">
+          <a class="nome_logado" id="name" href="/updateprofiledata.html">placeholder</a>
           <a class="access_profile" id="access_profile" href="/updateprofiledata.html">access profile</a>
-        </div>
-        <div>
-          <li><a class="sair" id="leave" href="/">Leave</a></li>
-        </div>
+          <ul id="access_menu" style="display: none;"></ul>
+        </li>
+        <li><a class="sair" id="leavebutton" href="#">Leave</a></li>
       </ul>
     </nav>
   </header>
