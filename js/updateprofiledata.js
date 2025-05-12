@@ -2,6 +2,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
     const email = localStorage.getItem('email');
 
+    const successMessage = document.getElementById('success_change_password');
+    const errorMessage = document.getElementById('error_wrong_password');
+    const matchErrorMessage = document.getElementById('error_match');
+
+    // Esconde todas as mensagens no início
+    const hideAllMessages = () => {
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'none';
+        matchErrorMessage.style.display = 'none';
+    };
+
+    hideAllMessages();
+
     if (!token || !email) {
         console.error('Token ou email não encontrados no localStorage.');
         return;
@@ -30,21 +43,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const changePasswordButton = document.querySelector('.btn-change-password');
-    changePasswordButton.addEventListener('click', async () => {
+    changePasswordButton.addEventListener('click', async (event) => {
+        event.preventDefault();
+        hideAllMessages();
+
         const currentPassword = document.getElementById('current-password').value;
         const newPassword = document.getElementById('new-password').value;
         const confirmPassword = document.getElementById('confirm-password').value;
 
         if (!currentPassword || !newPassword || !confirmPassword) {
-            alert('Preencha todos os campos de senha.');
             return;
         }
 
         if (newPassword !== confirmPassword) {
-            alert('As novas senhas não coincidem.');
+            matchErrorMessage.style.display = 'block';
             return;
         }
-        console.log(email, currentPassword, newPassword,)
+
         try {
             const updateResponse = await fetch(BASE_URL + 'users/update-password', {
                 method: 'PATCH',
@@ -63,13 +78,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 throw new Error(`Erro ao atualizar senha: ${updateResponse.status}`);
             }
 
-            alert('Senha atualizada com sucesso!');
+            successMessage.style.display = 'block';
             document.getElementById('current-password').value = '';
             document.getElementById('new-password').value = '';
             document.getElementById('confirm-password').value = '';
         } catch (error) {
             console.error('Erro ao mudar senha:', error);
-            alert('Erro ao mudar senha. Verifique sua senha atual.');
+            errorMessage.style.display = 'block';
         }
     });
 });

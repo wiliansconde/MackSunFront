@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const menuHamburger = document.getElementById('menu_hamburger');
         const menu = document.querySelector('.menu');
 
+         const element = document.getElementById('botaoLoginMenu')
+            element.innerHTML = 'teste'
+            
         if (menuHamburger && menu) {
             menuHamburger.addEventListener('click', () => {
                 menu.classList.toggle('active');
