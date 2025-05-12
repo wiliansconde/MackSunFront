@@ -10,17 +10,41 @@
     <link rel="stylesheet" href="/css/updateprofiledata.css">
     <link rel="stylesheet" href="/css/buttons.css">
     <link rel="stylesheet" href="/css/titles.css">
+    <link rel="stylesheet" href="/css/headersimple.css">
     <link rel="stylesheet" href="/css/formulario.css">
+    <link rel="stylesheet" href="/css/alerts.css">
     
     <script src="/js/const.js" defer></script>
     <script src="/js/headerfooter.js" defer></script>
     <script type="module" src="/js/updateprofiledata.js" defer></script>
+    <script src="/js/name_leavebutton.js" defer></script>
     
 </head>
 
 <body>
     
-    <div id="headersimple"></div>
+    <header class="header">
+        <nav aria-label="cabecalho">
+            <ul class="menu">
+                <a href="/index.html"><img class="logoMackenzie" src="/assets/img/logoMackenzie.png" alt="LogoMackenzie"></a>
+                <li><a href="/">Wiki</a></li>
+                <li><a href="/">About</a></li>
+                <li><a href="/">Dowload Data</a></li>
+                <li><a href="/">Request Access</a></li>
+                <li><a href="/">Contact</a></li>
+
+                <div class="divconta nome_usuario" id="conta">
+                <a class="nome_logado" id="name" href="#">Usuário</a>
+
+                <ul class="access_profile menu_suspenso" id="access_profile" href="/updateprofiledata.html">access profile</ul>
+                </div>
+
+                <div>
+                <li><a class="sair" id="leave" href="/">Leave</a></li>
+                </div>
+            </ul>
+        </nav>
+    </header>
 
     <main>
         <div class="formulario_padrao ">
@@ -58,8 +82,12 @@
                     <label class="labelRegister" for="confirm-password">Confirm new<br>password</label>
                     <input class="inputRegister" type="password" id="confirm-password" name="confirm-password" autocomplete="on">
                 </div>
+                
+                <div class="valid_message_error" id="success_change_password">Password changed</div>
+                <div class="invalid_message_error" id="error_wrong_password">Your old password is incorrect</div>
+                <div class="invalid_message_error" id="error_match">Your new password do not match</div>
             
-                <button class="btnBlack btnSizeMedium btnPositionCenter btn-change-password">Submit</button>
+                <button type="button" class="btnBlack btnSizeMedium btnPositionCenter btn-change-password">Submit</button>
             </form>
         </div>
     </main>

@@ -88,13 +88,6 @@
     color: var(--azul);
 }
 
-.senhaOuEmailErrado {
-    display: none;
-    color: var(--vermelho);
-    font-weight: bold;
-    font-size: 1rem;
-}
-
 @media (max-width: 767px) {
     .estruturaLogin {
         align-items: center;
