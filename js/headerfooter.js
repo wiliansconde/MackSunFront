@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a class="nome_logado" id="name" href="#">${nomeUsuario}</a>
           <ul class="access_profile menu_suspenso" id="access_profile">
             <li><a href="/updateprofiledata.html">Access Profile</a></li>
+            <li><a href="/solicitarupgrade.html">Request Upgrade</a></li>
             <li><a href="#" id="botao-sair">Leave</a></li>
           </ul>
         </div>
