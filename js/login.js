@@ -1,14 +1,10 @@
-// Modificação do código para garantir que o login funcione corretamente
 import { loadHTML } from './loaders.js';
 
-// Função para inicializar todos os eventos após o carregamento da página
 document.addEventListener('DOMContentLoaded', () => {
-  // Verificar se o usuário está logado
+ 
   if (verifyToken()) {
-    // Se estiver logado, mostrar conteúdo para usuário logado
     mostrarConteudoUsuarioLogado();
   } else {
-    // Se não estiver logado, inicializar o popup de login
     inicializarLoginPopup();
   }
   

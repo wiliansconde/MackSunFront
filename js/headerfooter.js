@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="divconta nome_usuario" id="conta">
           <a class="nome_logado" id="name" href="#">${nomeUsuario}</a>
           <ul class="access_profile menu_suspenso" id="access_profile">
-            <li><a href="/updateprofiledata.html">Acessar Perfil</a></li>
-            <li><a href="#" id="botao-sair">Sair</a></li>
+            <li><a href="/updateprofiledata.html">Access Profile</a></li>
+            <li><a href="#" id="botao-sair">Leave</a></li>
           </ul>
         </div>
         <div>
