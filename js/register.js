@@ -1,34 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  function showMessage(message, type) {
+  function hideAllMessages() {
+    const messages = document.querySelectorAll('.valid_message_error, .invalid_message_error');
+    messages.forEach(msg => msg.style.display = 'none');
+  }
 
-    const existingMessage = document.getElementById('form-message');
-    if (existingMessage) {
-      existingMessage.remove();
+  function showMessageById(id) {
+    hideAllMessages();
+    const messageEl = document.getElementById(id);
+    if (messageEl) {
+      messageEl.style.display = 'block';
+      messageEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-
-    const messageElement = document.createElement('div');
-    messageElement.id = 'form-message';
-    messageElement.textContent = message;
-    messageElement.style.padding = '0px';
-    messageElement.style.marginTop = '10px';
-    messageElement.style.borderRadius = '4px';
-    messageElement.style.textAlign = 'center';
-
-    if (type === 'error') {
-      messageElement.style.backgroundColor = '#ffebee';
-      messageElement.style.color = '#d32f2f';
-      messageElement.style.border = '1px solid #f5c6cb';
-    } else if (type === 'success') {
-      messageElement.style.backgroundColor = '#e8f5e9';
-      messageElement.style.color = '#2e7d32';
-      messageElement.style.border = '1px solid #c3e6cb';
-    }
-
-    const form = document.getElementById('registrationForm');
-    form.appendChild(messageElement);
-
-    messageElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   document.getElementById('registrationForm').addEventListener('submit', function (event) {
@@ -48,52 +31,51 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    //Validações:
     if (!name) {
-      showMessage('Please fill in the Name field.', 'error');
+      showMessageById('error_name');
       document.getElementById('name').focus();
       return;
     }
 
     if (!email) {
-      showMessage('Please fill in the Email field.', 'error');
+      showMessageById('error_email');
       document.getElementById('email').focus();
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      showMessage('Please enter a valid email address.', 'error');
+      showMessageById('error_email_format');
       document.getElementById('email').focus();
       return;
     }
 
     if (!password) {
-      showMessage('Please fill in the Password field.', 'error');
+      showMessageById('error_password');
       document.getElementById('password').focus();
       return;
     }
 
     if (password.length < 8) {
-      showMessage('Password must be at least 8 characters long.', 'error');
+      showMessageById('error_password_length');
       document.getElementById('password').focus();
       return;
     }
 
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).+$/;
     if (!passwordRegex.test(password)) {
-      showMessage('Password must contain at least one letter and one number.', 'error');
+      showMessageById('error_password_format');
       document.getElementById('password').focus();
       return;
     }
 
     if (!requestedProfile) {
-      showMessage('Please select a profile.', 'error');
+      showMessageById('error_profile');
       return;
     }
 
     if (!justification) {
-      showMessage('Please fill in the Justification field.', 'error');
+      showMessageById('error_justification');
       document.getElementById('justification').focus();
       return;
     }
@@ -106,9 +88,8 @@ document.addEventListener('DOMContentLoaded', function () {
       justification: justification
     };
 
-    showMessage('Processing your request...', 'success');
+    showMessageById('success_processing');
 
-    //Enviar dados para o endpoint:
     fetch(BASE_URL + 'access-requests', {
       method: 'POST',
       headers: {
@@ -123,12 +104,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return response.json();
       })
       .then(data => {
-        showMessage('Request sent! Please wait while we review it.', 'success');
+        showMessageById('success_submission');
         document.getElementById('registrationForm').reset();
       })
       .catch(error => {
         console.error('Error:', error);
-        showMessage('Error submitting form. Please try again.', 'error');
+        showMessageById('error_submission');
       });
   });
 });

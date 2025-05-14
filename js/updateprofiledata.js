@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const errorMessage = document.getElementById('error_wrong_password');
     const matchErrorMessage = document.getElementById('error_match');
 
-    // Esconde todas as mensagens no início
     const hideAllMessages = () => {
         successMessage.style.display = 'none';
         errorMessage.style.display = 'none';

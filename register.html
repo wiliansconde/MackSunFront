@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/register.css">
-
+  <link rel="stylesheet" href="/css/alerts.css">
   <link rel="stylesheet" href="/css/buttons.css">
   <link rel="stylesheet" href="/css/titles.css">
   <link rel="stylesheet" href="/css/formulario.css">
@@ -58,6 +58,19 @@
           <label class="justificationLabel" for="justification">Justification:</label>
           <textarea id="justification" name="justification"></textarea>
         </div>
+        
+        <div class="invalid_message_error" id="error_name">Please fill in the Name field.</div>
+        <div class="invalid_message_error" id="error_email">Please fill in the Email field.</div>
+        <div class="invalid_message_error" id="error_email_format">Please enter a valid email address.</div>
+        <div class="invalid_message_error" id="error_password">Please fill in the Password field.</div>
+        <div class="invalid_message_error" id="error_password_length">Password must be at least 8 characters long.</div>
+        <div class="invalid_message_error" id="error_password_format">Password must contain at least one letter and one number.</div>
+        <div class="invalid_message_error" id="error_profile">Please select a profile.</div>
+        <div class="invalid_message_error" id="error_justification">Please fill in the Justification field.</div>
+        <div class="valid_message_error" id="success_processing">Processing your request...</div>
+        <div class="valid_message_error" id="success_submission">Request sent! Please wait while we review it.</div>
+        <div class="invalid_message_error" id="error_submission">Error submitting form. Please try again.</div>
+
         <button class="btnBlack btnSizeSmall btnPositionRight" type="submit">Request</button>
 
     </div>
