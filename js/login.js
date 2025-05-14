@@ -187,6 +187,7 @@ export function submit() {
         const token = result.data.token;
         
         localStorage.setItem('userData', JSON.stringify(user));
+        localStorage.setItem('email', email);
         localStorage.setItem('token', token);
         console.log('Token salvo com sucesso!');
         
