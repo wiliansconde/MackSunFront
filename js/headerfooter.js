@@ -20,7 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
         <li class="cadastro"><a href="/register.html">Register</a></li>
       `;
       
+      const featureList = user?.profile?.accessiblePages
+
+
       // Conteúdo para usuários logados
+<<<<<<< Updated upstream
       const userAccount = `
         <div class="divconta nome_usuario" id="conta">
           <a class="nome_logado" id="name" href="#">${nomeUsuario}</a>
@@ -35,6 +39,23 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `.trim();
       
+=======
+     const userAccount = `
+  <div class="divconta nome_usuario" id="conta">
+    <a class="nome_logado" id="name" href="#">${nomeUsuario}</a>
+    <ul class="access_profile menu_suspenso" id="access_profile">
+      ${featureList?.map(item => 
+        `<li><a href="/pages${item.url}">${item.name || 'Atualizar perfil'}</a></li>`
+      ).join('')}
+      <li><a href="#" id="botao-sair">Leave</a></li>
+    </ul>
+  </div>
+  <ul>
+    <li><button class="sair" id="leave">Leave</button></li>
+  </ul>
+`.trim();
+
+>>>>>>> Stashed changes
       // Verificamos se o token existe antes de decidir o que mostrar
       const isLoggedIn = verifyToken();
       console.log("Token verificado:", isLoggedIn);
