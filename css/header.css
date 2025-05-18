@@ -53,6 +53,24 @@ body {
   border-radius: 0.375rem;
 }
 
+.sair{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--preto);
+  background-color: var(--branco);
+  width: 5rem;
+  height: 2rem;
+  font-weight: bold;
+  border-radius: 0.375rem;
+}
+
+.sair:hover{
+  background: var(--vermelho);
+  color: var(--branco);
+  transition: 0.2s ease-in-out;
+}
+
 .cadastro a:hover {
   background: var(--vermelho);
   color: var(--branco);
@@ -66,7 +84,7 @@ a:hover {
 
 .tituloPrincipalComImg {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   color: var(--branco);
 }
@@ -74,6 +92,7 @@ a:hover {
 .fotoSol {
   width: 20rem;
   margin-bottom: 1rem;
+  margin-right: 6.25rem;
 }
 
 /* home logado*/
@@ -113,8 +132,8 @@ a:hover {
 }
 
 .menu-hamburger img {
-  width: 30px;
-  height: 30px;
+  width: 1.875rem;
+  height: 1.875rem;
 }
 
 /* menu suspenso */

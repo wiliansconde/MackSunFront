@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Primeiro, carregamos o header
   if (document.getElementById('header')) {
-    loadHTML("header", "header.html", () => {
+    loadHTML("header", "../../header.html", () => {
       console.log("Header carregado com sucesso, configurando elementos");
       
       // Carregamos os dados do usuário
@@ -20,20 +20,25 @@ document.addEventListener('DOMContentLoaded', () => {
         <li class="cadastro"><a href="/register.html">Register</a></li>
       `;
       
+      const featureList = user?.profile?.accessiblePages
+
+
       // Conteúdo para usuários logados
-      const userAccount = `
-        <div class="divconta nome_usuario" id="conta">
-          <a class="nome_logado" id="name" href="#">${nomeUsuario}</a>
-          <ul class="access_profile menu_suspenso" id="access_profile">
-            <li><a href="/updateprofiledata.html">Acessar Perfil</a></li>
-            <li><a href="#" id="botao-sair">Sair</a></li>
-          </ul>
-        </div>
-        <div>
-          <li><button class="sair" id="leave">Leave</button></li>
-        </div>
-      `.trim();
-      
+     const userAccount = `
+  <div class="divconta nome_usuario" id="conta">
+    <a class="nome_logado" id="name" href="#">${nomeUsuario}</a>
+    <ul class="access_profile menu_suspenso" id="access_profile">
+      ${featureList?.map(item => 
+        `<li><a href="/pages${item.url}">${item.name || 'Atualizar perfil'}</a></li>`
+      ).join('')}
+      <li><a href="#" id="botao-sair">Leave</a></li>
+    </ul>
+  </div>
+  <ul>
+    <li><button class="sair" id="leave">Leave</button></li>
+  </ul>
+`.trim();
+
       // Verificamos se o token existe antes de decidir o que mostrar
       const isLoggedIn = verifyToken();
       console.log("Token verificado:", isLoggedIn);
