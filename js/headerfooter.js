@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Primeiro, carregamos o header
   if (document.getElementById('header')) {
-    loadHTML("header", "../../header.html", () => {
+    loadHTML("header", "../../../header.html", () => {
       console.log("Header carregado com sucesso, configurando elementos");
       
       // Carregamos os dados do usuário

@@ -1,0 +1,172 @@
+.barra_superior {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin: 1.25rem 0 1rem 0;
+}
+
+.filtro {
+    display: flex;
+    gap: 1rem;
+}
+
+.filtroDiversos {
+    font-size: 0.9rem;
+}
+
+section {
+    padding: 0.375rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.25rem;
+    color: var(--preto);
+}
+
+button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border: none;
+    background-color: var(--preto);
+    color: var(--branco);
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: var(--azul);
+}
+
+.acoes button {
+    margin-right: 0.3125rem;
+    background-color: var(--azul);
+}
+
+.acoes button:hover {
+    background-color: var(--azul);
+    opacity: 0.8;
+}
+
+.acoes .deletar {
+    background-color: var(--vermelho);
+}
+
+.acoes .deletar:hover {
+    background-color: var(--vermelho);
+    opacity: 0.8;
+}
+
+.acoes .reativar {
+    background-color: var(--laranja-dark);
+}
+
+.acoes .reativar:hover {
+    background-color: var(--laranja-dark);
+    opacity: 0.8;
+}
+
+.mensagem {
+    margin-top: 1.25rem;
+    padding: 0.625rem;
+}
+
+th,
+td {
+    border: 1px solid var(--preto);
+    padding: 0.625rem;
+    text-align: left;
+}
+
+th {
+    background-color: var(--cinza-claro);
+    color: var(--preto);
+}
+
+.status.ativo {
+    color: var(--verde);
+    font-weight: bold;
+}
+
+.status.deletado {
+    color: var(--vermelho);
+    font-weight: bold;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--preto);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sublinhado_register {
+    margin-bottom: 1rem;
+    width: 14.125rem;
+}
+
+input {
+    height: 1.5rem;
+    border-radius: 5px;
+}
+
+span {
+    color: var(--vermelho);
+    font-weight: bold;
+}
+
+.esconder {
+    display: none;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--branco);
+    padding: 1.875rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 31.25rem;
+    box-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.radio-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.radio-grupo label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.botoes-modal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.625rem;
+    margin-top: 0.625rem;
+}
+
+.sublinhado_edit {
+    margin-bottom: 1rem;
+    width: 7.125rem;
+}
