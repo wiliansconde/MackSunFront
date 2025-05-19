@@ -25,3 +25,10 @@
     background-color: var(--cinza-claro);
     border-bottom: #ddd;
 }
+
+.justificationLabel {
+  display: flex;
+  border: 0.063rem solid var(--cinza-claro);
+  border-radius: 0.625rem;
+  font-size: 1rem;
+}

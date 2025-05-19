@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <p><strong>Requested Profile:</strong> ${request.requestedProfile}</p>
         <p><strong>Justification:</strong> ${request.justification}</p>
 
-        <textarea id="reject-comment" placeholder="Rejection justification..." style="display:none;"></textarea>
+        <textarea class="justificationLabel" id="reject-comment" placeholder="Rejection justification..." style="display:none;"></textarea>
 
         <div class="valid_message_error" id="success-message" style="display:none;"></div>
         <div class="invalid_message_error" id="error-message" style="display:none;"></div>

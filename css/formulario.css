@@ -8,11 +8,11 @@
 .formulario_padrao {
     color: var(--preto);
     background-color: var(--branco);
-    padding: 3.125rem;
-    border-radius: 0.625rem;
+    padding: 3.1rem;
+    border-radius: 0.6rem;
     box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
-    width: 43.75rem;
-    height: 36.875rem;
+    width: 44rem;
+    height: 36rem;
     margin: 2.5rem;
 }
 
