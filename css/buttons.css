@@ -10,10 +10,69 @@
     border-radius: 0.5rem;
     cursor: pointer;
     transition: ease-in-out 0.2s;
+    white-space: nowrap;
+}
+
+.btnGray {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    background-color: var(--cinza-escuro);
+    color: var(--branco);
+    padding: 1rem 1.50rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+    white-space: nowrap;
+}
+
+.btnRed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    background-color: var(--vermelho);
+    color: var(--branco);
+    padding: 1rem 1.50rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+    white-space: nowrap;
+}
+
+.btnGreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    background-color: var(--verde);
+    color: var(--branco);
+    padding: 1rem 1.50rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+    white-space: nowrap;
 }
 
 .btnBlack:hover {
     background-color: var(--azul);
+}
+
+.btnGray:hover {
+    background-color: var(--cinza-claro);
+    color: var(--preto);
+}
+
+.btnRed:hover {
+    background-color: var(--preto);
+}
+
+.btnGreen:hover {
+    background-color: var(--preto);
 }
 
 .btnPositionRight {
@@ -38,6 +97,10 @@
 
 .btnSizeMedium {
     width: 25%;
+}
+
+.btnSizeHeightLimited {
+    height: 2.5rem;
 }
 
 @media (max-width: 767px) {

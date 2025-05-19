@@ -1,0 +1,27 @@
+.access-table {
+  width: 100%;
+  border-collapse: separate; /* <- isso permite bordas arredondadas */
+  border-spacing: 0;         /* <- remove espaços entre células */
+  margin-top: 20px;
+  text-align: left;
+  font-family: Arial, sans-serif;
+  background-color: var(--branco);
+  border-radius: 0.6rem;     /* <- agora funciona */
+  overflow: hidden;          /* <- garante que as bordas fiquem visíveis */
+}
+
+.access-table th,
+.access-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.access-table thead {
+  background-color: var(--cinza-medio);
+  color: var(--branco);
+}
+
+.access-table td{
+    background-color: var(--cinza-claro);
+    border-bottom: #ddd;
+}
