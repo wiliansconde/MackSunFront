@@ -7,22 +7,21 @@
     <title>User management</title>
 
     <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="../../../css/global.css">
-    <link rel="stylesheet" href="../../../css/formulario.css">
-    <link rel="stylesheet" href="../../../css/titles.css">
-    <link rel="stylesheet" href="../../../css/usermanagement.css">
-    <link rel="stylesheet" href="../../../css/alerts.css">
-    <link rel="stylesheet" href="../../../css/header.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="./css/formulario.css">
+    <link rel="stylesheet" href="./css/titles.css">
+    <link rel="stylesheet" href="./css/usermanagement.css">
+    <link rel="stylesheet" href="./css/alerts.css">
+    <link rel="stylesheet" href="./css/headersimple.css">
 
-    <script src="../../../js/const.js" defer></script>
-    <script type="module" src="../../../js/headerfooter.js" defer></script>
-    <script src="../../../js/usermanagement.js" defer></script>
+    <script src="./js/const.js" defer></script>
+    <script src="./js/usermanagement.js" defer></script>
 
 </head>
 
 <body>
 
-    <div id="header"></div>
+    <div class="headersimple"></div>
 
     <section class="formulario-card_medio">
         <h1 class="titulo_padrao">User management</h1>
@@ -31,15 +30,13 @@
             <div class="filtro">
                 <select name="filtroPerfil" id="filtroPerfil">
                     <option value="">Filter by Profile</option>
-                    <option value="Todos">Filter all</option>
-                    <option value="ADMINISTRATOR">Administrator</option>
-                    <option value="CRAAM_RESEARCHER">Craam Researcher</option>
-                    <option value="SOLAR_PHYSICIST">Solar Physicist</option>
+                    <option value="Administrador">Administrator</option>
+                    <option value="Pesquisador CRAAM">Craam Researcher</option>
+                    <option value="Físico Solar">Solar Physicist</option>
                 </select>
 
                 <select name="filtroStatus" id="filtroStatus">
                     <option value="">Filter by Status</option>
-                    <option value="todos">Filter all</option>
                     <option value="ativo">Active</option>
                     <option value="deletado">Deleted</option>
                 </select>
@@ -77,25 +74,25 @@
                 <label>Profile: <span>*</span></label>
                 <div class="radio-grupo">
                     <label>
-                        <input type="radio" name="perfilNovoUsuario" value="ADMINISTRATOR">
+                        <input type="radio" name="perfilEditarUsuario" value="ADMINISTRATOR">
                         Administrator
                     </label>
                     <label>
-                        <input type="radio" name="perfilNovoUsuario" value="CRAAM_RESEARCHER">
+                        <input type="radio" name="perfilEditarUsuario" value="CRAAM_RESEARCHER">
                         Craam Researcher
                     </label>
                     <label>
-                        <input type="radio" name="perfilNovoUsuario" value="SOLAR_PHYSICIST">
+                        <input type="radio" name="perfilEditarUsuario" value="SOLAR_PHYSICIST">
                         Solar Physicist
                     </label>
                 </div>
 
                 <label for="senhaNovoUsuario">Password: <span>*</span></label>
-                <input type="password" id="senhaNovoUsuario" autocomplete="current-password">
+                <input type="password" id="senhaNovoUsuario">
 
                 <div class="mensagem">
                     <p class="valid_message_error" id="adicionado_sucesso">User has been successfully added.</p>
-                    <p class="invalid_message_error" id="erro_geral">Error adding user.</p>
+                    <p class="invalid_message_error" id="erro_geral">Error adding use.</p>
                 </div>
 
                 <div class="botoes-modal">
@@ -133,13 +130,12 @@
                 <div class="radio-grupo">
                     <label>
                         <input type="radio" name="perfilEditarUsuario" value="ADMINISTRATOR">Administrator
-                    </label>
-                    <label>
-                        <input type="radio" name="perfilEditarUsuario" value="CRAAM_RESEARCHER">Craam Researcher
-                    </label>
-                    <label>
-                        <input type="radio" name="perfilEditarUsuario" value="SOLAR_PHYSICIST">Solar Physicist
-                    </label>
+                        <label>
+                            <input type="radio" name="perfilEditarUsuario" value="CRAAM_RESEARCHER">Craam Researcher
+                        </label>
+                        <label>
+                            <input type="radio" name="perfilEditarUsuario" value="SOLAR_PHYSICIST">Solar Physicist
+                        </label>
                 </div>
                 <p id="mensagem-sucesso-edicao" class="valid_message_error esconder">User updated successfully.</p>
                 <p id="mensagem-erro-edicao" class="invalid_message_error esconder">Failed to update user.</p>
