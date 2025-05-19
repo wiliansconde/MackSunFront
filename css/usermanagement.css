@@ -12,6 +12,10 @@
     gap: 1rem;
 }
 
+.filtroDiversos {
+    font-size: 0.9rem;
+}
+
 section {
     padding: 0.375rem;
 }

@@ -72,16 +72,34 @@ async function deletarUsuario(email) {
 
 async function reativarUsuario(email) {
     console.log(`Reactivando usuário com email ${email}`);
-    const response = await fetch(`${BASE_URL}users/${email}`, {
-        method: 'DELETE',
+    const getUserResponse = await fetch(`${BASE_URL}users/${email}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    if (!getUserResponse.ok) {
+        const data = await getUserResponse.json();
+        throw new Error(data.message || 'Error retrieving user for reactivation.')
+    }
+
+    const usuario = await getUserResponse.json();
+
+    const reativarResponse = await fetch(`${BASE_URL}users/${email}`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         },
+        body: JSON.stringify({
+            ...usuario,
+            deleted: false
+        })
     });
-    if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'Error reactivating user');
+
+    if (!reativarResponse.ok) {
+        const data = await reativarResponse.json();
+        throw new Error(data.message || "Error reactivating user.")
     }
     return true;
 }
@@ -185,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (statusSelecionado && statusSelecionado !== 'Todos') {
             usuariosFiltrados = usuariosFiltrados.filter(usuario => {
-                const status = usuario.isDeleted ? 'deletado' : 'ativo';
+                const status = usuario.deleted ? 'deletado' : 'ativo';
                 return status === statusSelecionado;
             })
         }
@@ -207,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const nome = usuario.name || usuario.fullName || 'N/A';
             const email = usuario.email || 'N/A';
             const perfil = perfilTotexto(usuario.profile?.type || 'N/A');
-            const status = usuario.isDeleted ? 'Deleted' : 'Active';
+            const status = usuario.deleted ? 'Deleted' : 'Active';
 
 
             tr.innerHTML = `
@@ -218,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td class="acoes">
                     <button class="edit" data-email="${email}">Edit</button>
                     <button class="resetar_password" data-email="${email}">Reset Password</button>
-                    ${usuario.isDeleted
+                    ${usuario.deleted
                     ? `<button class="reativar" data-email="${email}">Reactivate</button>`
                     : `<button class="deletar" data-email="${email}">Delete</button>`}
                 </td>
