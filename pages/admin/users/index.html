@@ -13,9 +13,13 @@
     <link rel="stylesheet" href="../../../css/usermanagement.css">
     <link rel="stylesheet" href="../../../css/alerts.css">
     <link rel="stylesheet" href="../../../css/header.css">
+    <link rel="stylesheet" href="../../../css/table.css">
+    <link rel="stylesheet" href="../../../css/buttons.css">
+
 
     <script src="../../../js/const.js" defer></script>
     <script type="module" src="../../../js/headerfooter.js" defer></script>
+    <script src="../../../js/headerlogado.js"></script>
     <script src="../../../js/usermanagement.js" defer></script>
 
 </head>
@@ -24,133 +28,145 @@
 
     <div id="header"></div>
 
-    <section class="formulario-card_medio">
-        <h1 class="titulo_padrao">User management</h1>
+    <main class="container_padrao">
+        <section class="formulario-card_medio">
+            <h1 class="titulo_padrao">User management</h1>
 
-        <div class="barra_superior">
-            <div class="filtro">
-                <select name="filtroPerfil" id="filtroPerfil" class="filtroDiversos">
-                    <option value="">Filter by Profile</option>
-                    <option value="Todos">Filter all</option>
-                    <option value="ADMINISTRATOR">Administrator</option>
-                    <option value="CRAAM_RESEARCHER">Craam Researcher</option>
-                    <option value="SOLAR_PHYSICIST">Solar Physicist</option>
-                </select>
+            <div class="barra_superior">
+                <div class="linha-filtros-superior">
+                    <input type="text" id="filtroPorNome" placeholder="Filter Name">
 
-                <select name="filtroStatus" id="filtroStatus" class="filtroDiversos">
-                    <option value="">Filter by Status</option>
-                    <option value="todos">Filter all</option>
-                    <option value="ativo">Active</option>
-                    <option value="deletado">Deleted</option>
-                </select>
+                    <select id="filtroPerfil" class="filtroDiversos">
+                        <option value="">Profile</option>
+                        <option value="ADMINISTRATOR">Administrator</option>
+                        <option value="CRAAM_RESEARCHER">Craam Researcher</option>
+                        <option value="SOLAR_PHYSICIST">Solar Physicist</option>
+                    </select>
+
+                    <div class="botoes-filtros-superior">
+                        <button id="btn_buscar" class="btnGray_table">Search</button>
+                        <button id="btn_limpar" class="btnGray_table">Clear Filters</button>
+                    </div>
+                </div>
+
+                <div class="linha-filtros-inferior">
+                    <input type="text" id="filtroPorEmail" placeholder="Filter Email">
+
+                    <select id="filtroStatus" class="filtroDiversos">
+                        <option value="">Status</option>
+                        <option value="ativo">Active</option>
+                        <option value="deletado">Deleted</option>
+                    </select>
+
+                    <div class="btn-criar-wrapper">
+                        <button class="btnRed btnSizeHeightLimited btnRedFilter" id="btn_adicionar">Create User</button>
+                    </div>
+                </div>
             </div>
 
-            <button id="btn_adicionar">Create User</button>
+            <table class="access-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Profile</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div class="paginacao-container" id="paginacao_container"></div>
+        </section>
+
+        <div id="modalAdicionarUsuario" class="modal esconder">
+            <div class="modal-content">
+                <h2 class="titulo_padrao sublinhado_register">Register New User</h2>
+
+                <form id="formAdicionarUsuario">
+                    <label for="nomeNovoUsuario">Full Name: <span>*</span>
+                    </label>
+                    <input type="text" id="nomeNovoUsuario">
+
+                    <label for="emailNovoUsuario">Email: <span>*</span></label>
+                    <input type="email" id="emailNovoUsuario">
+
+                    <label>Profile: <span>*</span></label>
+                    <div class="radio-grupo">
+                        <label>
+                            <input type="radio" name="perfilNovoUsuario" value="ADMINISTRATOR">
+                            Administrator
+                        </label>
+                        <label>
+                            <input type="radio" name="perfilNovoUsuario" value="CRAAM_RESEARCHER">
+                            Craam Researcher
+                        </label>
+                        <label>
+                            <input type="radio" name="perfilNovoUsuario" value="SOLAR_PHYSICIST">
+                            Solar Physicist
+                        </label>
+                    </div>
+
+                    <div class="mensagem">
+                        <p class="valid_message_error" id="adicionado_sucesso">User has been successfully added.</p>
+                        <p class="invalid_message_error" id="erro_geral">Error adding user.</p>
+                    </div>
+
+                    <div class="botoes-modal">
+                        <button type="submit" class="btnGreen">Register</button>
+                        <button type="button" id="cancelarModal" class="
+                        btnRed">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="mensagem-container-externa" class="mensagem-container-externa">
+                <p id="mensagem-sucesso-deletar" class="valid_message_error">User deleted successfully!</p>
+                <p id="mensagem-erro-deletar" class="invalid_message_error">Error deleting user.</p>
+
+                <p id="mensagem-sucesso-reativar" class="valid_message_error">User reactivated successfully!</p>
+                <p id="mensagem-erro-reativar" class="invalid_message_error">Error reactivating user.</p>
+
+                <p id="mensagem-sucesso-resetar" class="valid_message_error">Password reset successfully!</p>
+                <p id="mensagem-erro-resetar" class="invalid_message_error">Error resetting password.</p>
+            </div>
         </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Profile</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
 
-    <div id="modalAdicionarUsuario" class="modal esconder">
-        <div class="modal-content">
-            <h2 class="titulo_padrao sublinhado_register">Register New User</h2>
+        <div id="modalEditarUsuario" class="modal esconder">
+            <div class="modal-content">
+                <h2 class="titulo_padrao sublinhado_edit">Edit User</h2>
 
-            <form id="formAdicionarUsuario">
-                <label for="nomeNovoUsuario">Full Name: <span>*</span>
-                </label>
-                <input type="text" id="nomeNovoUsuario">
+                <form id="formEditarUsuario">
+                    <label for="nomeEditarUsuario">Full Name: <span>*</span></label>
+                    <input type="text" id="nomeEditarUsuario">
 
-                <label for="emailNovoUsuario">Email: <span>*</span></label>
-                <input type="email" id="emailNovoUsuario">
+                    <label for="emailEditarUsuario">Email: <span>*</span></label>
+                    <input type="email" id="emailEditarUsuario">
 
-                <label>Profile: <span>*</span></label>
-                <div class="radio-grupo">
-                    <label>
-                        <input type="radio" name="perfilNovoUsuario" value="ADMINISTRATOR">
-                        Administrator
-                    </label>
-                    <label>
-                        <input type="radio" name="perfilNovoUsuario" value="CRAAM_RESEARCHER">
-                        Craam Researcher
-                    </label>
-                    <label>
-                        <input type="radio" name="perfilNovoUsuario" value="SOLAR_PHYSICIST">
-                        Solar Physicist
-                    </label>
-                </div>
+                    <label>Profile <span>*</span></label>
+                    <div class="radio-grupo">
+                        <label>
+                            <input type="radio" name="perfilEditarUsuario" value="ADMINISTRATOR">Administrator
+                        </label>
+                        <label>
+                            <input type="radio" name="perfilEditarUsuario" value="CRAAM_RESEARCHER">Craam Researcher
+                        </label>
+                        <label>
+                            <input type="radio" name="perfilEditarUsuario" value="SOLAR_PHYSICIST">Solar Physicist
+                        </label>
+                    </div>
+                    <p id="mensagem-sucesso-edicao" class="valid_message_error esconder">User updated successfully.</p>
+                    <p id="mensagem-erro-edicao" class="invalid_message_error esconder">Failed to update user.</p>
 
-                <label for="senhaNovoUsuario">Password: <span>*</span></label>
-                <input type="password" id="senhaNovoUsuario" autocomplete="current-password">
-
-                <div class="mensagem">
-                    <p class="valid_message_error" id="adicionado_sucesso">User has been successfully added.</p>
-                    <p class="invalid_message_error" id="erro_geral">Error adding user.</p>
-                </div>
-
-                <div class="botoes-modal">
-                    <button type="submit">Register</button>
-                    <button type="button" id="cancelarModal">Cancel</button>
-                </div>
-            </form>
+                    <div class="botoes-modal">
+                        <button type="submit" class="btnGreen">Save</button>
+                        <button type="button" id="cancelarEdicao" class="btnRed">Cancel</button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <div id="mensagem-container-externa" class="mensagem-container-externa">
-            <p id="mensagem-sucesso-deletar" class="valid_message_error">User deleted successfully!</p>
-            <p id="mensagem-erro-deletar" class="invalid_message_error">Error deleting user.</p>
-
-            <p id="mensagem-sucesso-reativar" class="valid_message_error">User reactivated successfully!</p>
-            <p id="mensagem-erro-reativar" class="invalid_message_error">Error reactivating user.</p>
-
-            <p id="mensagem-sucesso-resetar" class="valid_message_error">Password reset successfully!</p>
-            <p id="mensagem-erro-resetar" class="invalid_message_error">Error resetting password.</p>
-        </div>
-    </div>
-
-
-    <div id="modalEditarUsuario" class="modal esconder">
-        <div class="modal-content">
-            <h2 class="titulo_padrao sublinhado_edit">Edit User</h2>
-
-            <form id="formEditarUsuario">
-                <label for="nomeEditarUsuario">Full Name: <span>*</span></label>
-                <input type="text" id="nomeEditarUsuario">
-
-                <label for="emailEditarUsuario">Email: <span>*</span></label>
-                <input type="email" id="emailEditarUsuario">
-
-                <label>Profile <span>*</span></label>
-                <div class="radio-grupo">
-                    <label>
-                        <input type="radio" name="perfilEditarUsuario" value="ADMINISTRATOR">Administrator
-                    </label>
-                    <label>
-                        <input type="radio" name="perfilEditarUsuario" value="CRAAM_RESEARCHER">Craam Researcher
-                    </label>
-                    <label>
-                        <input type="radio" name="perfilEditarUsuario" value="SOLAR_PHYSICIST">Solar Physicist
-                    </label>
-                </div>
-                <p id="mensagem-sucesso-edicao" class="valid_message_error esconder">User updated successfully.</p>
-                <p id="mensagem-erro-edicao" class="invalid_message_error esconder">Failed to update user.</p>
-
-                <div class="botoes-modal">
-                    <button type="submit">Save</button>
-                    <button type="button" id="cancelarEdicao">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    </main>
 </body>
 
 </html>

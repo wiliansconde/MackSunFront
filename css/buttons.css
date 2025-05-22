@@ -18,7 +18,7 @@
     justify-content: center;
     align-items: center;
     font-size: 1rem;
-    background-color: var(--cinza-escuro);
+    background-color: var(--cinza-claro-200);
     color: var(--branco);
     padding: 1rem 1.50rem;
     border: none;
@@ -58,12 +58,27 @@
     white-space: nowrap;
 }
 
+.btnGray_table {
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+    background-color: var(--cinza-claro-200);
+    color: var(--branco);
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+    white-space: nowrap;
+}
+
 .btnBlack:hover {
     background-color: var(--azul);
 }
 
-.btnGray:hover {
-    background-color: var(--cinza-claro);
+.btnGray:hover,
+.btnGray_table:hover {
+    background-color: var(--cinza-claro-100);
     color: var(--preto);
 }
 
@@ -101,6 +116,19 @@
 
 .btnSizeHeightLimited {
     height: 2.5rem;
+}
+
+.btnRedFilter {
+    padding: 1rem 2.6rem;
+    /* padding: 1rem 4.8rem; */
+}
+
+.colorFilter1 {
+    background-color: var(--verde);
+}
+
+.colorFilter2 {
+    background-color: var(--laranja-dark);
 }
 
 @media (max-width: 767px) {

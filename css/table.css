@@ -1,0 +1,30 @@
+.access-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    background-color: var(--branco);
+    border-radius: 0.6rem;
+    overflow: hidden;
+}
+
+.access-table thead {
+    background-color: var(--cinza-medio);
+    color: var(--branco);
+}
+
+.access-table th,
+.access-table td {
+    padding: 12px 15px;
+    border: none;
+}
+
+.access-table tbody tr:nth-child(odd) {
+    background-color: var(--branco);
+}
+
+.access-table tbody tr:nth-child(even) {
+    background-color: var(--cinza-claro-100);
+}

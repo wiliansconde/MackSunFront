@@ -93,7 +93,8 @@ async function reativarUsuario(email) {
         },
         body: JSON.stringify({
             ...usuario,
-            deleted: false
+            deleted: false,
+            active: true
         })
     });
 
@@ -105,19 +106,41 @@ async function reativarUsuario(email) {
 }
 
 async function reiniciarSenha(email) {
-    console.log(`Reiniciando senha para ${email}`)
+    console.log(`Reiniciando senha para ${email}`);
+
+    const getUserResponse = await fetch(`${BASE_URL}users/${email}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    if (!getUserResponse.ok) {
+        const data = await getUserResponse.json();
+        throw new Error(data.message || 'Failed to retrieve user for password reset');
+    }
+
+    const usuario = await getUserResponse.json();
+
+    const updateUser = {
+        ...usuario,
+        resetPasswordRequested: true, // Certifique-se que o back-end usa isso
+        updatedAt: new Date().toISOString() // se for necessário
+    };
+
     const response = await fetch(`${BASE_URL}users/${email}`, {
         method: 'PUT',
         headers: {
             'content-type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ resetPasswordRequested: true }),
+        body: JSON.stringify(updateUser),
     });
+
     if (!response.ok) {
         const data = await response.json();
         throw new Error(data.message || 'Error resetting password');
     }
+
     return true;
 }
 
@@ -155,24 +178,35 @@ document.addEventListener('DOMContentLoaded', () => {
         mensagens.forEach(msg => msg.style.display = 'none');
     }
 
+    const perfilTextoMap = {
+        'ADMINISTRATOR': 'Administrator',
+        'CRAAM_RESEARCHER': 'Craam Researcher',
+        'SOLAR_PHYSICIST': 'Solar Physicist'
+    };
+
     function perfilTotexto(perfil) {
-        switch (perfil) {
-            case 'ADMINISTRATOR':
-                return 'Administrator';
-            case 'CRAAM_RESEARCHER':
-                return 'Craam Researcher';
-            case 'SOLAR_PHYSICIST':
-                return 'Solar Physicist';
-            default:
-                return perfil || 'Unknown';
-        }
+        return perfilTextoMap[perfil] || perfil || 'Unknown';
     }
 
     async function carregarUsuarios() {
-        console.log('Carregando usuários...')
+        console.log('Carregando usuários...');
         try {
             const usuarios = await listarUsuarios();
-            usuariosOriginais = Array.isArray(usuarios.data) ? usuarios.data : usuarios;
+
+            usuariosOriginais = (Array.isArray(usuarios.data) ? usuarios.data : usuarios).map(usuario => {
+                const nome = (usuario.name || usuario.fullName || '').trim();
+                const email = (usuario.email || '').trim();
+
+                const nomeInvalido = !nome || nome.toUpperCase() === 'N/A';
+                const emailInvalido = !email || email.toUpperCase() === 'N/A';
+
+                if (nomeInvalido || emailInvalido) {
+                    usuario.deleted = true;
+                }
+
+                return usuario;
+            });
+
             aplicarFiltros();
         } catch (error) {
             mensagemErro.textContent = error.message || 'Error loading users';
@@ -180,34 +214,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const filtroPerfil = document.getElementById('filtroPerfil');
-    const filtroStatus = document.getElementById('filtroStatus');
+    document.getElementById('btn_buscar').addEventListener('click', aplicarFiltros);
 
-    filtroPerfil.addEventListener('change', aplicarFiltros);
-    filtroStatus.addEventListener('change', aplicarFiltros);
+    document.getElementById('btn_limpar').addEventListener('click', () => {
+        document.getElementById('filtroPorNome').value = '';
+        document.getElementById('filtroPorEmail').value = '';
+        document.getElementById('filtroPerfil').value = '';
+        document.getElementById('filtroStatus').value = '';
+
+        usuariosFiltrados = [...usuariosOriginais];
+        paginaAtual = 1;
+        displayPage(usuariosFiltrados, paginaAtual);
+    });
 
     let usuariosOriginais = [];
+    let usuariosFiltrados = []
+    let paginaAtual = 1;
+    const linhasPorPagina = 10;
+    const paginacaoContainer = document.getElementById('paginacao_container');
 
     function aplicarFiltros() {
-        const perfilSelecionado = filtroPerfil.value;
-        const statusSelecionado = filtroStatus.value;
 
-        let usuariosFiltrados = [...usuariosOriginais];
+        const nomeFiltro = document.getElementById('filtroPorNome').value.trim().toLowerCase();
+        const emailFiltro = document.getElementById('filtroPorEmail').value.trim().toLowerCase();
+        const perfilSelecionado = document.getElementById('filtroPerfil').value;
+        const statusSelecionado = document.getElementById('filtroStatus').value;
 
-        if (perfilSelecionado && perfilSelecionado !== 'Todos') {
-            usuariosFiltrados = usuariosFiltrados.filter(usuario => {
-                const perfil = usuario.profile?.type ?? '';
-                return perfil === perfilSelecionado;
-            });
-        }
+        usuariosFiltrados = usuariosOriginais.filter(usuario => {
+            const nome = (usuario.name || usuario.fullName || '').toLowerCase();
+            const email = (usuario.email || '').toLowerCase();
+            const perfil = usuario.profile?.type ?? '';
+            const status = usuario.deleted ? 'deletado' : 'ativo';
 
-        if (statusSelecionado && statusSelecionado !== 'Todos') {
-            usuariosFiltrados = usuariosFiltrados.filter(usuario => {
-                const status = usuario.deleted ? 'deletado' : 'ativo';
-                return status === statusSelecionado;
-            })
-        }
-        preencherTabela(usuariosFiltrados);
+            return (
+                (nomeFiltro === '' || nome.includes(nomeFiltro)) &&
+                (emailFiltro === '' || email.includes(emailFiltro)) &&
+                (perfilSelecionado === '' || perfil === perfilSelecionado) &&
+                (statusSelecionado === '' || status === statusSelecionado)
+            );
+        });
+
+        paginaAtual = 1;
+        displayPage(usuariosFiltrados, paginaAtual);
     }
 
     function preencherTabela(usuarios) {
@@ -220,25 +268,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         usuarios.forEach((usuario) => {
-            const tr = document.createElement('tr');
-
             const nome = usuario.name || usuario.fullName || 'N/A';
             const email = usuario.email || 'N/A';
             const perfil = perfilTotexto(usuario.profile?.type || 'N/A');
-            const status = usuario.deleted ? 'Deleted' : 'Active';
 
+            const isDadosIncompletos = nome === 'N/A' || email === 'N/A';
+            const isDeletado = usuario.deleted || isDadosIncompletos;
 
+            const statusTexto = isDeletado ? 'Deleted' : 'Active';
+            const statusClasse = isDeletado ? 'status deletado' : 'status ativo';
+
+            const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>${nome}</td>
                 <td>${email}</td>
                 <td>${perfil}</td>
-                <td>${status}</td>
+                <td><span class="${statusClasse}">${statusTexto}</span></td>
                 <td class="acoes">
-                    <button class="edit" data-email="${email}">Edit</button>
-                    <button class="resetar_password" data-email="${email}">Reset Password</button>
-                    ${usuario.deleted
-                    ? `<button class="reativar" data-email="${email}">Reactivate</button>`
-                    : `<button class="deletar" data-email="${email}">Delete</button>`}
+                    <button class="edit btnGray_table" data-email="${email}">Edit</button>
+                    <button class="resetar_password btnGray_table" data-email="${email}">Reset Password</button>
+                    ${isDeletado
+                    ? `<button class="reativar btnGray_table" data-email="${email}">Reactivate</button>`
+                    : `<button class="deletar btnGray_table" data-email="${email}">Delete</button>`}
                 </td>
             `;
             tbody.appendChild(tr);
@@ -259,15 +310,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     formulario.addEventListener('submit', async (event) => {
         event.preventDefault();
-        console.log('Enviando formulário de cadastro')
         esconderMensagens();
 
         const nome = document.getElementById('nomeNovoUsuario').value.trim();
         const email = document.getElementById('emailNovoUsuario').value.trim();
-        const senha = document.getElementById('senhaNovoUsuario').value.trim();
         const perfilSelecionado = document.querySelector('input[name="perfilNovoUsuario"]:checked');
 
-        if (!nome || !email || !senha || !perfilSelecionado) {
+        if (!nome || !email || !perfilSelecionado) {
             mensagemErro.textContent = 'Fill in all required fields.';
             mensagemErro.style.display = 'block';
             return;
@@ -283,12 +332,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             await cadastrarUsuario({
                 username: email,
-                password: senha,
                 fullName: nome,
                 email: email,
                 profileType: perfilSelecionado.value
             });
 
+            mensagemSucesso.textContent = 'User has been successfully added. Credentials have been sent by email.';
             mensagemSucesso.style.display = 'block';
             formulario.reset();
             await carregarUsuarios();
@@ -391,4 +440,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     carregarUsuarios();
+
+    function displayPage(usuarios, pagina) {
+        const comecar = (pagina - 1) * linhasPorPagina;
+        const fim = comecar + linhasPorPagina;
+        const usuariosPaginados = usuarios.slice(comecar, fim);
+
+        preencherTabela(usuariosPaginados);
+        renderizarPaginacao(usuarios.length, pagina)
+    }
+
+    function renderizarPaginacao(totalItems, paginaAtual) {
+        paginacaoContainer.innerHTML = '';
+
+        const totalDePaginas = Math.ceil(totalItems / linhasPorPagina);
+
+        for (let i = 1; i <= totalDePaginas; i++) {
+            const btn_paginacao = document.createElement('button');
+            btn_paginacao.textContent = i;
+
+            if (i === paginaAtual) {
+                btn_paginacao.classList.add('active');
+            }
+
+            btn_paginacao.addEventListener('click', () => {
+                paginaAtual = i;
+                displayPage(usuariosFiltrados, i);
+            });
+
+            paginacaoContainer.appendChild(btn_paginacao);
+        }
+    }
+
 });
