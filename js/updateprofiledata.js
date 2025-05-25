@@ -162,8 +162,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             try {
-                const BASE_URL = window.BASE_URL || localStorage.getItem('baseUrl') || 'https://api.exemplo.com/';
+                const BASE_URL = window.BASE_URL || localStorage.getItem('baseUrl') || 'https://macksunback.azurewebsites.net/';
                 console.log('Enviando solicitação para atualizar senha');
+                console.log(BASE_URL);
                 
                 const updateResponse = await fetch(`${BASE_URL}users/update-password`, {
                     method: 'PATCH',
