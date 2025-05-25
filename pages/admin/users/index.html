@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../../../css/table.css">
     <link rel="stylesheet" href="../../../css/buttons.css">
 
-
     <script src="../../../js/const.js" defer></script>
     <script type="module" src="../../../js/headerfooter.js" defer></script>
     <script src="../../../js/headerlogado.js"></script>
@@ -30,7 +29,7 @@
 
     <main class="container_padrao">
         <section class="formulario-card_medio">
-            <h1 class="titulo_padrao">User management</h1>
+            <h1 class="titulo_padrao">User Management</h1>
 
             <div class="barra_superior">
                 <div class="linha-filtros-superior">
@@ -44,8 +43,8 @@
                     </select>
 
                     <div class="botoes-filtros-superior">
-                        <button id="btn_buscar" class="btnGray_table">Search</button>
                         <button id="btn_limpar" class="btnGray_table">Clear Filters</button>
+                        <button id="btn_adicionar" class="btnGray_table">Create User</button>
                     </div>
                 </div>
 
@@ -59,23 +58,25 @@
                     </select>
 
                     <div class="btn-criar-wrapper">
-                        <button class="btnRed btnSizeHeightLimited btnRedFilter" id="btn_adicionar">Create User</button>
+                        <button class="btnRed btnSizeHeightLimited btnRedFilter" id="btn_buscar">Search</button>
                     </div>
                 </div>
             </div>
 
-            <table class="access-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Profile</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <div class="access-table-wrapper">
+                <table class="access-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Profile</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
             <div class="paginacao-container" id="paginacao_container"></div>
         </section>
 
@@ -90,6 +91,9 @@
 
                     <label for="emailNovoUsuario">Email: <span>*</span></label>
                     <input type="email" id="emailNovoUsuario">
+
+                    <label for="emailNovoUsuario">Password: <span>*</span></label>
+                    <input type="password" id="passwordNovoUsuario">
 
                     <label>Profile: <span>*</span></label>
                     <div class="radio-grupo">

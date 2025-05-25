@@ -123,8 +123,8 @@ async function reiniciarSenha(email) {
 
     const updateUser = {
         ...usuario,
-        resetPasswordRequested: true, // Certifique-se que o back-end usa isso
-        updatedAt: new Date().toISOString() // se for necessário
+        resetPasswordRequested: true,
+        updatedAt: new Date().toISOString()
     };
 
     const response = await fetch(`${BASE_URL}users/${email}`, {
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         usuariosFiltrados = usuariosOriginais.filter(usuario => {
             const nome = (usuario.name || usuario.fullName || '').toLowerCase();
             const email = (usuario.email || '').toLowerCase();
-            const perfil = usuario.profile?.type ?? '';
+            const perfil = usuario.profile?.type || usuario.profileType || '';
             const status = usuario.deleted ? 'deletado' : 'ativo';
 
             return (
@@ -268,11 +268,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         usuarios.forEach((usuario) => {
-            const nome = usuario.name || usuario.fullName || 'N/A';
+            const nome = usuario.name || usuario.fullName || 'N/A' || usuario.username;
             const email = usuario.email || 'N/A';
-            const perfil = perfilTotexto(usuario.profile?.type || 'N/A');
+            const perfil = perfilTotexto(usuario.profile?.type || usuario.profileType || 'N/A');;
 
-            const isDadosIncompletos = nome === 'N/A' || email === 'N/A';
+            const isDadosIncompletos = nome === 'N/A' || email === 'N/A' || usuario.username == null;
             const isDeletado = usuario.deleted || isDadosIncompletos;
 
             const statusTexto = isDeletado ? 'Deleted' : 'Active';
@@ -314,9 +314,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const nome = document.getElementById('nomeNovoUsuario').value.trim();
         const email = document.getElementById('emailNovoUsuario').value.trim();
+        const senha = document.getElementById('passwordNovoUsuario').value.trim();
         const perfilSelecionado = document.querySelector('input[name="perfilNovoUsuario"]:checked');
 
-        if (!nome || !email || !perfilSelecionado) {
+        if (!nome || !email || !senha || !perfilSelecionado) {
             mensagemErro.textContent = 'Fill in all required fields.';
             mensagemErro.style.display = 'block';
             return;
@@ -334,7 +335,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 username: email,
                 fullName: nome,
                 email: email,
-                profileType: perfilSelecionado.value
+                profileType: perfilSelecionado.value,
+                password: senha
             });
 
             mensagemSucesso.textContent = 'User has been successfully added. Credentials have been sent by email.';

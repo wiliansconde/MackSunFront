@@ -28,3 +28,29 @@
 .access-table tbody tr:nth-child(even) {
     background-color: var(--cinza-claro-100);
 }
+
+.paginacao-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 0.5rem;
+}
+
+.paginacao-container button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--cinza-claro);
+    background-color: white;
+    cursor: pointer;
+}
+
+.paginacao-container button.active {
+    font-weight: bold;
+    background-color: var(--cinza-claro);
+}
+
+.access-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+}

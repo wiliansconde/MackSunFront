@@ -76,10 +76,13 @@
     background-color: var(--azul);
 }
 
-.btnGray:hover,
-.btnGray_table:hover {
+.btnGray:hover {
     background-color: var(--cinza-claro-100);
     color: var(--preto);
+}
+
+.btnGray_table:hover {
+    background-color: var(--azul);
 }
 
 .btnRed:hover {
@@ -119,16 +122,8 @@
 }
 
 .btnRedFilter {
-    padding: 1rem 2.6rem;
-    /* padding: 1rem 4.8rem; */
-}
-
-.colorFilter1 {
-    background-color: var(--verde);
-}
-
-.colorFilter2 {
-    background-color: var(--laranja-dark);
+    /* padding: 1rem 2.6rem; */
+    padding: 1rem 4.8rem;
 }
 
 @media (max-width: 767px) {
