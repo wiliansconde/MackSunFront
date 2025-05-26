@@ -34,23 +34,42 @@ async function listarUsuarios() {
 
 async function atualizarUsuario(emailOriginal, usuario) {
     console.log('Atualizando usuário', usuario)
+
+    const getUserResponse = await fetch(`${BASE_URL}users/${emailOriginal}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    if (!getUserResponse.ok) {
+        const data = await getUserResponse.json();
+        throw new Error(data.message || 'Erro ao buscar usuário antes de atualizar');
+    }
+
+    const usuarioExistente = await getUserResponse.json();
+
+    const usuarioParaAtualizar = {
+        ...usuarioExistente,
+        fullName: usuario.name,
+        email: usuario.email,
+        profileType: usuario.profileType,
+        updatedAt: new Date().toISOString()
+    };
+
     const response = await fetch(`${BASE_URL}users/${emailOriginal}`, {
         method: 'PUT',
         headers: {
             'content-type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-            fullName: usuario.name,
-            email: usuario.email,
-            profileType: usuario.profileType
-        }),
+        body: JSON.stringify(usuarioParaAtualizar),
     });
 
     if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.message || 'Error in updating user');
+        throw new Error(data.message || 'Erro ao atualizar usuário');
     }
+
     return await response.json();
 }
 
@@ -70,41 +89,6 @@ async function deletarUsuario(email) {
     return true;
 }
 
-async function reativarUsuario(email) {
-    console.log(`Reactivando usuário com email ${email}`);
-    const getUserResponse = await fetch(`${BASE_URL}users/${email}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-
-    if (!getUserResponse.ok) {
-        const data = await getUserResponse.json();
-        throw new Error(data.message || 'Error retrieving user for reactivation.')
-    }
-
-    const usuario = await getUserResponse.json();
-
-    const reativarResponse = await fetch(`${BASE_URL}users/${email}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            ...usuario,
-            deleted: false,
-            active: true
-        })
-    });
-
-    if (!reativarResponse.ok) {
-        const data = await reativarResponse.json();
-        throw new Error(data.message || "Error reactivating user.")
-    }
-    return true;
-}
-
 async function reiniciarSenha(email) {
     console.log(`Reiniciando senha para ${email}`);
 
@@ -116,10 +100,12 @@ async function reiniciarSenha(email) {
 
     if (!getUserResponse.ok) {
         const data = await getUserResponse.json();
+        console.error('Erro ao buscar usuário para reset:', data);
         throw new Error(data.message || 'Failed to retrieve user for password reset');
     }
 
     const usuario = await getUserResponse.json();
+    console.log('Usuário encontrado para reset:', usuario);
 
     const updateUser = {
         ...usuario,
@@ -138,6 +124,7 @@ async function reiniciarSenha(email) {
 
     if (!response.ok) {
         const data = await response.json();
+        console.error('Erro ao enviar PUT de reset:', data);
         throw new Error(data.message || 'Error resetting password');
     }
 
@@ -163,19 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const mensagemSucessoDeletar = document.getElementById('mensagem-sucesso-deletar');
     const mensagemErroDeletar = document.getElementById('mensagem-erro-deletar');
 
-    const mensagemSucessoReativar = document.getElementById('mensagem-sucesso-reativar');
-    const mensagemErroReativar = document.getElementById('mensagem-erro-reativar');
-
-    const mensagemSucessoResetar = document.getElementById('mensagem-sucesso-resetar');
-    const mensagemErroResetar = document.getElementById('mensagem-erro-resetar');
-
     const tbody = document.querySelector('tbody');
 
     let usuarioEditadoEmail = null;
 
     function esconderMensagens() {
         const mensagens = document.querySelectorAll('.valid_message_error, .invalid_message_error');
-        mensagens.forEach(msg => msg.style.display = 'none');
+        mensagens.forEach(msg => {
+            msg.style.display = 'none';
+            msg.classList.add('esconder');
+        });
     }
 
     const perfilTextoMap = {
@@ -196,12 +180,18 @@ document.addEventListener('DOMContentLoaded', () => {
             usuariosOriginais = (Array.isArray(usuarios.data) ? usuarios.data : usuarios).map(usuario => {
                 const nome = (usuario.name || usuario.fullName || '').trim();
                 const email = (usuario.email || '').trim();
+                const perfil = usuario.profile?.type || usuario.profileType || null;
+                const username = usuario.username || null;
 
-                const nomeInvalido = !nome || nome.toUpperCase() === 'N/A';
-                const emailInvalido = !email || email.toUpperCase() === 'N/A';
+                // Verifica se algum campo essencial é inválido ou nulo
+                const invalido =
+                    !nome || nome.toUpperCase() === 'N/A' ||
+                    !email || email.toUpperCase() === 'N/A' ||
+                    !perfil || perfil.toUpperCase() === 'N/A' ||
+                    !username;
 
-                if (nomeInvalido || emailInvalido) {
-                    usuario.deleted = true;
+                if (invalido) {
+                    usuario.deleted = true;  // Marca como deletado
                 }
 
                 return usuario;
@@ -244,13 +234,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const nome = (usuario.name || usuario.fullName || '').toLowerCase();
             const email = (usuario.email || '').toLowerCase();
             const perfil = usuario.profile?.type || usuario.profileType || '';
-            const status = usuario.deleted ? 'deletado' : 'ativo';
+            const isDeletado = !!usuario.deleted;
 
             return (
                 (nomeFiltro === '' || nome.includes(nomeFiltro)) &&
                 (emailFiltro === '' || email.includes(emailFiltro)) &&
                 (perfilSelecionado === '' || perfil === perfilSelecionado) &&
-                (statusSelecionado === '' || status === statusSelecionado)
+                (statusSelecionado === '' ||
+                    (statusSelecionado === 'ativo' && !isDeletado) ||
+                    (statusSelecionado === 'deletado' && isDeletado))
             );
         });
 
@@ -268,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         usuarios.forEach((usuario) => {
-            const nome = usuario.name || usuario.fullName || 'N/A' || usuario.username;
+            const nome = usuario.name || usuario.fullName || usuario.username || 'N/A';
             const email = usuario.email || 'N/A';
             const perfil = perfilTotexto(usuario.profile?.type || usuario.profileType || 'N/A');;
 
@@ -287,10 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td class="acoes">
                     <button class="edit btnGray_table" data-email="${email}">Edit</button>
                     <button class="resetar_password btnGray_table" data-email="${email}">Reset Password</button>
-                    ${isDeletado
-                    ? `<button class="reativar btnGray_table" data-email="${email}">Reactivate</button>`
-                    : `<button class="deletar btnGray_table" data-email="${email}">Delete</button>`}
-                </td>
+                    <button class="deletar btnGray_table" data-email="${email}" > Delete</ > 
+                </ td >
             `;
             tbody.appendChild(tr);
         });
@@ -314,10 +304,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const nome = document.getElementById('nomeNovoUsuario').value.trim();
         const email = document.getElementById('emailNovoUsuario').value.trim();
-        const senha = document.getElementById('passwordNovoUsuario').value.trim();
         const perfilSelecionado = document.querySelector('input[name="perfilNovoUsuario"]:checked');
 
-        if (!nome || !email || !senha || !perfilSelecionado) {
+        if (!nome || !email || !perfilSelecionado) {
             mensagemErro.textContent = 'Fill in all required fields.';
             mensagemErro.style.display = 'block';
             return;
@@ -332,11 +321,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             await cadastrarUsuario({
-                username: email,
                 fullName: nome,
                 email: email,
                 profileType: perfilSelecionado.value,
-                password: senha
             });
 
             mensagemSucesso.textContent = 'User has been successfully added. Credentials have been sent by email.';
@@ -399,22 +386,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 mensagemErroDeletar.textContent = error.message;
                 mensagemErroDeletar.style.display = 'block';
             }
-        } else if (e.target.classList.contains('reativar')) {
-            try {
-                await reativarUsuario(email);
-                await carregarUsuarios();
-                mensagemSucessoReativar.style.display = 'block';
-            } catch (error) {
-                mensagemErroReativar.textContent = error.message;
-                mensagemErroReativar.style.display = 'block';
-            }
         } else if (e.target.classList.contains('resetar_password')) {
+            esconderMensagens();
+            console.log('Clicou em Reset Password para:', email)
             try {
                 await reiniciarSenha(email);
-                mensagemSucessoResetar.style.display = 'block';
+                console.log('Senha resetada com sucesso para:', email);
+                const msg = document.getElementById('mensagem-sucesso-resetar');
+                msg.style.display = 'block';
+                msg.classList.remove('esconder');
             } catch (error) {
-                mensagemErroResetar.textContent = error.message;
-                mensagemErroResetar.style.display = 'block';
+                console.error('Erro ao resetar senha para:', email, error);
+                const msg = document.getElementById('mensagem-erro-resetar');
+                msg.textContent = error.message || 'Error resetting password';
+                msg.style.display = 'block';
+                msg.classList.remove('esconder');
             }
         } else if (e.target.classList.contains('edit')) {
             const linha = e.target.closest('tr');
@@ -434,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const valorRadio = perfilMap[perfilTexto];
             if (valorRadio) {
-                document.querySelector(`input[name="perfilEditarUsuario"][value="${valorRadio}"]`).checked = true;
+                document.querySelector(`input[name = "perfilEditarUsuario"][value = "${valorRadio}"]`).checked = true;
             }
 
             modalEditar.classList.remove('esconder');
@@ -473,5 +459,4 @@ document.addEventListener('DOMContentLoaded', () => {
             paginacaoContainer.appendChild(btn_paginacao);
         }
     }
-
 });
