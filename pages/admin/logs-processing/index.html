@@ -4,11 +4,83 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>View Processing Logs</title>
+
+
+  <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
+  <link rel="stylesheet" href="../../../css/global.css">
+  <link rel="stylesheet" href="../../../css/formulario.css">
+  <link rel="stylesheet" href="../../../css/titles.css">
+  <link rel="stylesheet" href="../../../css/usermanagement.css">
+  <link rel="stylesheet" href="../../../css/alerts.css">
+  <link rel="stylesheet" href="../../../css/header.css">
+  <link rel="stylesheet" href="../../../css/table.css">
+  <link rel="stylesheet" href="../../../css/buttons.css">
+
+  <script src="../../../js/const.js" defer></script>
+  <script type="module" src="../../../js/headerfooter.js" defer></script>
+  <script src="../../../js/headerlogado.js"></script>
 </head>
 
 <body>
-  <h1>View Processing Logs</h1>
+  <div id="header"></div>
+
+  <main class="container_padrao">
+    <section class="formulario-card_medio">
+      <h1 class="titulo_padrao">View Processing Logs</h1>
+
+      <div class="barra_superior">
+        <div class="linha-filtros-superior">
+          <input type="date" id="dataInicial" placeholder="Start Date">
+          <input type="date" id="dataFinal" placeholder="End Date">
+
+          <select id="filtroStatus" class="filtroDiversos">
+            <option value="">Status</option>
+            <option value="SUCCESS">Success</option>
+            <option value="FAILED">Failed</option>
+            <option value="IN_PROGRESS">In Progress</option>
+          </select>
+
+          <div class="botoes-filtros-superior">
+            <button id="btn_limpar" class="btnGray_table">Clear Filters</button>
+          </div>
+        </div>
+
+        <div class="linha-filtros-inferior">
+          <input type="text" id="filtroPorErros" placeholder="Filter Errors">
+
+          <select id="filtroInstrumentos" class="filtroDiversos">
+            <option value="">Instrument</option>
+            <option value="POEMAS">Poemas</option>
+            <option value="SST">Sst</option>
+            <option value="RADYN">Radyn</option>
+            <option value="7GHZ">7GHz</option>
+          </select>
+
+          <div class="btn-criar-wrapper">
+            <button class="btnRed btnSizeHeightLimited btnRedFilter" id="btn_buscar">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="access-table-wrapper">
+        <table class="access-table">
+          <thead>
+            <tr>
+              <th>Date/Time</th>
+              <th>File path</th>
+              <th>Instrument</th>
+              <th>User name</th>
+              <th>Messages</th>
+              <th>Manual intervention</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="paginacao-container" id="paginacao_container"></div>
+    </section>
+  </main>
 </body>
 
 </html>
