@@ -54,3 +54,11 @@
     margin-top: 1rem;
     padding-bottom: 1rem;
 }
+
+.access-table tbody tr {
+    border-bottom: 1px solid var(--cinza-escuro);
+}
+
+.access-table tbody tr:last-child {
+    border-bottom: none;
+}

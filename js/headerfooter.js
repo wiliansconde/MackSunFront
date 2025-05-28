@@ -3,32 +3,32 @@ import { verifyToken, loadUserData, inicializarLoginPopup, submit } from './logi
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM completamente carregado. Chamando loadHTML.");
-  
+
   // Primeiro, carregamos o header
   if (document.getElementById('header')) {
     loadHTML("header", "../../../header.html", () => {
       console.log("Header carregado com sucesso, configurando elementos");
-      
+
       // Carregamos os dados do usuário
       const user = loadUserData();
       let nomeUsuario = user !== null ? user.fullName : '';
       let userActionsElement = document.getElementById('userActions');
-      
+
       // Conteúdo para usuários não logados
       const loginButtons = `
         <li><button class="botaoLoginMenu">Login</button></li>
         <li class="cadastro"><a href="/register.html">Register</a></li>
       `;
-      
+
       const featureList = user?.profile?.accessiblePages
 
 
       // Conteúdo para usuários logados
-     const userAccount = `
+      const userAccount = `
   <div class="divconta nome_usuario" id="conta">
     <a class="nome_logado" id="name" href="#">${nomeUsuario}</a>
     <ul class="access_profile menu_suspenso" id="access_profile">
-      ${featureList?.map(item => 
+      ${featureList?.map(item =>
         `<li><a href="/pages${item.url}">${item.name || 'Atualizar perfil'}</a></li>`
       ).join('')}
       <li><a href="#" id="botao-sair">Leave</a></li>
@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Verificamos se o token existe antes de decidir o que mostrar
       const isLoggedIn = verifyToken();
       console.log("Token verificado:", isLoggedIn);
-      
+
       // Atualizamos o HTML com base no status de login
       if (userActionsElement) {
         userActionsElement.innerHTML = isLoggedIn ? userAccount : loginButtons;
-        
+
         // IMPORTANTE: Só adicionamos os event listeners DEPOIS de inserir o HTML
         if (isLoggedIn) {
           setupLogoutButtons();
@@ -55,15 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         console.error("Elemento userActions não encontrado!");
       }
-      
+
       // Inicializar eventos do popup de login
       inicializarLoginPopup();
       submit();
-      
+
       // Configurar o menu hamburguer, se existir
       const menuHamburger = document.getElementById('menu_hamburger');
       const menu = document.querySelector('.menu');
-      
+
       if (menuHamburger && menu) {
         menuHamburger.addEventListener('click', () => {
           menu.classList.toggle('active');
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
+
   // Carregamos o footer, se existir
   if (document.getElementById('footer')) {
     loadHTML('footer', 'footer.html');
@@ -88,7 +88,7 @@ function setupLogoutButtons() {
   } else {
     console.error("Botão Leave não encontrado após renderização!");
   }
-  
+
   // Configurar botão Sair no menu suspenso
   const botaoSair = document.getElementById('botao-sair');
   if (botaoSair) {
@@ -106,14 +106,14 @@ function setupLogoutButtons() {
 function setupAccessMenu() {
   const elementoConta = document.getElementById('conta');
   const accessProfile = document.getElementById('access_profile');
-  
+
   if (elementoConta && accessProfile) {
     console.log("Configurando eventos para o menu suspenso do perfil");
-    
+
     elementoConta.addEventListener('mouseenter', () => {
       accessProfile.style.display = 'block';
     });
-    
+
     elementoConta.addEventListener('mouseleave', () => {
       accessProfile.style.display = 'none';
     });
@@ -124,10 +124,10 @@ function setupAccessMenu() {
 function setupUserAccessMenu() {
   const perfilUsuario = JSON.parse(localStorage.getItem('perfilUsuario'));
   const menu = document.getElementById('access_menu');
-  
+
   if (perfilUsuario && perfilUsuario.accessiblePages && menu) {
     menu.innerHTML = '';
-    
+
     perfilUsuario.accessiblePages.forEach(page => {
       const listItem = document.createElement('li');
       const link = document.createElement('a');
@@ -142,7 +142,7 @@ function setupUserAccessMenu() {
 // Função para lidar com o logout
 function handleLogout() {
   console.log("Função de logout chamada");
-  
+
   // Limpar todos os dados relevantes do localStorage
   localStorage.removeItem('userData');
   localStorage.removeItem('token');
@@ -152,9 +152,9 @@ function handleLogout() {
   localStorage.removeItem('lembrarSenha');
   localStorage.removeItem('salvarEmail');
   localStorage.removeItem('salvarSenha');
-  
+
   console.log("Dados de login removidos, redirecionando para index.html");
-  
+
   // Redirecionar para a página inicial
   window.location.href = '/index.html';
 }

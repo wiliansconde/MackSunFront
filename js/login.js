@@ -78,7 +78,7 @@ export function inicializarLoginPopup() {
   // Se não existir, carregar o HTML do login
   if (!estruturaLogin) {
     console.log('Carregando HTML de login...');
-    loadHTML('estruturaLogin', 'login.html', () => {
+    loadHTML('estruturaLogin', '/login.html', () => {
       console.log('HTML de login carregado');
       ativarBotaoLogin();
     });

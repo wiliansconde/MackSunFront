@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       hideMessages();
       try {
         const res = await fetch(`https://macksunback.azurewebsites.net/profile-upgrades/${request.id}/approve`, {
-          method: 'PATCH',
+          method: 'PUT',
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         fetch(`https://macksunback.azurewebsites.net/profile-upgrades/${request.id}/reject?comment=${encodeURIComponent(comment)}`, {
-          method: 'PATCH',
+          method: 'PUT',
           headers: {
             'Authorization': `Bearer ${token}`
           }
