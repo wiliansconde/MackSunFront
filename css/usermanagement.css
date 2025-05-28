@@ -91,6 +91,11 @@ form {
     width: 7.125rem;
 }
 
+.sublinhado_reset-senha {
+    margin-bottom: 1rem;
+    width: 12.6rem;
+}
+
 .linha-filtros-superior,
 .linha-filtros-inferior {
     display: flex;
@@ -114,6 +119,12 @@ select {
     border: 1px solid var(--cinza-claro);
     height: 2.188rem;
     border-radius: 0.625rem;
+}
+
+
+.campo-inativo {
+    background-color: var(--cinza-claro);
+    cursor: not-allowed;
 }
 
 @media (max-width: 767px) {
@@ -235,6 +246,7 @@ select {
 }
 
 @media (min-width: 820px) and (max-width: 1180px) {
+
     .linha-filtros-superior,
     .linha-filtros-inferior {
         flex-direction: row;
