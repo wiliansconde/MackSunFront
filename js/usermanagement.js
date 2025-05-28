@@ -1,5 +1,13 @@
 const token = localStorage.getItem('token');
 
+function exibirMensagemERecarregar(mensagemElemento, tempo = 1500) {
+    mensagemElemento.style.display = 'block';
+    setTimeout(() => {
+        mensagemElemento.style.display = 'none';
+        location.reload()
+    }, tempo)
+}
+
 async function cadastrarUsuario(usuario) {
     console.log('Enviado novo usuário', usuario)
     const response = await fetch(`${BASE_URL}users`, {
@@ -48,10 +56,13 @@ async function atualizarUsuario(emailOriginal, usuario) {
 
     const usuarioExistente = await getUserResponse.json();
 
+    const { password, ...restanteUsuario } = usuarioExistente;
+
     const usuarioParaAtualizar = {
-        ...usuarioExistente,
+        ...restanteUsuario,
         fullName: usuario.name,
         email: usuario.email,
+        username: usuario.email,
         profileType: usuario.profileType,
         updatedAt: new Date().toISOString()
     };
@@ -89,46 +100,27 @@ async function deletarUsuario(email) {
     return true;
 }
 
-async function reiniciarSenha(email) {
-    console.log(`Reiniciando senha para ${email}`);
+async function atualizarSenha(email, novaSenha) {
+    console.log('Atualizando senha do usuário:', email);
 
-    const getUserResponse = await fetch(`${BASE_URL}users/${email}`, {
+    const response = await fetch(`${BASE_URL}users/update-password-admin`, {
+        method: 'PATCH',
         headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-
-    if (!getUserResponse.ok) {
-        const data = await getUserResponse.json();
-        console.error('Erro ao buscar usuário para reset:', data);
-        throw new Error(data.message || 'Failed to retrieve user for password reset');
-    }
-
-    const usuario = await getUserResponse.json();
-    console.log('Usuário encontrado para reset:', usuario);
-
-    const updateUser = {
-        ...usuario,
-        resetPasswordRequested: true,
-        updatedAt: new Date().toISOString()
-    };
-
-    const response = await fetch(`${BASE_URL}users/${email}`, {
-        method: 'PUT',
-        headers: {
-            'content-type': 'application/json',
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(updateUser),
+        body: JSON.stringify({
+            email: email,
+            newPassword: novaSenha
+        })
     });
 
     if (!response.ok) {
         const data = await response.json();
-        console.error('Erro ao enviar PUT de reset:', data);
-        throw new Error(data.message || 'Error resetting password');
+        throw new Error(data.message || 'Erro ao atualizar senha');
     }
 
-    return true;
+    return await response.json();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -140,6 +132,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalEditar = document.getElementById('modalEditarUsuario');
     const formEditar = document.getElementById('formEditarUsuario');
     const btnCancelarEditar = document.getElementById('cancelarEdicao');
+
+    const modalAtualizarSenha = document.getElementById('modal_atualizar_senha');
+    const formAtualizarSenha = document.getElementById('form_atualizar_senha');
+    const inputEmailSenha = document.getElementById('confirm_email');
+    const inputSenha = document.getElementById('atualizar_senha');
+    const btnCancelarAtualizarSenha = document.getElementById('cancelar_atualizacao_senha');
+
+    const mensagemSucessoAtualizarSenha = document.getElementById('mensagem-sucesso-atualizar-senha');
+    const mensagemErroAtualizarSenha = document.getElementById('mensagem-erro-atualizar-senha');
+
 
     const mensagemSucesso = document.getElementById('adicionado_sucesso');
     const mensagemErro = document.getElementById('erro_geral');
@@ -183,7 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const perfil = usuario.profile?.type || usuario.profileType || null;
                 const username = usuario.username || null;
 
-                // Verifica se algum campo essencial é inválido ou nulo
                 const invalido =
                     !nome || nome.toUpperCase() === 'N/A' ||
                     !email || email.toUpperCase() === 'N/A' ||
@@ -191,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     !username;
 
                 if (invalido) {
-                    usuario.deleted = true;  // Marca como deletado
+                    usuario.deleted = true;
                 }
 
                 return usuario;
@@ -286,6 +287,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function abrirModalAtualizarSenha(email) {
+        inputEmailSenha.value = email;
+        inputSenha.value = '';
+        esconderMensagens();
+        mensagemErroAtualizarSenha.style.display = 'none';
+        mensagemSucessoAtualizarSenha.style.display = 'none';
+        modalAtualizarSenha.classList.remove('esconder');
+    }
+
     btnAbrirModal.addEventListener('click', () => {
         modal.classList.remove('esconder');
         formulario.reset();
@@ -327,9 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             mensagemSucesso.textContent = 'User has been successfully added. Credentials have been sent by email.';
-            mensagemSucesso.style.display = 'block';
-            formulario.reset();
-            await carregarUsuarios();
+            exibirMensagemERecarregar(mensagemSucesso)
         } catch (error) {
             mensagemErro.textContent = error.message || 'Error adding user';
             mensagemErro.style.display = 'block';
@@ -360,17 +368,46 @@ document.addEventListener('DOMContentLoaded', () => {
             await atualizarUsuario(usuarioEditadoEmail, {
                 name: nome,
                 email: email,
+                username: email,
                 profileType: perfilSelecionado.value,
             });
 
             mensagemSucessoEdicao.style.display = 'block';
-            formEditar.reset();
-            modalEditar.classList.add('esconder');
-            await carregarUsuarios();
+            exibirMensagemERecarregar(mensagemSucesso);
         } catch (error) {
             mensagemErroEdicao.textContent = error.message || 'Error updating user';
             mensagemErroEdicao.style.display = 'block';
         }
+    });
+
+    formAtualizarSenha.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        esconderMensagens();
+
+        const email = inputEmailSenha.value.trim();
+        const novaSenha = inputSenha.value.trim();
+
+        if (!novaSenha) {
+            mensagemErroAtualizarSenha.textContent = 'Fill in the new password.';
+            mensagemErroAtualizarSenha.style.display = 'block';
+            return;
+        }
+
+        try {
+            await atualizarSenha(email, novaSenha);
+
+            mensagemSucessoAtualizarSenha.textContent = 'Password updated successfully.';
+            exibirMensagemERecarregar(mensagemSucessoAtualizarSenha);
+        } catch (error) {
+            mensagemErroAtualizarSenha.textContent = error.message || 'Error updating password';
+            mensagemErroAtualizarSenha.style.display = 'block';
+        }
+    });
+
+    btnCancelarAtualizarSenha.addEventListener('click', () => {
+        modalAtualizarSenha.classList.add('esconder');
+        formAtualizarSenha.reset();
+        esconderMensagens();
     });
 
     tbody.addEventListener('click', async (e) => {
@@ -380,27 +417,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('deletar')) {
             try {
                 await deletarUsuario(email);
-                await carregarUsuarios();
                 mensagemSucessoDeletar.style.display = 'block';
+                exibirMensagemERecarregar(mensagemSucesso);
             } catch (error) {
                 mensagemErroDeletar.textContent = error.message;
                 mensagemErroDeletar.style.display = 'block';
-            }
-        } else if (e.target.classList.contains('resetar_password')) {
-            esconderMensagens();
-            console.log('Clicou em Reset Password para:', email)
-            try {
-                await reiniciarSenha(email);
-                console.log('Senha resetada com sucesso para:', email);
-                const msg = document.getElementById('mensagem-sucesso-resetar');
-                msg.style.display = 'block';
-                msg.classList.remove('esconder');
-            } catch (error) {
-                console.error('Erro ao resetar senha para:', email, error);
-                const msg = document.getElementById('mensagem-erro-resetar');
-                msg.textContent = error.message || 'Error resetting password';
-                msg.style.display = 'block';
-                msg.classList.remove('esconder');
             }
         } else if (e.target.classList.contains('edit')) {
             const linha = e.target.closest('tr');
@@ -410,6 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
             usuarioEditadoEmail = email;
 
             document.getElementById('nomeEditarUsuario').value = nome;
+            document.getElementById('emailEditarUsuario').value = email;
             document.getElementById('emailEditarUsuario').value = email;
 
             const perfilMap = {
@@ -424,6 +446,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             modalEditar.classList.remove('esconder');
+        } else if (e.target.classList.contains('resetar_password')) {
+            abrirModalAtualizarSenha(email);
         }
     });
 
