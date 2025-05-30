@@ -40,7 +40,7 @@ let currentFilteredData = []; // Dados atualmente filtrados para manter referên
 function formatDate(timestamp) {
     if (!timestamp) return '-';
     const date = new Date(timestamp);
-    
+   
     return date.toLocaleString('pt-BR', {
         day: '2-digit',
         month: '2-digit',
@@ -50,6 +50,7 @@ function formatDate(timestamp) {
         timeZone: 'UTC' // Força usar UTC
     });
 }
+
 
 // Função para formatar o conteúdo dos detalhes completos
 function formatItemDetails(item) {
