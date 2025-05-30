@@ -4,11 +4,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/register.css">
+  <link rel="stylesheet" href="/css/alerts.css">
+  <link rel="stylesheet" href="/css/buttons.css">
+  <link rel="stylesheet" href="/css/titles.css">
+  <link rel="stylesheet" href="/css/formulario.css">
+
+  <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
+
+  <script src="../../../js/const.js" defer></script>
+  <script src="../../../js/name_leavebutton.js" defer></script>
+  <script type="module" src="../../../js/headerfooter.js"></script>
+  <script src="../../../js/headerlogado.js"></script>
+  <script src="./js/menuhamburger.js" defer></script>
+  <script src="/js/request-upgrade.js" defer></script>
+
+  <title>Profile Upgrade Request</title>
 </head>
 
 <body>
-  <h1>Request Profile Upgrade</h1>
+  <div id="estruturaLogin"></div>
+  <div id="header"></div>
+
+  <main class="container_padrao">
+    <div class="formulario_padrao">
+      <h1 class="titulo_padrao">Profile Upgrade Request</h1>
+      <form id="upgradeForm" class="formRegister">
+
+        <div class="container-input-label">
+          <label class="labelRegister" for="email">Email: <span>*</span></label>
+          <input class="inputRegister" type="email" id="email" name="email">
+        </div>
+
+        <h2 class="subtitulo_padrao">Requested profile:</h2>
+
+        <div class="radioGroupRegister">
+          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="CRAAM_RESEARCHER"> CRAAM Researcher</label>
+          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="SOLAR_PHYSICIST"> Solar Physicist</label>
+          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="ADMINISTRATOR"> Administrator</label>
+        </div>
+
+        <div class="containerJustification">
+          <label class="justificationLabel" for="justification">Justification:</label>
+          <textarea id="justification" name="justification"></textarea>
+        </div>
+
+        <div class="invalid_message_error" id="error_email">Please fill in the Email field.</div>
+        <div class="invalid_message_error" id="error_email_format">Please enter a valid email address.</div>
+        <div class="invalid_message_error" id="error_profile">Please select a profile.</div>
+        <div class="invalid_message_error" id="error_justification">Please fill in the Justification field.</div>
+        <div class="valid_message_error" id="success_processing">Processing your request...</div>
+        <div class="valid_message_error" id="success_submission">Request sent! Please wait while we review it.</div>
+        <div class="invalid_message_error" id="error_submission">Error submitting form. Please try again.</div>
+
+        <button class="btnBlack btnPositionRight" type="submit">Request Upgrade</button>
+
+      </form>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
