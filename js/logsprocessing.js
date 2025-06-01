@@ -1,4 +1,3 @@
-// Função para alternar a exibição dos detalhes (versão alternativa - usa dados já carregados)
 async function toggleDetailsFromCache(index) {
     const detailsRow = document.querySelector(`tr[data-details="${index}"]`);
     const button = document.querySelector(`tr[data-index="${index}"] .btn-action`);
@@ -34,8 +33,8 @@ async function toggleDetailsFromCache(index) {
 
 const API_URL = 'traces';
 
-let allData = []; // Armazenar todos os dados para filtrar
-let currentFilteredData = []; // Dados atualmente filtrados para manter referência
+let allData = []; 
+let currentFilteredData = []; 
 
 function formatDate(timestamp) {
     if (!timestamp) return '-';
@@ -47,12 +46,10 @@ function formatDate(timestamp) {
         year: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
-        timeZone: 'UTC' // Força usar UTC
+        timeZone: 'UTC' 
     });
 }
 
-
-// Função para formatar o conteúdo dos detalhes completos
 function formatItemDetails(item) {
     if (!item) {
         return '<p style="color: #dc3545;">Erro ao carregar detalhes</p>';
@@ -105,19 +102,7 @@ function formatItemDetails(item) {
     return html;
 }
 
-// Função para obter cor do status
-function getStatusColor(status) {
-    switch(status?.toUpperCase()) {
-        case 'PENDING': return '#0E7AB4';
-        case 'PROCESSING': return '#DB4B16';
-        case 'COMPLETED': return '#1ca83d';
-        case 'ERROR': return '#cc141d';
-        case 'FAILED': return '#cc141d';
-        default: return '#6c757d';
-    }
-}
-
-// Função para alternar a exibição dos detalhes
+// exibição do view
 async function toggleDetails(index) {
     const detailsRow = document.querySelector(`tr[data-details="${index}"]`);
     const button = document.querySelector(`tr[data-index="${index}"] .btn-action`);
@@ -156,7 +141,6 @@ async function toggleDetails(index) {
                 detailsContent.innerHTML = '<p style="color: #dc3545;">ID do item não encontrado</p>';
             }
             
-            // Mostrar a linha
             detailsRow.style.display = 'table-row';
             button.textContent = 'Close';
             button.classList.remove('btnGray_table');
@@ -194,7 +178,6 @@ async function fetchData() {
     }
 }
 
-// Função para buscar detalhes específicos de um item por ID
 async function fetchItemDetails(itemId) {
     try {
         const token = localStorage.getItem("token");
@@ -229,24 +212,19 @@ async function fetchItemDetails(itemId) {
     }
 }
 
-// Função para filtrar dados por data, status, instrumento e texto
 function filterData(data, startDate, endDate, status, instrument, textFilter) {
     return data.filter(item => {
-        // Filtro de status
         let matchesStatus = true;
         if (status) {
             matchesStatus = item.status === status;
         }
 
-        // Filtro de instrumento
         let matchesInstrument = true;
         if (instrument) {
-            // Verificar se o filePath contém o nome do instrumento
             const filePathUpper = item.filePath ? item.filePath.toUpperCase() : '';
             matchesInstrument = filePathUpper.includes(instrument.toUpperCase());
         }
 
-        // Filtro de texto livre (busca em todos os campos relevantes)
         let matchesText = true;
         if (textFilter && textFilter.trim()) {
             const searchText = textFilter.trim().toLowerCase();
@@ -254,22 +232,19 @@ function filterData(data, startDate, endDate, status, instrument, textFilter) {
             const user = item.user ? item.user.toLowerCase() : '';
             const status = item.status ? item.status.toLowerCase() : '';
             
-            // Buscar o texto em filePath, user ou status
             matchesText = filePath.includes(searchText) || 
                          user.includes(searchText) || 
                          status.includes(searchText);
         }
 
-        // Filtro de data
         let matchesDate = true;
         if (startDate || endDate) {
             const createdDate = new Date(item.createdTimestamp);
             
-            // Verificar se a data é válida
             if (isNaN(createdDate.getTime())) {
                 matchesDate = false;
             } else {
-                // Normalizar as datas para comparação (sem horário)
+                
                 const itemDate = new Date(createdDate.getFullYear(), createdDate.getMonth(), createdDate.getDate());
                 
                 let matchesStartDate = true;
@@ -295,20 +270,16 @@ function filterData(data, startDate, endDate, status, instrument, textFilter) {
     });
 }
 
-// Função para popular a tabela
 function populateTable(data) {
     const tbody = document.querySelector('.access-table tbody');
 
-    // Limpar tabela
     tbody.innerHTML = '';
 
-    // Se não há dados
     if (!data || data.length === 0) {
         tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhum dado encontrado</td></tr>';
         return;
     }
 
-    // Adicionar cada item na tabela
     data?.forEach((item, index) => {
         const row = document.createElement('tr');
         row.setAttribute('data-index', index);
@@ -326,7 +297,6 @@ function populateTable(data) {
 
         tbody.appendChild(row);
 
-        // Criar linha de detalhes (inicialmente oculta)
         const detailsRow = document.createElement('tr');
         detailsRow.setAttribute('data-details', index);
         detailsRow.style.display = 'none';
@@ -342,13 +312,12 @@ function populateTable(data) {
     });
 }
 
-// Função para aplicar filtros
 function applyFilters() {
     const startDateInput = document.getElementById('dataInicial');
     const endDateInput = document.getElementById('dataFinal');
     const statusSelect = document.getElementById('filtroStatus');
     const instrumentSelect = document.getElementById('filtroInstrumentos');
-    const textFilterInput = document.getElementById('filtroPorErros'); // Campo de filtro de texto
+    const textFilterInput = document.getElementById('filtroPorErros'); 
     
     const startDate = startDateInput ? startDateInput.value : null;
     const endDate = endDateInput ? endDateInput.value : null;
@@ -359,41 +328,37 @@ function applyFilters() {
     console.log('Filtrando por:', { startDate, endDate, status, instrument, textFilter });
 
     const filteredData = filterData(allData, startDate, endDate, status, instrument, textFilter);
-    currentFilteredData = filteredData; // Manter referência dos dados filtrados
+    currentFilteredData = filteredData; 
     populateTable(filteredData);
 }
 
-// Função para limpar filtros
 function clearFilters() {
     const startDateInput = document.getElementById('dataInicial');
     const endDateInput = document.getElementById('dataFinal');
     const statusSelect = document.getElementById('filtroStatus');
     const instrumentSelect = document.getElementById('filtroInstrumentos');
-    const textFilterInput = document.getElementById('filtroPorErros'); // Campo de filtro de texto
+    const textFilterInput = document.getElementById('filtroPorErros'); 
     
     if (startDateInput) startDateInput.value = '';
     if (endDateInput) endDateInput.value = '';
     if (statusSelect) statusSelect.value = '';
     if (instrumentSelect) instrumentSelect.value = '';
-    if (textFilterInput) textFilterInput.value = ''; // Limpar campo de texto
+    if (textFilterInput) textFilterInput.value = ''; 
     
-    currentFilteredData = allData; // Resetar dados filtrados
-    populateTable(allData); // Mostrar todos os dados
+    currentFilteredData = allData; 
+    populateTable(allData);
 }
 
-// Carregar dados quando a página carregar
 document.addEventListener('DOMContentLoaded', async function() {
     const data = await fetchData();
     if (data) {
-        allData = data; // Armazenar todos os dados
-        currentFilteredData = data; // Inicializar dados filtrados
+        allData = data; 
+        currentFilteredData = data; 
         populateTable(data);
         
-        // Adicionar event listeners apenas para os botões
         const searchButton = document.getElementById('btn_buscar');
         const clearButton = document.getElementById('btn_limpar');
 
-        // Se houver botão de busca, adicionar evento
         if (searchButton) {
             searchButton.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -401,7 +366,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
         }
 
-        // Se houver botão de limpar, adicionar evento
         if (clearButton) {
             clearButton.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -411,7 +375,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
-// Adicionar CSS para o botão Close com hover
 const style = document.createElement('style');
 style.textContent = `
     .btn-close {
