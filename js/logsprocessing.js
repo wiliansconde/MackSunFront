@@ -5,7 +5,6 @@ async function toggleDetailsFromCache(index) {
     
     if (detailsRow) {
         if (detailsRow.style.display === 'none') {
-            // Usar dados já carregados
             const item = currentFilteredData[index];
             console.log('Usando dados do cache:', item);
             
@@ -15,7 +14,6 @@ async function toggleDetailsFromCache(index) {
                 detailsContent.innerHTML = '<p style="color: #dc3545;">Dados do item não encontrados</p>';
             }
             
-            // Mostrar a linha
             detailsRow.style.display = 'table-row';
             button.textContent = 'Close';
             button.classList.remove('btnGray_table');
@@ -48,6 +46,26 @@ function formatDate(timestamp) {
         minute: '2-digit',
         timeZone: 'UTC' 
     });
+}
+
+async function fetchData() {
+    try {
+        const token = localStorage.getItem("token");
+        console.log('achei o token', token);
+        const response = await fetch(`${BASE_URL}${API_URL}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        const normalizedResponse = await response.json();
+        return normalizedResponse.data;
+    } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+        return null;
+    }
 }
 
 function formatItemDetails(item) {
@@ -102,7 +120,7 @@ function formatItemDetails(item) {
     return html;
 }
 
-// exibição do view
+// Função toggleDetails atualizada para usar dados já disponíveis
 async function toggleDetails(index) {
     const detailsRow = document.querySelector(`tr[data-details="${index}"]`);
     const button = document.querySelector(`tr[data-index="${index}"] .btn-action`);
@@ -110,43 +128,46 @@ async function toggleDetails(index) {
     
     if (detailsRow) {
         if (detailsRow.style.display === 'none') {
-            // Mostrar loading
             button.textContent = 'Loading...';
             button.disabled = true;
-            
-            // Buscar detalhes da API
+        
             const item = currentFilteredData[index];
             console.log('Item selecionado:', item);
             
-            if (item && item.id) {
-                console.log('Buscando detalhes para ID:', item.id);
-                const itemDetails = await fetchItemDetails(item.id);
+            if (item) {
+                // Os dados já estão disponíveis, não precisa fazer chamada à API
+                console.log('Usando dados já disponíveis');
+                console.log('Actions encontradas:', item.actions);
                 
-                if (itemDetails) {
-                    console.log('Detalhes recebidos:', itemDetails);
-                    detailsContent.innerHTML = formatItemDetails(itemDetails);
-                } else {
-                    console.error('Nenhum detalhe retornado da API');
-                    detailsContent.innerHTML = `
-                        <p style="color: #dc3545;">Erro ao carregar detalhes do servidor</p>
-                        <p style="color: #6c757d; font-size: 12px;">
-                            Verifique o console do navegador para mais detalhes.<br>
-                            ID tentado: ${item.id}<br>
-                            URL: ${BASE_URL}${API_URL}/${item.id}
-                        </p>
-                    `;
-                }
+                // Simular um pequeno delay para melhor UX
+                setTimeout(() => {
+                    try {
+                        detailsContent.innerHTML = formatItemDetails(item);
+                        console.log('Detalhes formatados com sucesso');
+                    } catch (error) {
+                        console.error('Erro ao formatar detalhes:', error);
+                        detailsContent.innerHTML = createFallbackDetails(item);
+                    }
+                    
+                    detailsRow.style.display = 'table-row';
+                    button.textContent = 'Close';
+                    button.classList.remove('btnGray_table');
+                    button.classList.add('btn-close');
+                    button.style.backgroundColor = '#dc3545';
+                    button.disabled = false;
+                }, 100);
+                
             } else {
-                console.error('Item ou ID não encontrado:', item);
-                detailsContent.innerHTML = '<p style="color: #dc3545;">ID do item não encontrado</p>';
+                console.error('Item não encontrado no índice:', index);
+                detailsContent.innerHTML = '<p style="color: #dc3545;">Item não encontrado</p>';
+                
+                detailsRow.style.display = 'table-row';
+                button.textContent = 'Close';
+                button.classList.remove('btnGray_table');
+                button.classList.add('btn-close');  
+                button.style.backgroundColor = '#dc3545';
+                button.disabled = false;
             }
-            
-            detailsRow.style.display = 'table-row';
-            button.textContent = 'Close';
-            button.classList.remove('btnGray_table');
-            button.classList.add('btn-close');
-            button.style.backgroundColor = '#dc3545';
-            button.disabled = false;
         } else {
             detailsRow.style.display = 'none';
             button.textContent = 'View';
@@ -158,59 +179,63 @@ async function toggleDetails(index) {
     }
 }
 
-async function fetchData() {
-    try {
-        const token = localStorage.getItem("token");
-        console.log('achei o token', token);
-        const response = await fetch(`${BASE_URL}${API_URL}`, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-        });
-
-        const normalizedResponse = await response.json();
-        return normalizedResponse.data;
-    } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-        return null;
+/// Função para formatar apenas os actions do item
+function formatItemDetails(item) {
+    let actionsHTML = '';
+    
+    if (item.actions && Array.isArray(item.actions)) {
+        actionsHTML = item.actions.map((action, index) => `
+            <div style="margin-bottom: 12px; padding: 12px; background: #f8f9fa; border-left: 4px solid #007bff; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <div style="font-size: 11px; color: #6c757d; margin-bottom: 6px; font-weight: 500;">
+                    ${action.createdOn}
+                </div>
+                <div style="color: #495057; line-height: 1.4;">
+                    ${action.action}
+                </div>
+            </div>
+        `).join('');
+    } else {
+        actionsHTML = '<p style="color: #6c757d; font-style: italic; text-align: center; padding: 20px;">Nenhuma ação encontrada</p>';
     }
+    
+    return `
+        <div style="padding: 15px; background: #fff; border-radius: 5px;">
+            <h6 style="margin-bottom: 15px; color: #495057; font-weight: 600; border-bottom: 1px solid #dee2e6; padding-bottom: 8px;">
+                Action History
+            </h6>
+            ${actionsHTML}
+        </div>
+    `;
 }
 
-async function fetchItemDetails(itemId) {
-    try {
-        const token = localStorage.getItem("token");
-        const url = `${BASE_URL}${API_URL}/${itemId}`;
-        
-        console.log('Buscando detalhes para:', itemId);
-        console.log('URL completa:', url);
-        
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-        });
-
-        console.log('Status da resposta:', response.status);
-        console.log('Response OK:', response.ok);
-
-        if (!response.ok) {
-            console.error('Erro na resposta:', response.status, response.statusText);
-            return null;
-        }
-
-        const normalizedResponse = await response.json();
-        console.log('Resposta da API:', normalizedResponse);
-        
-        return normalizedResponse.data || normalizedResponse;
-    } catch (error) {
-        console.error('Erro ao buscar detalhes do item:', error);
-        return null;
+function createFallbackDetails(item) {
+    let actionsHTML = '';
+    
+    if (item.actions && Array.isArray(item.actions)) {
+        actionsHTML = item.actions.map((action, index) => `
+            <div style="margin-bottom: 12px; padding: 12px; background: #f8f9fa; border-left: 4px solid #007bff; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <div style="font-size: 11px; color: #6c757d; margin-bottom: 6px; font-weight: 500;">
+                    ${new Date(action.createdOn).toLocaleString('pt-BR')}
+                </div>
+                <div style="color: #495057; line-height: 1.4;">
+                    ${action.action}
+                </div>
+            </div>
+        `).join('');
+    } else {
+        actionsHTML = '<p style="color: #6c757d; font-style: italic; text-align: center; padding: 20px;">Nenhuma ação encontrada</p>';
     }
+    
+    return `
+        <div style="padding: 15px; background: #fff; border-radius: 5px;">
+            <h6 style="margin-bottom: 15px; color: #495057; font-weight: 600; border-bottom: 1px solid #dee2e6; padding-bottom: 8px;">
+                Histórico de Ações
+            </h6>
+            ${actionsHTML}
+        </div>
+    `;
 }
+
 
 function filterData(data, startDate, endDate, status, instrument, textFilter) {
     return data.filter(item => {
