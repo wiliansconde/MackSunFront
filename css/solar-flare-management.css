@@ -48,6 +48,11 @@
     display: none;
 }
 
+.sublinhado_titulo {
+    margin-bottom: 1rem;
+    width: 20rem;
+}
+
 .sublinhado_editar_evento {
     margin-bottom: 1rem;
     width: 14.8rem;
@@ -89,11 +94,6 @@ textarea {
 
 .btn_gap {
     margin-top: 0.5rem;
-}
-
-.sublinhado_titulo {
-    margin-bottom: 1rem;
-    width: 20rem;
 }
 
 .dropdown-checkbox {
@@ -212,6 +212,7 @@ textarea {
         justify-content: center;
         width: 100%;
     }
+
 }
 
 @media (min-width: 820px) and (max-width: 1180px) {
