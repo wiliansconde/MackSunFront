@@ -126,6 +126,10 @@
     padding: 1rem 4.8rem;
 }
 
+.btnFilterRed {
+    padding: 1rem 5.2rem;
+}
+
 @media (max-width: 767px) {
     .btnBlack {
         width: 100%;

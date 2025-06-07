@@ -4,11 +4,155 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Solar Flare Management</title>
+
+  <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
+  <link rel="stylesheet" href="../../../css/global.css">
+  <link rel="stylesheet" href="../../../css/formulario.css">
+  <link rel="stylesheet" href="../../../css/titles.css">
+  <link rel="stylesheet" href="../../../css/solar-flare-management.css">
+  <link rel="stylesheet" href="../../../css/alerts.css">
+  <link rel="stylesheet" href="../../../css/header.css">
+  <link rel="stylesheet" href="../../../css/table.css">
+  <link rel="stylesheet" href="../../../css/buttons.css">
+
+  <script src="../../../js/const.js" defer></script>
+  <script type="module" src="../../../js/headerfooter.js" defer></script>
+  <script src="../../../js/headerlogado.js"></script>
+  <script src="../../../js/solar-flare-management.js" defer></script>
+
 </head>
 
 <body>
-  <h1>Solar Flare Management</h1>
+  <div id="header"></div>
+
+  <main class="container_padrao">
+    <section class="formulario-card_medio">
+      <h1 class="titulo_padrao">Solar Flare Management</h1>
+
+      <div class="barra_superior">
+        <div class="linha-filtros-superior">
+          <input type="date" id="filtro_data">
+          <input type="text" id="filtro_classificacao" placeholder="Filter Classification">
+
+          <div class="botoes-filtros-superior">
+            <button id="btn_limpar_filtro" class="btnGray_table">Clear Filters</button>
+            <button id="btn_adicionar_flare" class="btnGray_table">Add New Flare</button>
+          </div>
+        </div>
+
+        <div class="linha-filtros-inferior">
+          <input type="text" id="filtro_telescopio" placeholder="Filter Telescope">
+          <input type="text" id="filtro_descricao" placeholder="Filter Description">
+          
+          <div class="btn-criar-wrapper">
+            <button class="btnRed btnSizeHeightLimited btnFilterRed" id="btn_buscar">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="access-table-wrapper">
+        <table class="access-table">
+          <thead>
+            <tr>
+              <th>Event date and time(UTC)</th>
+              <th>Flare Classification</th>
+              <th>Telescopes that captured the event</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tbody_flares"></tbody>
+        </table>
+      </div>
+      <div class="paginacao-container" id="paginacao_container"></div>
+    </section>
+
+    <div id="modal_novo_flare_solar" class="modal esconder">
+      <div class="modal-content">
+        <h2 class="titulo_padrao sublinhado_titulo">Add New Solar Flare Event</h2>
+
+        <form id="form_novo_flare_solar">
+          <label for="data_evento">Event date and time(UTC): <span>*</span>
+          </label>
+          <input type="text" id="data_evento" name="data_evento" placeholder="YYYY-MM-DD HH:MM">
+
+          <label for="classificacao_flare">Flare Classification: <span>*</span>
+          </label>
+          <input type="text" id="classificacao_flare">
+
+          <label for="captura_evento_telescopios">Telescopes that captured the event: <span>*</span></label>
+
+          <div class="dropdown-checkbox">
+            <button type="button" id="dropdownToggleTelescopios" class="dropdown-button">
+              Select a telescope ▼
+            </button>
+            <div class="dropdown-content" id="dropdownContentTelescopiosNovo"></div>
+          </div>
+
+          <label for="descricao_adicional"> Additional description: </label>
+          <textarea name="descricao_adicional" id="descricao_adicional"></textarea>
+
+          <p id="mensagem_sucesso_flare" class="valid_message_error esconder">Record added successfully.</p>
+          <p id="mensagem_erro_flare" class="invalid_message_error esconder">Error adding a new record.</p>
+
+          <div class="botoes-modal">
+            <button type="submit" class="btnGreen">Save</button>
+            <button type="button" id="cancelar_flare_solar" class="btnRed">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="modal_editar_evento" class="modal esconder">
+      <div class="modal-content">
+        <h2 class="titulo_padrao sublinhado_editar_evento">View and Edit event</h2>
+
+        <form id="form_editar_evento">
+          <label for="editar_data_evento">Event date and time(UTC): <span>*</span>
+          </label>
+          <input type="datetime-local" id="editar_data_evento">
+
+          <label for="editar_classificacao_flare">Flare Classification: <span>*</span>
+          </label>
+          <input type="text" id="editar_classificacao_flare">
+
+          <div class="dropdown-checkbox">
+            <button type="button" id="dropdownAlternarTelescopiosEditar" class="dropdown-button">
+              Select a telescope ▼
+            </button>
+            <div class="dropdown-content" id="dropdownContentTelescopiosEditar"></div>
+          </div>
+
+          <label for="editar_descricao_adicional"> Additional description: </label>
+          <textarea name="descricao_adicional" id="editar_descricao_adicional"></textarea>
+
+          <p id="mensagem_sucesso_editar_flare" class="valid_message_error esconder">updated successfully.</p>
+          <p id="mensagem-erro-editar_flare" class="invalid_message_error esconder">
+            Error updating.</p>
+
+          <div class="botoes-modal">
+            <button type="button" id="btn_ativar_edicao" class="btnGray">Edit</button>
+            <button type="submit" id="btn_salvar_edicao" class="btnGreen esconder">Update</button>
+            <button type="button" id="cancelar_flare_editar" class="btnRed">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="modal_excluir_evento" class="modal esconder">
+      <div class="modal-content">
+        <p>Are you sure you want to delete this solar flare? This action cannot be undone.</p>
+        <div class="botoes-modal">
+          <button type="button" class="btnGreen" id="confirmar_exclusao_flare">Yes, Delete</button>
+          <button type="button" class="btnRed" id="excluir_evento">Cancel</button>
+        </div>
+        <p id="mensagem_sucesso_excluir" class="valid_message_error"></p>
+        <p id="mensagem-erro-excluir" class="invalid_message_error"></p>
+      </div>
+    </div>
+  </main>
 </body>
 
 </html>
