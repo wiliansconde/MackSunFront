@@ -260,3 +260,7 @@ export function loadUserData() {
     return null;
   }
 }
+
+export function getToken() {
+  return localStorage.getItem("token");
+}

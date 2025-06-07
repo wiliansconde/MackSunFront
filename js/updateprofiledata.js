@@ -1,20 +1,16 @@
-// Arquivo: updateprofiledata.js
-
-// Importamos a função loadUserData do login.js
-// Importante: Este arquivo precisa ter type="module" na tag script do HTML
 import { loadUserData } from './login.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('Script de atualização de perfil carregado');
     
-    // 1. Verificar autenticação usando a função loadUserData
+ 
     const token = localStorage.getItem('token');
     const email = localStorage.getItem('email');
     
     console.log('Token disponível:', !!token);
     console.log('Email disponível:', !!email);
 
-    // Carregar dados do usuário usando a função exportada
+    
     const userData = loadUserData();
     console.log('Dados do usuário carregados:', userData);
 
@@ -30,11 +26,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     hideAllMessages();
 
-    // Se já temos os dados do usuário no localStorage, usamos diretamente
     if (userData) {
         console.log('Usando dados do usuário do localStorage');
         
-        // Preencher os campos com os dados do localStorage
+       
         const usernameField = document.getElementById('username');
         const fullnameField = document.getElementById('fullname');
         const emailField = document.getElementById('email');
@@ -60,30 +55,30 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.log('Campo email não encontrado no DOM');
         }
     }
-    // Se não temos dados no localStorage ou não temos token/email, verificamos se precisamos buscar da API
+    
     else if (!token || !email) {
         console.log('Token ou email não encontrados. Verificando se está na página de perfil...');
         
-        // Verificar se estamos na página de perfil (verificando a existência dos campos)
+      
         const isProfilePage = document.getElementById('username') && 
                              document.getElementById('fullname') && 
                              document.getElementById('email');
         
         if (isProfilePage) {
             console.log('Estamos na página de perfil mas sem autenticação. Redirecionando...');
-            // Redirecionar para a página de login ou exibir mensagem
+            
             alert('Você precisa estar logado para acessar esta página.');
-            window.location.href = 'login.html'; // Ajuste conforme necessário
-            return;
+            window.location.href = 'login.html'; 
+              return;
         } else {
             console.log('Não estamos na página de perfil, continuando...');
-            return; // Se não estamos na página de perfil, não há problema em não ter autenticação
+            return; 
         }
     }
-    // Se temos token e email mas não temos dados no localStorage, buscamos da API
+ 
     else {
         try {
-            // Certifique-se que BASE_URL está definido e acessível
+            
             const BASE_URL = window.BASE_URL || localStorage.getItem('baseUrl') || 'https://api.exemplo.com/'; 
             
             console.log('Buscando dados do usuário na API:', `${BASE_URL}users/${email}`);
@@ -103,10 +98,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             const data = await response.json();
             console.log('Dados do usuário recebidos da API:', data);
             
-            // Salvar os dados no localStorage para uso futuro
+            
             localStorage.setItem('userData', JSON.stringify(data.data));
             
-            // Preencher os campos com os dados recebidos
+           
             const usernameField = document.getElementById('username');
             const fullnameField = document.getElementById('fullname');
             const emailField = document.getElementById('email');
@@ -136,7 +131,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // 4. Configurar evento para o botão de alterar senha
+    
     const changePasswordButton = document.querySelector('.btn-change-password');
     if (changePasswordButton) {
         console.log('Botão de alterar senha encontrado, configurando evento');
