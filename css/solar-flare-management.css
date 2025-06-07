@@ -1,0 +1,284 @@
+.barra_superior {
+    margin-top: 1rem;
+}
+
+.linha-filtros-superior,
+.linha-filtros-inferior {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.linha-filtros-superior input,
+.linha-filtros-inferior input,
+.linha-filtros-superior select,
+.linha-filtros-inferior select {
+    flex: 1;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--preto);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--branco);
+    padding: 1.875rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 31.25rem;
+    box-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.esconder {
+    display: none;
+}
+
+.sublinhado_editar_evento {
+    margin-bottom: 1rem;
+    width: 14.8rem;
+}
+
+span {
+    color: var(--vermelho);
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.botoes-modal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.625rem;
+    margin-top: 0.625rem;
+}
+
+input,
+select {
+    padding-left: 0.5rem;
+    border: 1px solid var(--cinza-claro);
+    height: 2.188rem;
+    border-radius: 0.625rem;
+}
+
+textarea {
+    padding: 0.5rem;
+    border: 1px solid var(--cinza-claro);
+    height: 4rem;
+    border-radius: 0.625rem;
+    resize: none;
+}
+
+.btn_gap {
+    margin-top: 0.5rem;
+}
+
+.sublinhado_titulo {
+    margin-bottom: 1rem;
+    width: 20rem;
+}
+
+.dropdown-checkbox {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
+    background-color: var(--branco);
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--cinza-claro);
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.dropdown-button:hover {
+    background-color: var(--azul);
+    color: var(--branco);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--branco);
+    min-width: 10rem;
+    border: 1px solid var(--cinza-claro);
+    z-index: 1;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+.dropdown-content label {
+    display: flex !important;
+    padding: 0.25rem;
+    cursor: pointer;
+    align-items: center;
+    gap: 0.3rem !important;
+}
+
+.dropdown-content label:hover {
+    background-color: var(--azul);
+    color: var(--branco);
+}
+
+.dropdown-button.active {
+    background-color: var(--cinza-claro);
+}
+
+@media (max-width: 767px) {
+
+    .botoes-filtros-superior {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        gap: 1rem;
+        padding: 0.75rem 1.5rem;
+        margin: 0;
+    }
+
+    .btnFilterRed {
+        padding: 0.75rem 2rem;
+    }
+
+    .linha-filtros-superior input,
+    .linha-filtros-inferior input {
+        width: 100%;
+        height: 2.5rem;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        box-sizing: border-box;
+    }
+
+    .linha-filtros-superior,
+    .linha-filtros-inferior {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .formulario-card_medio {
+        width: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .access-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        margin-top: 1rem;
+    }
+
+    .access-table {
+        width: 100%;
+        font-size: 0.8rem;
+        border-collapse: collapse;
+    }
+
+    .access-table th,
+    .access-table td {
+        padding: 10px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .modal-content {
+        padding: 1.5rem;
+        max-width: 100%;
+        width: 90%;
+    }
+
+    .btn-criar-wrapper {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+@media (min-width: 820px) and (max-width: 1180px) {
+    .botoes-filtros-superior {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        gap: 1rem;
+        padding: 0.75rem 1.5rem;
+        margin: 0;
+    }
+
+    .btnFilterRed {
+        padding: 0.75rem 2rem;
+    }
+
+    .linha-filtros-superior input,
+    .linha-filtros-inferior input {
+        width: 100%;
+        height: 2.5rem;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        box-sizing: border-box;
+    }
+
+    .linha-filtros-superior,
+    .linha-filtros-inferior {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .formulario-card_medio {
+        width: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .access-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        margin-top: 1rem;
+    }
+
+    .access-table {
+        width: 100%;
+        font-size: 0.8rem;
+        border-collapse: collapse;
+    }
+
+    .access-table th,
+    .access-table td {
+        padding: 10px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .modal-content {
+        padding: 1.5rem;
+        max-width: 100%;
+        width: 90%;
+    }
+
+    .btn-criar-wrapper {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}
