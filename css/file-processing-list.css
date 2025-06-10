@@ -1,118 +1,44 @@
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: var(--preto);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--branco);
-    padding: 1.875rem;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 31.25rem;
-    box-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.2);
-    position: relative;
-}
-
-.esconder {
+.accordion {
     display: none;
+    margin-top: 8px;
+    padding: 10px;
+    font-size: 0.9em;
 }
 
-.sublinhado_titulo {
-    margin-bottom: 1rem;
-    width: 20rem;
+.accordion-content ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-left: 0;
+    list-style: none;
+    flex-direction: column;
 }
 
-.sublinhado_editar_evento {
-    margin-bottom: 1rem;
-    width: 14.8rem;
+.accordion-content ul li {
+    display: flex;
+    margin-bottom: 0.5rem;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-span {
+.btn-saiba-mais {
+    margin-left: 0.5rem;
+}
+
+.statusPendente {
     color: var(--vermelho);
     font-weight: bold;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.statusEmAndamento {
+    color: var(--amarelo);
+    font-weight: bold;
 }
 
-.botoes-modal {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.625rem;
-    margin-top: 0.625rem;
-}
-
-textarea {
-    padding: 0.5rem;
-    border: 1px solid var(--cinza-claro);
-    height: 4rem;
-    border-radius: 0.625rem;
-    resize: none;
-}
-
-.btn_gap {
-    margin-top: 0.5rem;
-}
-
-.dropdown-checkbox {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-button {
-    background-color: var(--branco);
-    padding: 0.5rem 0.75rem;
-    border: 1px solid var(--cinza-claro);
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-.dropdown-button:hover {
-    background-color: var(--azul);
-    color: var(--branco);
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: var(--branco);
-    min-width: 10rem;
-    border: 1px solid var(--cinza-claro);
-    z-index: 1;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    padding: 0.5rem;
-}
-
-.dropdown-content label {
-    display: flex !important;
-    padding: 0.25rem;
-    cursor: pointer;
-    align-items: center;
-    gap: 0.3rem !important;
-}
-
-.dropdown-content label:hover {
-    background-color: var(--azul);
-    color: var(--branco);
-}
-
-.dropdown-button.active {
-    background-color: var(--cinza-claro);
+.statusCompleto {
+    color: var(--verde);
+    font-weight: bold;
 }
 
 @media (max-width: 767px) {
@@ -126,12 +52,10 @@ textarea {
         margin: 0;
     }
 
-    .btnFilterRed {
-        padding: 0.75rem 2rem;
-    }
-
     .linha-filtros-superior input,
-    .linha-filtros-inferior input {
+    .linha-filtros-inferior input,
+    .linha-filtros-superior select,
+    .linha-filtros-inferior select {
         width: 100%;
         height: 2.5rem;
         padding: 0.5rem;
@@ -182,6 +106,11 @@ textarea {
         display: flex;
         justify-content: center;
         width: 100%;
+    }
+
+    .btn-responsive {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
     }
 
 }
@@ -196,12 +125,10 @@ textarea {
         margin: 0;
     }
 
-    .btnFilterRed {
-        padding: 0.75rem 2rem;
-    }
-
     .linha-filtros-superior input,
-    .linha-filtros-inferior input {
+    .linha-filtros-inferior input,
+    .linha-filtros-superior select,
+    .linha-filtros-inferior select {
         width: 100%;
         height: 2.5rem;
         padding: 0.5rem;
@@ -215,6 +142,7 @@ textarea {
         align-items: flex-start;
         width: 100%;
     }
+
 
     .formulario-card_medio {
         width: 100%;
@@ -252,5 +180,10 @@ textarea {
         display: flex;
         justify-content: center;
         width: 100%;
+    }
+
+    .btn-responsive {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
     }
 }
