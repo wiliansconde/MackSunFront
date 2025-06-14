@@ -4,78 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View the File Processing List</title>
-
-    <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="../../../css/global.css">
-    <link rel="stylesheet" href="../../../css/formulario.css">
-    <link rel="stylesheet" href="../../../css/titles.css">
-    <link rel="stylesheet" href="../../../css/alerts.css">
-    <link rel="stylesheet" href="../../../css/header.css">
-    <link rel="stylesheet" href="../../../css/table.css">
-    <link rel="stylesheet" href="../../../css/buttons.css">
-    <link rel="stylesheet" href="../../../css/filter.css">
-    <link rel="stylesheet" href="../../../css/file-processing-list.css">
-
-    <script src="../../../js/const.js" defer></script>
-    <script type="module" src="../../../js/headerfooter.js" defer></script>
-    <script src="../../../js/headerlogado.js" defer></script>
-    <script src="../../../js/file-processing-list.js" defer></script>
-
+    <title>File patch configuration</title>
 </head>
 
 <body>
-    <div id="header"></div>
-
-    <main class="container_padrao">
-        <section class="formulario-card_medio">
-            <h1 class="titulo_padrao">View the File Processing List</h1>
-
-            <div class="barra_superior">
-                <div class="linha-filtros-superior">
-                    <input type="text" id="filtro_Arquivo" placeholder="Filter File patch">
-
-                    <select id="filtro_status" class="filtroDiversos">
-                        <option value="">All Statuses</option>
-                        <option value="COMPLETED">Completed</option>
-                        <option value="PENDING">Pending</option>
-                        <option value="FAILED">Failed</option>
-                    </select>
-
-                    <div class="botoes-filtros-superior">
-                        <button id="btn_limpar" class="btnGray_table btn-responsive">Clear Filters</button>
-                    </div>
-                </div>
-
-                <div class="linha-filtros-inferior">
-                    <input type="Date" id="filtro_data_inicial" placeholder="Start Date YYYY-MM-DD">
-                    <input type="Date" id="filtro_data_final" placeholder="End Date YYYY-MM-DD">
-
-                    <div class="btn-criar-wrapper">
-                        <button class="btnGray_table btnFilterGray btn-responsive" id="btn_buscar">Search</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="access-table-wrapper">
-                <table class="access-table">
-                    <thead>
-                        <tr>
-                            <th>File Path</th>
-                            <th>User</th>
-                            <th>Status</th>
-                            <th>Created</th>
-                            <th>Updated</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="paginacao-container" id="paginacao_container"></div>
-        </section>
-
-    </main>
+    <h1>File patch configuration</h1>
 </body>
 
 </html>
