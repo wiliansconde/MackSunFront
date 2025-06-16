@@ -13,9 +13,14 @@
     <link rel="icon" href="./assets/img/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/login.css">
     <link rel="stylesheet" href="./css/alerts.css">
-    
-    <script src="./js/const.js" defer></script>
+    <link rel="stylesheet" href="../../../css/table.css">
+    <link rel="stylesheet" href="../../../css/filter.css">
+    <link rel="stylesheet" href="../../../css/buttons.css">
+    <link rel="stylesheet" href="../../../css/charts.css">
 
+    <script src="./js/const.js" defer></script>
+    <script type="module" src="/js/poemaschart.js"></script>
+    <script type="module" src="/js/sstchart.js"></script>
     <script type="module" src="/js/loaders.js"></script>
     <script type="module" src="/js/login.js" defer></script>
     <script src="/js/menuhamburger.js" defer></script>
@@ -37,22 +42,95 @@
             <h1 class="titulo2_banner">MackSun</h1>
         </div>
     </div>
+
+
     <main>
+        <div class="graficos">
+            <div class="poemas">
+                <div class="chart-container">
+                    <h1 class="titulo_padrao">POEMAS</h1>
+                    <h2 class="chart-subtitle">Comparison of combined raw data from 45 GHz and 90 GHz</h2>
+                    <div class="chart-updated" id="updateTime">Updated on: </div>
 
-        <div class="graficoPoemas">
-            <img src="./assets/img/graficoPoemas.png" alt="imgPoemas">
-        </div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color legend-45ghz"></div>
+                            <span>45 GHz</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-90ghz"></div>
+                            <span>90 GHz</span>
+                        </div>
+                    </div>
 
-        <div class="graficoSst">
-            <img src="./assets/img/graficoSst.png" alt="imgSst">
-        </div>
+                    <div id="poemas"></div>
+                </div>
 
-        <div class="graficoSolarFlares">
-            <img src="./assets/img/graficoSolarFlares.png" alt="imgSolarFlares">
-        </div>
+            </div>
 
-        <div class="graficoLatestData">
-            <img src="./assets/img/graficoLatestData.png" alt="imgLatestData">
+
+            <div class="sst">
+                <div class="chart-container">
+                    <h1 class="titulo_padrao">SST</h1>
+                    <h2 class="chart-subtitle">Comparison of combined raw data from 212 GHz and 405 GHz</h2>
+                    <div class="chart-updated" id="updateTime2">Updated on: </div>
+
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color legend-212ghz"></div>
+                            <span>212 GHz</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-405ghz"></div>
+                            <span>405 GHz</span>
+                        </div>
+                    </div>
+
+                    <div id="sst"></div>
+                </div>
+
+
+
+                <div class="solarFlares">
+                    <section class="formulario-card_medio">
+                        <h1 class="titulo_padrao">Solar Flares</h1>
+
+
+                        <div class="access-table-wrapper">
+                            <table class="access-table">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Time(UTC)</th>
+                                        <th>Classification</th>
+                                        <th>Event</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                </div>
+
+
+                <div class="latestData">
+                    <section class="formulario-card_medio">
+                        <h1 class="titulo_padrao">Latest Data Available</h1>
+
+                        <div class="access-table-wrapper">
+                            <table class="access-table">
+                                <thead>
+                                    <tr>
+                                        <th>Telescope</th>
+                                        <th>Last Update</th>
+                                        <th>Coordinates</th>
+                                        <th>Altitude</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -60,6 +138,7 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 </body>
 
 </html>

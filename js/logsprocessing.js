@@ -51,7 +51,6 @@ function formatDate(timestamp) {
 async function fetchData() {
     try {
         const token = localStorage.getItem("token");
-        console.log('achei o token', token);
         const response = await fetch(`${BASE_URL}${API_URL}`, {
             method: 'GET',
             headers: {
@@ -120,7 +119,6 @@ function formatItemDetails(item) {
     return html;
 }
 
-// Função toggleDetails atualizada para usar dados já disponíveis
 async function toggleDetails(index) {
     const detailsRow = document.querySelector(`tr[data-details="${index}"]`);
     const button = document.querySelector(`tr[data-index="${index}"] .btn-action`);
@@ -135,11 +133,9 @@ async function toggleDetails(index) {
             console.log('Item selecionado:', item);
             
             if (item) {
-                // Os dados já estão disponíveis, não precisa fazer chamada à API
                 console.log('Usando dados já disponíveis');
                 console.log('Actions encontradas:', item.actions);
                 
-                // Simular um pequeno delay para melhor UX
                 setTimeout(() => {
                     try {
                         detailsContent.innerHTML = formatItemDetails(item);
@@ -179,7 +175,6 @@ async function toggleDetails(index) {
     }
 }
 
-/// Função para formatar apenas os actions do item
 function formatItemDetails(item) {
     let actionsHTML = '';
     
@@ -235,7 +230,6 @@ function createFallbackDetails(item) {
         </div>
     `;
 }
-
 
 function filterData(data, startDate, endDate, status, instrument, textFilter) {
     return data.filter(item => {
