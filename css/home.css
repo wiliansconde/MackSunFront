@@ -1,56 +1,49 @@
 main {
-    display: grid;
-    gap: 2rem;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: var(--branco);
-    text-align: center;
-}
-.graficos{
-display: flex;
-gap: 1rem;
+    height: auto;
 }
 
-@media (max-width: 767px) {
-    main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .graficoPoemas img,
-    .graficoSst img,
-    .graficoSolarFlares img,
-    .graficoLatestData img {
-        width: 90%; 
-        height: auto; 
-    }
-
-    .graficoSolarFlares,
-    .graficoLatestData {
-        grid-column: auto;
-        grid-row-start: auto; 
-    }
+.graficos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
-    main {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* 2 colunas de tamanho igual */
-        gap: 1.5rem; /* um pouco menor o espaço */
-        justify-content: center;
-    }
+.solarFlares {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+}
 
-    .graficoPoemas img,
-    .graficoSst img,
-    .graficoSolarFlares img,
-    .graficoLatestData img {
-        width: 90%; /* deixa a imagem mais adaptável */
-        height: auto; /* mantém proporção */
-    }
+.solarFlares .formulario-card_medio {
+    width: calc(900px * 2 + 2rem);
+    max-width: 100%;
+    padding: 3rem 3rem;
+    box-sizing: border-box;
+    margin: 1rem;
+}
 
-    .graficoSolarFlares,
-    .graficoLatestData {
-        grid-column: span 2; /* ocupa duas colunas */
-        grid-row-start: auto; /* reseta caso tenha algo diferente */
-    }
+.solarFlares .titulo_padrao {
+    display: inline-block;
+    margin: 0;
+}
+
+.btn-saiba-mais-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.access-table-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.access-table {
+    width: 90%;
 }

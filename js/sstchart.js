@@ -1,4 +1,4 @@
-const API_URL = 'search/chart-data-sst';
+const API_URL = 'public-search/chart-data-sst';
 
 async function fetchData() {
     try {
