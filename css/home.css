@@ -40,10 +40,150 @@ main {
 }
 
 .access-table-wrapper {
-    display: flex;
-    justify-content: center;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 1rem;
 }
 
 .access-table {
-    width: 90%;
+    width: max-content;
+    min-width: 600px;
+    font-size: 0.9rem;
+    border-collapse: collapse;
+}
+
+.latestData {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.latestData .formulario-card_medio {
+    width: 100%;
+    max-width: 1200px;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow-x: auto;
+}
+
+.latestData .access-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.latestData .access-table {
+    width: max-content;
+    min-width: 600px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 767px) {
+    .graficos {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chart-container {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    .chart-subtitle {
+        font-size: 13px;
+    }
+
+    .legend {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .chart-updated {
+        font-size: 11px;
+        text-align: left;
+    }
+
+    .formulario-card_medio {
+        width: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .access-table {
+        font-size: 0.8rem;
+        min-width: 500px;
+    }
+
+    .titulo_banner {
+        font-size: 2rem;
+    }
+
+    .titulo2_banner {
+        font-size: 3rem;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .titulo_padrao {
+        font-size: 1.2rem;
+    }
+
+    .btn-saiba-mais-wrapper {
+        justify-content: center;
+    }
+
+    .btnRed {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .latestData .formulario-card_medio {
+        padding: 1rem;
+    }
+
+    .latestData .access-table {
+        font-size: 0.8rem;
+        min-width: 500px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .chart-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .formulario-card_medio {
+        width: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+
+    .access-table {
+        width: max-content;
+        font-size: 0.8rem;
+    }
+
+    .access-table th,
+    .access-table td {
+        padding: 10px;
+    }
+
+    .titulo_banner {
+        font-size: 2rem;
+    }
+
+    .titulo2_banner {
+        font-size: 3rem;
+        text-align: center;
+    }
+
+    .btn-saiba-mais-wrapper {
+        justify-content: center;
+    }
 }
