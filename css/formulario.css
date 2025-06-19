@@ -37,23 +37,6 @@
     margin: 2.5rem;
 }
 
-/* .invalid_message_error {
-    display: none;
-    color: var(--vermelho);
-    background-color: rgba(204, 20, 29, 0.1);
-    padding: 0 1rem;
-    font-weight: bold;
-}
-
-.success-message {
-    display: none;
-    color: var(--verde);
-    background-color: rgba(28, 168, 61, 0.2);
-    padding: 0 1rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
-} */
-
 @media (max-width: 767px) {
     .container_padrao {
         margin-top: 3rem;

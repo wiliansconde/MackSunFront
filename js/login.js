@@ -1,38 +1,28 @@
-// Modificação do código para garantir que o login funcione corretamente
 import { loadHTML } from './loaders.js';
 
-// Função para inicializar todos os eventos após o carregamento da página
 document.addEventListener('DOMContentLoaded', () => {
-  // Verificar se o usuário está logado
   if (verifyToken()) {
-    // Se estiver logado, mostrar conteúdo para usuário logado
     mostrarConteudoUsuarioLogado();
+  } else if (localStorage.getItem('lembrarSenha') === 'true') {
+    autoLogin();
   } else {
-    // Se não estiver logado, inicializar o popup de login
     inicializarLoginPopup();
   }
-  
-  // Inicializar o formulário de login
   submit();
 });
 
-// Função para mostrar conteúdo quando o usuário está logado
-function mostrarConteudoUsuarioLogado() {
-  // Obter dados do usuário
+export function mostrarConteudoUsuarioLogado() {
   const userData = loadUserData();
   const nomeUsuario = userData ? userData.nome || 'Usuário' : 'Usuário';
-  
-  // Obter os elementos a serem substituídos
+
   const botaoLogin = document.querySelector('.botaoLoginMenu');
   const linkCadastro = document.querySelector('.cadastro');
-  
-  // Verificar se os elementos existem para evitar erros
+
   if (!botaoLogin) {
     console.warn('Botão de login não encontrado');
     return;
   }
-  
-  // Criar elemento temporário para o HTML do perfil de usuário
+
   const elementoHTML = document.createElement('div');
   elementoHTML.innerHTML = `
     <div class="divconta nome_usuario" id="conta">
@@ -43,43 +33,38 @@ function mostrarConteudoUsuarioLogado() {
       </ul>
     </div>
   `.trim();
-  
-  // Obter a div de conta de usuário
-  const divContaUsuario = elementoHTML.firstElementChild;
-  
-  // Obter o menu de navegação
+
+  const userActionsContainer = document.getElementById('userActions');
+  if (userActionsContainer) {
+    userActionsContainer.innerHTML = ''; // Limpa se já houver
+    userActionsContainer.appendChild(elementoHTML);
+  } else {
+    menuNavegacao.appendChild(elementoHTML); // fallback
+  }
+
   const menuNavegacao = document.querySelector('.menu');
-  
-  // Remover elementos de login existentes
+
   if (botaoLogin) botaoLogin.parentNode.removeChild(botaoLogin);
   if (linkCadastro) linkCadastro.parentNode.removeChild(linkCadastro);
-  
-  // Adicionar o elemento de usuário logado
-  menuNavegacao.appendChild(divContaUsuario);
-  
-  // Adicionar evento de logout
+
+  menuNavegacao.appendChild(elementoHTML);
+
   const botaoSair = document.getElementById('botao-sair');
   if (botaoSair) {
     botaoSair.addEventListener('click', (e) => {
       e.preventDefault();
       localStorage.removeItem('userData');
       localStorage.removeItem('token');
-      window.location.reload(); // Recarregar a página
+      window.location.reload();
     });
   }
 }
 
 export function inicializarLoginPopup() {
-  console.log('Inicializando popup de login...');
-  
-  // Primeiro, verificar se o elemento estruturaLogin já existe
   let estruturaLogin = document.querySelector('.estruturaLogin');
-  
-  // Se não existir, carregar o HTML do login
+
   if (!estruturaLogin) {
-    console.log('Carregando HTML de login...');
     loadHTML('estruturaLogin', '/login.html', () => {
-      console.log('HTML de login carregado');
       ativarBotaoLogin();
     });
   } else {
@@ -87,88 +72,64 @@ export function inicializarLoginPopup() {
   }
 }
 
-// Função para ativar o botão de login
 function ativarBotaoLogin() {
   const botaoAbrirPopup = document.querySelector('.botaoLoginMenu');
   const estruturaLogin = document.querySelector('.estruturaLogin');
   const errorLogin = document.getElementById('error_login');
   const menu = document.querySelector('.menu');
-  
-  console.log('Botão de login:', botaoAbrirPopup);
-  console.log('Estrutura de login:', estruturaLogin);
-  
-  if (botaoAbrirPopup && estruturaLogin) {
-    // Remover qualquer event listener existente para evitar duplicações
-    botaoAbrirPopup.removeEventListener('click', abrirPopup);
-    
-    // Adicionar novo event listener
-    botaoAbrirPopup.addEventListener('click', abrirPopup);
-    
-    function abrirPopup() {
-      console.log('Botão de login clicado!');
-      estruturaLogin.style.display = 'flex';
-      
-      preencherCamposSalvos();
-      
-      if (menu && menu.classList.contains('active')) {
-        menu.classList.remove('active');
-      }
-    }
-  } else {
-    console.error('Elementos necessários não encontrados:');
-    console.error('botaoAbrirPopup:', botaoAbrirPopup);
-    console.error('estruturaLogin:', estruturaLogin);
+
+  if (!botaoAbrirPopup || !estruturaLogin) {
+    console.warn('Login desativado neste contexto: botaoAbrirPopup ou estruturaLogin não encontrados.');
+    return;
   }
-  
+
+  botaoAbrirPopup.removeEventListener('click', abrirPopup);
+  botaoAbrirPopup.addEventListener('click', abrirPopup);
+
+  function abrirPopup() {
+    estruturaLogin.style.display = 'flex';
+    preencherCamposSalvos();
+    if (menu && menu.classList.contains('active')) {
+      menu.classList.remove('active');
+    }
+  }
+
   const botaoFechar = document.querySelector('.botaoFechar');
   if (botaoFechar) {
     botaoFechar.addEventListener('click', () => {
       estruturaLogin.style.display = 'none';
       if (errorLogin) errorLogin.style.display = 'none';
-      
-      const emailInput = document.getElementById('input_email');
+
       const senhaInput = document.getElementById('input_senha');
-      
-      if (emailInput) emailInput.value = '';
       if (senhaInput) senhaInput.value = '';
     });
   }
 }
 
 export function submit() {
-  console.log('Inicializando submit do login...');
-  
   const bt_login = document.getElementById('bt_login');
-  
+
   if (!bt_login) {
-    console.log('Botão de submit não encontrado, será inicializado quando o HTML for carregado');
+    console.warn('Botão de submit não encontrado, será inicializado quando o HTML for carregado');
     return;
   }
-  
-  console.log('Botão de submit encontrado:', bt_login);
-  
-  // Remover qualquer event listener existente para evitar duplicações
+
   bt_login.removeEventListener('click', handleSubmit);
-  
-  // Adicionar novo event listener
+
   bt_login.addEventListener('click', handleSubmit);
-  
+
   function handleSubmit(event) {
     event.preventDefault();
-    
+
     const errorLogin = document.getElementById('error_login');
     const email = document.getElementById('input_email')?.value.trim();
     const senha = document.getElementById('input_senha')?.value.trim();
-    
+
     if (!email || !senha) {
       if (errorLogin) errorLogin.style.display = 'flex';
       return;
     }
-    
-    // Aqui continua sua lógica de login existente...
-    console.log('Tentando fazer login com:', email);
-    
-    // Exemplo: Chamada da API existente
+
     fetch(
       BASE_URL + 'auth/login',
       {
@@ -182,50 +143,46 @@ export function submit() {
         }),
       }
     )
-    .then(response => response.json())
-    .then(result => {
-      console.log('Resposta da API:', result);
-      
-      if (result.success) {
-        const user = result.data.user;
-        const token = result.data.token;
-        
-        localStorage.setItem('userData', JSON.stringify(user));
-        localStorage.setItem('token', token);
-        console.log('Token salvo com sucesso!');
-        
-        const lembrarSenha = document.getElementById('lembrar_senha')?.querySelector('input')?.checked;
-        
-        if (lembrarSenha) {
-          localStorage.setItem('lembrarSenha', 'true');
-          localStorage.setItem('salvarEmail', email);
-          localStorage.setItem('salvarSenha', senha);
+      .then(response => response.json())
+      .then(result => {
+        if (result.success) {
+          const user = result.data.user;
+          const token = result.data.token;
+
+          localStorage.setItem('userData', JSON.stringify(user));
+          localStorage.setItem('token', token);
+
+          const lembrarSenha = document.getElementById('lembrar_senha')?.querySelector('input')?.checked;
+
+          if (lembrarSenha) {
+            localStorage.setItem('lembrarSenha', 'true');
+            localStorage.setItem('salvarEmail', email);
+            localStorage.setItem('salvarSenha', senha);
+          } else {
+            localStorage.removeItem('lembrarSenha');
+            localStorage.removeItem('salvarEmail');
+            localStorage.removeItem('salvarSenha');
+          }
+
+          window.location.reload();
         } else {
-          localStorage.removeItem('lembrarSenha');
-          localStorage.removeItem('salvarEmail');
-          localStorage.removeItem('salvarSenha');
+          if (errorLogin) errorLogin.style.display = 'flex';
+          const emailInput = document.getElementById('input_email');
+          const senhaInput = document.getElementById('input_senha');
+
+          if (emailInput) emailInput.value = '';
+          if (senhaInput) senhaInput.value = '';
         }
-        
-        // Recarregar página para mostrar conteúdo de usuário logado
-        window.location.reload();
-      } else {
+      })
+      .catch(error => {
+        console.error('Erro ao fazer login', error);
         if (errorLogin) errorLogin.style.display = 'flex';
         const emailInput = document.getElementById('input_email');
         const senhaInput = document.getElementById('input_senha');
-        
+
         if (emailInput) emailInput.value = '';
         if (senhaInput) senhaInput.value = '';
-      }
-    })
-    .catch(error => {
-      console.error('Erro ao fazer login', error);
-      if (errorLogin) errorLogin.style.display = 'flex';
-      const emailInput = document.getElementById('input_email');
-      const senhaInput = document.getElementById('input_senha');
-      
-      if (emailInput) emailInput.value = '';
-      if (senhaInput) senhaInput.value = '';
-    });
+      });
   }
 }
 
@@ -234,11 +191,11 @@ export function preencherCamposSalvos() {
   if (lembrar) {
     const salvarEmail = localStorage.getItem('salvarEmail');
     const salvarSenha = localStorage.getItem('salvarSenha');
-    
+
     const emailInput = document.getElementById('input_email');
     const senhaInput = document.getElementById('input_senha');
     const lembrarCheckbox = document.getElementById('lembrar_senha')?.querySelector('input');
-    
+
     if (salvarEmail && salvarSenha && emailInput && senhaInput && lembrarCheckbox) {
       emailInput.value = salvarEmail;
       senhaInput.value = salvarSenha;
@@ -263,4 +220,46 @@ export function loadUserData() {
 
 export function getToken() {
   return localStorage.getItem("token");
+}
+
+function autoLogin() {
+  const email = localStorage.getItem('salvarEmail');
+  const senha = localStorage.getItem('salvarSenha');
+
+  if (email && senha) {
+    fetch(
+      BASE_URL + 'auth/login',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: email,
+          password: senha,
+        }),
+      }
+    )
+      .then(response => response.json())
+      .then(result => {
+        if (result.success) {
+          const user = result.data.user;
+          const token = result.data.token;
+
+          localStorage.setItem('userData', JSON.stringify(user));
+          localStorage.setItem('token', token);
+
+          window.location.reload();
+        } else {
+          console.warn('Auto-login falhou, abrindo tela de login.');
+          inicializarLoginPopup();
+        }
+      })
+      .catch(error => {
+        console.error('Erro no auto-login:', error);
+        inicializarLoginPopup();
+      });
+  } else {
+    inicializarLoginPopup();
+  }
 }
