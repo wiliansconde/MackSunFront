@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Solar Flares</title>
+
+    <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/formulario.css">
+    <link rel="stylesheet" href="./css/buttons.css">
+    <link rel="stylesheet" href="./css/filter.css">
+    <link rel="stylesheet" href="./css/table.css">
+    <link rel="stylesheet" href="./css/titles.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/solar-flare-management.css">
+
+    <script src="./js/const.js" defer></script>
+    <script type="module" src="../../../js/headerfooter.js" defer></script>
+    <script src="./js/exibir-flares.js"></script>
+
+</head>
+
+<body>
+
+    <div id="header"></div>
+
+    <main class="container_padrao">
+        <section class="formulario-card_medio">
+            <h1 class="titulo_padrao">Solar Flare</h1>
+
+            <div class="barra_superior">
+                <div class="linha-filtros-superior">
+                    <input type="text" id="filtro_data" placeholder="YYYY-MM-DD">
+                    <input type="text" id="filtro_classificacao" placeholder="Filter Classification">
+
+                    <div class="botoes-filtros-superior">
+                        <button id="btn_limpar_filtro" class="btnGray_table">Clear Filters</button>
+                    </div>
+                </div>
+
+                <div class="linha-filtros-inferior">
+                    <input type="text" id="filtro_telescopio" placeholder="Filter Telescope">
+                    <input type="text" id="filtro_descricao" placeholder="Filter Description">
+
+                    <div class="btn-criar-wrapper">
+                        <button class="btnGray_table btnFilterGray" id="btn_buscar">Search</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="access-table-wrapper">
+                <table class="access-table">
+                    <thead>
+                        <tr>
+                            <th>Event date and time(UTC)</th>
+                            <th>Flare Classification</th>
+                            <th>Telescopes that captured the event</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_flares"></tbody>
+                </table>
+            </div>
+            <div class="paginacao-container" id="paginacao_container"></div>
+        </section>
+
+
+        <div id="modal_visualizar" class="modal esconder">
+            <div class="modal-content">
+                <h2 class="titulo_padrao sublinhado_editar_evento">View event</h2>
+
+                <form id="form_visualizar">
+                    <label for="view_data_evento">Event Date and Time (UTC):</label>
+                    <input type="text" id="view_data_evento" disabled>
+
+                    <label for="view_classificacao_flare">Flare Classification:</label>
+                    <input type="text" id="view_classificacao_flare" disabled>
+
+                    <label for="view_telescopios">Telescopes:</label>
+                    <input type="text" id="view_telescopios" disabled>
+
+                    <label for="view_descricao_adicional">Description:</label>
+                    <textarea id="view_descricao_adicional" rows="5" disabled></textarea>
+
+                    <div class="botoes-modal">
+                        <button type="button" id="cancelar_flare_editar" class="btnRed">Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+</body>
+
+</html>

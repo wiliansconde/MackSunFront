@@ -1,4 +1,4 @@
-const API_URL = 'search/chart-data-poemas';
+const API_URL = 'public-search/chart-data-poemas';
 
 async function fetchData() {
     try {

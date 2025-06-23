@@ -3,7 +3,6 @@ let todosArquivos = [];
 let paginaAtual = 1;
 const arquivosPorPagina = 10;
 
-// Função de formatação de data
 function formatarData(dateString) {
     const data = new Date(dateString);
     const userLang = navigator.language || navigator.userLanguage;
@@ -20,12 +19,9 @@ function formatarData(dateString) {
     return data.toLocaleString(userLang);
 }
 
-// Evento de carregamento inicial
 document.addEventListener('DOMContentLoaded', () => {
     carregarArquivos();
 });
-
-// Buscar com filtros
 
 document.getElementById('btn_buscar').addEventListener('click', async () => {
     const filePath = document.getElementById('filtro_Arquivo').value.trim();
@@ -73,8 +69,6 @@ document.getElementById('btn_buscar').addEventListener('click', async () => {
     }
 });
 
-
-// Limpar filtros
 document.getElementById('btn_limpar').addEventListener('click', () => {
     document.getElementById('filtro_Arquivo').value = '';
     document.getElementById('filtro_status').value = '';
@@ -83,7 +77,6 @@ document.getElementById('btn_limpar').addEventListener('click', () => {
     carregarArquivos();
 });
 
-// Carregar todos os arquivos sem filtro
 async function carregarArquivos() {
     try {
         const response = await fetch(`${BASE_URL}traces`, {
@@ -98,7 +91,6 @@ async function carregarArquivos() {
     }
 }
 
-// Renderiza a página atual
 function renderizarPagina() {
     const inicio = (paginaAtual - 1) * arquivosPorPagina;
     const fim = inicio + arquivosPorPagina;
@@ -107,7 +99,6 @@ function renderizarPagina() {
     renderizarPaginacao();
 }
 
-// Renderiza os dados na tabela com linha extra para accordion
 function renderizarTabela(dados) {
     const tbody = document.querySelector('.access-table tbody');
     tbody.innerHTML = '';
@@ -118,7 +109,6 @@ function renderizarTabela(dados) {
     }
 
     dados.forEach((item, index) => {
-        // Linha principal da tabela
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${item.filePath}</td>
@@ -132,7 +122,6 @@ function renderizarTabela(dados) {
             </td>
         `;
 
-        // Linha extra para o conteúdo da accordion, inicialmente escondida
         const accordionRow = document.createElement('tr');
         accordionRow.classList.add('accordion-row');
         accordionRow.style.display = 'none';
@@ -150,7 +139,6 @@ function renderizarTabela(dados) {
         tbody.appendChild(accordionRow);
     });
 
-    // Evento para os botões "See more"
     document.querySelectorAll('.btn-saiba-mais').forEach(btn => {
         btn.addEventListener('click', () => {
             const accordionRow = btn.closest('tr').nextElementSibling;
@@ -166,7 +154,6 @@ function renderizarTabela(dados) {
     });
 }
 
-// Cria os botões de paginação
 function renderizarPaginacao() {
     const paginacaoContainer = document.getElementById('paginacao_container');
     paginacaoContainer.innerHTML = '';

@@ -13,17 +13,18 @@
     <link rel="icon" href="./assets/img/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/login.css">
     <link rel="stylesheet" href="./css/alerts.css">
-    <link rel="stylesheet" href="../../../css/table.css">
-    <link rel="stylesheet" href="../../../css/filter.css">
-    <link rel="stylesheet" href="../../../css/buttons.css">
-    <link rel="stylesheet" href="../../../css/charts.css">
+    <link rel="stylesheet" href="./css/table.css">
+    <link rel="stylesheet" href="./css/filter.css">
+    <link rel="stylesheet" href="./css/buttons.css">
+    <link rel="stylesheet" href="./css/charts.css">
 
     <script src="./js/const.js" defer></script>
     <script type="module" src="/js/poemaschart.js"></script>
     <script type="module" src="/js/sstchart.js"></script>
     <script type="module" src="/js/loaders.js"></script>
     <script type="module" src="/js/login.js" defer></script>
-    <script src="/js/menuhamburger.js" defer></script>
+    <script type="module" src="./js/menuhamburger.js"></script>
+    <script src="./js/pagina-flares.js" defer></script>
 
     <script type="module" src="js/headerfooter.js"></script>
 
@@ -42,7 +43,6 @@
             <h1 class="titulo2_banner">MackSun</h1>
         </div>
     </div>
-
 
     <main>
         <div class="graficos">
@@ -68,7 +68,6 @@
 
             </div>
 
-
             <div class="sst">
                 <div class="chart-container">
                     <h1 class="titulo_padrao">SST</h1>
@@ -88,49 +87,52 @@
 
                     <div id="sst"></div>
                 </div>
-
-
-
-                <div class="solarFlares">
-                    <section class="formulario-card_medio">
-                        <h1 class="titulo_padrao">Solar Flares</h1>
-
-
-                        <div class="access-table-wrapper">
-                            <table class="access-table">
-                                <thead>
-                                    <tr>
-                                        <th>Data</th>
-                                        <th>Time(UTC)</th>
-                                        <th>Classification</th>
-                                        <th>Event</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                </div>
-
-
-                <div class="latestData">
-                    <section class="formulario-card_medio">
-                        <h1 class="titulo_padrao">Latest Data Available</h1>
-
-                        <div class="access-table-wrapper">
-                            <table class="access-table">
-                                <thead>
-                                    <tr>
-                                        <th>Telescope</th>
-                                        <th>Last Update</th>
-                                        <th>Coordinates</th>
-                                        <th>Altitude</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                </div>
             </div>
+        </div>
+
+
+        <div class="solarFlares">
+            <section class="formulario-card_medio">
+                <h1 class="titulo_padrao">Solar Flares</h1>
+
+                <div class="access-table-wrapper">
+                    <table class="access-table">
+                        <thead>
+                            <tr>
+                                <th>Event date and time(UTC)</th>
+                                <th>Flare Classification</th>
+                                <th>Telescopes that captured the event</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_main_flares"></tbody>
+                    </table>
+                </div>
+                <div class="btn-saiba-mais-wrapper">
+                    <button class="btnRed" onclick="window.location.href='exibir-flare.html'">Learn More
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <div class="latestData">
+            <section class="formulario-card_medio">
+                <h1 class="titulo_padrao">Latest Data Available</h1>
+
+                <div class="access-table-wrapper">
+                    <table class="access-table">
+                        <thead>
+                            <tr>
+                                <th>Telescope</th>
+                                <th>Last Update</th>
+                                <th>Coordinates</th>
+                                <th>Altitude</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
         </div>
     </main>
 
