@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         const comment = rejectTextarea.value.trim();
         if (!comment) {
-          errorMessage.textContent = 'Você deve fornecer uma justificativa para rejeitar.';
+          errorMessage.textContent = 'You must provide a justification to reject.';
           errorMessage.style.display = 'block';
           return;
         }

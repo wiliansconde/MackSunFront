@@ -36,10 +36,10 @@
 
         <div class="container-input-label">
           <label class="labelRegister" for="email">Email: <span>*</span></label>
-          <input class="inputRegister" type="email" id="email" name="email">
+          <input class="inputRegister" type="text" id="email" name="email">
         </div>
 
-        <h2 class="subtitulo_padrao">Requested profile:</h2>
+        <h2 class="subtitulo_padrao">Requested profile: <span>*</span></h2>
 
         <div class="radioGroupRegister">
           <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="CRAAM_RESEARCHER"> CRAAM Researcher</label>
@@ -48,11 +48,11 @@
         </div>
 
         <div class="containerJustification">
-          <label class="justificationLabel" for="justification">Justification:</label>
+          <label class="justificationLabel" for="justification">Justification: <span>*</span></label>
           <textarea id="justification" name="justification"></textarea>
         </div>
 
-        <div class="invalid_message_error" id="error_email">Please fill in the Email field.</div>
+        <div class="invalid_message_error" id="error_all_fields">Fill in all fields</div>
         <div class="invalid_message_error" id="error_email_format">Please enter a valid email address.</div>
         <div class="invalid_message_error" id="error_profile">Please select a profile.</div>
         <div class="invalid_message_error" id="error_justification">Please fill in the Justification field.</div>

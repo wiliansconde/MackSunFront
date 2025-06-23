@@ -3,4 +3,13 @@
   border: 0.063rem solid var(--cinza-claro);
   border-radius: 0.625rem;
   font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.valid_message_error{
+  margin-top: 1rem;
+}
+
+.invalid_message_error{
+  margin-top: 1rem;
 }

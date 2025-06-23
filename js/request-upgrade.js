@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let hasError = false;
 
     if (!email) {
-      document.getElementById('error_email').style.display = 'block';
+      document.getElementById('error_all_fields').style.display = 'block';
       hasError = true;
     } else if (!/^\S+@\S+\.\S+$/.test(email)) {
       document.getElementById('error_email_format').style.display = 'block';
@@ -23,12 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (!requestedProfile) {
-      document.getElementById('error_profile').style.display = 'block';
+      document.getElementById('error_all_fields').style.display = 'block';
       hasError = true;
     }
 
     if (!justification) {
-      document.getElementById('error_justification').style.display = 'block';
+      document.getElementById('error_all_fields').style.display = 'block';
       hasError = true;
     }
 

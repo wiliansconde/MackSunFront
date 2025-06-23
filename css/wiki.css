@@ -1,0 +1,41 @@
+.container_wiki{
+    background: var(--branco);
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.formulario_padrao{
+    min-height: max-content;
+}
+
+.titulo_padrao{
+    margin-bottom: 1rem;
+}
+
+.snippet-card {
+    background-color: var(--branco);
+    border: 1px solid var(--cinza-claro-100);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.snippet-card h3 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.snippet-card p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.snippet-card pre {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+}

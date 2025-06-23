@@ -1,64 +1,119 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.access-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
 .access-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 20px;
-    text-align: left;
-    font-family: Arial, sans-serif;
-    background-color: var(--branco);
-    border-radius: 0.6rem;
-    overflow: hidden;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 20px;
+  text-align: left;
+  font-family: Arial, sans-serif;
+  background-color: var(--branco);
+  border-radius: 0.6rem;
+  overflow: hidden;
+  min-width: 600px;
+  box-sizing: border-box;
 }
 
 .access-table thead {
-    background-color: var(--cinza-medio);
-    color: var(--branco);
+  background-color: var(--cinza-medio);
+  color: var(--branco);
 }
 
 .access-table th,
 .access-table td {
-    padding: 12px 15px;
-    border: none;
+  padding: 12px 15px;
+  border: none;
+  white-space: nowrap;
 }
 
 .access-table tbody tr:nth-child(odd) {
-    background-color: var(--branco);
+  background-color: var(--branco);
 }
 
 .access-table tbody tr:nth-child(even) {
-    background-color: var(--cinza-claro-100);
-}
-
-.paginacao-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-    gap: 0.5rem;
-}
-
-.paginacao-container button {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--cinza-claro);
-    background-color: white;
-    cursor: pointer;
-}
-
-.paginacao-container button.active {
-    font-weight: bold;
-    background-color: var(--cinza-claro);
-}
-
-.access-table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    margin-top: 1rem;
-    padding-bottom: 1rem;
+  background-color: var(--cinza-claro-100);
 }
 
 .access-table tbody tr {
-    border-bottom: 1px solid var(--cinza-escuro);
+  border-bottom: 1px solid var(--cinza-escuro);
 }
 
 .access-table tbody tr:last-child {
-    border-bottom: none;
+  border-bottom: none;
+}
+
+.paginacao-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.paginacao-container button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--cinza-claro);
+  background-color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.paginacao-container button.active {
+  font-weight: bold;
+  background-color: var(--cinza-claro);
+}
+
+@media (max-width: 768px) {
+  .access-table {
+    min-width: unset;
+    font-size: 0.85rem;
+  }
+
+  .access-table th,
+  .access-table td {
+    padding: 10px;
+  }
+
+  .paginacao-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .paginacao-container button {
+    width: 100%;
+    max-width: 200px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .access-table-wrapper {
+    padding: 0 8px;
+  }
+
+  .access-table th,
+  .access-table td {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+
+  .paginacao-container button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
 }
