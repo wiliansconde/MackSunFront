@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/download-data.css" />
+    <link rel="stylesheet" href="/css/titles.css" />
+    <link rel="stylesheet" href="/css/buttons.css" />
+    <link rel="stylesheet" href="/css/alerts.css" />
+
+    <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon" />
+
+    <script src="./js/const.js" defer></script>
+    <script src="/js/download-data.js" defer></script>
+    <script type="module" src="/js/login.js" defer></script>
+    <script type="module" src="js/headerfooter.js"></script>
+
+    <title>Download Data</title>
+</head>
+
+<body>
+    <div id="estruturaLogin"></div>
+    <div id="header"></div>
+
+    <main class="container_padrao">
+        <form class="formulario_downloadData">
+            <h1 class="titulo_padrao sublinhado_downloadData">Download Data</h1>
+
+            <section class="info-padrao">
+                <h2 class="titulo_secao">Telescopes</h2>
+                <p class="subtitulo_secao">Select the telescope and available Resolutions</p>
+
+                <div class="telescopios-container">
+                    <fieldset>
+                        <legend>POEMAS</legend>
+
+                        <div class="linha-frequencia">
+                            <span>45GHz:</span>
+                            <label>
+                                <input type="checkbox" name="poemas_45" value="10ms" id="poemas_45_10ms">10ms
+                            </label>
+                            <label>
+                                <input type="checkbox" name="poemas_45" value="100ms" id="poemas_45_100ms">100ms
+                            </label>
+                            <label>
+                                <input type="checkbox" name="poemas_45" value="1s" id="poemas_45_1s">1s
+                            </label>
+                        </div>
+
+                        <div class="linha-frequencia">
+                            <span>90GHz:</span>
+                            <label>
+                                <input type="checkbox" name="poemas_90" value="10ms" id="poemas_90_10ms">10ms
+                            </label>
+                            <label>
+                                <input type="checkbox" name="poemas_90" value="100ms" id="poemas_90_100ms">100ms
+                            </label>
+                            <label>
+                                <input type="checkbox" name="poemas_90" value="1s" id="poemas_90_1s">1s
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>SST</legend>
+
+                        <div class="linha-frequencia">
+                            <span>212GHz:</span>
+                            <label>
+                                <input type="checkbox" name="sst_212" value="5ms" id="sst_212_5ms">5ms
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sst_212" value="40ms" id="sst_212_40ms">40ms
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sst_212" value="100ms" id="sst_212_100ms">100ms
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sst_212" value="1s" id="sst_212_1s">1s
+                            </label>
+                        </div>
+
+                        <div class="linha-frequencia">
+                            <span>405GHz:</span>
+                            <label>
+                                <input type="checkbox" name="sst_405" value="5ms" id="sst_405_5ms">5ms
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sst_405" value="40ms" id="sst_405_40ms">40ms
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sst_405" value="100ms" id="sst_405_100ms">100ms
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sst_405" value="1s" id="sst_405_1s">1s
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+            </section>
+
+            <section class="info-padrao">
+                <h2 class="titulo_secao">Date range</h2>
+                <p class="subtitulo_secao">Select start date and end date</p>
+
+                <div class="date-range-container">
+                    <div>
+                        <label for="startDate">Start date:</label>
+                        <input class="inputResolucao" type="date" id="startDate" name="startDate">
+                    </div>
+                    <div>
+                        <label for="endDate">End date:</label>
+                        <input class="inputResolucao end-date-align-left" type="date" id="endDate" name="endDate">
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-padrao">
+                <h2 class="titulo_secao">Output format</h2>
+                <p class="subtitulo_secao">Select the format for export</p>
+
+                <div class="radio-group">
+                    <label><input type="radio" name="exportFormat" value="json"> JSON</label>
+                    <label><input type="radio" name="exportFormat" value="csv"> CSV</label>
+                    <label><input type="radio" name="exportFormat" value="fits"> FITS</label>
+                </div>
+            </section>
+
+            <p class="invalid_message_error" id="campo-vazio">Fill in all fields.</p>
+            <p class="invalid_message_error" id="campo-de-telescopio-vazio">Select a telescope and temporal resolution.
+            </p>
+            <p class="invalid_message_error" id="campo-de-periodo-vazio">Fill in the search period, with start and end
+                date.</p>
+            <p class="invalid_message_error" id="campo-de-periodo-maximo">The period must be a maximum of 7 days</p>
+            <p class="invalid_message_error" id="campo-de-formato-vazio">Select the desired output format for the data
+            </p>
+
+            <div class="button-container">
+                <button type="submit" class="btnBlack btnSizeSmall">Export</button>
+            </div>
+
+            <div id="resultado_exportacao" class="resultado_expot"></div>
+
+        </form>
+    </main>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+</body>
+
+</html>
