@@ -1,14 +1,14 @@
 import { loadHTML } from './loaders.js';
 
+const REMEMBER_EMAIL_KEY = 'rememberedEmail';
+
 document.addEventListener('DOMContentLoaded', () => {
     if (verifyToken()) {
         mostrarConteudoUsuarioLogado();
         document.dispatchEvent(new CustomEvent('loginSuccess'));
-        console.log('DOM carregado, token encontrado. Evento loginSuccess disparado.');
-    } else if (localStorage.getItem('lembrarSenha') === 'true') {
-        autoLogin();
     } else {
         inicializarLoginPopup();
+        preencherEmailSalvo();
     }
     submit();
 });
@@ -53,11 +53,10 @@ export function mostrarConteudoUsuarioLogado() {
             e.preventDefault();
             localStorage.removeItem('userData');
             localStorage.removeItem('token');
-            sessionStorage.removeItem('userInfo'); 
-            
+            sessionStorage.removeItem('userInfo');
+
             document.dispatchEvent(new CustomEvent('logoutSuccess'));
-            console.log('Logout bem-sucedido! Evento logoutSuccess disparado.');
-            
+
             window.location.reload();
         });
     }
@@ -69,10 +68,12 @@ export function inicializarLoginPopup() {
     if (!estruturaLogin) {
         loadHTML('estruturaLogin', '/login.html', () => {
             ativarBotaoLogin();
-            submit(); 
+            submit();
+            preencherEmailSalvo();
         });
     } else {
         ativarBotaoLogin();
+        preencherEmailSalvo();
     }
 }
 
@@ -92,7 +93,7 @@ function ativarBotaoLogin() {
 
     function abrirPopup() {
         estruturaLogin.style.display = 'flex';
-        preencherCamposSalvos();
+        preencherEmailSalvo();
         if (menu && menu.classList.contains('active')) {
             menu.classList.remove('active');
         }
@@ -107,6 +108,21 @@ function ativarBotaoLogin() {
             const senhaInput = document.getElementById('input_senha');
             if (senhaInput) senhaInput.value = '';
         });
+    }
+}
+
+function preencherEmailSalvo() {
+    const emailInput = document.getElementById('input_email');
+    const rememberedEmail = localStorage.getItem(REMEMBER_EMAIL_KEY);
+    const rememberMeCheckbox = document.getElementById('remember_me_checkbox');
+
+    if (emailInput && rememberedEmail) {
+        emailInput.value = rememberedEmail;
+        if (rememberMeCheckbox) {
+            rememberMeCheckbox.checked = true;
+        }
+    } else if (rememberMeCheckbox) {
+        rememberMeCheckbox.checked = false;
     }
 }
 
@@ -127,6 +143,7 @@ export function submit() {
         const errorLogin = document.getElementById('error_login');
         const email = document.getElementById('input_email')?.value.trim();
         const senha = document.getElementById('input_senha')?.value.trim();
+        const rememberMeCheckbox = document.getElementById('remember_me_checkbox');
 
         if (!email || !senha) {
             if (errorLogin) {
@@ -134,6 +151,12 @@ export function submit() {
                 errorLogin.style.display = 'flex';
             }
             return;
+        }
+
+        if (rememberMeCheckbox && rememberMeCheckbox.checked) {
+            localStorage.setItem(REMEMBER_EMAIL_KEY, email);
+        } else {
+            localStorage.removeItem(REMEMBER_EMAIL_KEY);
         }
 
         fetch(
@@ -149,81 +172,55 @@ export function submit() {
                 }),
             }
         )
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => {
-                    throw new Error(err.message || 'Unknown error when logging in.');
-                });
-            }
-            return response.json();
-        })
-        .then(result => {
-            if (result.success) {
-                const user = result.data.user;
-                const token = result.data.token;
-                sessionStorage.setItem('userInfo', JSON.stringify(result));
-
-                localStorage.setItem('userData', JSON.stringify(user));
-                localStorage.setItem('token', token);
-
-                const lembrarSenha = document.getElementById('lembrar_senha')?.querySelector('input')?.checked;
-
-                if (lembrarSenha) {
-                    localStorage.setItem('lembrarSenha', 'true');
-                    localStorage.setItem('salvarEmail', email);
-                    localStorage.setItem('salvarSenha', senha);
-                } else {
-                    localStorage.removeItem('lembrarSenha');
-                    localStorage.removeItem('salvarEmail');
-                    localStorage.removeItem('salvarSenha');
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.message || 'Unknown error when logging in.');
+                    });
                 }
-                
-                document.dispatchEvent(new CustomEvent('loginSuccess'));
-                console.log('Login manual bem-sucedido! Evento loginSuccess disparado.');
+                return response.json();
+            })
+            .then(result => {
+                if (result.success) {
+                    const user = result.data.user;
+                    const token = result.data.token;
+                    sessionStorage.setItem('userInfo', JSON.stringify(result));
 
-                window.location.reload();
-            } else {
+                    localStorage.setItem('userData', JSON.stringify(user));
+                    localStorage.setItem('token', token);
+
+                    document.dispatchEvent(new CustomEvent('loginSuccess'));
+                    console.log('Login manual bem-sucedido! Evento loginSuccess disparado.');
+
+                    window.location.reload();
+                } else {
+                    if (errorLogin) {
+                        errorLogin.textContent = result.message || 'Invalid credentials.';
+                        errorLogin.style.display = 'flex';
+                    }
+                    const emailInput = document.getElementById('input_email');
+                    const senhaInput = document.getElementById('input_senha');
+
+                    if (emailInput && (!rememberMeCheckbox || !rememberMeCheckbox.checked)) {
+                        emailInput.value = '';
+                    }
+                    if (senhaInput) senhaInput.value = '';
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao fazer login', error);
                 if (errorLogin) {
-                    errorLogin.textContent = result.message || 'Invalid credentials.';
+                    errorLogin.textContent = error.message || 'Network error or server unavailable.';
                     errorLogin.style.display = 'flex';
                 }
                 const emailInput = document.getElementById('input_email');
                 const senhaInput = document.getElementById('input_senha');
 
-                if (emailInput) emailInput.value = '';
+                if (emailInput && (!rememberMeCheckbox || !rememberMeCheckbox.checked)) {
+                    emailInput.value = '';
+                }
                 if (senhaInput) senhaInput.value = '';
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao fazer login', error);
-            if (errorLogin) {
-                errorLogin.textContent = error.message || 'Network error or server unavailable.';
-                errorLogin.style.display = 'flex';
-            }
-            const emailInput = document.getElementById('input_email');
-            const senhaInput = document.getElementById('input_senha');
-
-            if (emailInput) emailInput.value = '';
-            if (senhaInput) senhaInput.value = '';
-        });
-    }
-}
-
-export function preencherCamposSalvos() {
-    const lembrar = localStorage.getItem('lembrarSenha') === 'true';
-    if (lembrar) {
-        const salvarEmail = localStorage.getItem('salvarEmail');
-        const salvarSenha = localStorage.getItem('salvarSenha');
-
-        const emailInput = document.getElementById('input_email');
-        const senhaInput = document.getElementById('input_senha');
-        const lembrarCheckbox = document.getElementById('lembrar_senha')?.querySelector('input');
-
-        if (salvarEmail && salvarSenha && emailInput && senhaInput && lembrarCheckbox) {
-            emailInput.value = salvarEmail;
-            senhaInput.value = salvarSenha;
-            lembrarCheckbox.checked = true;
-        }
+            });
     }
 }
 
@@ -243,57 +240,4 @@ export function loadUserData() {
 
 export function getToken() {
     return localStorage.getItem("token");
-}
-
-function autoLogin() {
-    const email = localStorage.getItem('salvarEmail');
-    const senha = localStorage.getItem('salvarSenha');
-
-    if (email && senha) {
-        fetch(
-            BASE_URL + 'auth/login',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: email,
-                    password: senha,
-                }),
-            }
-        )
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => {
-                    throw new Error(err.message || 'Unknown error in auto-login.');
-                });
-            }
-            return response.json();
-        })
-        .then(result => {
-            if (result.success) {
-                const user = result.data.user;
-                const token = result.data.token;
-                sessionStorage.setItem('userInfo', JSON.stringify(result));
-
-                localStorage.setItem('userData', JSON.stringify(user));
-                localStorage.setItem('token', token);
-
-                document.dispatchEvent(new CustomEvent('loginSuccess'));
-                console.log('Auto-login bem-sucedido! Evento loginSuccess disparado.');
-
-                window.location.reload();
-            } else {
-                console.warn('Auto-login falhou, abrindo tela de login.', result.message);
-                inicializarLoginPopup();
-            }
-        })
-        .catch(error => {
-            console.error('Erro no auto-login:', error);
-            inicializarLoginPopup();
-        });
-    } else {
-        inicializarLoginPopup();
-    }
 }

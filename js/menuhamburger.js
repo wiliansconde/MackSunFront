@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (menuHamburger && menu) {
             menuHamburger.addEventListener('click', () => {
                 menu.classList.toggle('active');
-                // Se o menu hambúrguer for clicado e o popup de login estiver aberto, feche-o
                 const estruturaLogin = document.querySelector('.estruturaLogin');
                 if (estruturaLogin && estruturaLogin.style.display === 'flex') {
                     estruturaLogin.style.display = 'none';
@@ -36,7 +35,6 @@ function loadHTML(id, file, callback) {
             const container = document.getElementById(id);
             if (container) {
                 container.innerHTML = data;
-                console.log(`HTML '${file}' carregado em #${id}`);
                 if (callback) callback();
             } else {
                 console.error(`Elemento com id '${id}' não encontrado.`);
