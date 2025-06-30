@@ -102,8 +102,24 @@
         margin-top: 0;
     }
 
-    .caixaGeral .botaoFechar {
-        right: 4.9375rem;
+    .caixaGeral {
+        width: 90vw;
+        max-width: 20rem;
+        height: auto;
+        min-height: 15rem;
+        position: relative;
+        padding-bottom: 1.5rem;
     }
 
+    .caixaGeral .botaoFechar {
+        top: 0.5rem;
+        right: 0.5rem;
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
