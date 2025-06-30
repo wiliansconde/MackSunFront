@@ -116,6 +116,74 @@ function formatarData(dateString) {
     return data.toLocaleString(userLang);
 }
 
+function normalizarDataParaAPI(dateString) {
+    let dia, mes, ano;
+
+    const partesSeparadas = dateString.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/);
+    if (partesSeparadas) {
+        dia = partesSeparadas[1];
+        mes = partesSeparadas[2];
+        ano = partesSeparadas[3];
+    } else {
+        const partesJuntas = dateString.match(/^(\d{2})(\d{2})(\d{4})$/);
+        if (partesJuntas) {
+            dia = partesJuntas[1];
+            mes = partesJuntas[2];
+            ano = partesJuntas[3];
+        } else {
+            return null;
+        }
+    }
+
+    if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1900 || ano > 2100) {
+        return null;
+    }
+
+    return `${ano}-${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+}
+
+function normalizarDataHoraParaAPI(dateTimeString) {
+    let dataParte, horaParte;
+
+    const partes = dateTimeString.split(' ');
+    if (partes.length === 2) {
+        dataParte = partes[0];
+        horaParte = partes[1];
+    } else if (dateTimeString.length === 12 && !dateTimeString.includes('-') && !dateTimeString.includes('/')) {
+        dataParte = dateTimeString.substring(0, 8);
+        horaParte = dateTimeString.substring(8, 12);
+    } else {
+        return null;
+    }
+
+    const dataNormalizada = normalizarDataParaAPI(dataParte);
+    if (!dataNormalizada) {
+        return null;
+    }
+
+    let horas, minutos;
+    const partesHoraSeparadas = horaParte.match(/^(\d{1,2}):(\d{1,2})$/);
+    if (partesHoraSeparadas) {
+        horas = partesHoraSeparadas[1];
+        minutos = partesHoraSeparadas[2];
+    } else {
+        const partesHoraJuntas = horaParte.match(/^(\d{2})(\d{2})$/);
+        if (partesHoraJuntas) {
+            horas = partesHoraJuntas[1];
+            minutos = partesHoraJuntas[2];
+        } else {
+            return null;
+        }
+    }
+
+    if (horas < 0 || horas > 23 || minutos < 0 || minutos > 59) {
+        return null;
+    }
+
+    return `${dataNormalizada}T${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:00`;
+}
+
+
 async function listarFlares() {
     const response = await fetch(`${BASE_URL}flares`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -133,14 +201,13 @@ function buscarFlarePorIdLocal(id) {
 
 async function cadastrarFlare(flare) {
     try {
-        const dateTimeFormatted = flare.dateTime.replace(' ', 'T') + ':00';
 
         const telescopesString = Array.isArray(flare.telescopes)
             ? flare.telescopes.join(';')
             : flare.telescopes;
 
         console.log('Payload enviado:', {
-            dateTime: dateTimeFormatted,
+            dateTime: flare.dateTime,
             classType: flare.classType,
             description: flare.description,
             telescopes: telescopesString
@@ -153,7 +220,7 @@ async function cadastrarFlare(flare) {
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-                dateTime: dateTimeFormatted,
+                dateTime: flare.dateTime,
                 classType: flare.classType,
                 description: flare.description,
                 telescopes: telescopesString
@@ -328,24 +395,57 @@ function renderizarPaginacao() {
 
     const totalPaginas = Math.ceil(todosFlares.length / flaresPorPagina);
 
-    for (let i = 1; i <= totalPaginas; i++) {
+    const criarBotao = (texto, pagina, isActive = false) => {
         const btn = document.createElement('button');
-        btn.textContent = i;
-        if (i === paginaAtual) btn.classList.add('active');
+        btn.textContent = texto;
+        if (isActive) btn.classList.add('active');
         btn.addEventListener('click', () => {
-            paginaAtual = i;
+            paginaAtual = pagina;
             renderizarPagina();
         });
-        paginacaoContainer.appendChild(btn);
+        return btn;
+    };
+
+    const maxPaginasVisiveis = 5;
+    for (let i = 1; i <= Math.min(maxPaginasVisiveis, totalPaginas); i++) {
+        paginacaoContainer.appendChild(criarBotao(i, i, i === paginaAtual));
+    }
+
+    if (totalPaginas > maxPaginasVisiveis) {
+        const reticencias = document.createElement('span');
+        reticencias.textContent = '...';
+        reticencias.classList.add('reticencias');
+        paginacaoContainer.appendChild(reticencias);
+
+        paginacaoContainer.appendChild(criarBotao(totalPaginas, totalPaginas, paginaAtual === totalPaginas));
+    }
+
+    if (paginaAtual < totalPaginas) {
+        const btnNext = document.createElement('button');
+        btnNext.textContent = 'Next';
+        btnNext.addEventListener('click', () => {
+            paginaAtual++;
+            renderizarPagina();
+        });
+        paginacaoContainer.appendChild(btnNext);
     }
 }
 
 
 document.getElementById('btn_buscar').addEventListener('click', async () => {
-    const dataFiltro = document.getElementById('filtro_data').value;
+    let dataFiltro = document.getElementById('filtro_data').value.trim();
     const classificacaoFiltro = document.getElementById('filtro_classificacao').value.trim();
     const telescopioFiltro = document.getElementById('filtro_telescopio').value.trim();
     const descricaoFiltro = document.getElementById('filtro_descricao').value.trim();
+
+    if (dataFiltro) {
+        dataFiltro = normalizarDataParaAPI(dataFiltro);
+        if (!dataFiltro) {
+            mensagemErro.textContent = 'Invalid date format for search. Use YYYY-MM-DD DD-MM-YYYY, DD/MM/YYYY or DDMMYYYY';
+            mensagemErro.style.display = 'block';
+            return;
+        }
+    }
 
     let url = `${BASE_URL}flares?`;
 
@@ -375,13 +475,16 @@ document.getElementById('btn_buscar').addEventListener('click', async () => {
             }
         });
 
-        if (!resposta.ok) throw new Error('Error fetching flares');
+        if (!resposta.ok) {
+            const errorData = await resposta.json();
+            throw new Error(errorData.message || 'Error fetching flares');
+        }
 
         const resultado = await resposta.json();
         todosFlares = resultado.data;
         paginaAtual = 1;
         renderizarPagina();
-
+        esconderMensagens();
     } catch (error) {
         mensagemErro.textContent = error.message;
         mensagemErro.style.display = 'block';
@@ -412,13 +515,45 @@ document.getElementById('form_novo_flare_solar').addEventListener('submit', asyn
     e.preventDefault();
     esconderMensagens();
 
-    const dateTime = document.getElementById('data_evento').value.trim();
+    let dateTime = document.getElementById('data_evento').value.trim();
     const classType = document.getElementById('classificacao_flare').value.trim();
     const description = document.getElementById('descricao_adicional').value.trim();
     const telescopes = obterTelescopiosSelecionados('dropdownContentTelescopiosNovo');
 
-    if (!dateTime || !classType) {
-        mensagemErro.textContent = 'Fill in the required fields.';
+    if (!dateTime && !classType && telescopes.length === 0 && !description) {
+        mensagemErro.textContent = 'Fill in all fields.';
+        mensagemErro.style.display = 'block';
+        return;
+    }
+
+    if (!dateTime) {
+        mensagemErro.textContent = 'Please provide the event date and time.';
+        mensagemErro.style.display = 'block';
+        return;
+    }
+
+    if (!classType) {
+        mensagemErro.textContent = 'Please provide the flare classification.';
+        mensagemErro.style.display = 'block';
+        return;
+    }
+
+    if (telescopes.length === 0) {
+        mensagemErro.textContent = 'Please select at least one telescope.';
+        mensagemErro.style.display = 'block';
+        return;
+    }
+
+    if (!description) {
+        mensagemErro.textContent = 'Please provide a description.';
+        mensagemErro.style.display = 'block';
+        return;
+    }
+
+
+    const dateTimeNormalizado = normalizarDataHoraParaAPI(dateTime);
+    if (!dateTimeNormalizado) {
+        mensagemErro.textContent = 'Invalid date and time format. Use YYYY-MM-DD HH:MM, DD-MM-YYYY HH:MM, DD/MM/YYYY HH:MM or DDMMYYYY HHMM';
         mensagemErro.style.display = 'block';
         return;
     }
@@ -427,7 +562,7 @@ document.getElementById('form_novo_flare_solar').addEventListener('submit', asyn
 
     try {
         await cadastrarFlare({
-            dateTime,
+            dateTime: dateTimeNormalizado,
             classType,
             description,
             telescopes: telescopesString

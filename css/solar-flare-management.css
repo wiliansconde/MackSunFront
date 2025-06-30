@@ -115,6 +115,10 @@ textarea {
     background-color: var(--cinza-claro);
 }
 
+.message-spacing {
+    margin-bottom: 1rem;
+}
+
 @media (max-width: 767px) {
 
     .botoes-filtros-superior {
