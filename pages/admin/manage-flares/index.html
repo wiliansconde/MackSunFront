@@ -45,7 +45,7 @@
         <div class="linha-filtros-inferior">
           <input type="text" id="filtro_telescopio" placeholder="Filter Telescope">
           <input type="text" id="filtro_descricao" placeholder="Filter Description">
-          
+
           <div class="btn-criar-wrapper">
             <button class="btnRed btnSizeHeightLimited btnFilterRed" id="btn_buscar">Search</button>
           </div>
@@ -144,13 +144,13 @@
 
     <div id="modal_excluir_evento" class="modal esconder">
       <div class="modal-content">
-        <p>Are you sure you want to delete this solar flare? This action cannot be undone.</p>
+        <p class="message-spacing">Are you sure you want to delete this solar flare? This action cannot be undone.</p>
+        <p id="mensagem_sucesso_excluir" class="valid_message_error"></p>
+        <p id="mensagem-erro-excluir" class="invalid_message_error"></p>
         <div class="botoes-modal">
           <button type="button" class="btnGreen" id="confirmar_exclusao_flare">Yes, Delete</button>
           <button type="button" class="btnRed" id="excluir_evento">Cancel</button>
         </div>
-        <p id="mensagem_sucesso_excluir" class="valid_message_error"></p>
-        <p id="mensagem-erro-excluir" class="invalid_message_error"></p>
       </div>
     </div>
   </main>
