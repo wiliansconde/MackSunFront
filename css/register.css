@@ -58,6 +58,11 @@ span {
   margin-right: 1.25rem;
 }
 
+.errorMessage{
+  margin-bottom: 1rem;
+  height:1rem;
+}
+
 #justification {
   display: flex;
   border: 0.063rem solid var(--cinza-claro);
@@ -67,6 +72,7 @@ span {
   font-size: 1.063rem;
   font-style: none;
   resize: none;
+  padding: 12px 16px;
 }
 
 @media (max-width: 767px) {

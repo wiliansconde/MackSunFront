@@ -30,7 +30,7 @@
   <main class="container_padrao">
     <div class="formulario_padrao">
       <h1 class="titulo_padrao">Register</h1>
-      <form id="registrationForm" class="formRegister">
+      <form id="registrationForm" class="formRegister" novalidate>
 
         <div class="container-input-label">
           <label class="labelRegister" for="name">Name: <span>*</span></label>
@@ -47,34 +47,33 @@
           <input class="inputRegister" type="password" id="password" name="password">
         </div>
 
-        <h2 class="subtitulo_padrao">Requested profile:</h2>
+        <h2 class="subtitulo_padrao">Requested profile: <span>*</span></h2>
 
         <div class="radioGroupRegister">
-          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile"
-              value="CRAAM_RESEARCHER"> CRAAM Researcher</label>
-          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile"
-              value="SOLAR_PHYSICIST"> Solar Physicist</label>
-          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile"
-              value="ADMINISTRATOR"> Administrator</label>
+          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="CRAAM_RESEARCHER"> CRAAM Researcher</label>
+          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="SOLAR_PHYSICIST"> Solar Physicist</label>
+          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="ADMINISTRATOR"> Administrator</label>
         </div>
 
         <div class="containerJustification">
-          <label class="justificationLabel" for="justification">Justification:</label>
+          <label class="justificationLabel" for="justification">Justification: <span>*</span></label>
           <textarea id="justification" name="justification"></textarea>
         </div>
 
-        <div class="invalid_message_error" id="error_name">Please fill in the Name field.</div>
-        <div class="invalid_message_error" id="error_email">Please fill in the Email field.</div>
-        <div class="invalid_message_error" id="error_email_format">Please enter a valid email address.</div>
-        <div class="invalid_message_error" id="error_password">Please fill in the Password field.</div>
-        <div class="invalid_message_error" id="error_password_length">Password must be at least 8 characters long.</div>
-        <div class="invalid_message_error" id="error_password_format">Password must contain at least one letter and one
-          number.</div>
-        <div class="invalid_message_error" id="error_profile">Please select a profile.</div>
-        <div class="invalid_message_error" id="error_justification">Please fill in the Justification field.</div>
-        <div class="valid_message_error" id="success_processing">Processing your request...</div>
-        <div class="valid_message_error" id="success_submission">Request sent! Please wait while we review it.</div>
-        <div class="invalid_message_error" id="error_submission">Error submitting form. Please try again.</div>
+        <div class="errorMessage">
+          <div class="invalid_message_error" id="error_name">Please fill in the Name field.</div>
+          <div class="invalid_message_error" id="error_email">Please fill in the Email field.</div>
+          <div class="invalid_message_error" id="error_email_format">Please enter a valid email address.</div>
+          <div class="invalid_message_error" id="error_password">Please fill in the Password field.</div>
+          <div class="invalid_message_error" id="error_password_length">Password must be at least 8 characters long.</div>
+          <div class="invalid_message_error" id="error_password_format">Password must contain at least one letter and one
+            number.</div>
+          <div class="invalid_message_error" id="error_profile">Please select a profile.</div>
+          <div class="invalid_message_error" id="error_justification">Please fill in the Justification field.</div>
+          <div class="valid_message_error" id="success_processing">Processing your request...</div>
+          <div class="valid_message_error" id="success_submission">Request sent! Please wait while we review it.</div>
+          <div class="invalid_message_error" id="error_submission">Error submitting form. Please try again.</div>
+        </div>
 
         <button class="btnBlack btnSizeSmall btnPositionRight" type="submit">Request</button>
 

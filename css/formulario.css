@@ -3,6 +3,7 @@
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    
 }
 
 .formulario_padrao {
@@ -13,8 +14,9 @@
     box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
     min-width: 44rem;
     max-width: auto;
-    height: 36rem;
+    height: 38rem;
     margin: 2.5rem;
+
 }
 
 .formulario-card_menor {
