@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/esqueci-senha.css">
+    <link rel="stylesheet" href="/css/register.css">
     <link rel="stylesheet" href="/css/titles.css">
     <link rel="stylesheet" href="/css/formulario.css">
     <link rel="stylesheet" href="/css/alerts.css">
@@ -39,8 +40,11 @@
                 <input type="email" id="email_valido" name="email">
             </form>
 
-            <p class="invalid_message_error">Invalid email.</p>
-            <p class="valid_message_error">Email sent successfully! Please check your inbox and spam folder.</p>
+            <div class="errorMessage">
+                <p class="invalid_message_error">Invalid email.</p>
+                <p class="valid_message_error">Email sent successfully! Please check your inbox and spam folder.</p>
+            </div>
+
             <button class="btnBlack btnSizeSmall btnPositionRight" id="formulario_btn" type="submit">To send</button>
         </div>
     </main>
