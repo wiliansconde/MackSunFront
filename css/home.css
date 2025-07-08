@@ -21,7 +21,7 @@ main {
 }
 
 .solarFlares .formulario-card_medio {
-    width: calc(900px * 2 + 2rem);
+    width: calc(865px * 2 + 2rem);
     max-width: 100%;
     padding: 3rem 3rem;
     box-sizing: border-box;
