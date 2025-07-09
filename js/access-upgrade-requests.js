@@ -1,29 +1,35 @@
 document.addEventListener('DOMContentLoaded', async () => {
   const token = localStorage.getItem('token');
+  if (!token) return;
 
-  if (!token) {
-    console.error('Token não encontrado no localStorage.');
-    return;
-  }
+  let requests = [];
+  let currentPage = 1;
+  const rowsPerPage = 5;
 
-  const tableBody = document.querySelector('.access-table tbody');
+  const tbody = document.getElementById('tbody_requests');
+  const pagContainer = document.getElementById('paginacao_container');
 
-  try {
-    const response = await fetch('https://macksunback.azurewebsites.net/profile-upgrades', {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(`Erro na requisição: ${response.status}`);
+  const fetchRequests = async () => {
+    try {
+      const res = await fetch('https://macksunback.azurewebsites.net/profile-upgrades', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      requests = data.data.filter(r => r.status === 'PENDING') || [];
+      renderTable();
+      renderPagination();
+    } catch (e) {
+      console.error(e);
     }
+  };
 
-    const result = await response.json();
-    const pendingRequests = result.data.filter(req => req.status === 'PENDING');
+  const renderTable = () => {
+    tbody.innerHTML = '';
+    const filtered = applyFilters();
+    const start = (currentPage - 1) * rowsPerPage;
+    const paginated = filtered.slice(start, start + rowsPerPage);
 
-    pendingRequests.forEach(req => {
+    paginated.forEach(req => {
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>${req.fullName}</td>
@@ -31,27 +37,53 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td>${req.requestedProfile}</td>
         <td><button class="btnGray btnSizeHeightLimited learn-more-btn" data-id="${req.id}">Learn More</button></td>
       `;
-      tableBody.appendChild(row);
+      tbody.appendChild(row);
     });
 
-    addLearnMoreListeners(pendingRequests);
+    addLearnMoreListeners();
+  };
 
-  } catch (error) {
-    console.error('Erro ao buscar solicitações de upgrade:', error);
-  }
+  const renderPagination = () => {
+    const filtered = applyFilters();
+    const totalPages = Math.ceil(filtered.length / rowsPerPage);
+    pagContainer.innerHTML = '';
 
-  function addLearnMoreListeners(requests) {
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.textContent = i;
+      btn.className = i === currentPage ? 'btnGray_table active' : 'btnGray_table';
+      btn.onclick = () => {
+        currentPage = i;
+        renderTable();
+        renderPagination();
+      };
+      pagContainer.appendChild(btn);
+    }
+  };
+
+  const applyFilters = () => {
+    const nome = document.getElementById('filtro_nome').value.toLowerCase();
+    const current = document.getElementById('filtro_current').value.toLowerCase();
+    const requested = document.getElementById('filtro_requested').value.toLowerCase();
+
+    return requests.filter(req =>
+      req.fullName.toLowerCase().includes(nome) &&
+      req.currentProfile.toLowerCase().includes(current) &&
+      req.requestedProfile.toLowerCase().includes(requested)
+    );
+  };
+
+  const addLearnMoreListeners = () => {
     document.querySelectorAll('.learn-more-btn').forEach(button => {
-      button.addEventListener('click', () => {
+      button.onclick = () => {
         const reqId = button.dataset.id;
         const req = requests.find(r => r.id === reqId);
         if (req) showModal(req);
-      });
+      };
     });
-  }
+  };
 
-  function showModal(request) {
-    // Remove modal anterior, se houver
+  const showModal = (request) => {
     const existing = document.getElementById('modal-overlay');
     if (existing) existing.remove();
 
@@ -97,18 +129,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       try {
         const res = await fetch(`https://macksunback.azurewebsites.net/profile-upgrades/${request.id}/approve`, {
           method: 'PUT',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+          headers: { 'Authorization': `Bearer ${token}` }
         });
-        if (!res.ok) throw new Error('Erro ao aprovar.');
+        if (!res.ok) throw new Error();
         successMessage.textContent = 'Solicitação aprovada com sucesso!';
         successMessage.style.display = 'block';
         setTimeout(() => {
           modal.remove();
           location.reload();
         }, 2000);
-      } catch (err) {
+      } catch {
         errorMessage.textContent = 'Erro ao aprovar a solicitação.';
         errorMessage.style.display = 'block';
       }
@@ -128,9 +158,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         fetch(`https://macksunback.azurewebsites.net/profile-upgrades/${request.id}/reject?comment=${encodeURIComponent(comment)}`, {
           method: 'PUT',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+          headers: { 'Authorization': `Bearer ${token}` }
         })
         .then(res => {
           if (!res.ok) throw new Error();
@@ -147,5 +175,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
       }
     };
-  }
+  };
+
+  document.getElementById('btn_buscar').onclick = () => {
+    currentPage = 1;
+    renderTable();
+    renderPagination();
+  };
+
+  document.getElementById('btn_limpar_filtro').onclick = () => {
+    document.getElementById('filtro_nome').value = '';
+    document.getElementById('filtro_current').value = '';
+    document.getElementById('filtro_requested').value = '';
+    currentPage = 1;
+    renderTable();
+    renderPagination();
+  };
+
+  fetchRequests();
 });

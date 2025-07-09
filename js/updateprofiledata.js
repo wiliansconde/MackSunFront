@@ -2,11 +2,14 @@ import { loadUserData } from './login.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('Script de atualização de perfil carregado');
-    
  
     const token = localStorage.getItem('token');
-    const email = localStorage.getItem('email');
+    const storedUserData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const email = storedUserData.email || '';
     
+    console.log(email);
+    console.log("tessseettre")
+
     console.log('Token disponível:', !!token);
     console.log('Email disponível:', !!email);
 
@@ -160,6 +163,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const BASE_URL = window.BASE_URL || localStorage.getItem('baseUrl') || 'https://macksunback.azurewebsites.net/';
                 console.log('Enviando solicitação para atualizar senha');
                 console.log(BASE_URL);
+                console.log(token);
+                console.log(email);
                 
                 const updateResponse = await fetch(`${BASE_URL}users/update-password`, {
                     method: 'PATCH',

@@ -14,32 +14,56 @@
   <link rel="stylesheet" href="../../../css/formulario.css">
   <link rel="stylesheet" href="../../../css/alerts.css">
   <link rel="stylesheet" href="../../../css/table.css">
+  <link rel="stylesheet" href="../../../css/filter.css">
 
-  <script src="../../../js/access-upgrade-requests.js" defer></script>
   <script src="../../../js/const.js" defer></script>
-  <script src="../../../js/name_leavebutton.js" defer></script>
   <script type="module" src="../../../js/headerfooter.js"></script>
   <script src="../../../js/headerlogado.js"></script>
+  <script src="../../../js/access-upgrade-requests.js" defer></script>
 </head>
 
 <body>
   <div id="header"></div>
 
   <main class="container_padrao">
-    <div class="formulario_padrao">
+    <section class="formulario-card_medio">
       <h1 class="titulo_padrao">Profile Update Requests</h1>
-      <table class="access-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Current Profile</th>
-            <th>Requested Profile</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
+
+      <div class="barra_superior">
+        <div class="linha-filtros-superior">
+          <input type="text" id="filtro_nome" placeholder="Filter by Name">
+          <input type="text" id="filtro_current" placeholder="Filter by Current Profile">
+
+          <div class="botoes-filtros-superior">
+            <button id="btn_limpar_filtro" class="btnGray_table">Clear Filters</button>
+          </div>
+        </div>
+
+        <div class="linha-filtros-inferior">
+          <input type="text" id="filtro_requested" placeholder="Filter by Requested Profile">
+          <div class="btn-criar-wrapper">
+            <button class="btnRed btnSizeHeightLimited btnFilterRed" id="btn_buscar">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="access-table-wrapper">
+        <table class="access-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Current Profile</th>
+              <th>Requested Profile</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tbody_requests"></tbody>
+        </table>
+      </div>
+
+      <div class="paginacao-container" id="paginacao_container"></div>
+    </section>
+
   </main>
 </body>
 
