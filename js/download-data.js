@@ -352,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (arquivosDisponiveisParaDownload.length === 0) return;
 
         const textoModal = modalConfirmacao.querySelector('p');
-        textoModal.textContent = `Tem certeza que quer fazer download de ${totalArquivosDisponiveisNaBusca} files?`;
+        textoModal.textContent = `Are you sure you want to download ${totalArquivosDisponiveisNaBusca} files?`;
 
         modalConfirmacao.classList.remove('oculto');
     });
@@ -392,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
-                }, index * 500);
+                }, index * 5000);
             });
 
         } catch (erro) {
