@@ -1,3 +1,6 @@
+let arquivosDisponiveisParaDownload = [];
+let totalArquivosDisponiveisNaBusca = 0;
+
 document.addEventListener('DOMContentLoaded', () => {
     const elementoFormularioDownload = document.querySelector('.formulario_downloadData');
     const campoDataInicial = document.getElementById('startDate');
@@ -13,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const elementoDivResultadoExportacao = document.getElementById('resultado_exportacao');
 
     let limiteDiasMaximoExportacaoPorPerfil;
+    let paginaAtual = 0;
+    let totalPaginas = 0;
+    let itensPorPaginaSelecionado = 10;
 
     function atualizarEstadoLoginECheckboxes() {
         const tokenAutenticacaoUsuario = localStorage.getItem('token');
@@ -21,99 +27,109 @@ document.addEventListener('DOMContentLoaded', () => {
             const dadosInformacaoUsuarioRaw = sessionStorage.getItem('userInfo');
             dadosInformacaoUsuario = dadosInformacaoUsuarioRaw ? JSON.parse(dadosInformacaoUsuarioRaw) : null;
         } catch (erro) {
-            console.error("Erro ao processar dados de informação do usuário do sessionStorage:", erro);
+            console.error("Erro ao processar dados de informação do usuário:", erro);
             dadosInformacaoUsuario = null;
         }
 
-        const usuarioAutenticado = Boolean(tokenAutenticacaoUsuario && dadosInformacaoUsuario && dadosInformacaoUsuario.success && dadosInformacaoUsuario.data && dadosInformacaoUsuario.data.token);
-        const tipoDePerfilDoUsuario = usuarioAutenticado ? dadosInformacaoUsuario.data.user.profile.type : 'VISITOR';
+        const usuarioAutenticado = Boolean(
+            tokenAutenticacaoUsuario &&
+            dadosInformacaoUsuario &&
+            dadosInformacaoUsuario.success &&
+            dadosInformacaoUsuario.data &&
+            dadosInformacaoUsuario.data.token
+        );
 
-        if (!usuarioAutenticado) {
-            document.body.classList.add('visitante');
-            console.log("Usuário não autenticado: Classe 'visitante' adicionada ao body.");
-        } else {
-            document.body.classList.remove('visitante');
-            console.log("Usuário autenticado: Classe 'visitante' removida do body.");
-        }
+        const tipoDePerfilDoUsuario = usuarioAutenticado
+            ? dadosInformacaoUsuario?.data?.user?.profile?.type || 'VISITOR'
+            : 'VISITOR';
 
-        const todosCheckboxesResolucao = document.querySelectorAll('input[type="checkbox"]');
-        todosCheckboxesResolucao.forEach(checkboxIndividual => {
-            if (!usuarioAutenticado && checkboxIndividual.value !== '1s') {
-                checkboxIndividual.disabled = true;
-                checkboxIndividual.classList.add('desabilitado');
-            } else {
-                checkboxIndividual.disabled = false;
-                checkboxIndividual.classList.remove('desabilitado');
-            }
+        document.body.classList.toggle('visitante', !usuarioAutenticado);
+
+        const permissoesSolarPhysicist = new Set([
+            'poemas_45_100ms',
+            'poemas_45_1s',
+            'sst_212_100ms',
+            'sst_212_1s'
+        ]);
+
+        document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            const idCompleto = cb.id;
+
+            const deveDesabilitar =
+                (!usuarioAutenticado && cb.value !== '1s') ||
+                (tipoDePerfilDoUsuario === 'SOLAR_PHYSICIST' && !permissoesSolarPhysicist.has(idCompleto));
+
+            cb.disabled = deveDesabilitar;
+            cb.classList.toggle('desabilitado', deveDesabilitar);
         });
 
         switch (tipoDePerfilDoUsuario) {
-            case 'CRAAM_RESEARCHER':
             case 'ADMINISTRATOR':
                 limiteDiasMaximoExportacaoPorPerfil = 9999;
+                break;
+            case 'CRAAM_RESEARCHER':
+                limiteDiasMaximoExportacaoPorPerfil = 3;
                 break;
             case 'SOLAR_PHYSICIST':
             case 'VISITOR':
             default:
-                limiteDiasMaximoExportacaoPorPerfil = 7;
+                limiteDiasMaximoExportacaoPorPerfil = 2;
                 break;
         }
-        console.log(`Estado de login atualizado: Autenticado=${usuarioAutenticado}, Perfil=${tipoDePerfilDoUsuario}, Dias Máximos=${limiteDiasMaximoExportacaoPorPerfil}`);
     }
 
     atualizarEstadoLoginECheckboxes();
+    document.addEventListener('loginSuccess', atualizarEstadoLoginECheckboxes);
+    document.addEventListener('logoutSuccess', atualizarEstadoLoginECheckboxes);
 
-    document.addEventListener('loginSuccess', () => {
-        console.log('Evento "loginSuccess" recebido. Reavaliando o estado de login e checkboxes.');
-        atualizarEstadoLoginECheckboxes();
-    });
-
-    document.addEventListener('logoutSuccess', () => {
-        console.log('Evento "logoutSuccess" recebido. Reavaliando o estado de login e checkboxes.');
-        atualizarEstadoLoginECheckboxes(); // Reavalia o estado após o logout
+    const selectItensPorPagina = document.getElementById('itensPorPagina');
+    selectItensPorPagina.addEventListener('change', () => {
+        const valor = selectItensPorPagina.value;
+        itensPorPaginaSelecionado = parseInt(valor);
+        paginaAtual = 0;
+        elementoFormularioDownload.dispatchEvent(new Event('submit'));
     });
 
     function esconderTodasMensagensErro() {
-        mensagemErroCamposVazios.style.display = 'none';
-        mensagemErroResolucaoTelescopio.style.display = 'none';
-        mensagemErroPeriodoDataVazio.style.display = 'none';
-        mensagemErroPeriodoMaximo.style.display = 'none';
-        mensagemErroPeriodoMaximo.textContent = '';
-        mensagemErroFormatoVazio.style.display = 'none';
+        [mensagemErroCamposVazios, mensagemErroResolucaoTelescopio, mensagemErroPeriodoDataVazio, mensagemErroPeriodoMaximo, mensagemErroFormatoVazio].forEach(msg => {
+            msg.style.display = 'none';
+        });
         elementoDivResultadoExportacao.style.display = 'none';
         elementoDivResultadoExportacao.classList.remove('resultado_sucesso', 'resultado_erro');
     }
 
-    function validarDadosFormulario(dadosDoFormulario) {
+    function validarDadosFormulario(dados) {
         esconderTodasMensagensErro();
 
-        const existeResolucaoSelecionada = Object.values(dadosDoFormulario.selectedResolutionsByChannel).some(canais =>
-            Object.values(canais).some(resolucoes => resolucoes.length > 0)
-        );
+        const existeResolucao = Object.values(dados.resolutionsByInstrument).some(arr => arr.length > 0);
 
-        if (dadosDoFormulario.selectedInstruments.length === 0 || !existeResolucaoSelecionada) {
+        if (dados.instruments.length === 0 || !existeResolucao) {
             mensagemErroResolucaoTelescopio.style.display = 'block';
             mensagemErroResolucaoTelescopio.textContent = 'Please refer to at least one telescope resolution';
             return false;
         }
 
-        if (!dadosDoFormulario.startDate || !dadosDoFormulario.endDate) {
+        if (!dados.startDate || !dados.endDate) {
             mensagemErroPeriodoDataVazio.style.display = 'block';
             return false;
         }
 
-        const dataInicioObj = new Date(dadosDoFormulario.startDate);
-        const dataFimObj = new Date(dadosDoFormulario.endDate);
-        const diferencaEmMilisegundos = Math.abs(dataFimObj - dataInicioObj);
-        const diferencaEmDias = Math.ceil(diferencaEmMilisegundos / (1000 * 60 * 60 * 24));
+        const dataInicioObj = new Date(dados.startDate);
+        const dataFimObj = new Date(dados.endDate);
+        if (dataInicioObj > dataFimObj) {
+            mensagemErroPeriodoDataVazio.style.display = 'block';
+            mensagemErroPeriodoDataVazio.textContent = 'Start date must be before end date.';
+            return false;
+        }
 
+        const diferencaEmDias = Math.ceil((dataFimObj - dataInicioObj) / (1000 * 60 * 60 * 24));
         if (limiteDiasMaximoExportacaoPorPerfil !== 9999 && diferencaEmDias > limiteDiasMaximoExportacaoPorPerfil) {
             mensagemErroPeriodoMaximo.style.display = 'block';
             mensagemErroPeriodoMaximo.textContent = `The maximum period allowed for export is ${limiteDiasMaximoExportacaoPorPerfil} days.`;
             return false;
         }
 
-        if (dadosDoFormulario.outputFormats.length === 0) {
+        if (dados.formats.length === 0) {
             mensagemErroFormatoVazio.style.display = 'block';
             return false;
         }
@@ -126,96 +142,261 @@ document.addEventListener('DOMContentLoaded', () => {
         esconderTodasMensagensErro();
 
         const conjuntoInstrumentosSelecionados = new Set();
-        const objetoResolucoesSelecionadasPorCanal = {
-            POEMAS: { poemas_45: [], poemas_90: [] },
-            SST: { sst_212: [], sst_405: [] },
-            "H-ALPHA": { "h-alpha_Custom": [] },
-            "7GHZ": { "7ghz_Custom": [] },
-            "RADYN": { "radyn_Custom": [] }
-        };
+        const resolucoesPorCanal = {};
 
-        document.querySelectorAll('.telescopios-container input[type="checkbox"]:checked').forEach(checkboxMarcado => {
-            const partesDoId = checkboxMarcado.id.split('_');
-            const prefixoDoInstrumento = partesDoId[0];
-            const parteDoCanal = partesDoId.slice(1, partesDoId.length - 1).join('_');
-            const nomeDoInstrumentoEmMaiusculas = prefixoDoInstrumento.toUpperCase();
-            const chaveDoCanalFormatada = `${prefixoDoInstrumento}_${parteDoCanal}`;
+        document.querySelectorAll('.telescopios-container input[type="checkbox"]:checked').forEach(cb => {
+            const partes = cb.id.split('_');
+            if (partes.length < 3) return;
 
-            if (!objetoResolucoesSelecionadasPorCanal[nomeDoInstrumentoEmMaiusculas]) {
-                objetoResolucoesSelecionadasPorCanal[nomeDoInstrumentoEmMaiusculas] = {};
+            const instrumento = partes[0].toUpperCase();
+            const canalKey = `${partes[0]}_${partes[1]}`;
+            const frequencia = cb.value.toUpperCase();
+
+            conjuntoInstrumentosSelecionados.add(instrumento);
+
+            if (!resolucoesPorCanal[instrumento]) {
+                resolucoesPorCanal[instrumento] = {};
             }
-            if (!objetoResolucoesSelecionadasPorCanal[nomeDoInstrumentoEmMaiusculas][chaveDoCanalFormatada]) {
-                objetoResolucoesSelecionadasPorCanal[nomeDoInstrumentoEmMaiusculas][chaveDoCanalFormatada] = [];
+            if (!resolucoesPorCanal[instrumento][canalKey]) {
+                resolucoesPorCanal[instrumento][canalKey] = [];
             }
 
-            conjuntoInstrumentosSelecionados.add(nomeDoInstrumentoEmMaiusculas);
-            objetoResolucoesSelecionadasPorCanal[nomeDoInstrumentoEmMaiusculas][chaveDoCanalFormatada].push(checkboxMarcado.value.toUpperCase());
+            resolucoesPorCanal[instrumento][canalKey].push(frequencia);
         });
 
-        const valorDataInicial = campoDataInicial.value;
-        const valorDataFinal = campoDataFinal.value;
-        const valoresFormatosSaida = Array.from(seletoresFormatoSaida)
-            .filter(radio => radio.checked)
-            .map(radio => radio.value.toUpperCase());
+        const startDate = campoDataInicial.value;
+        const endDate = campoDataFinal.value;
+        const formats = Array.from(seletoresFormatoSaida).filter(r => r.checked).map(r => r.value.toUpperCase());
+
+        const instruments = Array.from(conjuntoInstrumentosSelecionados);
+        const resolutionByInstrument = {};
+        Object.entries(resolucoesPorCanal).forEach(([instr, canais]) => {
+            const lista = [];
+            Object.entries(canais).forEach(([canal, arr]) => {
+                lista.push(...arr.map(r => `${instr.toLowerCase()}_${r.toLowerCase()}`));
+            });
+            if (lista.length) resolutionByInstrument[instr] = lista;
+        });
 
         const corpoDaRequisicao = {
-            selectedInstruments: Array.from(conjuntoInstrumentosSelecionados),
-            selectedResolutionsByChannel: objetoResolucoesSelecionadasPorCanal,
-            startDate: valorDataInicial,
-            endDate: valorDataFinal,
-            outputFormats: valoresFormatosSaida
+            instruments,
+            resolutionsByInstrument: resolutionByInstrument,
+            startDate,
+            endDate,
+            formats,
+            page: paginaAtual,
+            size: itensPorPaginaSelecionado
         };
 
-        if (!validarDadosFormulario(corpoDaRequisicao)) {
-            return;
-        }
+        ultimaBuscaRealizada = { ...corpoDaRequisicao };
+
+        if (!validarDadosFormulario(corpoDaRequisicao)) return;
 
         botaoEnviarExportacao.disabled = true;
-        botaoEnviarExportacao.textContent = 'Exporting...';
-        elementoDivResultadoExportacao.innerHTML = `
-            <h3>Processing your request...</h3>
-            <p>Please wait while your data is being prepared for download..</p>`;
+        botaoEnviarExportacao.textContent = 'Loading...';
         elementoDivResultadoExportacao.style.display = 'block';
+        elementoDivResultadoExportacao.innerHTML = `
+                        <h3>Processing your request...</h3>
+                        <p>Please wait while your data is being prepared for download..</p>`;
+        setTimeout(() => {
+            if (elementoDivResultadoExportacao.innerText.includes('Processing')) {
+                elementoDivResultadoExportacao.style.display = 'none';
+                elementoDivResultadoExportacao.innerHTML = '';
+            }
+        }, 3000);
 
         try {
-            const cabecalhosRequisicao = { 'Content-Type': 'application/json' };
-            const tokenAtualDoLocalStorage = localStorage.getItem('token');
-            if (tokenAtualDoLocalStorage) {
-                cabecalhosRequisicao['Authorization'] = `Bearer ${tokenAtualDoLocalStorage}`;
-            }
+            const headers = { 'Content-Type': 'application/json' };
+            const tokenAtual = localStorage.getItem('token');
+            if (tokenAtual) headers['Authorization'] = `Bearer ${tokenAtual}`;
 
-            const respostaDaAPI = await fetch(`${BASE_URL}public/time-series/search`, {
+            const resposta = await fetch(`${BASE_URL}public/search-files`, {
                 method: 'POST',
-                headers: cabecalhosRequisicao,
+                headers,
                 body: JSON.stringify(corpoDaRequisicao)
             });
 
-            if (respostaDaAPI.ok) {
-                const dadosRecebidosDaAPI = await respostaDaAPI.json();
-                elementoDivResultadoExportacao.innerHTML = `
-                    <h3>Resultado:</h3>
-                    <p>${dadosRecebidosDaAPI.message || 'Export request sent successfully.'}</p>
-                    <p>Estimated lines: ${dadosRecebidosDaAPI.data?.estimatedRowCount || 'N/A'}</p>
-                    <p>Estimated processing time: ${dadosRecebidosDaAPI.data?.estimatedProcessingTime || 'N/A'}</p>
-                `;
+            const dadosRecebidos = await resposta.json();
+            if (resposta.ok) {
+                const dados = dadosRecebidos.data;
+                const semResultadosDiv = document.getElementById('sem-resultados');
+                const tbody = document.getElementById('tbody_resultados');
+                semResultadosDiv.style.display = 'none';
+                semResultadosDiv.innerHTML = '';
+                arquivosDisponiveisParaDownload = dados.content || [];
+                totalArquivosDisponiveisNaBusca = dados.totalElements || 0;
+
+
+
+                if (dados.empty || dados.content.length === 0) {
+                    document.querySelector('.container-tabela').classList.add('oculto');
+                    document.querySelector('.controle-tabela').classList.add('oculto');
+                    document.querySelector('.select-itens-pagina').classList.add('oculto');
+                    document.getElementById('btn_download_all').classList.add('oculto');
+
+                    tbody.innerHTML = '';
+                    semResultadosDiv.style.display = 'block';
+                    semResultadosDiv.innerHTML = `<h3>No results found.</h3>`;
+                    semResultadosDiv.classList.add('resultado_erro');
+                    return;
+                }
+
+                totalPaginas = dados.totalPages || 1;
+                tbody.innerHTML = '';
+                arquivosDisponiveisParaDownload = dados.content;
+                dados.content.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${item.date}</td>
+                        <td>${item.instrument}</td>
+                        <td>${item.resolution}</td>
+                        <td>${item.format}</td>
+                        <td class='alinhar_downloadFile'><a href="${item.publicUrl}" target="_blank" download>Download file</a></td>`;
+                    tbody.appendChild(tr);
+                });
+
+                document.querySelector('.container-tabela').classList.remove('oculto');
+                document.querySelector('.container-tabela').style.display = 'block';
+                document.querySelector('.controle-tabela').classList.remove('oculto');
+                document.querySelector('.select-itens-pagina').classList.remove('oculto');
+                document.getElementById('btn_download_all').classList.remove('oculto');
+                document.getElementById('btn_download_all').disabled = false;
+
+                renderizarPaginacao();
+
+                elementoDivResultadoExportacao.innerHTML = `<h3>${dadosRecebidos.message}</h3>`;
                 elementoDivResultadoExportacao.classList.add('resultado_sucesso');
+
+                setTimeout(() => {
+                    elementoDivResultadoExportacao.style.display = 'none';
+                    elementoDivResultadoExportacao.innerHTML = '';
+                    elementoDivResultadoExportacao.classList.remove('resultado_sucesso');
+                }, 5000);
             } else {
-                const dadosErroDaAPI = await respostaDaAPI.json();
-                elementoDivResultadoExportacao.innerHTML = `
-                    <h3>Error:</h3>
-                    <p>${dadosErroDaAPI.message || 'Export failed.'}</p>`;
+                elementoDivResultadoExportacao.innerHTML = `<h3>Error:</h3><p>${dadosRecebidos.message || 'Loading failed.'}</p>`;
                 elementoDivResultadoExportacao.classList.add('resultado_erro');
+
+                setTimeout(() => {
+                    elementoDivResultadoExportacao.style.display = 'none';
+                    elementoDivResultadoExportacao.innerHTML = '';
+                    elementoDivResultadoExportacao.classList.remove('resultado_erro');
+                }, 5000);
             }
         } catch (erroNaRequisicao) {
-            console.error('Erro na exportação:', erroNaRequisicao);
-            elementoDivResultadoExportacao.innerHTML = `
-                <h3>Failure:</h3>
-                <p>Network error or server unavailable.</p>`;
+            elementoDivResultadoExportacao.innerHTML = `<h3>Failure:</h3><p>Network error or server unavailable.</p>`;
             elementoDivResultadoExportacao.classList.add('resultado_erro');
+
+            setTimeout(() => {
+                elementoDivResultadoExportacao.style.display = 'none';
+                elementoDivResultadoExportacao.innerHTML = '';
+                elementoDivResultadoExportacao.classList.remove('resultado_erro');
+            }, 5000);
         } finally {
             botaoEnviarExportacao.disabled = false;
-            botaoEnviarExportacao.textContent = 'Exportar';
+            botaoEnviarExportacao.textContent = 'Search';
             elementoDivResultadoExportacao.style.display = 'block';
+        }
+    });
+
+    function renderizarPaginacao() {
+        const container = document.getElementById('container-paginacao');
+        container.innerHTML = '';
+
+        const maxBotoesVisiveis = 5;
+        const metade = Math.floor(maxBotoesVisiveis / 2);
+        let inicio = Math.max(0, paginaAtual - metade);
+        let fim = Math.min(totalPaginas, inicio + maxBotoesVisiveis);
+
+        if (fim - inicio < maxBotoesVisiveis) {
+            inicio = Math.max(0, fim - maxBotoesVisiveis);
+        }
+
+        if (paginaAtual > 0) {
+            const btnAnterior = document.createElement('button');
+            btnAnterior.textContent = 'Previous';
+            btnAnterior.onclick = () => {
+                paginaAtual--;
+                elementoFormularioDownload.dispatchEvent(new Event('submit'));
+            };
+            container.appendChild(btnAnterior);
+        }
+
+        for (let i = inicio; i < fim; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = (i + 1).toString();
+            btn.classList.toggle('active', i === paginaAtual);
+            btn.onclick = () => {
+                paginaAtual = i;
+                elementoFormularioDownload.dispatchEvent(new Event('submit'));
+            };
+            container.appendChild(btn);
+        }
+
+        if (paginaAtual < totalPaginas - 1) {
+            const btnProxima = document.createElement('button');
+            btnProxima.textContent = 'Next';
+            btnProxima.onclick = () => {
+                paginaAtual++;
+                elementoFormularioDownload.dispatchEvent(new Event('submit'));
+            };
+            container.appendChild(btnProxima);
+        }
+    }
+
+    const botaoDownloadAll = document.getElementById('btn_download_all');
+    const modalConfirmacao = document.getElementById('modal_confirmacao_download');
+    const botaoConfirmar = document.getElementById('btn_confirmar_download');
+    const botaoCancelar = document.getElementById('btn_cancelar_download');
+
+    botaoDownloadAll.addEventListener('click', async () => {
+        if (arquivosDisponiveisParaDownload.length === 0) return;
+
+        const textoModal = modalConfirmacao.querySelector('p');
+        textoModal.textContent = `Tem certeza que quer fazer download de ${totalArquivosDisponiveisNaBusca} files?`;
+
+        modalConfirmacao.classList.remove('oculto');
+    });
+
+    botaoCancelar.addEventListener('click', () => {
+        modalConfirmacao.classList.add('oculto');
+    });
+
+    botaoConfirmar.addEventListener('click', async () => {
+        modalConfirmacao.classList.add('oculto');
+
+        const corpoBuscaCompleta = {
+            ...ultimaBuscaRealizada,
+            page: 0,
+            size: 9999
+        };
+
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            const tokenAtual = localStorage.getItem('token');
+            if (tokenAtual) headers['Authorization'] = `Bearer ${tokenAtual}`;
+
+            const resposta = await fetch(`${BASE_URL}public/search-files`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify(corpoBuscaCompleta)
+            });
+
+            const resultado = await resposta.json();
+            const todosArquivos = resultado?.data?.content || [];
+
+            todosArquivos.forEach((arquivo, index) => {
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = arquivo.publicUrl;
+                    link.setAttribute('download', '');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }, index * 500);
+            });
+
+        } catch (erro) {
+            console.error("Erro ao buscar todos os arquivos:", erro);
         }
     });
 });

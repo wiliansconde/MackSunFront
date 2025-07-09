@@ -17,7 +17,7 @@
     <script src="./js/const.js" defer></script>
     <script src="/js/download-data.js" defer></script>
     <script type="module" src="/js/login.js" defer></script>
-    <script type="module" src="js/headerfooter.js"></script>
+    <script type="module" src="js/headerfooter.js" defer></script>
 
     <title>Download Data</title>
 </head>
@@ -37,9 +37,10 @@
                 <div class="telescopios-container">
                     <fieldset>
                         <legend>POEMAS</legend>
+                        <p class="subtitulo_secao">45GHz/90GHz</p>
 
                         <div class="linha-frequencia">
-                            <span>45GHz:</span>
+
                             <label>
                                 <input type="checkbox" name="poemas_45" value="10ms" id="poemas_45_10ms">10ms
                             </label>
@@ -51,25 +52,14 @@
                             </label>
                         </div>
 
-                        <div class="linha-frequencia">
-                            <span>90GHz:</span>
-                            <label>
-                                <input type="checkbox" name="poemas_90" value="10ms" id="poemas_90_10ms">10ms
-                            </label>
-                            <label>
-                                <input type="checkbox" name="poemas_90" value="100ms" id="poemas_90_100ms">100ms
-                            </label>
-                            <label>
-                                <input type="checkbox" name="poemas_90" value="1s" id="poemas_90_1s">1s
-                            </label>
-                        </div>
                     </fieldset>
 
                     <fieldset>
                         <legend>SST</legend>
+                        <p class="subtitulo_secao">212GHz/405GHz</p>
 
                         <div class="linha-frequencia">
-                            <span>212GHz:</span>
+
                             <label>
                                 <input type="checkbox" name="sst_212" value="5ms" id="sst_212_5ms">5ms
                             </label>
@@ -83,52 +73,37 @@
                                 <input type="checkbox" name="sst_212" value="1s" id="sst_212_1s">1s
                             </label>
                         </div>
-
-                        <div class="linha-frequencia">
-                            <span>405GHz:</span>
-                            <label>
-                                <input type="checkbox" name="sst_405" value="5ms" id="sst_405_5ms">5ms
-                            </label>
-                            <label>
-                                <input type="checkbox" name="sst_405" value="40ms" id="sst_405_40ms">40ms
-                            </label>
-                            <label>
-                                <input type="checkbox" name="sst_405" value="100ms" id="sst_405_100ms">100ms
-                            </label>
-                            <label>
-                                <input type="checkbox" name="sst_405" value="1s" id="sst_405_1s">1s
-                            </label>
-                        </div>
                     </fieldset>
                 </div>
             </section>
 
-            <section class="info-padrao">
-                <h2 class="titulo_secao">Date range</h2>
-                <p class="subtitulo_secao">Select start date and end date</p>
+            <div class="section-row">
+                <section class="info-padrao">
+                    <h2 class="titulo_secao">Date range</h2>
+                    <p class="subtitulo_secao">Select start date and end date</p>
 
-                <div class="date-range-container">
-                    <div>
-                        <label for="startDate">Start date:</label>
-                        <input class="inputResolucao" type="date" id="startDate" name="startDate">
+                    <div class="date-range-container">
+                        <div>
+                            <label for="startDate">Start date:</label>
+                            <input class="inputResolucao" type="date" id="startDate" name="startDate">
+                        </div>
+                        <div>
+                            <label for="endDate">End date:</label>
+                            <input class="inputResolucao end-date-align-left" type="date" id="endDate" name="endDate">
+                        </div>
                     </div>
-                    <div>
-                        <label for="endDate">End date:</label>
-                        <input class="inputResolucao end-date-align-left" type="date" id="endDate" name="endDate">
+                </section>
+
+                <section class="info-padrao">
+                    <h2 class="titulo_secao">Output format</h2>
+                    <p class="subtitulo_secao">Select the format for export</p>
+
+                    <div class="radio-group">
+                        <label><input type="radio" name="exportFormat" value="csv"> CSV</label>
+                        <label><input type="radio" name="exportFormat" value="fits"> FITS</label>
                     </div>
-                </div>
-            </section>
-
-            <section class="info-padrao">
-                <h2 class="titulo_secao">Output format</h2>
-                <p class="subtitulo_secao">Select the format for export</p>
-
-                <div class="radio-group">
-                    <label><input type="radio" name="exportFormat" value="json"> JSON</label>
-                    <label><input type="radio" name="exportFormat" value="csv"> CSV</label>
-                    <label><input type="radio" name="exportFormat" value="fits"> FITS</label>
-                </div>
-            </section>
+                </section>
+            </div>
 
             <p class="invalid_message_error" id="campo-vazio">Fill in all fields.</p>
             <p class="invalid_message_error" id="campo-de-telescopio-vazio">Select a telescope and temporal resolution.
@@ -140,12 +115,56 @@
             </p>
 
             <div class="button-container">
-                <button type="submit" class="btnBlack btnSizeSmall">Export</button>
+                <button type="submit" class="btnBlack btnSizeSmall">Search</button>
             </div>
 
             <div id="resultado_exportacao" class="resultado_expot"></div>
+            <div id="sem-resultados" class="resultado_expot"></div>
 
+            <div class="controle-tabela oculto">
+
+                <div class="select-itens-pagina oculto">
+                    <label for="itensPorPagina">Items per page:</label>
+                    <select id="itensPorPagina" name="itensPorPagina" class="inputResolucao">
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="25">25</option>
+                        <option value="35">35</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="container-tabela">
+                <table class="tabela-conteudo">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Instrument</th>
+                            <th>Resolution</th>
+                            <th>Format file</th>
+                            <th class="alinhar-btn"><button class="btnBlack btnDownloadAllFile oculto" id="btn_download_all"
+                                    disabled>Download all files</button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_resultados"></tbody>
+                </table>
+            </div>
+
+            <div class="container-paginacao" id="container-paginacao"></div>
         </form>
+
+        <div id="modal_confirmacao_download" class="modal oculto">
+            <div class="modal-conteudo">
+                <p></p>
+                <div class="modal-botoes">
+                    <button id="btn_confirmar_download" class="btnGreen">Yes</button>
+                    <button id="btn_cancelar_download" class="btnRed">Cancel</button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

@@ -17,3 +17,7 @@
     text-align: center;
     width: 100%;
 }
+
+.message-error-spacing {
+    margin-bottom: 1rem;
+}
