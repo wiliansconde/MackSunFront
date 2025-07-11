@@ -195,22 +195,16 @@ export function submit() {
                     window.location.reload();
                 } else {
                     if (errorLogin) {
-                        errorLogin.textContent = result.message || 'Invalid credentials.';
+                        errorLogin.textContent = 'Your email or password is incorrect';
                         errorLogin.style.display = 'flex';
                     }
-                    const emailInput = document.getElementById('input_email');
-                    const senhaInput = document.getElementById('input_senha');
-
-                    if (emailInput && (!rememberMeCheckbox || !rememberMeCheckbox.checked)) {
-                        emailInput.value = '';
-                    }
-                    if (senhaInput) senhaInput.value = '';
                 }
             })
             .catch(error => {
                 console.error('Erro ao fazer login', error);
                 if (errorLogin) {
-                    errorLogin.textContent = error.message || 'Network error or server unavailable.';
+                    errorLogin.textContent = 'Your email or password is incorrect.';
+
                     errorLogin.style.display = 'flex';
                 }
                 const emailInput = document.getElementById('input_email');
