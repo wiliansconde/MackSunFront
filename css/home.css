@@ -26,6 +26,7 @@ main {
     padding: 3rem 3rem;
     box-sizing: border-box;
     margin: 1rem;
+    margin-bottom: 3rem;
 }
 
 .solarFlares .titulo_padrao {
@@ -79,6 +80,10 @@ main {
     width: max-content;
     min-width: 600px;
     font-size: 0.9rem;
+}
+
+.ocultar {
+    display: none;
 }
 
 @media (max-width: 767px) {
