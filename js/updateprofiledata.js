@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const usernameField = document.getElementById('username');
         const fullnameField = document.getElementById('fullname');
         const emailField = document.getElementById('email');
+        const profileField = document.getElementById('profile');
         
         if (usernameField) {
             usernameField.value = userData.username || '';
@@ -57,6 +58,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             console.log('Campo email não encontrado no DOM');
         }
+
+        if (profileField) {
+        profileField.value = userData.profile.type || '';
+        console.log('Campo profile preenchido do localStorage:', profileField.value);
+        } else {
+        console.log('Campo perfil não encontrado no DOM');
+}
     }
     
     else if (!token || !email) {
@@ -65,7 +73,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       
         const isProfilePage = document.getElementById('username') && 
                              document.getElementById('fullname') && 
-                             document.getElementById('email');
+                             document.getElementById('email') &&
+                             document.getElementById('profile');
         
         if (isProfilePage) {
             console.log('Estamos na página de perfil mas sem autenticação. Redirecionando...');

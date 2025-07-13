@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>${req.fullName}</td>
-        <td>${req.currentProfile}</td>
+        <td>${req.current}</td>
         <td>${req.requestedProfile}</td>
         <td><button class="btnGray btnSizeHeightLimited learn-more-btn" data-id="${req.id}">Learn More</button></td>
       `;

@@ -4,11 +4,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>About Me</title>
+
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/updateprofiledata.css">
+  <link rel="stylesheet" href="/css/register.css">
+  <link rel="stylesheet" href="../../css/buttons.css">
+  <link rel="stylesheet" href="../../css/titles.css">
+  <link rel="stylesheet" href="../../css/formulario.css">
+  <link rel="stylesheet" href="../../css/alerts.css">
+
+  <script src="../../js/const.js" defer></script>
+  <script type="module" src="../../js/headerfooter.js"></script>
+  <script type="module" src="../../js/updateprofiledata.js" defer></script>
 </head>
 
 <body>
-  <h1>About Me</h1>
+  <div id="header"></div>
+  <main class="container_padrao">
+    <div class="formulario_padrao ">
+      <h1 class="titulo_padrao">About Me</h1>
+
+      <div class="container-input-label">
+        <label class="labelRegister" for="username">Username</label>
+        <input class="inputRegister" type="text" id="username" name="username" disabled>
+      </div>
+
+      <div class="container-input-label">
+        <label class="labelRegister" for="fullname">Full name</label>
+        <input class="inputRegister" type="text" id="fullname" name="fullname" disabled>
+      </div>
+
+      <div class="container-input-label">
+        <label class="labelRegister" for="email">Email</label>
+        <input class="inputRegister" type="email" id="email" name="email" disabled>
+      </div>
+
+      <div class="container-input-label">
+        <label class="labelRegister" for="profile">Profile</label>
+        <input class="inputRegister" type="text" id="profile" name="profile" disabled>
+      </div>
+
 </body>
 
 </html>
