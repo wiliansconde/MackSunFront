@@ -148,7 +148,7 @@ export function submit() {
         if (!email || !senha) {
             if (errorLogin) {
                 errorLogin.textContent = 'Your email or password is incorrect.';
-                errorLogin.style.display = 'flex';
+                errorLogin.style.display = 'flex'; 
             }
             return;
         }
