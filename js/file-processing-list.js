@@ -160,16 +160,62 @@ function renderizarPaginacao() {
 
     const totalPaginas = Math.ceil(todosArquivos.length / arquivosPorPagina);
 
-    for (let i = 1; i <= totalPaginas; i++) {
+    function criarBotao(text, pagina, isActive = false, isDisabled = false) {
         const btn = document.createElement('button');
-        btn.textContent = i;
-        if (i === paginaAtual) btn.classList.add('active');
+        btn.textContent = text;
+        if (isActive) btn.classList.add('active');
+        if (isDisabled) btn.disabled = true;
         btn.addEventListener('click', () => {
-            paginaAtual = i;
-            renderizarPagina();
+            if (!isDisabled) {
+                paginaAtual = pagina;
+                renderizarPagina();
+            }
         });
         paginacaoContainer.appendChild(btn);
     }
+
+    criarBotao('Previous', paginaAtual - 1, false, paginaAtual === 1);
+
+    criarBotao('1', 1, paginaAtual === 1);
+
+    function criarPontos() {
+        const span = document.createElement('span');
+        span.textContent = '...';
+        span.classList.add('dots');
+        paginacaoContainer.appendChild(span);
+    }
+
+    if (totalPaginas <= 7) {
+        for (let i = 2; i <= totalPaginas; i++) {
+            criarBotao(i.toString(), i, paginaAtual === i);
+        }
+    } else {
+
+        if (paginaAtual <= 5) {
+            for (let i = 2; i <= 5; i++) {
+                criarBotao(i.toString(), i, paginaAtual === i);
+            }
+            criarPontos();
+            criarBotao(totalPaginas.toString(), totalPaginas, paginaAtual === totalPaginas);
+
+        } else if (paginaAtual >= totalPaginas - 4) {
+            criarPontos();
+            for (let i = totalPaginas - 4; i < totalPaginas; i++) {
+                criarBotao(i.toString(), i, paginaAtual === i);
+            }
+            criarBotao(totalPaginas.toString(), totalPaginas, paginaAtual === totalPaginas);
+
+        } else {
+            criarPontos();
+            for (let i = paginaAtual - 1; i <= paginaAtual + 1; i++) {
+                criarBotao(i.toString(), i, paginaAtual === i);
+            }
+            criarPontos();
+            criarBotao(totalPaginas.toString(), totalPaginas, paginaAtual === totalPaginas);
+        }
+    }
+
+    criarBotao('Next', paginaAtual + 1, false, paginaAtual === totalPaginas);
 }
 
 function classeStatus(status) {

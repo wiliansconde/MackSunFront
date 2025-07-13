@@ -226,8 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 arquivosDisponiveisParaDownload = dados.content || [];
                 totalArquivosDisponiveisNaBusca = dados.totalElements || 0;
 
-
-
                 if (dados.empty || dados.content.length === 0) {
                     document.querySelector('.container-tabela').classList.add('oculto');
                     document.querySelector('.controle-tabela').classList.add('oculto');
@@ -302,16 +300,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('container-paginacao');
         container.innerHTML = '';
 
-        const maxBotoesVisiveis = 5;
-        const metade = Math.floor(maxBotoesVisiveis / 2);
-        let inicio = Math.max(0, paginaAtual - metade);
-        let fim = Math.min(totalPaginas, inicio + maxBotoesVisiveis);
+        const total = totalPaginas;
+        const atual = paginaAtual;
 
-        if (fim - inicio < maxBotoesVisiveis) {
-            inicio = Math.max(0, fim - maxBotoesVisiveis);
-        }
-
-        if (paginaAtual > 0) {
+        if (atual > 0) {
             const btnAnterior = document.createElement('button');
             btnAnterior.textContent = 'Previous';
             btnAnterior.onclick = () => {
@@ -321,18 +313,46 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(btnAnterior);
         }
 
-        for (let i = inicio; i < fim; i++) {
+        function criarBotaoPagina(num) {
             const btn = document.createElement('button');
-            btn.textContent = (i + 1).toString();
-            btn.classList.toggle('active', i === paginaAtual);
+            btn.textContent = (num + 1).toString();
+            btn.classList.toggle('active', num === atual);
             btn.onclick = () => {
-                paginaAtual = i;
+                paginaAtual = num;
                 elementoFormularioDownload.dispatchEvent(new Event('submit'));
             };
-            container.appendChild(btn);
+            return btn;
         }
 
-        if (paginaAtual < totalPaginas - 1) {
+        container.appendChild(criarBotaoPagina(0));
+
+        if (total <= 7) {
+            for (let i = 1; i < total; i++) {
+                container.appendChild(criarBotaoPagina(i));
+            }
+        } else {
+            if (atual < 5) {
+                for (let i = 1; i <= 4; i++) {
+                    container.appendChild(criarBotaoPagina(i));
+                }
+                container.appendChild(criarEllipsis());
+                container.appendChild(criarBotaoPagina(total - 1));
+            } else if (atual > total - 5) {
+                container.appendChild(criarEllipsis());
+                for (let i = total - 5; i < total; i++) {
+                    container.appendChild(criarBotaoPagina(i));
+                }
+            } else {
+                container.appendChild(criarEllipsis());
+                container.appendChild(criarBotaoPagina(atual - 1));
+                container.appendChild(criarBotaoPagina(atual));
+                container.appendChild(criarBotaoPagina(atual + 1));
+                container.appendChild(criarEllipsis());
+                container.appendChild(criarBotaoPagina(total - 1));
+            }
+        }
+
+        if (atual < total - 1) {
             const btnProxima = document.createElement('button');
             btnProxima.textContent = 'Next';
             btnProxima.onclick = () => {
@@ -340,6 +360,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 elementoFormularioDownload.dispatchEvent(new Event('submit'));
             };
             container.appendChild(btnProxima);
+        }
+
+        function criarEllipsis() {
+            const span = document.createElement('span');
+            span.textContent = '...';
+            span.classList.add('ellipsis');
+            span.style.margin = '0 5px';
+            return span;
         }
     }
 

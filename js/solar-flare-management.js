@@ -380,7 +380,6 @@ function preencherTabela(flares) {
     });
 }
 
-
 function renderizarPagina() {
     const inicio = (paginaAtual - 1) * flaresPorPagina;
     const fim = inicio + flaresPorPagina;
@@ -395,42 +394,69 @@ function renderizarPaginacao() {
 
     const totalPaginas = Math.ceil(todosFlares.length / flaresPorPagina);
 
-    const criarBotao = (texto, pagina, isActive = false) => {
+    if (totalPaginas <= 1) return;
+
+    const criarBotao = (texto, pagina, isActive = false, isDisabled = false) => {
         const btn = document.createElement('button');
         btn.textContent = texto;
         if (isActive) btn.classList.add('active');
-        btn.addEventListener('click', () => {
-            paginaAtual = pagina;
-            renderizarPagina();
-        });
+        if (isDisabled) {
+            btn.disabled = true;
+            btn.classList.add('disabled');
+        } else {
+            btn.addEventListener('click', () => {
+                paginaAtual = pagina;
+                renderizarPagina();
+            });
+        }
         return btn;
     };
 
-    const maxPaginasVisiveis = 5;
-    for (let i = 1; i <= Math.min(maxPaginasVisiveis, totalPaginas); i++) {
-        paginacaoContainer.appendChild(criarBotao(i, i, i === paginaAtual));
-    }
+    paginacaoContainer.appendChild(criarBotao('Previous', paginaAtual - 1, false, paginaAtual === 1));
 
-    if (totalPaginas > maxPaginasVisiveis) {
-        const reticencias = document.createElement('span');
-        reticencias.textContent = '...';
-        reticencias.classList.add('reticencias');
-        paginacaoContainer.appendChild(reticencias);
+    const adicionarReticencias = () => {
+        const span = document.createElement('span');
+        span.textContent = '...';
+        span.classList.add('reticencias');
+        paginacaoContainer.appendChild(span);
+    };
 
+    const mostrarIntervalo = (start, end) => {
+        for (let i = start; i <= end; i++) {
+            paginacaoContainer.appendChild(criarBotao(i, i, i === paginaAtual));
+        }
+    };
+
+    const mostrarInicio = () => {
+        paginacaoContainer.appendChild(criarBotao(1, 1, paginaAtual === 1));
+    };
+
+    const mostrarFim = () => {
         paginacaoContainer.appendChild(criarBotao(totalPaginas, totalPaginas, paginaAtual === totalPaginas));
+    };
+
+    if (totalPaginas <= 7) {
+        mostrarIntervalo(1, totalPaginas);
+    } else {
+        if (paginaAtual <= 4) {
+            mostrarIntervalo(1, 5);
+            adicionarReticencias();
+            mostrarFim();
+        } else if (paginaAtual >= totalPaginas - 3) {
+            mostrarInicio();
+            adicionarReticencias();
+            mostrarIntervalo(totalPaginas - 4, totalPaginas);
+        } else {
+            mostrarInicio();
+            adicionarReticencias();
+            mostrarIntervalo(paginaAtual - 1, paginaAtual + 1);
+            adicionarReticencias();
+            mostrarFim();
+        }
     }
 
-    if (paginaAtual < totalPaginas) {
-        const btnNext = document.createElement('button');
-        btnNext.textContent = 'Next';
-        btnNext.addEventListener('click', () => {
-            paginaAtual++;
-            renderizarPagina();
-        });
-        paginacaoContainer.appendChild(btnNext);
-    }
+    paginacaoContainer.appendChild(criarBotao('Next', paginaAtual + 1, false, paginaAtual === totalPaginas));
 }
-
 
 document.getElementById('btn_buscar').addEventListener('click', async () => {
     let dataFiltro = document.getElementById('filtro_data').value.trim();
@@ -550,7 +576,6 @@ document.getElementById('form_novo_flare_solar').addEventListener('submit', asyn
         return;
     }
 
-
     const dateTimeNormalizado = normalizarDataHoraParaAPI(dateTime);
     if (!dateTimeNormalizado) {
         mensagemErro.textContent = 'Invalid date and time format. Use YYYY-MM-DD HH:MM, DD-MM-YYYY HH:MM, DD/MM/YYYY HH:MM or DDMMYYYY HHMM';
@@ -575,7 +600,6 @@ document.getElementById('form_novo_flare_solar').addEventListener('submit', asyn
         mensagemErro.style.display = 'block';
     }
 });
-
 
 function abrirModalEditar(id) {
     try {

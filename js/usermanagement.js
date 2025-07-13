@@ -466,21 +466,221 @@ document.addEventListener('DOMContentLoaded', () => {
         paginacaoContainer.innerHTML = '';
 
         const totalDePaginas = Math.ceil(totalItems / linhasPorPagina);
+        const maxPaginasVisiveis = 5;
 
-        for (let i = 1; i <= totalDePaginas; i++) {
-            const btn_paginacao = document.createElement('button');
-            btn_paginacao.textContent = i;
+        if (paginaAtual > 1) {
+            const btnPrev = document.createElement('button');
+            btnPrev.textContent = 'Previous';
+            btnPrev.addEventListener('click', () => {
+                paginaAtual--;
+                displayPage(usuariosFiltrados, paginaAtual);
+            });
+            paginacaoContainer.appendChild(btnPrev);
+        }
 
-            if (i === paginaAtual) {
-                btn_paginacao.classList.add('active');
+        const btnPagina1 = criarBotaoPagina(1, paginaAtual);
+        paginacaoContainer.appendChild(btnPagina1);
+
+        let inicioJanela = Math.max(2, paginaAtual - 1);
+        let fimJanela = Math.min(totalDePaginas - 1, paginaAtual + 1);
+
+        if (paginaAtual > 4) {
+            paginacaoContainer.appendChild(criarEllipsis());
+        }
+
+        for (let i = inicioJanela; i <= fimJanela; i++) {
+            const btn = criarBotaoPagina(i, paginaAtual);
+            paginacaoContainer.appendChild(btn);
+        }
+
+        if (paginaAtual < totalDePaginas - 3) {
+            paginacaoContainer.appendChild(criarEllipsis());
+        }
+
+        if (totalDePaginas > 1) {
+            const btnUltima = criarBotaoPagina(totalDePaginas, paginaAtual);
+            paginacaoContainer.appendChild(btnUltima);
+        }
+
+        if (paginaAtual < totalDePaginas) {
+            const btnNext = document.createElement('button');
+            btnNext.textContent = 'Next';
+            btnNext.addEventListener('click', () => {
+                paginaAtual++;
+                displayPage(usuariosFiltrados, paginaAtual);
+            });
+            paginacaoContainer.appendChild(btnNext);
+        }
+
+        function criarBotaoPagina(numero, paginaAtual) {
+            const btn = document.createElement('button');
+            btn.textContent = numero;
+            if (numero === paginaAtual) {
+                btn.classList.add('active');
+            }
+            btn.addEventListener('click', () => {
+                displayPage(usuariosFiltrados, numero);
+            });
+            return btn;
+        }
+
+        function criarEllipsis() {
+            const span = document.createElement('span');
+            span.textContent = '...';
+            span.classList.add('ellipsis');
+            return span;
+        }
+    }
+
+    function renderizarPaginacao(totalItems, paginaAtual) {
+        paginacaoContainer.innerHTML = '';
+
+        const totalDePaginas = Math.ceil(totalItems / linhasPorPagina);
+        const maxPaginasVisiveis = 5;
+
+        if (paginaAtual > 1) {
+            const btnPrev = document.createElement('button');
+            btnPrev.textContent = 'Previous';
+            btnPrev.addEventListener('click', () => {
+                paginaAtual--;
+                displayPage(usuariosFiltrados, paginaAtual);
+            });
+            paginacaoContainer.appendChild(btnPrev);
+        }
+
+        const btnPagina1 = criarBotaoPagina(1, paginaAtual);
+        paginacaoContainer.appendChild(btnPagina1);
+
+        let inicioJanela = Math.max(2, paginaAtual - 1);
+        let fimJanela = Math.min(totalDePaginas - 1, paginaAtual + 1);
+
+        if (paginaAtual > 4) {
+            paginacaoContainer.appendChild(criarEllipsis());
+        }
+
+        for (let i = inicioJanela; i <= fimJanela; i++) {
+            const btn = criarBotaoPagina(i, paginaAtual);
+            paginacaoContainer.appendChild(btn);
+        }
+
+        if (paginaAtual < totalDePaginas - 3) {
+            paginacaoContainer.appendChild(criarEllipsis());
+        }
+
+        if (totalDePaginas > 1) {
+            const btnUltima = criarBotaoPagina(totalDePaginas, paginaAtual);
+            paginacaoContainer.appendChild(btnUltima);
+        }
+
+        if (paginaAtual < totalDePaginas) {
+            const btnNext = document.createElement('button');
+            btnNext.textContent = 'Next';
+            btnNext.addEventListener('click', () => {
+                paginaAtual++;
+                displayPage(usuariosFiltrados, paginaAtual);
+            });
+            paginacaoContainer.appendChild(btnNext);
+        }
+
+        function criarBotaoPagina(numero, paginaAtual) {
+            const btn = document.createElement('button');
+            btn.textContent = numero;
+            if (numero === paginaAtual) {
+                btn.classList.add('active');
+            }
+            btn.addEventListener('click', () => {
+                displayPage(usuariosFiltrados, numero);
+            });
+            return btn;
+        }
+
+        function criarEllipsis() {
+            const span = document.createElement('span');
+            span.textContent = '...';
+            span.classList.add('ellipsis');
+            return span;
+        }
+    }
+    function renderizarPaginacao(totalItems, paginaAtual) {
+        paginacaoContainer.innerHTML = '';
+
+        const totalDePaginas = Math.ceil(totalItems / linhasPorPagina);
+
+        if (paginaAtual > 1) {
+            const btnPrev = document.createElement('button');
+            btnPrev.textContent = 'Previous';
+            btnPrev.addEventListener('click', () => {
+                displayPage(usuariosFiltrados, paginaAtual - 1);
+            });
+            paginacaoContainer.appendChild(btnPrev);
+        }
+
+        const maxInicio = Math.min(5, totalDePaginas);
+
+        if (paginaAtual <= 5) {
+            for (let i = 1; i <= maxInicio; i++) {
+                const btn = criarBotaoPagina(i, paginaAtual);
+                paginacaoContainer.appendChild(btn);
             }
 
-            btn_paginacao.addEventListener('click', () => {
-                paginaAtual = i;
-                displayPage(usuariosFiltrados, i);
-            });
+            if (totalDePaginas > 5) {
+                paginacaoContainer.appendChild(criarEllipsis());
+                const btnUltima = criarBotaoPagina(totalDePaginas, paginaAtual);
+                paginacaoContainer.appendChild(btnUltima);
+            }
+        } else {
 
-            paginacaoContainer.appendChild(btn_paginacao);
+            paginacaoContainer.appendChild(criarBotaoPagina(1, paginaAtual));
+            paginacaoContainer.appendChild(criarEllipsis());
+
+            let inicioJanela = paginaAtual - 1;
+            let fimJanela = paginaAtual + 1;
+
+            if (fimJanela > totalDePaginas - 1) {
+                fimJanela = totalDePaginas - 1;
+                inicioJanela = fimJanela - 2;
+            }
+            if (inicioJanela < 2) {
+                inicioJanela = 2;
+                fimJanela = inicioJanela + 2;
+            }
+
+            for (let i = inicioJanela; i <= fimJanela; i++) {
+                const btn = criarBotaoPagina(i, paginaAtual);
+                paginacaoContainer.appendChild(btn);
+            }
+
+            paginacaoContainer.appendChild(criarEllipsis());
+
+            paginacaoContainer.appendChild(criarBotaoPagina(totalDePaginas, paginaAtual));
+        }
+
+        if (paginaAtual < totalDePaginas) {
+            const btnNext = document.createElement('button');
+            btnNext.textContent = 'Next';
+            btnNext.addEventListener('click', () => {
+                displayPage(usuariosFiltrados, paginaAtual + 1);
+            });
+            paginacaoContainer.appendChild(btnNext);
+        }
+
+        function criarBotaoPagina(numero, paginaAtual) {
+            const btn = document.createElement('button');
+            btn.textContent = numero;
+            if (numero === paginaAtual) {
+                btn.classList.add('active');
+            }
+            btn.addEventListener('click', () => {
+                displayPage(usuariosFiltrados, numero);
+            });
+            return btn;
+        }
+
+        function criarEllipsis() {
+            const span = document.createElement('span');
+            span.textContent = '...';
+            span.classList.add('ellipsis');
+            return span;
         }
     }
 });
