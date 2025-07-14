@@ -3,7 +3,7 @@
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    
+
 }
 
 .formulario_padrao {
@@ -13,7 +13,7 @@
     border-radius: 0.6rem;
     box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
     min-width: 44rem;
-    max-width: auto;
+    max-width: 100%;
     height: min-content;
     margin: 2.5rem;
 
@@ -45,7 +45,11 @@
     }
 
     .formulario_padrao {
-        height: auto;
+        min-width: auto;
+        width: 100%;
+        margin-top: 3rem;
+        margin: 1rem;
+        padding: 1.5rem 1rem;
     }
 
     .formulario-card_menor {
@@ -53,5 +57,18 @@
         padding: 2rem;
         margin: 1rem;
         height: auto;
+    }
+}
+
+@media (min-width: 820px) and (max-width: 1180px) {
+    .formulario_padrao {
+        min-width: auto;
+        width: 90%;
+        padding: 2rem;
+        margin: 2rem auto;
+    }
+
+    .container_padrao {
+        margin-top: 3rem;
     }
 }
