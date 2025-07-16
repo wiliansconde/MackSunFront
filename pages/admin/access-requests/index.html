@@ -2,13 +2,73 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Access Requests</title>
+
+  <link rel="stylesheet" href="../../../css/global.css">
+  <link rel="stylesheet" href="../../../css/buttons.css">
+  <link rel="stylesheet" href="../../../css/titles.css">
+  <link rel="stylesheet" href="../../../css/access-upgrade-requests.css">
+  <link rel="stylesheet" href="../../../css/modal.css">
+  <link rel="stylesheet" href="../../../css/formulario.css">
+  <link rel="stylesheet" href="../../../css/alerts.css">
+  <link rel="stylesheet" href="../../../css/table.css">
+  <link rel="stylesheet" href="../../../css/filter.css">
+
+  <script src="../../../js/const.js" defer></script>
+  <script type="module" src="../../../js/headerfooter.js"></script>
+  <script src="../../../js/headerlogado.js"></script>
+  <script src="../../../js/access-requests.js" defer></script>
 </head>
 
 <body>
-  <h1>access-requests</h1>
+  <div id="header"></div>
+
+  <main class="container_padrao">
+    <section class="formulario-card_medio">
+      <h1 class="titulo_padrao">Access Requests</h1>
+
+      <div class="barra_superior">
+        <div class="linha-filtros-superior">
+          <input type="text" id="filtro_nome" placeholder="Filter by Name">
+          <input type="text" id="filtro_current" placeholder="Filter by Current Profile">
+          <select class="select-filter" id="filtro_status">
+            <option value="">All Statuses</option>
+            <option value="PENDING">PENDING</option>
+            <option class="status-approved" value="APPROVED">APPROVED</option>
+            <option class="status-rejected" value="REJECTED">REJECTED</option>
+          </select>
+          <div class="botoes-filtros-superior">
+            <button id="btn_limpar_filtro" class="btnGray_table">Clear Filters</button>
+          </div>
+        </div>
+
+        <div class="linha-filtros-inferior">
+          <input type="text" id="filtro_requested" placeholder="Filter by Requested Profile">
+          <div class="btn-criar-wrapper">
+            <button class="btnRed btnSizeHeightLimited btnFilterRed" id="btn_buscar">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="access-table-wrapper">
+        <table class="access-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Requested Profile</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tbody_requests"></tbody>
+        </table>
+      </div>
+
+      <div class="paginacao-container" id="paginacao_container"></div>
+    </section>
+  </main>
 </body>
 
 </html>

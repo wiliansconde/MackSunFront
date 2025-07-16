@@ -31,7 +31,11 @@
   color: var(--cinza-escuro);
 }
 
-/* === Responsividade === */
+.reticencias {
+    color: var(--vermelho);
+    font-weight: bold;
+}
+
 
 @media (max-width: 767px) {
   .barra_superior {

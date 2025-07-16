@@ -11,14 +11,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const fetchRequests = async () => {
     try {
-      const status = document.getElementById('filtro_status').value;
-      let url = 'https://macksunback.azurewebsites.net/profile-upgrades';
-      if (status) url += `?status=${encodeURIComponent(status)}`;
-
-      const res = await fetch(url, {
+      const query = buildQuery();
+      const res = await fetch(`https://macksunback.azurewebsites.net/access-requests${query}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
-
       const data = await res.json();
       requests = data.data || [];
       renderTable();
@@ -28,37 +24,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
-  const applyFilters = () => {
-    const nome = document.getElementById('filtro_nome').value.toLowerCase();
-    const current = document.getElementById('filtro_current').value.toLowerCase();
-    const requested = document.getElementById('filtro_requested').value.toLowerCase();
+  const buildQuery = () => {
+    const name = document.getElementById('filtro_nome').value.trim();
+    const requested = document.getElementById('filtro_requested').value.trim();
+    const status = document.getElementById('filtro_status')?.value;
+    const params = new URLSearchParams();
 
-    return requests.filter(req =>
-      req.fullName.toLowerCase().includes(nome) &&
-      req.currentProfile.toLowerCase().includes(current) &&
-      req.requestedProfile.toLowerCase().includes(requested)
-    );
+    if (name) params.append('name', name);
+    if (requested) params.append('requestedProfile', requested);
+    if (status) params.append('status', status);
+
+    return `?${params.toString()}`;
   };
 
   const renderTable = () => {
     tbody.innerHTML = '';
-    const filtered = applyFilters();
     const start = (currentPage - 1) * rowsPerPage;
-    const paginated = filtered.slice(start, start + rowsPerPage);
+    const paginated = requests.slice(start, start + rowsPerPage);
 
     paginated.forEach(req => {
       const row = document.createElement('tr');
-
-      let statusClass = 'status-cell ';
-      if (req.status === 'APPROVED') statusClass += 'status-approved';
-      else if (req.status === 'REJECTED') statusClass += 'status-rejected';
-      else statusClass += 'status-pending';
-
       row.innerHTML = `
-        <td>${req.fullName}</td>
-        <td>${req.currentProfile}</td>
+        <td>${req.name}</td>
         <td>${req.requestedProfile}</td>
-        <td class="${statusClass}">${req.status}</td>
+        <td class="status-cell status-${req.status.toLowerCase()}">${req.status}</td>
         <td><button class="btnGray btnSizeHeightLimited learn-more-btn" data-id="${req.id}">Learn More</button></td>
       `;
       tbody.appendChild(row);
@@ -68,8 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   const renderPagination = () => {
-    const filtered = applyFilters();
-    const totalPages = Math.ceil(filtered.length / rowsPerPage);
+    const totalPages = Math.ceil(requests.length / rowsPerPage);
     pagContainer.innerHTML = '';
 
     if (totalPages <= 1) return;
@@ -155,14 +143,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     modal.id = 'modal-overlay';
     modal.innerHTML = `
       <div class="modal">
-        <h2 class="titulo_padrao">Request Details</h2>
-        <p><strong>Username:</strong> ${request.username}</p>
-        <p><strong>Full Name:</strong> ${request.fullName}</p>
+        <h2 class="titulo_padrao">Access Request Details</h2>
+        <p><strong>Name:</strong> ${request.name}</p>
         <p><strong>Email:</strong> ${request.email}</p>
-        <p><strong>Current Profile:</strong> ${request.currentProfile}</p>
         <p><strong>Requested Profile:</strong> ${request.requestedProfile}</p>
-        <p><strong>Justification:</strong> ${request.justification}</p>
         <p><strong>Status:</strong> ${request.status}</p>
+        <p><strong>Justification:</strong> ${request.justification}</p>
 
         <textarea class="justificationLabel" id="reject-comment" placeholder="Rejection justification..." style="display:none;"></textarea>
 
@@ -181,29 +167,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     const successMessage = modal.querySelector('#success-message');
     const errorMessage = modal.querySelector('#error-message');
     const rejectTextarea = modal.querySelector('#reject-comment');
-    const approveBtn = modal.querySelector('#approve-btn');
-    const rejectBtn = modal.querySelector('#reject-btn');
-    const closeBtn = modal.querySelector('#close-btn');
 
     const hideMessages = () => {
       successMessage.style.display = 'none';
       errorMessage.style.display = 'none';
     };
 
+    modal.querySelector('#close-btn').onclick = () => modal.remove();
+
     if (request.status !== 'PENDING') {
-      approveBtn.style.display = 'none';
-      rejectBtn.style.display = 'none';
-      closeBtn.classList.add('btnPositionRight');
+      modal.querySelector('#approve-btn').style.display = 'none';
+      modal.querySelector('#reject-btn').style.display = 'none';
+      modal.querySelector('#close-btn').classList.add('btnPositionRight');
     } else {
-      closeBtn.classList.remove('btnPositionRight');
+      modal.querySelector('#close-btn').classList.remove('btnPositionRight');
     }
 
-    closeBtn.onclick = () => modal.remove();
 
-    approveBtn.onclick = async () => {
+    modal.querySelector('#approve-btn').onclick = async () => {
       hideMessages();
       try {
-        const res = await fetch(`https://macksunback.azurewebsites.net/profile-upgrades/${request.id}/approve`, {
+        const res = await fetch(`https://macksunback.azurewebsites.net/access-requests/${request.id}/approve`, {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -220,7 +204,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     };
 
-    rejectBtn.onclick = () => {
+    modal.querySelector('#reject-btn').onclick = () => {
       hideMessages();
       if (rejectTextarea.style.display === 'none') {
         rejectTextarea.style.display = 'block';
@@ -232,9 +216,13 @@ document.addEventListener('DOMContentLoaded', async () => {
           return;
         }
 
-        fetch(`https://macksunback.azurewebsites.net/profile-upgrades/${request.id}/reject?comment=${encodeURIComponent(comment)}`, {
+        fetch(`https://macksunback.azurewebsites.net/access-requests/${request.id}/reject`, {
           method: 'PUT',
-          headers: { 'Authorization': `Bearer ${token}` }
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ comment })
         })
         .then(res => {
           if (!res.ok) throw new Error();
