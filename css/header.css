@@ -26,7 +26,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: clamp(1rem, 5vw, 10rem);
+  gap: clamp(1rem, 3.5vw, 10rem);
   padding: 0;
 }
 
@@ -277,7 +277,7 @@ a:hover {
   }
 }
 
-@media (max-width: 912px) {
+@media (max-width: 920px) {
   .menu {
     display: none;
     flex-direction: column;
