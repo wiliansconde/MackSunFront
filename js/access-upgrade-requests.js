@@ -11,11 +11,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const fetchRequests = async () => {
     try {
-      const res = await fetch('https://macksunback.azurewebsites.net/profile-upgrades', {
+      const status = document.getElementById('filtro_status').value;
+      let url = 'https://macksunback.azurewebsites.net/profile-upgrades';
+      if (status) url += `?status=${encodeURIComponent(status)}`;
+
+      const res = await fetch(url, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
+
       const data = await res.json();
-      requests = data.data.filter(r => r.status === 'PENDING') || [];
+      requests = data.data || [];
       renderTable();
       renderPagination();
     } catch (e) {
@@ -31,10 +36,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     paginated.forEach(req => {
       const row = document.createElement('tr');
+
+      let statusClass = 'status-cell ';
+      if (req.status === 'APPROVED') statusClass += 'status-approved';
+      else if (req.status === 'REJECTED') statusClass += 'status-rejected';
+      else statusClass += 'status-pending';
+
       row.innerHTML = `
         <td>${req.fullName}</td>
-        <td>${req.current}</td>
+        <td>${req.currentProfile}</td>
         <td>${req.requestedProfile}</td>
+        <td class="${statusClass}">${req.status}</td>
         <td><button class="btnGray btnSizeHeightLimited learn-more-btn" data-id="${req.id}">Learn More</button></td>
       `;
       tbody.appendChild(row);
@@ -98,6 +110,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <p><strong>Current Profile:</strong> ${request.currentProfile}</p>
         <p><strong>Requested Profile:</strong> ${request.requestedProfile}</p>
         <p><strong>Justification:</strong> ${request.justification}</p>
+        <p><strong>Status:</strong> ${request.status}</p>
 
         <textarea class="justificationLabel" id="reject-comment" placeholder="Rejection justification..." style="display:none;"></textarea>
 
@@ -116,15 +129,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     const successMessage = modal.querySelector('#success-message');
     const errorMessage = modal.querySelector('#error-message');
     const rejectTextarea = modal.querySelector('#reject-comment');
+    const approveBtn = modal.querySelector('#approve-btn');
+    const rejectBtn = modal.querySelector('#reject-btn');
 
     const hideMessages = () => {
       successMessage.style.display = 'none';
       errorMessage.style.display = 'none';
     };
 
+    if (request.status !== 'PENDING') {
+      approveBtn.style.display = 'none';
+      rejectBtn.style.display = 'none';
+    }
+
     modal.querySelector('#close-btn').onclick = () => modal.remove();
 
-    modal.querySelector('#approve-btn').onclick = async () => {
+    approveBtn.onclick = async () => {
       hideMessages();
       try {
         const res = await fetch(`https://macksunback.azurewebsites.net/profile-upgrades/${request.id}/approve`, {
@@ -144,7 +164,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     };
 
-    modal.querySelector('#reject-btn').onclick = () => {
+    rejectBtn.onclick = () => {
       hideMessages();
       if (rejectTextarea.style.display === 'none') {
         rejectTextarea.style.display = 'block';
@@ -179,17 +199,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('btn_buscar').onclick = () => {
     currentPage = 1;
-    renderTable();
-    renderPagination();
+    fetchRequests();
   };
 
   document.getElementById('btn_limpar_filtro').onclick = () => {
     document.getElementById('filtro_nome').value = '';
     document.getElementById('filtro_current').value = '';
     document.getElementById('filtro_requested').value = '';
+    document.getElementById('filtro_status').value = '';
     currentPage = 1;
-    renderTable();
-    renderPagination();
+    fetchRequests();
   };
 
   fetchRequests();

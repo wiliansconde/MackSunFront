@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../../../css/alerts.css">
   <link rel="stylesheet" href="../../../css/table.css">
   <link rel="stylesheet" href="../../../css/filter.css">
+  <link rel="stylesheet" href="../../../css/access-upgrade-requests-responsive.css">
 
   <script src="../../../js/const.js" defer></script>
   <script type="module" src="../../../js/headerfooter.js"></script>
@@ -33,7 +34,12 @@
         <div class="linha-filtros-superior">
           <input type="text" id="filtro_nome" placeholder="Filter by Name">
           <input type="text" id="filtro_current" placeholder="Filter by Current Profile">
-
+          <select class="select-filter" id="filtro_status">
+            <option value="">All Statuses</option>
+            <option value="PENDING">PENDING</option>
+            <option class="status-approved" value="APPROVED">APPROVED</option>
+            <option class="status-rejected" value="REJECTED">REJECTED</option>
+          </select>
           <div class="botoes-filtros-superior">
             <button id="btn_limpar_filtro" class="btnGray_table">Clear Filters</button>
           </div>
@@ -54,6 +60,7 @@
               <th>Name</th>
               <th>Current Profile</th>
               <th>Requested Profile</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -63,7 +70,6 @@
 
       <div class="paginacao-container" id="paginacao_container"></div>
     </section>
-
   </main>
 </body>
 
