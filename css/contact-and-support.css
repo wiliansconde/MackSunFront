@@ -1,0 +1,129 @@
+.formulario_padrao section {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--cinza-claro);
+}
+
+.titulo-secao {
+    color: var(--azul-dark)
+}
+
+.info-secao {
+    color: var(--cinza-escuro);
+}
+
+h3 {
+    margin-top: 0.5rem;
+}
+
+.formulario_padrao section {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--cinza-claro);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+a {
+    color: var(--azul-dark);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+section ul:not(.social-icons) {
+    list-style: disc;
+    padding-left: 1.5rem;
+    display: block;
+}
+
+section ul:not(.social-icons) li {
+    margin-bottom: 0.5rem;
+    color: var(--cinza-escuro);
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.2rem;
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.social-icons li img {
+    width: 32px;
+    height: 32px;
+    transition: 0.3s ease-in-out;
+}
+
+.social-icons li img:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 767px) {
+    .formulario_padrao {
+        min-width: auto;
+        width: 100%;
+        padding: 1.5rem 1rem;
+        margin: 1rem;
+    }
+
+    .titulo_padrao {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .titulo-secao {
+        font-size: 1.1rem;
+    }
+
+    .info-secao {
+        font-size: 0.95rem;
+    }
+
+    section ul:not(.social-icons) {
+        padding-left: 1.25rem;
+    }
+
+    .social-icons {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .social-icons li img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (min-width: 820px) and (max-width: 1180px) {
+    .formulario_padrao {
+        width: 90%;
+        margin: 2rem auto;
+        padding: 2rem;
+        font-size: 1rem;
+    }
+
+    .titulo_padrao {
+        font-size: 1.8rem;
+    }
+
+    .titulo-secao {
+        font-size: 1.3rem;
+    }
+
+    .info-secao {
+        font-size: 1rem;
+    }
+
+    .social-icons {
+        justify-content: flex-start;
+        gap: 1.2rem;
+    }
+
+    .social-icons li img {
+        width: 32px;
+        height: 32px;
+    }
+}
