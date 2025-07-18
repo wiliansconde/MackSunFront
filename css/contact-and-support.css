@@ -5,15 +5,20 @@
 }
 
 .titulo-secao {
-    color: var(--azul-dark)
+    color: var(--azul-dark);
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 
 .info-secao {
     color: var(--cinza-escuro);
+    font-size: 0.9rem;
 }
 
 h3 {
     margin-top: 0.5rem;
+    font-size: 1rem;
+    font-weight: 300;
 }
 
 .formulario_padrao section {
@@ -25,10 +30,11 @@ h3 {
     gap: 0.5rem;
 }
 
-a {
+.container_padrao a {
     color: var(--azul-dark);
     text-decoration: underline;
-    font-weight: 500;
+    font-size: 0.895rem;
+    font-weight: 100;
 }
 
 section ul:not(.social-icons) {
@@ -40,6 +46,7 @@ section ul:not(.social-icons) {
 section ul:not(.social-icons) li {
     margin-bottom: 0.5rem;
     color: var(--cinza-escuro);
+    font-size: 0.9rem;
 }
 
 .social-icons {

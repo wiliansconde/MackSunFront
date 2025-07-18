@@ -183,7 +183,6 @@ function normalizarDataHoraParaAPI(dateTimeString) {
     return `${dataNormalizada}T${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:00`;
 }
 
-
 async function listarFlares() {
     const response = await fetch(`${BASE_URL}flares`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -459,19 +458,10 @@ function renderizarPaginacao() {
 }
 
 document.getElementById('btn_buscar').addEventListener('click', async () => {
-    let dataFiltro = document.getElementById('filtro_data').value.trim();
+    const dataFiltro = document.getElementById('filtro_data').value;
     const classificacaoFiltro = document.getElementById('filtro_classificacao').value.trim();
     const telescopioFiltro = document.getElementById('filtro_telescopio').value.trim();
     const descricaoFiltro = document.getElementById('filtro_descricao').value.trim();
-
-    if (dataFiltro) {
-        dataFiltro = normalizarDataParaAPI(dataFiltro);
-        if (!dataFiltro) {
-            mensagemErro.textContent = 'Invalid date format for search. Use YYYY-MM-DD DD-MM-YYYY, DD/MM/YYYY or DDMMYYYY';
-            mensagemErro.style.display = 'block';
-            return;
-        }
-    }
 
     let url = `${BASE_URL}flares?`;
 
@@ -576,9 +566,10 @@ document.getElementById('form_novo_flare_solar').addEventListener('submit', asyn
         return;
     }
 
-    const dateTimeNormalizado = normalizarDataHoraParaAPI(dateTime);
+    const dateTimeNormalizado = dateTime.includes('T') ? `${dateTime}:00` : null;
+    
     if (!dateTimeNormalizado) {
-        mensagemErro.textContent = 'Invalid date and time format. Use YYYY-MM-DD HH:MM, DD-MM-YYYY HH:MM, DD/MM/YYYY HH:MM or DDMMYYYY HHMM';
+        mensagemErro.textContent = 'Invalid date and time format. Use the picker.';
         mensagemErro.style.display = 'block';
         return;
     }
