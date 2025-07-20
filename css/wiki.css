@@ -1,17 +1,67 @@
-.container_wiki{
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    background-color: var(--branco);
+}
+
+.container_wiki {
     background: var(--branco);
-    min-height: 100%;
+    min-height: 100vh;
+    width: 100%;
     display: flex;
     justify-content: center;
+    padding: 20px;
 }
 
-.formulario_padrao{
-    min-height: max-content;
-    max-width: 90%;
+.formulario_padrao {
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
 }
 
-.titulo_padrao{
+.titulo_padrao {
     margin-bottom: 1rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.barra_superior {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.linha-filtros-superior,
+.linha-filtros-inferior {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.linha-filtros-superior input,
+.linha-filtros-inferior input {
+    flex: 1;
+    min-width: 180px;
+    padding: 10px;
+}
+
+.botoes-filtros-superior,
+.btn-criar-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.btnGray_table,
+.btnRed {
+    white-space: nowrap;
 }
 
 .snippet-card {
@@ -21,17 +71,17 @@
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    word-break: break-word;
 }
 
 .snippet-card h3 {
-    color: #333;
-    margin-top: 0;
     margin-bottom: 10px;
+    font-size: 1.25rem;
 }
 
 .snippet-card p {
     margin: 5px 0;
-    color: #555;
+    font-size: 1rem;
 }
 
 .snippet-card pre {
@@ -39,11 +89,74 @@
     padding: 10px;
     border-radius: 4px;
     overflow-x: auto;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+}
+
+.invalid_message_error {
+    color: red;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {
-    .formulario_padrao {
-        min-width: auto; 
+    .titulo_padrao {
+        font-size: 1.75rem;
+    }
+
+    .linha-filtros-superior,
+    .linha-filtros-inferior {
+        flex-direction: column;
+    }
+
+    .linha-filtros-superior input,
+    .linha-filtros-inferior input {
         width: 100%;
+    }
+
+    .btnGray_table,
+    .btnRed {
+        width: 100%;
+    }
+}
+
+@media (max-width: 425px) {
+    .titulo_padrao {
+        font-size: 1.5rem;
+    }
+
+    .snippet-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .snippet-card p,
+    .snippet-card pre {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .titulo_padrao {
+        font-size: 1.4rem;
+    }
+
+    .formulario_padrao {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 320px) {
+    .titulo_padrao {
+        font-size: 1.2rem;
+    }
+
+    .snippet-card {
+        padding: 12px;
+    }
+
+    .snippet-card p,
+    .snippet-card pre {
+        font-size: 0.9rem;
     }
 }
