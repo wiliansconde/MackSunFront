@@ -277,7 +277,7 @@ a:hover {
   }
 }
 
-@media (max-width: 920px) {
+@media (max-width: 921px) {
   .menu {
     display: none;
     flex-direction: column;

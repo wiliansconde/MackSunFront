@@ -39,7 +39,6 @@ body {
 .access-table td {
   padding: 12px 15px;
   border: none;
-  white-space: nowrap;
 }
 
 .access-table tbody tr:nth-child(odd) {
@@ -69,7 +68,7 @@ body {
 .paginacao-container button {
   padding: 0.5rem 1rem;
   border: 1px solid var(--cinza-claro);
-  background-color: white;
+  background-color: var(--branco);
   cursor: pointer;
   font-size: 0.9rem;
 }
@@ -80,44 +79,33 @@ body {
 }
 
 @media (max-width: 768px) {
+  .access-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 1rem;
+  }
+
   .access-table {
-    min-width: unset;
-    font-size: 0.85rem;
+    width: 100%;
+    font-size: 0.8rem;
+    border-collapse: collapse;
   }
 
   .access-table th,
   .access-table td {
     padding: 10px;
+    text-align: left;
   }
 
-  .paginacao-container {
-    flex-direction: row;
-    flex-wrap: wrap;
+  .btn-criar-wrapper {
+    display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
+    width: 100%;
   }
 
   .paginacao-container button {
     width: auto;
     max-width: 100px;
     font-size: 0.85rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .access-table-wrapper {
-    padding: 0 8px;
-  }
-
-  .access-table th,
-  .access-table td {
-    padding: 8px;
-    font-size: 0.8rem;
-  }
-
-  .paginacao-container button {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
   }
 }

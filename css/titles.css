@@ -23,7 +23,6 @@
     color: var(--azul-dark);
 }
 
-
 .sublinhado_downloadData {
     width: 11.5rem;
 }
@@ -31,7 +30,6 @@
 .margem-topo {
     margin-top: 1rem;
 }
-
 
 @media (max-width: 767px) {
     .titulo_banner {
@@ -45,7 +43,6 @@
         margin-left: 0;
     }
 
-
     .titulo_padrao {
         font-size: 1.2rem;
     }
@@ -53,7 +50,6 @@
     .sublinhado_downloadData {
         width: 8.9rem;
     }
-
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -67,5 +63,4 @@
         font-size: 3rem;
         margin-left: 0;
     }
-
 }

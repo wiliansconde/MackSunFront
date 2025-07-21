@@ -278,9 +278,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${perfil}</td>
                 <td><span class="${statusClasse}">${statusTexto}</span></td>
                 <td class="acoes">
-                    <button class="edit btnGray_table" data-email="${email}">Edit</button>
-                    <button class="resetar_password btnGray_table" data-email="${email}">Reset Password</button>
-                    <button class="deletar btnGray_table" data-email="${email}" > Delete</ > 
+                    <div class="botoes_responsivo">
+                        <button class="edit btnGray_table" data-email="${email}">Edit</button>
+                        <button class="resetar_password btnGray_table" data-email="${email}">Reset Password</button>
+                        <button class="deletar btnGray_table" data-email="${email}" > Delete</ > 
+                    </div>
                 </ td >
             `;
             tbody.appendChild(tr);

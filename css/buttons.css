@@ -137,11 +137,29 @@
     padding: 0.5rem 0.50rem;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 788px) {
     .btnBlack {
         width: 100%;
+        padding: 1rem;      
+    }
+
+    .btnGray {
+        width: 100%;
+        padding: 1rem;        
+    }
+
+    .btnGreen {
+        width: 100%;    
+    }
+
+    .btnRed {
+        width: 100%;
         padding: 1rem;
-        font-size: 1.1rem;
+    }
+
+    .btnGray_table {
+        width: 100%;
+        padding: 1rem;
     }
 
     .btnPositionRight {
@@ -161,17 +179,4 @@
         margin: 0 auto;
     }
 
-    .invalid_message_error {
-        color: var(--vermelho);
-        font-weight: bold;
-        margin-top: 1rem;
-        text-align: center;
-    }
-
-    .success-message {
-        color: var(--verde);
-        font-weight: bold;
-        margin-top: 1rem;
-        text-align: center;
-    }
 }

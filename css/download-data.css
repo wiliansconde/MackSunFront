@@ -7,7 +7,7 @@
     max-width: 50rem;
     width: 100%;
     height: 100%;
-    margin: 2rem auto;
+    margin: 2.5rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -301,69 +301,9 @@ body.visitante input[type="checkbox"]:not([value="1s"]) {
     justify-content: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 868px) {
     .formulario_downloadData {
-        padding: 1rem;
-        margin: 1rem auto;
-        max-width: 100%;
-        gap: 1.5rem;
-    }
-
-    .titulo_secao {
-        font-size: 1.2rem;
-    }
-
-    .subtitulo_secao {
-        font-size: 0.9rem;
-    }
-
-    .telescopios-container {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
-    fieldset {
-        min-width: unset;
-        flex: 1 1 auto;
-    }
-
-    .linha-frequencia {
-        gap: 0.4rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .date-range-container {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .end-date-align-left {
-        margin-left: 0;
-    }
-
-    .radio-group {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    .button-container {
-        justify-content: center;
-    }
-
-    .invalid_message_error,
-    .resultado_expot p {
-        font-size: 0.9rem;
-    }
-
-    .resultado_expot h3 {
-        font-size: 1.1rem;
-    }
-
-    .controle-tabela {
-        flex-direction: column;
-    }
-
-    .modal-conteudo {
-        margin: 1.25rem;
+        width: 100%;
+        overflow: hidden;
     }
 }
