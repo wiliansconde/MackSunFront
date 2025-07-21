@@ -9,11 +9,14 @@
 }
 
 .titulo_padrao {
-    display: inline-block;
+    display: inline;
     color: var(--azul-dark);
     font-size: 1.563rem;
-    border-bottom: 3px solid var(--vermelho);
-    border-radius: 3px;
+  text-decoration: underline;
+  text-decoration-color: var(--vermelho);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.40rem;
+  word-break: break-word;
 }
 
 .subtitulo_padrao {
@@ -21,10 +24,6 @@
     margin-top: 0.625rem;
     margin-bottom: 1.25rem;
     color: var(--azul-dark);
-}
-
-.sublinhado_downloadData {
-    width: 11.5rem;
 }
 
 .margem-topo {
@@ -45,10 +44,6 @@
 
     .titulo_padrao {
         font-size: 1.2rem;
-    }
-
-    .sublinhado_downloadData {
-        width: 8.9rem;
     }
 }
 

@@ -1,6 +1,3 @@
-body {
-  background-image: url(../assets/img/ceuEstrelado.jpg);
-}
 
 .header {
   display: flex;
@@ -14,7 +11,6 @@ body {
   width: clamp(6.25rem, 10vw, 12rem);
   height: auto;
   max-width: 100%;
-  margin-bottom: 0.5rem;
 }
 
 .home_menuHamburger {

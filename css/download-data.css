@@ -306,4 +306,14 @@ body.visitante input[type="checkbox"]:not([value="1s"]) {
         width: 100%;
         overflow: hidden;
     }
+
+    .modal-conteudo {
+        padding: 1.5rem;
+        width: 90%;
+    }
+
+    .modal-botoes {
+        display: flex;
+        gap: 0.3rem;
+    }
 }
