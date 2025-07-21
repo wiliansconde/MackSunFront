@@ -6,11 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const filtroDescription = document.getElementById('filtro_description');
   const btnBuscar = document.getElementById('btn_buscar');
   const btnLimpar = document.getElementById('btn_limpar_filtro');
+  const paginacaoContainer = document.getElementById('paginacao_container');
 
   if (!token) {
     snippetsContainer.innerHTML = '<p class="invalid_message_error">Faça login para ver os snippets da wiki.</p>';
     return;
   }
+
+  let snippetsData = [];
+  let dadosFiltrados = [];
+  let paginaAtual = 1;
+  const itensPorPagina = 10;
 
   async function fetchSnippets(params = {}) {
     try {
@@ -22,16 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
           'Content-Type': 'application/json'
         }
       });
-
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Erro ao buscar snippets: ${response.status} - ${errorText}`);
       }
-
       const result = await response.json();
-      renderSnippets(result.data || []);
+      snippetsData = Array.isArray(result.data) ? result.data : result.data ? [result.data] : [];
+      dadosFiltrados = snippetsData;
+      paginaAtual = 1;
+      renderizarPagina();
     } catch (error) {
       snippetsContainer.innerHTML = `<p class="invalid_message_error">Ocorreu um erro ao carregar os snippets: ${error.message}</p>`;
+      paginacaoContainer.innerHTML = '';
     }
   }
 
@@ -41,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
       snippetsContainer.innerHTML = '<p>Nenhum snippet da wiki encontrado.</p>';
       return;
     }
-
     data.forEach(snippet => {
       const card = document.createElement('div');
       card.classList.add('snippet-card');
@@ -53,6 +60,73 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       snippetsContainer.appendChild(card);
     });
+  }
+
+  function renderizarPagina() {
+    const inicio = (paginaAtual - 1) * itensPorPagina;
+    const fim = inicio + itensPorPagina;
+    const dadosPagina = dadosFiltrados.slice(inicio, fim);
+    renderSnippets(dadosPagina);
+    renderizarPaginacao();
+  }
+
+  function renderizarPaginacao() {
+    paginacaoContainer.innerHTML = '';
+    const totalPaginas = Math.ceil(dadosFiltrados.length / itensPorPagina);
+    if (totalPaginas <= 1) return;
+    const criarBotao = (texto, pagina, isActive = false, isDisabled = false) => {
+      const btn = document.createElement('button');
+      btn.textContent = texto;
+      if (isActive) btn.classList.add('active');
+      if (isDisabled) {
+        btn.disabled = true;
+        btn.classList.add('disabled');
+      } else {
+        btn.addEventListener('click', () => {
+          paginaAtual = pagina;
+          renderizarPagina();
+        });
+      }
+      return btn;
+    };
+    paginacaoContainer.appendChild(criarBotao('Previous', paginaAtual - 1, false, paginaAtual === 1));
+    const adicionarReticencias = () => {
+      const span = document.createElement('span');
+      span.textContent = '...';
+      span.classList.add('reticencias');
+      paginacaoContainer.appendChild(span);
+    };
+    const mostrarIntervalo = (start, end) => {
+      for (let i = start; i <= end; i++) {
+        paginacaoContainer.appendChild(criarBotao(i, i, i === paginaAtual));
+      }
+    };
+    const mostrarInicio = () => {
+      paginacaoContainer.appendChild(criarBotao(1, 1, paginaAtual === 1));
+    };
+    const mostrarFim = () => {
+      paginacaoContainer.appendChild(criarBotao(totalPaginas, totalPaginas, paginaAtual === totalPaginas));
+    };
+    if (totalPaginas <= 7) {
+      mostrarIntervalo(1, totalPaginas);
+    } else {
+      if (paginaAtual <= 4) {
+        mostrarIntervalo(1, 5);
+        adicionarReticencias();
+        mostrarFim();
+      } else if (paginaAtual >= totalPaginas - 3) {
+        mostrarInicio();
+        adicionarReticencias();
+        mostrarIntervalo(totalPaginas - 4, totalPaginas);
+      } else {
+        mostrarInicio();
+        adicionarReticencias();
+        mostrarIntervalo(paginaAtual - 1, paginaAtual + 1);
+        adicionarReticencias();
+        mostrarFim();
+      }
+    }
+    paginacaoContainer.appendChild(criarBotao('Next', paginaAtual + 1, false, paginaAtual === totalPaginas));
   }
 
   btnBuscar.addEventListener('click', () => {
