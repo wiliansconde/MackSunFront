@@ -31,13 +31,16 @@
   color: var(--amarelo);
 }
 
-.select-filter {
-  color: var(--cinza-escuro);
-}
-
 .reticencias {
     color: var(--vermelho);
     font-weight: bold;
+}
+
+.tdname {
+  max-width: 27rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 

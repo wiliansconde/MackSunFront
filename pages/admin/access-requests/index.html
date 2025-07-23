@@ -33,12 +33,11 @@
       <div class="barra_superior">
         <div class="linha-filtros-superior">
           <input type="text" id="filtro_nome" placeholder="Filter by Name">
-          <input type="text" id="filtro_current" placeholder="Filter by Current Profile">
           <select class="select-filter" id="filtro_status">
             <option value="">All Statuses</option>
-            <option class="status-pending" value="PENDING">PENDING</option>
-            <option class="status-approved" value="APPROVED">APPROVED</option>
-            <option class="status-rejected" value="REJECTED">REJECTED</option>
+            <option value="APPROVED">Approved</option>
+            <option value="PENDING">Pending</option>
+            <option value="REJECTED">Rejected</option>
           </select>
           <div class="botoes-filtros-superior">
             <button id="btn_limpar_filtro" class="btnGray_table">Clear Filters</button>
@@ -58,6 +57,7 @@
           <thead>
             <tr>
               <th>Name</th>
+              <th>Email</th>
               <th>Requested Profile</th>
               <th>Status</th>
               <th>Action</th>

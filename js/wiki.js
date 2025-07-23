@@ -8,11 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnLimpar = document.getElementById('btn_limpar_filtro');
   const paginacaoContainer = document.getElementById('paginacao_container');
 
-  if (!token) {
-    snippetsContainer.innerHTML = '<p class="invalid_message_error">Faça login para ver os snippets da wiki.</p>';
-    return;
-  }
-
   let snippetsData = [];
   let dadosFiltrados = [];
   let paginaAtual = 1;
@@ -24,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const url = `https://macksunback.azurewebsites.net/wiki${query ? `?${query}` : ''}`;
       const response = await fetch(url, {
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });

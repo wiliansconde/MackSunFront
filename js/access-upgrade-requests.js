@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       else statusClass += 'status-pending';
 
       row.innerHTML = `
-        <td>${req.fullName}</td>
+        <td class="tdname">${req.fullName}</td>
         <td>${req.currentProfile}</td>
         <td>${req.requestedProfile}</td>
         <td class="${statusClass}">${req.status}</td>
@@ -156,8 +156,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     modal.innerHTML = `
       <div class="modal">
         <h2 class="titulo_padrao">Request Details</h2>
-        <p><strong>Username:</strong> ${request.username}</p>
-        <p><strong>Full Name:</strong> ${request.fullName}</p>
+        <p class="tdname"><strong>Username:</strong> ${request.username}</p>
+        <p class="tdname"><strong>Full Name:</strong> ${request.fullName}</p>
         <p><strong>Email:</strong> ${request.email}</p>
         <p><strong>Current Profile:</strong> ${request.currentProfile}</p>
         <p><strong>Requested Profile:</strong> ${request.requestedProfile}</p>

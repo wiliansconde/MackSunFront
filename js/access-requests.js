@@ -26,11 +26,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const buildQuery = () => {
     const name = document.getElementById('filtro_nome').value.trim();
-    const requested = document.getElementById('filtro_requested').value.trim();
+    const email = document.getElementById('filtro_email')?.value.trim();
+    const requested = document.getElementById('filtro_requested').value.trim;
     const status = document.getElementById('filtro_status')?.value;
     const params = new URLSearchParams();
 
     if (name) params.append('name', name);
+    if (email) params.append('email', email);
     if (requested) params.append('requestedProfile', requested);
     if (status) params.append('status', status);
 
@@ -45,7 +47,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     paginated.forEach(req => {
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td>${req.name}</td>
+        <td class="tdname">${req.name}</td>
+        <td>${req.email}</td>
         <td>${req.requestedProfile}</td>
         <td class="status-cell status-${req.status.toLowerCase()}">${req.status}</td>
         <td><button class="btnGray btnSizeHeightLimited learn-more-btn" data-id="${req.id}">Learn More</button></td>
@@ -144,7 +147,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     modal.innerHTML = `
       <div class="modal">
         <h2 class="titulo_padrao">Access Request Details</h2>
-        <p><strong>Name:</strong> ${request.name}</p>
+        <p class="tdname><strong>Name:</strong> ${request.name}</p>
         <p><strong>Email:</strong> ${request.email}</p>
         <p><strong>Requested Profile:</strong> ${request.requestedProfile}</p>
         <p><strong>Status:</strong> ${request.status}</p>
@@ -248,7 +251,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('btn_limpar_filtro').onclick = () => {
     document.getElementById('filtro_nome').value = '';
-    document.getElementById('filtro_current').value = '';
     document.getElementById('filtro_requested').value = '';
     document.getElementById('filtro_status').value = '';
     currentPage = 1;
