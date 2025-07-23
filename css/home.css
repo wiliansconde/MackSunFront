@@ -6,27 +6,19 @@ main {
     height: auto;
 }
 
-.graficos {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
 .solarFlares {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
 }
 
 .solarFlares .formulario-card_medio {
-    width: calc(865px * 2 + 2rem);
-    max-width: 100%;
+    width: calc(33.54% * 2 + 3.8rem);
+    max-width: 1380px;
     padding: 3rem 3rem;
     box-sizing: border-box;
-    margin: 2.5rem;
-    margin-bottom: 3rem;
+    margin: 0 2.5rem 2.5rem;
 }
 
 .solarFlares .titulo_padrao {
@@ -40,64 +32,11 @@ main {
     margin-top: 1rem;
 }
 
-/* .latestData {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-    box-sizing: border-box;
-} */
-
-/* .latestData .formulario-card_medio {
-    width: 100%;
-    max-width: 1200px;
-    padding: 2rem;
-    box-sizing: border-box;
-    overflow-x: auto;
-} */
-
-/* .latestData .access-table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-} */
-
-/* .latestData .access-table {
-    width: max-content;
-    min-width: 600px;
-    font-size: 0.9rem;
-} */
-
 .ocultar {
     display: none;
 }
 
 @media (max-width: 767px) {
-    .graficos {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .chart-container {
-        padding: 1rem;
-        margin-top: 1rem;
-    }
-
-    .chart-subtitle {
-        font-size: 13px;
-    }
-
-    .legend {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-
-    .chart-updated {
-        font-size: 11px;
-        text-align: left;
-    }
-
     .titulo_banner {
         font-size: 2rem;
     }
@@ -117,32 +56,23 @@ main {
         width: 100%;
     }
 
-    /* .latestData .formulario-card_medio {
-        padding: 1rem;
-    } */
-
-    /* .latestData .access-table {
-        font-size: 0.8rem;
-        min-width: 500px;
-    } */
+    .solarFlares .formulario-card_medio {
+        width: 90%;
+        margin: 0 auto 2.5rem auto;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
-    .chart-container {
-        width: 100%;
-        max-width: 100%;
+    .solarFlares .formulario-card_medio {
+        width: 90%;
+        max-width: 900px;
+        margin: 0 auto 2.5rem auto;
     }
+}
 
-    .titulo_banner {
-        font-size: 2rem;
-    }
-
-    .titulo2_banner {
-        font-size: 3rem;
-        text-align: center;
-    }
-
-    .btn-saiba-mais-wrapper {
-        justify-content: center;
+@media (min-width: 1025px) and (max-width: 1199px) {
+    .solarFlares .formulario-card_medio {
+        width: 80%;
+        margin: 0 auto 2.5rem auto;
     }
 }

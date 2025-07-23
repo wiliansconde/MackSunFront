@@ -3,18 +3,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color:white;
+    background-color: white;
     width: 100%;
     max-width: 1380px;
-    gap: 20px;
+    gap: 1.5rem;
 }
-
 
 @media (min-width: 768px) {
     .graficos {
         flex-direction: row;
         width: 90%;
-        padding: 20px 20px;
+        margin-top: 2.5rem;
     }
 }
 
@@ -30,7 +29,6 @@
     }
 }
 
-
 .chart-container {
     background: white;
     padding: 1rem;
@@ -39,7 +37,7 @@
     flex: 1;
     text-align: left;
     width: 100%;
-    min-width: 0; 
+    min-width: 0;
     min-height: 400px;
 }
 
@@ -49,13 +47,31 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767px) {
     .chart-container {
-        padding: 2rem;
-        max-width: 50%;
+        width: 90%;
+        margin: 0 auto;
+        padding: 1rem;
+        box-sizing: border-box;
     }
 }
 
+@media (min-width: 768px) {
+    .chart-container {
+        padding: 2rem;
+        width: calc(50% - 1.25rem);
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1199px) {
+    .chart-container {
+        width: calc(50% - 2rem);
+    }
+
+    .graficos {
+        gap: 1.5rem;
+    }
+}
 
 .chart-container svg {
     width: 100% !important;
@@ -63,7 +79,6 @@
     display: block;
     max-height: 400px;
 }
-
 
 .chart-title {
     text-align: center;
@@ -95,7 +110,6 @@
     }
 }
 
-
 .chart-updated {
     text-align: right;
     font-size: 10px;
@@ -109,7 +123,6 @@
         margin-bottom: 15px;
     }
 }
-
 
 .legend {
     display: flex;
@@ -154,7 +167,6 @@
     }
 }
 
-
 .legend-45ghz {
     background-color: #cc141d;
 }
@@ -170,7 +182,6 @@
 .legend-405ghz {
     background-color: #1ca83d;
 }
-
 
 .axis text {
     font-size: 10px;
@@ -190,7 +201,6 @@
     shape-rendering: crispEdges;
 }
 
-
 .grid line {
     stroke: #f0f0f0;
     stroke-width: 1;
@@ -199,7 +209,6 @@
 .grid path {
     stroke-width: 0;
 }
-
 
 .line-45ghz {
     fill: none;
@@ -249,7 +258,6 @@
     }
 }
 
-
 .tooltip {
     position: absolute;
     background: rgba(0, 0, 0, 0.8);
@@ -293,7 +301,6 @@
     }
 }
 
-
 .hover-line {
     stroke: #999;
     stroke-width: 1;
@@ -312,26 +319,34 @@
     pointer-events: all;
 }
 
-
 @media (max-width: 320px) {
     .chart-container {
         padding: 0.5rem;
         min-height: 250px;
     }
-    
+
     .legend {
         gap: 10px;
     }
-    
+
     .legend-item {
         font-size: 10px;
     }
-    
+
     .chart-subtitle {
         font-size: 10px;
     }
-    
+
     .chart-updated {
         font-size: 9px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .chart-container {
+        width: 90%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
     }
 }

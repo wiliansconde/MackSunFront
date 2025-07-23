@@ -100,6 +100,12 @@ html, body {
     font-weight: bold;
 }
 
+@media (max-width: 921px) {
+   .container_wiki {
+    margin-top: 3rem;
+   }
+}
+
 @media (max-width: 768px) {
     .titulo_padrao {
         font-size: 1.75rem;
