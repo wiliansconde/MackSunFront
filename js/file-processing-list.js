@@ -142,11 +142,12 @@ function renderizarTabela(dados) {
     document.querySelectorAll('.btn-saiba-mais').forEach(btn => {
         btn.addEventListener('click', () => {
             const accordionRow = btn.closest('tr').nextElementSibling;
+            const isOpen = accordionRow.style.display === 'table-row';
 
-            if (accordionRow.style.display === 'table-row') {
-                accordionRow.style.display = 'none';
-                btn.textContent = 'See more';
-            } else {
+            document.querySelectorAll('.accordion-row').forEach(row => row.style.display = 'none');
+            document.querySelectorAll('.btn-saiba-mais').forEach(button => button.textContent = 'See more');
+
+            if (!isOpen) {
                 accordionRow.style.display = 'table-row';
                 btn.textContent = 'See less';
             }
