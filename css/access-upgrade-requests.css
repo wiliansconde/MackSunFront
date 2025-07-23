@@ -27,6 +27,10 @@
   color: var(--vermelho);
 }
 
+.status-pending {
+  color: var(--amarelo);
+}
+
 .select-filter {
   color: var(--cinza-escuro);
 }
