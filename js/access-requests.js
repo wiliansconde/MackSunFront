@@ -27,22 +27,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   const buildQuery = () => {
     const name = document.getElementById('filtro_nome').value.trim();
     const email = document.getElementById('filtro_email')?.value.trim();
-    const requested = document.getElementById('filtro_requested').value.trim;
     const status = document.getElementById('filtro_status')?.value;
     const params = new URLSearchParams();
 
     if (name) params.append('name', name);
     if (email) params.append('email', email);
-    if (requested) params.append('requestedProfile', requested);
     if (status) params.append('status', status);
 
     return `?${params.toString()}`;
   };
 
+  const applyFrontendFilters = (list) => {
+    const requested = document.getElementById('filtro_requested').value;
+    if (requested) {
+      return list.filter(req => req.requestedProfile === requested);
+    }
+    return list;
+  };
+
   const renderTable = () => {
     tbody.innerHTML = '';
+    const filtered = applyFrontendFilters(requests);
     const start = (currentPage - 1) * rowsPerPage;
-    const paginated = requests.slice(start, start + rowsPerPage);
+    const paginated = filtered.slice(start, start + rowsPerPage);
 
     paginated.forEach(req => {
       const row = document.createElement('tr');
@@ -60,9 +67,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   const renderPagination = () => {
-    const totalPages = Math.ceil(requests.length / rowsPerPage);
+    const filtered = applyFrontendFilters(requests);
+    const totalPages = Math.ceil(filtered.length / rowsPerPage);
     pagContainer.innerHTML = '';
-
     if (totalPages <= 1) return;
 
     const criarBotao = (texto, pagina, isActive = false, isDisabled = false) => {
@@ -147,17 +154,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     modal.innerHTML = `
       <div class="modal">
         <h2 class="titulo_padrao">Access Request Details</h2>
-        <p class="tdname><strong>Name:</strong> ${request.name}</p>
+        <p class="tdname"><strong>Name:</strong> ${request.name}</p>
         <p><strong>Email:</strong> ${request.email}</p>
         <p><strong>Requested Profile:</strong> ${request.requestedProfile}</p>
         <p><strong>Status:</strong> ${request.status}</p>
         <p><strong>Justification:</strong> ${request.justification}</p>
-
         <textarea class="justificationLabel" id="reject-comment" placeholder="Rejection justification..." style="display:none;"></textarea>
-
         <div class="valid_message_error" id="success-message" style="display:none;"></div>
         <div class="invalid_message_error" id="error-message" style="display:none;"></div>
-
         <div class="modal-actions">
           <button id="approve-btn" class="btnGreen">Approve</button>
           <button id="reject-btn" class="btnRed">Reject</button>
@@ -185,7 +189,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
       modal.querySelector('#close-btn').classList.remove('btnPositionRight');
     }
-
 
     modal.querySelector('#approve-btn').onclick = async () => {
       hideMessages();

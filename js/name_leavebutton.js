@@ -1,6 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const paginasPublicas = [
+    '/index.html',
+    '/pages/wiki/wiki.html',  // ajuste conforme o caminho real da wiki
+    '/login.html',
+    '/register.html'
+  ];
+
+  const pathname = window.location.pathname;
   const token = localStorage.getItem("token");
-  if (!token) {
+
+  // Redireciona para index.html se estiver em página privada e sem token
+  if (!token && !paginasPublicas.some(p => pathname.endsWith(p))) {
     window.location.href = "/index.html";
     return;
   }
@@ -32,15 +42,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const elementoConta = document.getElementById('conta');
       const accessProfile = document.getElementById('access_profile');
 
-      elementoConta.addEventListener('mouseenter', () => {
-        menu.style.display = 'block';
-      });
+      if (elementoConta && menu) {
+        elementoConta.addEventListener('mouseenter', () => {
+          menu.style.display = 'block';
+        });
 
-      elementoConta.addEventListener('mouseleave', () => {
-        menu.style.display = 'none';
-      });
+        elementoConta.addEventListener('mouseleave', () => {
+          menu.style.display = 'none';
+        });
+      }
     }
   }
+
+  initializeAccessMenu();
 
   const leaveButton = document.getElementById("leave");
   if (leaveButton) {

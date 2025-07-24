@@ -45,7 +45,12 @@
         </div>
 
         <div class="linha-filtros-inferior">
-          <input type="text" id="filtro_requested" placeholder="Filter by Requested Profile">
+          <select id="filtro_requested" class="select-filter">
+            <option value="">Requested Profile</option>
+            <option value="ADMINISTRATOR">Administrator</option>
+            <option value="CRAAM_RESEARCHER">Craam Researcher</option>
+            <option value="SOLAR_PHYSICIST">Solar Physicist</option>
+          </select>
           <div class="btn-criar-wrapper">
             <button class="btnRed btnSizeHeightLimited btnFilterRed" id="btn_buscar">Search</button>
           </div>

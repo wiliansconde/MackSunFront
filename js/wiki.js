@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const token = localStorage.getItem('token');
   const snippetsContainer = document.getElementById('snippets-container');
   const filtroInstrument = document.getElementById('filtro_instrument');
   const filtroFormat = document.getElementById('filtro_format');

@@ -30,13 +30,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const applyFilters = () => {
     const nome = document.getElementById('filtro_nome').value.toLowerCase();
-    const current = document.getElementById('filtro_current').value.toLowerCase();
-    const requested = document.getElementById('filtro_requested').value.toLowerCase();
+    const current = document.getElementById('filtro_current').value;
+    const requested = document.getElementById('filtro_requested').value;
 
     return requests.filter(req =>
       req.fullName.toLowerCase().includes(nome) &&
-      req.currentProfile.toLowerCase().includes(current) &&
-      req.requestedProfile.toLowerCase().includes(requested)
+      (current === '' || req.currentProfile === current) &&
+      (requested === '' || req.requestedProfile === requested)
     );
   };
 
