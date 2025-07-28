@@ -21,15 +21,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   const itensPorPagina = 10;
   let dadosFiltrados = [];
 
-  async function fetchWikis() {
+  async function fetchWikis(query = '') {
     try {
-      const response = await fetch('https://macksunback.azurewebsites.net/wiki', {
+      const response = await fetch(`https://macksunback.azurewebsites.net/wiki${query}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-      if (!response.ok) throw new Error(`Failed to fetch data: ${response.status}`);
+      if (!response.ok) throw new Error();
       const result = await response.json();
       wikiData = Array.isArray(result.data) ? result.data : result.data ? [result.data] : [];
       dadosFiltrados = wikiData;
@@ -129,23 +129,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     paginacaoContainer.appendChild(criarBotao('Next', paginaAtual + 1, false, paginaAtual === totalPaginas));
   }
 
-  let debounceTimeout;
-  function applyFilters() {
-    clearTimeout(debounceTimeout);
-    debounceTimeout = setTimeout(() => {
-      const filterInstrument = inputFilterInstrument.value.toLowerCase();
-      const filterFormat = inputFilterFormat.value.toLowerCase();
-      const filterAuthor = inputFilterAuthor.value.toLowerCase();
-      const filterDescription = inputFilterDescription.value.toLowerCase();
-      dadosFiltrados = wikiData.filter(wiki =>
-        wiki.instrument.toLowerCase().includes(filterInstrument) &&
-        wiki.format.toLowerCase().includes(filterFormat) &&
-        (wiki.author?.toLowerCase() || '').includes(filterAuthor) &&
-        wiki.description.toLowerCase().includes(filterDescription)
-      );
-      paginaAtual = 1;
-      renderizarPagina();
-    }, 300);
+  function montarQueryParams() {
+    const params = new URLSearchParams();
+    const instrument = inputFilterInstrument.value.trim();
+    const format = inputFilterFormat.value.trim();
+    const author = inputFilterAuthor.value.trim();
+    const description = inputFilterDescription.value.trim();
+    if (instrument) params.append('instrument', instrument);
+    if (format) params.append('format', format);
+    if (author) params.append('author', author);
+    if (description) params.append('description', description);
+    return params.toString() ? `?${params.toString()}` : '';
   }
 
   function clearFilters() {
@@ -153,9 +147,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     inputFilterFormat.value = '';
     inputFilterAuthor.value = '';
     inputFilterDescription.value = '';
-    dadosFiltrados = wikiData;
-    paginaAtual = 1;
-    renderizarPagina();
+    fetchWikis();
   }
 
   function addActionListeners() {
@@ -163,23 +155,100 @@ document.addEventListener('DOMContentLoaded', async () => {
       button.addEventListener('click', () => {
         const id = button.dataset.id;
         const wiki = wikiData.find(w => w.id === id);
-        if (wiki) openEditModal(wiki);
+        if (wiki) {
+          document.getElementById('editar_instrument').value = wiki.instrument;
+          document.getElementById('editar_format').value = wiki.format;
+          document.getElementById('editar_description').value = wiki.description;
+          document.getElementById('editar_code').value = wiki.code;
+          document.getElementById('modal_editar_wiki').classList.remove('esconder');
+        }
       });
     });
     document.querySelectorAll('.btn-delete').forEach(button => {
       button.addEventListener('click', () => {
         const id = button.dataset.id;
-        openDeleteModal(id);
+        document.getElementById('modal_excluir_wiki').classList.remove('esconder');
+        document.getElementById('confirmar_exclusao_wiki').onclick = async () => {
+          try {
+            const response = await fetch(`https://macksunback.azurewebsites.net/wiki/${id}`, {
+              method: 'DELETE',
+              headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (response.ok) {
+              wikiData = wikiData.filter(w => w.id !== id);
+              dadosFiltrados = wikiData;
+              renderizarPagina();
+              document.getElementById('modal_excluir_wiki').classList.add('esconder');
+            }
+          } catch {}
+        };
       });
     });
   }
 
-  btnSearch.addEventListener('click', applyFilters);
-  inputFilterInstrument.addEventListener('input', applyFilters);
-  inputFilterFormat.addEventListener('input', applyFilters);
-  inputFilterAuthor.addEventListener('input', applyFilters);
-  inputFilterDescription.addEventListener('input', applyFilters);
+  document.getElementById('form_nova_wiki').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const instrument = document.getElementById('input_instrument').value;
+    const format = document.getElementById('input_format').value;
+    const description = document.getElementById('input_description').value;
+    const code = document.getElementById('input_code').value;
+    try {
+      const response = await fetch('https://macksunback.azurewebsites.net/wiki', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ instrument, format, description, code, author: fullName })
+      });
+      if (response.ok) {
+        document.getElementById('modal_nova_wiki').classList.add('esconder');
+        await fetchWikis();
+      }
+    } catch {}
+  });
+
+  document.getElementById('form_editar_wiki').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = wikiData.find(w => w.instrument === document.getElementById('editar_instrument').value)?.id;
+    const format = document.getElementById('editar_format').value;
+    const description = document.getElementById('editar_description').value;
+    const code = document.getElementById('editar_code').value;
+    try {
+      const response = await fetch(`https://macksunback.azurewebsites.net/wiki/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ instrument: document.getElementById('editar_instrument').value, format, description, code, author: fullName })
+      });
+      if (response.ok) {
+        document.getElementById('modal_editar_wiki').classList.add('esconder');
+        await fetchWikis();
+      }
+    } catch {}
+  });
+
+  document.getElementById('cancelar_nova_wiki').addEventListener('click', () => {
+    document.getElementById('modal_nova_wiki').classList.add('esconder');
+  });
+
+  document.getElementById('cancelar_editar_wiki').addEventListener('click', () => {
+    document.getElementById('modal_editar_wiki').classList.add('esconder');
+  });
+
+  document.getElementById('cancelar_exclusao_wiki').addEventListener('click', () => {
+    document.getElementById('modal_excluir_wiki').classList.add('esconder');
+  });
+
+  btnSearch.addEventListener('click', () => {
+    const query = montarQueryParams();
+    fetchWikis(query);
+  });
+
   btnClearFilters.addEventListener('click', clearFilters);
+
   btnAddWiki.addEventListener('click', () => {
     document.getElementById('modal_nova_wiki').classList.remove('esconder');
   });
