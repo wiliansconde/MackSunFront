@@ -208,14 +208,14 @@ document.addEventListener('DOMContentLoaded', async () => {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!res.ok) throw new Error();
-        successMessage.textContent = 'Solicitação aprovada com sucesso!';
+        successMessage.textContent = 'Request approved successfully!';
         successMessage.style.display = 'block';
         setTimeout(() => {
           modal.remove();
           fetchRequests();
         }, 2000);
       } catch {
-        errorMessage.textContent = 'Erro ao aprovar a solicitação.';
+        errorMessage.textContent = 'Failed to approve the request.';
         errorMessage.style.display = 'block';
       }
     };
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
         .then(res => {
           if (!res.ok) throw new Error();
-          successMessage.textContent = 'Solicitação rejeitada com sucesso!';
+          successMessage.textContent = 'Request rejected successfully!';
           successMessage.style.display = 'block';
           setTimeout(() => {
             modal.remove();
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           }, 2000);
         })
         .catch(() => {
-          errorMessage.textContent = 'Erro ao rejeitar a solicitação.';
+          errorMessage.textContent = 'Failed to reject the request.';
           errorMessage.style.display = 'block';
         });
       }

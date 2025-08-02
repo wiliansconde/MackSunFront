@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td>${wiki.instrument}</td>
         <td>${wiki.format}</td>
         <td>${wiki.author || ''}</td>
+        <td>${wiki.description || ''}</td>
         <td>
           <button class="btnGray_table btn_gap btn-edit" data-id="${wiki.id}">Edit</button>
           <button class="btnGray_table btn_gap btn-delete" data-id="${wiki.id}">Delete</button>

@@ -1,34 +1,36 @@
-document.addEventListener('DOMContentLoaded', function () {
+import { loadUserData } from './login.js';
+
+document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('upgradeForm');
+  const emailField = document.getElementById('email');
+  const profileField = document.getElementById('currentProfile');
+
+  const userData = loadUserData();
+  if (userData) {
+    emailField.value = userData.email || '';
+    profileField.value = userData.profile?.type || '';
+  }
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const email = document.getElementById('email').value.trim();
     const justification = document.getElementById('justification').value.trim();
     const requestedProfileInput = document.querySelector('input[name="requestedProfile"]:checked');
     const requestedProfile = requestedProfileInput ? requestedProfileInput.value : '';
+    const email = emailField.value;
 
     document.querySelectorAll('.invalid_message_error').forEach(el => el.style.display = 'none');
     document.querySelectorAll('.valid_message_error').forEach(el => el.style.display = 'none');
 
     let hasError = false;
 
-    if (!email) {
+    if (!email || !justification || !requestedProfile) {
       document.getElementById('error_all_fields').style.display = 'block';
       hasError = true;
-    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
       document.getElementById('error_email_format').style.display = 'block';
-      hasError = true;
-    }
-
-    if (!requestedProfile) {
-      document.getElementById('error_all_fields').style.display = 'block';
-      hasError = true;
-    }
-
-    if (!justification) {
-      document.getElementById('error_all_fields').style.display = 'block';
       hasError = true;
     }
 

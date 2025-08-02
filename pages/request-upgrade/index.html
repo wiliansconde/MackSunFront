@@ -20,7 +20,7 @@
   <script type="module" src="../../../js/headerfooter.js"></script>
   <script src="../../../js/headerlogado.js"></script>
   <script src="./js/menuhamburger.js" defer></script>
-  <script src="/js/request-upgrade.js" defer></script>
+  <script type="module" src="/js/request-upgrade.js" defer></script>
 
   <title>Profile Upgrade Request</title>
 </head>
@@ -35,8 +35,13 @@
       <form id="upgradeForm" class="formRegister">
 
         <div class="container-input-label">
-          <label class="labelRegister" for="email">Email: <span>*</span></label>
-          <input class="inputRegister" type="text" id="email" name="email">
+          <label class="labelRegister" for="email">Email:</label>
+          <input class="inputRegister" type="text" id="email" name="email" readonly>
+        </div>
+
+        <div class="container-input-label">
+          <label class="labelRegister" for="currentProfile">Current Profile:</label>
+          <input class="inputRegister" type="text" id="currentProfile" name="currentProfile" readonly>
         </div>
 
         <h2 class="subtitulo_padrao">Requested profile: <span>*</span></h2>

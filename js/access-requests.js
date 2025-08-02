@@ -72,16 +72,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     pagContainer.innerHTML = '';
     if (totalPages <= 1) return;
 
-    const criarBotao = (texto, pagina, isActive = false, isDisabled = false) => {
+    const createButton = (text, page, isActive = false, isDisabled = false) => {
       const btn = document.createElement('button');
-      btn.textContent = texto;
+      btn.textContent = text;
       if (isActive) btn.classList.add('active');
       if (isDisabled) {
         btn.disabled = true;
         btn.classList.add('disabled');
       } else {
         btn.onclick = () => {
-          currentPage = pagina;
+          currentPage = page;
           renderTable();
           renderPagination();
         };
@@ -89,50 +89,50 @@ document.addEventListener('DOMContentLoaded', async () => {
       return btn;
     };
 
-    pagContainer.appendChild(criarBotao('Previous', currentPage - 1, false, currentPage === 1));
+    pagContainer.appendChild(createButton('Previous', currentPage - 1, false, currentPage === 1));
 
-    const adicionarReticencias = () => {
+    const addEllipsis = () => {
       const span = document.createElement('span');
       span.textContent = '...';
       span.classList.add('reticencias');
       pagContainer.appendChild(span);
     };
 
-    const mostrarIntervalo = (start, end) => {
+    const showRange = (start, end) => {
       for (let i = start; i <= end; i++) {
-        pagContainer.appendChild(criarBotao(i, i, i === currentPage));
+        pagContainer.appendChild(createButton(i, i, i === currentPage));
       }
     };
 
-    const mostrarInicio = () => {
-      pagContainer.appendChild(criarBotao(1, 1, currentPage === 1));
+    const showStart = () => {
+      pagContainer.appendChild(createButton(1, 1, currentPage === 1));
     };
 
-    const mostrarFim = () => {
-      pagContainer.appendChild(criarBotao(totalPages, totalPages, currentPage === totalPages));
+    const showEnd = () => {
+      pagContainer.appendChild(createButton(totalPages, totalPages, currentPage === totalPages));
     };
 
     if (totalPages <= 7) {
-      mostrarIntervalo(1, totalPages);
+      showRange(1, totalPages);
     } else {
       if (currentPage <= 4) {
-        mostrarIntervalo(1, 5);
-        adicionarReticencias();
-        mostrarFim();
+        showRange(1, 5);
+        addEllipsis();
+        showEnd();
       } else if (currentPage >= totalPages - 3) {
-        mostrarInicio();
-        adicionarReticencias();
-        mostrarIntervalo(totalPages - 4, totalPages);
+        showStart();
+        addEllipsis();
+        showRange(totalPages - 4, totalPages);
       } else {
-        mostrarInicio();
-        adicionarReticencias();
-        mostrarIntervalo(currentPage - 1, currentPage + 1);
-        adicionarReticencias();
-        mostrarFim();
+        showStart();
+        addEllipsis();
+        showRange(currentPage - 1, currentPage + 1);
+        addEllipsis();
+        showEnd();
       }
     }
 
-    pagContainer.appendChild(criarBotao('Next', currentPage + 1, false, currentPage === totalPages));
+    pagContainer.appendChild(createButton('Next', currentPage + 1, false, currentPage === totalPages));
   };
 
   const addLearnMoreListeners = () => {
@@ -198,14 +198,14 @@ document.addEventListener('DOMContentLoaded', async () => {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!res.ok) throw new Error();
-        successMessage.textContent = 'Solicitação aprovada com sucesso!';
+        successMessage.textContent = 'Request approved successfully!';
         successMessage.style.display = 'block';
         setTimeout(() => {
           modal.remove();
           fetchRequests();
         }, 2000);
       } catch {
-        errorMessage.textContent = 'Erro ao aprovar a solicitação.';
+        errorMessage.textContent = 'Failed to approve the request.';
         errorMessage.style.display = 'block';
       }
     };
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
         .then(res => {
           if (!res.ok) throw new Error();
-          successMessage.textContent = 'Solicitação rejeitada com sucesso!';
+          successMessage.textContent = 'Request rejected successfully!';
           successMessage.style.display = 'block';
           setTimeout(() => {
             modal.remove();
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           }, 2000);
         })
         .catch(() => {
-          errorMessage.textContent = 'Erro ao rejeitar a solicitação.';
+          errorMessage.textContent = 'Failed to reject the request.';
           errorMessage.style.display = 'block';
         });
       }
