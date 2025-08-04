@@ -150,14 +150,14 @@ async function createChart() {
             .style("text-anchor", "middle")
             .style("font-size", "12px")
             .style("fill", "#666")
-            .text("Intensity (AU)");
+            .text("Flux (SFU)");
 
         svg.append("text")
             .attr("transform", `translate(${width / 2}, ${height + margin.bottom})`)
             .style("text-anchor", "middle")
             .style("font-size", "12px")
             .style("fill", "#666")
-            .text("Time");
+            .text("Time (UTC)");
     }
 
     
