@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
     const justification = document.getElementById('justification').value.trim();
 
     let requestedProfile = '';
@@ -50,25 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    if (!password) {
-      showMessageById('error_password');
-      document.getElementById('password').focus();
-      return;
-    }
-
-    if (password.length < 8) {
-      showMessageById('error_password_length');
-      document.getElementById('password').focus();
-      return;
-    }
-
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).+$/;
-    if (!passwordRegex.test(password)) {
-      showMessageById('error_password_format');
-      document.getElementById('password').focus();
-      return;
-    }
-
     if (!requestedProfile) {
       showMessageById('error_profile');
       return;
@@ -83,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const formData = {
       name: name,
       email: email,
-      password: password,
+      password: "SenhaExemplo@123",
       requestedProfile: requestedProfile,
       justification: justification
     };
