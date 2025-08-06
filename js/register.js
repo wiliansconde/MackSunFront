@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
+    // Validações do lado cliente
     if (!name) {
       showMessageById('error_name');
       document.getElementById('name').focus();
@@ -79,7 +80,10 @@ document.addEventListener('DOMContentLoaded', function () {
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error('Error sending form');
+          // Captura o erro específico do servidor
+          return response.json().then(errorData => {
+            throw new Error(errorData.message || 'Error sending form');
+          });
         }
         return response.json();
       })
@@ -89,7 +93,19 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .catch(error => {
         console.error('Error:', error);
-        showMessageById('error_submission');
+        
+        // Verifica se o erro é de email duplicado
+        if (error.message && (
+            error.message.includes('email já cadastrado') || 
+            error.message.includes('email already exists') ||
+            error.message.includes('duplicate email') ||
+            error.message.toLowerCase().includes('email') && error.message.toLowerCase().includes('exists')
+          )) {
+          showMessageById('error_email_exists');
+          document.getElementById('email').focus();
+        } else {
+          showMessageById('error_submission');
+        }
       });
   });
 });
