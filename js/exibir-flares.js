@@ -52,13 +52,13 @@ function preencherTabela(flares) {
 
     if (!flares || flares.length === 0) {
         const row = tbody.insertRow();
-        row.innerHTML = `<td colspan="5">flare not found.</td>`;
+        row.innerHTML = `<td colspan="5">No results found for the selected filters.</td>`;
         return;
     }
 
     flares.forEach(flare => {
         const row = tbody.insertRow();
-        const dataFormatada = flare.dateTime ? formatarData(flare.dateTime) : 'No date'; 
+        const dataFormatada = flare.dateTime ? formatarData(flare.dateTime) : 'No date';
         const descricaoLimitada = flare.description
             ? (flare.description.length > 80 ? flare.description.slice(0, 80) + '...' : flare.description)
             : '-';
@@ -145,7 +145,6 @@ function renderizarPaginacao() {
     paginacaoContainer.appendChild(criarBotao('Next', paginaAtual + 1, false, paginaAtual === totalPaginas));
 }
 
-
 window.abrirModalView = function (id) {
     try {
         const flare = buscarFlarePorIdLocal(id);
@@ -177,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn_buscar')?.addEventListener('click', async () => {
         let dataFiltro = document.getElementById('filtro_data').value;
         const classificacaoFiltro = document.getElementById('filtro_classificacao').value.trim();
-        const telescopioFiltro = document.getElementById('filtro_telescopio').value.trim();
+        const telescopioFiltro = getTelescopiosSelecionados();
         const descricaoFiltro = document.getElementById('filtro_descricao').value.trim();
 
         if (dataFiltro) {
@@ -217,8 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn_limpar_filtro')?.addEventListener('click', () => {
         document.getElementById('filtro_data').value = '';
         document.getElementById('filtro_classificacao').value = '';
-        document.getElementById('filtro_telescopio').value = '';
         document.getElementById('filtro_descricao').value = '';
+        limparTelescopiosSelecionados();
         carregarFlares();
     });
 
@@ -233,6 +232,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     carregarFlares();
+    carregarTelescopios();
+
+    document.getElementById('btn-toggle-telescopios')?.addEventListener('click', () => {
+        const dropdownLista = document.getElementById('lista-telescopios');
+        dropdownLista.style.display = dropdownLista.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', function (event) {
+        const dropdown = document.getElementById('lista-telescopios');
+        const toggleBtn = document.getElementById('btn-toggle-telescopios');
+
+        if (!dropdown.contains(event.target) && !toggleBtn.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
 });
 
 async function carregarFlares() {
@@ -248,3 +262,53 @@ async function carregarFlares() {
         preencherTabela([]);
     }
 }
+
+function getTelescopiosSelecionados() {
+    const checkboxes = document.querySelectorAll('#lista-telescopios input[type="checkbox"]:checked');
+    const telescopiosSelecionados = Array.from(checkboxes).map(checkbox => checkbox.value);
+    return telescopiosSelecionados.map(t => t.trim()).join(';');
+
+}
+
+function limparTelescopiosSelecionados() {
+    const checkboxes = document.querySelectorAll('#lista-telescopios input[type="checkbox"]');
+    checkboxes.forEach(checkbox => checkbox.checked = false);
+}
+
+async function carregarTelescopios() {
+    try {
+        const response = await fetch(`${BASE_URL}instruments`);
+
+        if (!response.ok) throw new Error('Error loading telescopes');
+        const result = await response.json();
+        if (!result.success) throw new Error('Failed to obtain data from telescopes');
+
+        const telescopios = result.data || [];
+        window.telescopiosList = telescopios;
+
+        configurarDropdownTelescopios(telescopios);
+
+    } catch (error) {
+        console.error('Error loading telescopes:', error);
+    }
+}
+
+function configurarDropdownTelescopios(telescopios) {
+    const listaTelescopios = document.getElementById('lista-telescopios');
+    listaTelescopios.innerHTML = '';
+
+    telescopios.forEach(telescopio => {
+        const label = document.createElement('label');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = telescopio.name;
+        checkbox.id = `telescopio-${telescopio.name}`;
+
+        label.htmlFor = checkbox.id;
+        label.appendChild(checkbox);
+        label.append(` ${telescopio.name}`);
+
+        listaTelescopios.appendChild(label);
+    });
+}
+

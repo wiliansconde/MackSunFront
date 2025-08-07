@@ -21,6 +21,11 @@ export function mostrarConteudoUsuarioLogado() {
     const linkCadastro = document.querySelector('.cadastro');
     const menuNavegacao = document.querySelector('.menu');
 
+    const requestAccessItem = document.querySelector('.request-access');
+    if (requestAccessItem) {
+        requestAccessItem.style.display = 'none';
+    }
+
     if (!menuNavegacao) {
         console.warn('Menu de navegação não encontrado');
         return;
@@ -55,12 +60,32 @@ export function mostrarConteudoUsuarioLogado() {
             localStorage.removeItem('token');
             sessionStorage.removeItem('userInfo');
 
+            const requestAccessItem = document.querySelector('.request-access');
+            if (requestAccessItem) {
+                requestAccessItem.style.display = '';
+            }
+
             document.dispatchEvent(new CustomEvent('logoutSuccess'));
 
             window.location.reload();
         });
     }
 }
+
+document.addEventListener('loginSuccess', () => {
+    const tentarEsconderRequestAccess = () => {
+        const requestAccessItem = document.querySelector('.request-access');
+        if (requestAccessItem) {
+            requestAccessItem.style.display = 'none';
+            console.log('Request Access ocultado após login.');
+        } else {
+            console.warn('Tentando novamente ocultar .request-access...');
+            setTimeout(tentarEsconderRequestAccess, 100);
+        }
+    };
+
+    tentarEsconderRequestAccess();
+})
 
 export function inicializarLoginPopup() {
     let estruturaLogin = document.querySelector('.estruturaLogin');
@@ -149,7 +174,7 @@ export function submit() {
         if (!email || !senha) {
             if (errorLogin) {
                 errorLogin.textContent = 'Your email or password is incorrect.';
-                errorLogin.style.display = 'flex'; 
+                errorLogin.style.display = 'flex';
             }
             return;
         }

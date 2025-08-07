@@ -7,23 +7,23 @@
     <title> Solar Flares</title>
 
     <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
+
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/formulario.css">
     <link rel="stylesheet" href="./css/buttons.css">
     <link rel="stylesheet" href="./css/filter.css">
+    <link rel="stylesheet" href="./css/solar-flare-management.css">
     <link rel="stylesheet" href="./css/table.css">
     <link rel="stylesheet" href="./css/titles.css">
-    <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="./css/solar-flare-management.css">
 
     <script src="./js/const.js" defer></script>
-    <script type="module" src="../../../js/headerfooter.js" defer></script>
     <script src="./js/exibir-flares.js"></script>
-
+    <script type="module" src="/js/login.js" defer></script>
+    <script type="module" src="js/headerfooter.js" defer></script>
 </head>
 
 <body>
-
+    <div id="estruturaLogin"></div>
     <div id="header"></div>
 
     <main class="container_padrao">
@@ -41,7 +41,11 @@
                 </div>
 
                 <div class="linha-filtros-inferior">
-                    <input type="text" id="filtro_telescopio" placeholder="Filter Telescope">
+                    <div class="dropdown-checkbox" id="filtro-telescopios">
+                        <button type="button" id="btn-toggle-telescopios" class="dropdown-btn">Filter
+                            Telescopes</button>
+                        <div id="lista-telescopios" class="dropdown-lista"></div>
+                    </div>
                     <input type="text" id="filtro_descricao" placeholder="Filter Description">
 
                     <div class="btn-criar-wrapper">
@@ -92,6 +96,10 @@
                 </form>
             </div>
         </div>
+
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 </body>
 
 </html>

@@ -51,7 +51,7 @@ async function atualizarUsuario(emailOriginal, usuario) {
 
     if (!getUserResponse.ok) {
         const data = await getUserResponse.json();
-        throw new Error(data.message || 'Erro ao buscar usuário antes de atualizar');
+        throw new Error(data.message || 'Error fetching user before updating');
     }
 
     const usuarioExistente = await getUserResponse.json();
@@ -78,7 +78,7 @@ async function atualizarUsuario(emailOriginal, usuario) {
 
     if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.message || 'Erro ao atualizar usuário');
+        throw new Error(data.message || 'Error updating user');
     }
 
     return await response.json();
@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tbody.innerHTML = '';
 
         if (usuarios.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5">User not found.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5">No results found for the selected filters.</td></tr>';
             return;
         }
 
