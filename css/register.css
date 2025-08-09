@@ -3,6 +3,9 @@
   margin-top: 1.875rem;
   flex-direction: column;
 }
+.btnBlack{
+  margin-left: 2rem;
+}
 
 .container-input-label {
   display: flex;
