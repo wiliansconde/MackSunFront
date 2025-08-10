@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
       paginaAtual = 1;
       renderizarPagina();
     } catch (error) {
-      snippetsContainer.innerHTML = `<p class="invalid_message_error">Ocorreu um erro ao carregar os snippets: ${error.message}</p>`;
+      snippetsContainer.innerHTML = `<p class="invalid_message_error">An error occurred while loading the snippets: ${error.message}</p>`;
       paginacaoContainer.innerHTML = '';
     }
   }
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderSnippets(data) {
     snippetsContainer.innerHTML = '';
     if (!data.length) {
-      snippetsContainer.innerHTML = '<p>Nenhum snippet da wiki encontrado.</p>';
+      snippetsContainer.innerHTML = '<p>No results found for the selected filters.</p>';
       return;
     }
     data.forEach(snippet => {
