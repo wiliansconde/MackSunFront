@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function renderTable(data) {
     tbody.innerHTML = '';
     if (data.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="4">No results found.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="4">No results found for the selected filters.</td></tr>`;
       return;
     }
     data.forEach(wiki => {

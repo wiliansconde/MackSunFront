@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     tbody.innerHTML = '';
                     semResultadosDiv.style.display = 'block';
-                    semResultadosDiv.innerHTML = `<h3>No results found.</h3>`;
+                    semResultadosDiv.innerHTML = `<h3>No results found for the selected filters.</h3>`;
                     semResultadosDiv.classList.add('resultado_erro');
                     return;
                 }

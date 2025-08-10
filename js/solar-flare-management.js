@@ -364,7 +364,7 @@ function preencherTabela(flares) {
 
     if (!flares || flares.length === 0) {
         const row = tbody.insertRow();
-        row.innerHTML = `<td colspan="5">No flares found.</td>`;
+        row.innerHTML = `<td colspan="5">No results found for the selected filters.</td>`;
         return;
     }
 
