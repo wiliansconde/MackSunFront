@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let requests = [];
   let currentPage = 1;
-  const rowsPerPage = 5;
+  const rowsPerPage = 10;
 
   const tbody = document.getElementById('tbody_requests');
   const pagContainer = document.getElementById('paginacao_container');
