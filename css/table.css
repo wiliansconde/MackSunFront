@@ -17,7 +17,7 @@ body {
 }
 
 .access-table {
-  width: 100%;
+  
   border-collapse: separate;
   border-spacing: 0;
   margin-top: 20px;
@@ -28,7 +28,11 @@ body {
   overflow: hidden;
   min-width: 600px;
   box-sizing: border-box;
+  table-layout: fixed;
+  width: 930px; 
+  min-width: 930px;
 }
+
 
 .access-table thead {
   background-color: var(--cinza-medio);
