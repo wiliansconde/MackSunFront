@@ -5,7 +5,6 @@ const modalNovoFlare = document.getElementById('modal_novo_flare_solar');
 const modalEditarFlare = document.getElementById('modal_editar_evento');
 const modalExcluirFlare = document.getElementById('modal_excluir_evento');
 
-const btnAtivarEdicao = document.getElementById('btn_ativar_edicao');
 const btnSalvarEdicao = document.getElementById('btn_salvar_edicao');
 const btnCancelarEdicao = document.getElementById('cancelar_flare_editar');
 
@@ -100,22 +99,6 @@ function exibirMensagensERecarregar(mensagemElemento, modalElemento, tempo = 150
 function obterTelescopiosSelecionados(containerId = 'dropdownContentTelescopiosNovo') {
     const checkboxes = document.querySelectorAll(`#${containerId} input[name="telescopios"]:checked`);
     return Array.from(checkboxes).map(cb => cb.value);
-}
-
-function setModoVisualizacaoEditar(isVisualizacao) {
-    const campos = [
-        document.getElementById('editar_data_evento'),
-        document.getElementById('editar_classificacao_flare'),
-        document.getElementById('editar_descricao_adicional'),
-    ];
-
-    const checkboxes = document.querySelectorAll('#dropdownContentTelescopiosEditar input[type="checkbox"]');
-
-    campos.forEach(campo => campo.disabled = isVisualizacao);
-    checkboxes.forEach(cb => cb.disabled = isVisualizacao);
-
-    btnAtivarEdicao.style.display = isVisualizacao ? 'inline-block' : 'none';
-    btnSalvarEdicao.classList.toggle('esconder', isVisualizacao);
 }
 
 function formatarData(dateString) {
@@ -390,7 +373,7 @@ function preencherTabela(flares) {
                 : '-'}</td>
             <td>${descricaoLimitada}</td>
             <td>
-                <button class="btnGray_table btn_gap" onclick="abrirModalEditar('${flare.id}')">View/Edit</button>
+                <button class="btnGray_table btn_gap" onclick="abrirModalEditar('${flare.id}')">Edit</button>
                 <button class="btnGray_table btn_gap" onclick="abrirModalExcluir('${flare.id}')">Delete</button>
             </td>
         `;
@@ -480,7 +463,6 @@ document.getElementById('btn_buscar').addEventListener('click', async () => {
     const classificacaoFiltro = document.getElementById('filtro_classificacao').value.trim();
     const descricaoFiltro = document.getElementById('filtro_descricao').value.trim();
     const telescopiosCheckboxFiltro = Array.from(document.querySelectorAll('#lista-telescopios input[type="checkbox"]:checked')).map(cb => cb.value);
-
 
     let url = `${BASE_URL}flares?`;
 
@@ -626,7 +608,6 @@ function abrirModalEditar(id) {
             cb.checked = (data.telescopes || '').includes(cb.value);
         });
 
-        setModoVisualizacaoEditar(true);
         modalEditarFlare.style.display = 'flex';
         esconderMensagens();
     } catch (error) {
@@ -634,10 +615,6 @@ function abrirModalEditar(id) {
         mensagemErroEditar.style.display = 'block';
     }
 }
-
-btnAtivarEdicao.addEventListener('click', () => {
-    setModoVisualizacaoEditar(false);
-});
 
 document.getElementById('cancelar_flare_editar').addEventListener('click', () => {
     modalEditarFlare.style.display = 'none';
@@ -675,7 +652,7 @@ function abrirModalExcluir(id) {
     esconderMensagens();
 }
 
-document.querySelector('#modal_excluir_evento .btnGreen').addEventListener('click', async () => {
+document.querySelector('#modal_excluir_evento .btnRed').addEventListener('click', async () => {
     try {
         await deletarFlare(idExcluir);
         mensagemSucessoExcluir.textContent = 'Deleted successfully.';
