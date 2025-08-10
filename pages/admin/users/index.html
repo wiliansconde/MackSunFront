@@ -134,10 +134,10 @@
 
                 <form id="formEditarUsuario">
                     <label for="nomeEditarUsuario">Full Name: <span>*</span></label>
-                    <input type="text" id="nomeEditarUsuario">
+                    <input type="text" id="nomeEditarUsuario" readonly>
 
-                    <label for="emailEditarUsuario">Email: <span>*</span></label>
-                    <input type="email" id="emailEditarUsuario">
+                    <label for="emailEditarUsuario">E-mail:</label>
+                    <input type="email" id="emailEditarUsuario" class="campo-inativo" readonly>
 
                     <label>Profile <span>*</span></label>
                     <div class="radio-grupo">
@@ -164,7 +164,7 @@
 
         <div id="modal_atualizar_senha" class="modal esconder">
             <div class="modal-content">
-                <h2 class="titulo_padrao sublinhado_reset-senha">Reset Password</h2>
+                <h2 class="titulo_padrao sublinhado_reset-senha sublinhado_edit">Reset Password</h2>
 
                 <form id="form_atualizar_senha">
                     <label for="atualizar_senha">New Password: <span>*</span></label>
@@ -183,6 +183,21 @@
                         <button type="button" id="cancelar_atualizacao_senha" class="btnRed">Cancel</button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div id="modal_excluir" class="modal esconder">
+            <div class="modal-content">
+                <p class="message-spacing">
+                    Are you sure you want to delete the user <span id="info_usuario_excluir"></span>? This action cannot
+                    be undone.
+                </p>
+                <p id="mensagem-sucesso-excluir" class="valid_message_error message-sucesso-spacing"></p>
+                <p id="mensagem-erro-excluir" class="invalid_message_error"></p>
+                <div class="botoes-modal">
+                    <button type="button" class="btnRed" id="confirmar_exclusao_usuario">Yes, Delete</button>
+                    <button type="button" class="btnGray" id="cancelar_exclusao">Cancel</button>
+                </div>
             </div>
         </div>
     </main>
