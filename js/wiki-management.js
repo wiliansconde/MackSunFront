@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return params.toString() ? `?${params.toString()}` : '';
   }
 
+  
   function clearFilters() {
     inputFilterInstrument.value = '';
     inputFilterFormat.value = '';
