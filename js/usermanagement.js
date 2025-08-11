@@ -22,6 +22,16 @@ function exibirMensagemERecarregar(mensagemElemento, tempo = 1500) {
     }, tempo)
 }
 
+function formatarData(dataString) {
+    if (!dataString) return 'N/A';
+    try {
+        const data = new Date(dataString);
+        return data.toLocaleDateString('pt-BR') + ' ' + data.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
+    } catch (error) {
+        return 'N/A';
+    }
+}
+
 async function cadastrarUsuario(usuario) {
     const response = await fetch(`${BASE_URL}users`, {
         method: 'POST',
@@ -191,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function carregarUsuarios() {
         try {
             const resposta = await listarUsuarios();
-
+            
             usuariosOriginais = (Array.isArray(resposta.data) ? resposta.data : [resposta]).map(usuario => {
                 usuario.deleted = usuario.deleted === true || usuario.isDelete === true;
                 return usuario;
@@ -199,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             aplicarFiltros();
         } catch (error) {
+            console.error('Erro ao carregar usuários:', error);
             mensagemErro.textContent = error.message || 'Error loading users';
             mensagemErro.style.display = 'block';
         }
@@ -251,18 +262,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function preencherTabela(usuarios) {
-
         tbody.innerHTML = '';
 
         if (usuarios.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5">No results found for the selected filters.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8">No results found for the selected filters.</td></tr>';
             return;
         }
 
         usuarios.forEach((usuario) => {
+            console.log('Processando usuário:', usuario); 
+            
             const nome = usuario.name || usuario.fullName || usuario.username || 'N/A';
             const email = usuario.email || 'N/A';
-            const perfil = perfilTotexto(usuario.profile?.type || usuario.profileType || 'N/A');;
+            const perfil = perfilTotexto(usuario.profile?.type || usuario.profileType || 'N/A');
+            const updatedBy = usuario.updatedBy || usuario.updated_by || 'N/A';
+            const createdAt = formatarData(usuario.createdAt || usuario.created_at);
+            const updatedAt = formatarData(usuario.updatedAt || usuario.updated_at);
 
             const isDadosIncompletos = nome === 'N/A' || email === 'N/A' || usuario.username == null;
             const isDeletado = usuario.deleted || isDadosIncompletos;
@@ -276,13 +291,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${email}</td>
                 <td>${perfil}</td>
                 <td><span class="${statusClasse}">${statusTexto}</span></td>
+                <td>${updatedBy}</td>
+                <td>${createdAt}</td>
+                <td>${updatedAt}</td>
                 <td class="acoes">
                     <div class="botoes_responsivo">
                         <button class="edit btnGray_table" data-email="${email}">Edit</button>
                         <button class="resetar_password btnGray_table" data-email="${email}">Reset Password</button>
-                        <button class="deletar btnGray_table" data-email="${email}" > Delete</button> 
+                        <button class="deletar btnGray_table" data-email="${email}">Delete</button> 
                     </div>
-                </ td >
+                </td>
             `;
             tbody.appendChild(tr);
         });
@@ -382,6 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bloquearBotao(event.submitter);
 
         const nome = document.getElementById('nomeEditarUsuario').value.trim();
+        const email = document.getElementById('emailEditarUsuario').value.trim();
         const perfilSelecionado = document.querySelector('input[name="perfilEditarUsuario"]:checked');
 
         const submitBtn = formEditar.querySelector('button[type="submit"]');
@@ -390,10 +409,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!nome || !email || !perfilSelecionado) {
             mensagemErroEdicao.textContent = 'Fill in all required fields.';
             mensagemErroEdicao.style.display = 'block';
+            liberarBotao(event.submitter);
+            if (submitBtn) submitBtn.disabled = false;
             return;
         }
-
-        document.getElementById('emailEditarUsuario').value = usuarioEditadoEmail;
 
         try {
             await atualizarUsuario(usuarioEditadoEmail, {
@@ -404,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             mensagemSucessoEdicao.style.display = 'block';
-            exibirMensagemERecarregar(mensagemSucesso);
+            exibirMensagemERecarregar(mensagemSucessoEdicao);
         } catch (error) {
             mensagemErroEdicao.textContent = error.message || 'Error updating user';
             mensagemErroEdicao.style.display = 'block';
@@ -431,6 +450,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!novaSenha) {
             mensagemErroAtualizarSenha.textContent = 'Fill in the new password.';
             mensagemErroAtualizarSenha.style.display = 'block';
+            liberarBotao(event.submitter);
+            if (submitBtn) submitBtn.disabled = false;
             return;
         }
 
@@ -495,7 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const valorRadio = perfilMap[perfilTexto];
             if (valorRadio) {
-                document.querySelector(`input[name = "perfilEditarUsuario"][value = "${valorRadio}"]`).checked = true;
+                document.querySelector(`input[name="perfilEditarUsuario"][value="${valorRadio}"]`).checked = true;
             }
 
             modalEditar.classList.remove('esconder');
@@ -529,7 +550,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mensagemErroDeletar.textContent = error.message || 'Error deleting user';
             mensagemErroDeletar.style.display = 'block';
             mensagemSucessoDeletar.style.display = 'none';
-
 
             liberarBotao(btnConfirmarExclusao);
             liberarBotao(btnCancelarExclusao);

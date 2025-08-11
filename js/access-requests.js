@@ -157,6 +157,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    return date.toLocaleString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   const showModal = (request) => {
     const existing = document.getElementById('modal-overlay');
     if (existing) existing.remove();
@@ -170,6 +182,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <p><strong>Email:</strong> ${request.email}</p>
         <p><strong>Requested Profile:</strong> ${request.requestedProfile}</p>
         <p><strong>Status:</strong> ${request.status}</p>
+        <p><strong>Created At:</strong> ${formatDate(request.createdAt)}</p>
         <p><strong>Justification:</strong> ${request.justification}</p>
         <textarea class="justificationLabel" id="reject-comment" placeholder="Rejection justification..." style="display:none;"></textarea>
         <div class="valid_message_error" id="success-message" style="display:none;"></div>
