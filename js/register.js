@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('registrationForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
+    const submitBtn = document.querySelector('#registrationForm button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
