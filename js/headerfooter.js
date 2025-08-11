@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="divWiki" id="wikiDropdown">
             <a class="nome_logado" href="#">Wiki</a>
             <ul class="access_profile menu_suspenso_wiki" id="wiki_menu">
-              <li><a href="/pages/wiki/sobre-o-portal.html">About the portal</a></li>
               <li><a href="/pages/wiki/como-exportar.html">How to export data</a></li>
               <li><a href="/pages/wiki/telescopios.html">Available Telescopes</a></li>
               <li><a href="/pages/wiki/arquivos-telescopios.html">Specification of Files by Telescope</a></li>
