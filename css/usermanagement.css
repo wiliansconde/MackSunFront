@@ -81,6 +81,11 @@ form {
     cursor: not-allowed;
 }
 
+#info_usuario_excluir {
+    color: var(--preto) !important;
+    font-weight: normal;
+}
+
 @media (max-width: 819px) {
 
     .linha-filtros-superior input,

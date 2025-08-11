@@ -108,6 +108,18 @@ function renderizarTabela(dados) {
         return;
     }
 
+    
+    if (todosArquivos.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td colspan="6">
+                No results found for the selected filters.
+            </td>
+        `;
+        tbody.appendChild(row);
+        return;
+    }
+
     dados.forEach((item, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -160,6 +172,8 @@ function renderizarPaginacao() {
     paginacaoContainer.innerHTML = '';
 
     const totalPaginas = Math.ceil(todosArquivos.length / arquivosPorPagina);
+
+    if (todosArquivos.length === 0 || totalPaginas <= 1) return;
 
     function criarBotao(text, pagina, isActive = false, isDisabled = false) {
         const btn = document.createElement('button');

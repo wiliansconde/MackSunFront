@@ -61,6 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             cb.disabled = deveDesabilitar;
             cb.classList.toggle('desabilitado', deveDesabilitar);
+
+            if (deveDesabilitar) {
+                cb.closest('label')?.setAttribute('title', 'To enable this filter, please request access or a profile upgrade.');
+            } else {
+                cb.closest('label')?.removeAttribute('title');
+            }
         });
 
         switch (tipoDePerfilDoUsuario) {
@@ -140,6 +146,11 @@ document.addEventListener('DOMContentLoaded', () => {
     elementoFormularioDownload.addEventListener('submit', async (evento) => {
         evento.preventDefault();
         esconderTodasMensagensErro();
+
+        const semResultadosDiv = document.getElementById('sem-resultados');
+        semResultadosDiv.style.display = 'none';
+        semResultadosDiv.innerHTML = '';
+        semResultadosDiv.classList.remove('resultado_erro');
 
         const conjuntoInstrumentosSelecionados = new Set();
         const resolucoesPorCanal = {};
@@ -223,6 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tbody = document.getElementById('tbody_resultados');
                 semResultadosDiv.style.display = 'none';
                 semResultadosDiv.innerHTML = '';
+                semResultadosDiv.classList.remove('resultado_erro');
+
                 arquivosDisponiveisParaDownload = dados.content || [];
                 totalArquivosDisponiveisNaBusca = dados.totalElements || 0;
 
@@ -234,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     tbody.innerHTML = '';
                     semResultadosDiv.style.display = 'block';
-                    semResultadosDiv.innerHTML = `<h3>No results found.</h3>`;
+                    semResultadosDiv.innerHTML = `<h3>No results found for the selected filters.</h3>`;
                     semResultadosDiv.classList.add('resultado_erro');
                     return;
                 }

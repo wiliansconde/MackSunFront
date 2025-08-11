@@ -43,7 +43,10 @@
         </div>
 
         <div class="linha-filtros-inferior">
-          <input type="text" id="filtro_telescopio" placeholder="Filter Telescope">
+          <div class="dropdown-checkbox" id="filtro-telescopios">
+            <button type="button" id="btn-toggle-telescopios" class="dropdown-btn">Filter Telescopes</button>
+            <div id="lista-telescopios" class="dropdown-lista"></div>
+          </div>
           <input type="text" id="filtro_descricao" placeholder="Filter Description">
 
           <div class="btn-criar-wrapper">
@@ -56,9 +59,9 @@
         <table class="access-table">
           <thead>
             <tr>
-              <th>Event date and time(UTC)</th>
-              <th>Flare Classification</th>
-              <th>Telescopes that captured the event</th>
+              <th>Event date<br> and time(UTC)</th>
+              <th>Flare<br>Classification</th>
+              <th>Telescopes</th>
               <th>Description</th>
               <th>Action</th>
             </tr>
@@ -133,8 +136,7 @@
             Error updating.</p>
 
           <div class="botoes-modal">
-            <button type="button" id="btn_ativar_edicao" class="btnGray">Edit</button>
-            <button type="submit" id="btn_salvar_edicao" class="btnGreen esconder">Update</button>
+            <button type="submit" id="btn_salvar_edicao" class="btnGreen esconder">Save</button>
             <button type="button" id="cancelar_flare_editar" class="btnRed">Cancel</button>
           </div>
         </form>
@@ -148,8 +150,8 @@
         <p id="mensagem_sucesso_excluir" class="valid_message_error"></p>
         <p id="mensagem-erro-excluir" class="invalid_message_error"></p>
         <div class="botoes-modal">
-          <button type="button" class="btnGreen" id="confirmar_exclusao_flare">Yes, Delete</button>
-          <button type="button" class="btnRed" id="excluir_evento">Cancel</button>
+          <button type="button" class="btnRed" id="confirmar_exclusao_flare">Yes, Delete</button>
+          <button type="button" class="btnGray" id="excluir_evento">Cancel</button>
         </div>
       </div>
     </div>

@@ -14,14 +14,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  document.getElementById('password').value = '12345678';
+
   document.getElementById('registrationForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const submitBtn = document.querySelector('#registrationForm button[type="submit"]');
-    if (submitBtn) submitBtn.disabled = true;
-
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
     const justification = document.getElementById('justification').value.trim();
 
     let requestedProfile = '';
@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    // Validações do lado cliente
     if (!name) {
       showMessageById('error_name');
       document.getElementById('name').focus();
@@ -67,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const formData = {
       name: name,
       email: email,
-      password: "SenhaExemplo@123",
+      password: password,
       requestedProfile: requestedProfile,
       justification: justification
     };
@@ -83,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
       .then(response => {
         if (!response.ok) {
-          // Captura o erro específico do servidor
           return response.json().then(errorData => {
             throw new Error(errorData.message || 'Error sending form');
           });
@@ -93,11 +91,11 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(data => {
         showMessageById('success_submission');
         document.getElementById('registrationForm').reset();
+        document.getElementById('password').value = '12345678';
       })
       .catch(error => {
         console.error('Error:', error);
         
-        // Verifica se o erro é de email duplicado
         if (error.message && (
             error.message.includes('email já cadastrado') || 
             error.message.includes('email already exists') ||

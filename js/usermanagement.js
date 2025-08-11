@@ -1,5 +1,19 @@
 const token = localStorage.getItem('token');
 
+function bloquearBotao(botao) {
+    if (botao) {
+        botao.disabled = true;
+        botao.classList.add('disabled');
+    }
+}
+
+function liberarBotao(botao) {
+    if (botao) {
+        botao.disabled = false;
+        botao.classList.remove('disabled');
+    }
+}
+
 function exibirMensagemERecarregar(mensagemElemento, tempo = 1500) {
     mensagemElemento.style.display = 'block';
     setTimeout(() => {
@@ -9,7 +23,6 @@ function exibirMensagemERecarregar(mensagemElemento, tempo = 1500) {
 }
 
 async function cadastrarUsuario(usuario) {
-    console.log('Enviado novo usuário', usuario)
     const response = await fetch(`${BASE_URL}users`, {
         method: 'POST',
         headers: {
@@ -28,7 +41,6 @@ async function cadastrarUsuario(usuario) {
 }
 
 async function listarUsuarios() {
-    console.log('Buscando lista de usuarios')
     const response = await fetch(`${BASE_URL}users`, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -41,7 +53,6 @@ async function listarUsuarios() {
 }
 
 async function atualizarUsuario(emailOriginal, usuario) {
-    console.log('Atualizando usuário', usuario)
 
     const getUserResponse = await fetch(`${BASE_URL}users/${emailOriginal}`, {
         headers: {
@@ -51,7 +62,7 @@ async function atualizarUsuario(emailOriginal, usuario) {
 
     if (!getUserResponse.ok) {
         const data = await getUserResponse.json();
-        throw new Error(data.message || 'Erro ao buscar usuário antes de atualizar');
+        throw new Error(data.message || 'Error fetching user before updating');
     }
 
     const usuarioExistente = await getUserResponse.json();
@@ -78,14 +89,13 @@ async function atualizarUsuario(emailOriginal, usuario) {
 
     if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.message || 'Erro ao atualizar usuário');
+        throw new Error(data.message || 'Error updating user');
     }
 
     return await response.json();
 }
 
 async function deletarUsuario(email) {
-    console.log(`Deletando usuário com email ${email}`)
     const response = await fetch(`${BASE_URL}users/${email}`, {
         method: 'DELETE',
         headers: {
@@ -101,7 +111,6 @@ async function deletarUsuario(email) {
 }
 
 async function atualizarSenha(email, novaSenha) {
-    console.log('Atualizando senha do usuário:', email);
 
     const response = await fetch(`${BASE_URL}users/update-password-admin`, {
         method: 'PATCH',
@@ -139,9 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputSenha = document.getElementById('atualizar_senha');
     const btnCancelarAtualizarSenha = document.getElementById('cancelar_atualizacao_senha');
 
+    const modalExcluir = document.getElementById('modal_excluir');
+    const infoUsuarioExcluir = document.getElementById('info_usuario_excluir');
+    const btnConfirmarExclusao = document.getElementById('confirmar_exclusao_usuario');
+    const btnCancelarExclusao = document.getElementById('cancelar_exclusao');
+
     const mensagemSucessoAtualizarSenha = document.getElementById('mensagem-sucesso-atualizar-senha');
     const mensagemErroAtualizarSenha = document.getElementById('mensagem-erro-atualizar-senha');
-
 
     const mensagemSucesso = document.getElementById('adicionado_sucesso');
     const mensagemErro = document.getElementById('erro_geral');
@@ -149,12 +162,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const mensagemSucessoEdicao = document.getElementById('mensagem-sucesso-edicao');
     const mensagemErroEdicao = document.getElementById('mensagem-erro-edicao');
 
-    const mensagemSucessoDeletar = document.getElementById('mensagem-sucesso-deletar');
-    const mensagemErroDeletar = document.getElementById('mensagem-erro-deletar');
+    const mensagemSucessoDeletar = document.getElementById('mensagem-sucesso-excluir');
+    const mensagemErroDeletar = document.getElementById('mensagem-erro-excluir');
 
     const tbody = document.querySelector('tbody');
 
     let usuarioEditadoEmail = null;
+    let emailParaExcluir = null;
 
     function esconderMensagens() {
         const mensagens = document.querySelectorAll('.valid_message_error, .invalid_message_error');
@@ -175,26 +189,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function carregarUsuarios() {
-        console.log('Carregando usuários...');
         try {
-            const usuarios = await listarUsuarios();
+            const resposta = await listarUsuarios();
 
-            usuariosOriginais = (Array.isArray(usuarios.data) ? usuarios.data : usuarios).map(usuario => {
-                const nome = (usuario.name || usuario.fullName || '').trim();
-                const email = (usuario.email || '').trim();
-                const perfil = usuario.profile?.type || usuario.profileType || null;
-                const username = usuario.username || null;
-
-                const invalido =
-                    !nome || nome.toUpperCase() === 'N/A' ||
-                    !email || email.toUpperCase() === 'N/A' ||
-                    !perfil || perfil.toUpperCase() === 'N/A' ||
-                    !username;
-
-                if (invalido) {
-                    usuario.deleted = true;
-                }
-
+            usuariosOriginais = (Array.isArray(resposta.data) ? resposta.data : [resposta]).map(usuario => {
+                usuario.deleted = usuario.deleted === true || usuario.isDelete === true;
                 return usuario;
             });
 
@@ -252,11 +251,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function preencherTabela(usuarios) {
-        console.log('Preenchendo tabela com usuários', usuarios)
+
         tbody.innerHTML = '';
 
         if (usuarios.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5">User not found.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5">No results found for the selected filters.</td></tr>';
             return;
         }
 
@@ -281,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="botoes_responsivo">
                         <button class="edit btnGray_table" data-email="${email}">Edit</button>
                         <button class="resetar_password btnGray_table" data-email="${email}">Reset Password</button>
-                        <button class="deletar btnGray_table" data-email="${email}" > Delete</ > 
+                        <button class="deletar btnGray_table" data-email="${email}" > Delete</button> 
                     </div>
                 </ td >
             `;
@@ -314,6 +313,8 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         esconderMensagens();
 
+        bloquearBotao(event.submitter);
+
         const nome = document.getElementById('nomeNovoUsuario').value.trim();
         const email = document.getElementById('emailNovoUsuario').value.trim();
         const perfilSelecionado = document.querySelector('input[name="perfilNovoUsuario"]:checked');
@@ -324,6 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!nome || !email || !perfilSelecionado) {
             mensagemErro.textContent = 'Fill in all required fields.';
             mensagemErro.style.display = 'block';
+            liberarBotao(event.submitter);
             if (submitBtn) submitBtn.disabled = false;
             return;
         }
@@ -332,11 +334,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!emailRegex.test(email)) {
             mensagemErro.textContent = 'Enter a valid email.';
             mensagemErro.style.display = 'block';
-            if (submitBtn) submitBtn.disabled = false;
             return;
         }
 
         try {
+            const usuariosResponse = await listarUsuarios();
+            const usuarios = Array.isArray(usuariosResponse.data) ? usuariosResponse.data : usuariosResponse;
+
+            const emailExiste = usuarios.some(u => (u.email || '').toLowerCase() === email.toLowerCase());
+
+            if (emailExiste) {
+                mensagemErro.textContent = 'User already exists';
+                mensagemErro.style.display = 'block';
+                liberarBotao(event.submitter);
+                return;
+            }
+
             await cadastrarUsuario({
                 fullName: nome,
                 email: email,
@@ -348,6 +361,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             mensagemErro.textContent = error.message || 'Error adding user';
             mensagemErro.style.display = 'block';
+        } finally {
+            liberarBotao(event.submitter);
         }
         setTimeout(() => {
             if (submitBtn) submitBtn.disabled = false;
@@ -364,8 +379,9 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         esconderMensagens();
 
+        bloquearBotao(event.submitter);
+
         const nome = document.getElementById('nomeEditarUsuario').value.trim();
-        const email = document.getElementById('emailEditarUsuario').value.trim();
         const perfilSelecionado = document.querySelector('input[name="perfilEditarUsuario"]:checked');
 
         const submitBtn = formEditar.querySelector('button[type="submit"]');
@@ -374,15 +390,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!nome || !email || !perfilSelecionado) {
             mensagemErroEdicao.textContent = 'Fill in all required fields.';
             mensagemErroEdicao.style.display = 'block';
-            if (submitBtn) submitBtn.disabled = false;
             return;
         }
+
+        document.getElementById('emailEditarUsuario').value = usuarioEditadoEmail;
 
         try {
             await atualizarUsuario(usuarioEditadoEmail, {
                 name: nome,
-                email: email,
-                username: email,
+                email: usuarioEditadoEmail,
+                username: usuarioEditadoEmail,
                 profileType: perfilSelecionado.value,
             });
 
@@ -391,6 +408,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             mensagemErroEdicao.textContent = error.message || 'Error updating user';
             mensagemErroEdicao.style.display = 'block';
+        } finally {
+            liberarBotao(event.submitter);
         }
         setTimeout(() => {
             if (submitBtn) submitBtn.disabled = false;
@@ -401,6 +420,8 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         esconderMensagens();
 
+        bloquearBotao(event.submitter);
+
         const email = inputEmailSenha.value.trim();
         const novaSenha = inputSenha.value.trim();
 
@@ -410,7 +431,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!novaSenha) {
             mensagemErroAtualizarSenha.textContent = 'Fill in the new password.';
             mensagemErroAtualizarSenha.style.display = 'block';
-            if (submitBtn) submitBtn.disabled = false;
             return;
         }
 
@@ -422,6 +442,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             mensagemErroAtualizarSenha.textContent = error.message || 'Error updating password';
             mensagemErroAtualizarSenha.style.display = 'block';
+        } finally {
+            liberarBotao(event.submitter);
         }
         setTimeout(() => {
             if (submitBtn) submitBtn.disabled = false;
@@ -440,12 +462,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (e.target.classList.contains('deletar')) {
             try {
-                await deletarUsuario(email);
-                mensagemSucessoDeletar.style.display = 'block';
-                exibirMensagemERecarregar(mensagemSucesso);
+                emailParaExcluir = email;
+                infoUsuarioExcluir.textContent = `"${emailParaExcluir}" `;
+
+                mensagemSucessoDeletar.style.display = 'none';
+                mensagemSucessoDeletar.classList.add('esconder');
+
+                mensagemErroDeletar.style.display = 'none';
+                mensagemErroDeletar.classList.add('esconder');
+
+                modalExcluir.classList.remove('esconder');
             } catch (error) {
                 mensagemErroDeletar.textContent = error.message;
                 mensagemErroDeletar.style.display = 'block';
+                mensagemErroDeletar.classList.remove('esconder');
             }
         } else if (e.target.classList.contains('edit')) {
             const linha = e.target.closest('tr');
@@ -455,7 +485,6 @@ document.addEventListener('DOMContentLoaded', () => {
             usuarioEditadoEmail = email;
 
             document.getElementById('nomeEditarUsuario').value = nome;
-            document.getElementById('emailEditarUsuario').value = email;
             document.getElementById('emailEditarUsuario').value = email;
 
             const perfilMap = {
@@ -475,6 +504,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    btnConfirmarExclusao.addEventListener('click', async () => {
+
+        bloquearBotao(btnConfirmarExclusao);
+        bloquearBotao(btnCancelarExclusao);
+
+        try {
+            await deletarUsuario(emailParaExcluir);
+
+            mensagemSucessoDeletar.textContent = 'User successfully deleted.';
+            mensagemSucessoDeletar.style.display = 'block';
+            mensagemErroDeletar.style.display = 'none';
+
+            setTimeout(() => {
+                mensagemSucessoDeletar.style.display = 'none';
+                modalExcluir.classList.add('esconder');
+
+                liberarBotao(btnConfirmarExclusao);
+                liberarBotao(btnCancelarExclusao);
+
+                location.reload();
+            }, 3000);
+        } catch (error) {
+            mensagemErroDeletar.textContent = error.message || 'Error deleting user';
+            mensagemErroDeletar.style.display = 'block';
+            mensagemSucessoDeletar.style.display = 'none';
+
+
+            liberarBotao(btnConfirmarExclusao);
+            liberarBotao(btnCancelarExclusao);
+        }
+    });
+
+    btnCancelarExclusao.addEventListener('click', () => {
+        modalExcluir.classList.add('esconder');
+    });
+
     carregarUsuarios();
 
     function displayPage(usuarios, pagina) {
@@ -486,145 +551,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderizarPaginacao(usuarios.length, pagina)
     }
 
-    function renderizarPaginacao(totalItems, paginaAtual) {
-        paginacaoContainer.innerHTML = '';
-
-        const totalDePaginas = Math.ceil(totalItems / linhasPorPagina);
-        const maxPaginasVisiveis = 5;
-
-        if (paginaAtual > 1) {
-            const btnPrev = document.createElement('button');
-            btnPrev.textContent = 'Previous';
-            btnPrev.addEventListener('click', () => {
-                paginaAtual--;
-                displayPage(usuariosFiltrados, paginaAtual);
-            });
-            paginacaoContainer.appendChild(btnPrev);
-        }
-
-        const btnPagina1 = criarBotaoPagina(1, paginaAtual);
-        paginacaoContainer.appendChild(btnPagina1);
-
-        let inicioJanela = Math.max(2, paginaAtual - 1);
-        let fimJanela = Math.min(totalDePaginas - 1, paginaAtual + 1);
-
-        if (paginaAtual > 4) {
-            paginacaoContainer.appendChild(criarEllipsis());
-        }
-
-        for (let i = inicioJanela; i <= fimJanela; i++) {
-            const btn = criarBotaoPagina(i, paginaAtual);
-            paginacaoContainer.appendChild(btn);
-        }
-
-        if (paginaAtual < totalDePaginas - 3) {
-            paginacaoContainer.appendChild(criarEllipsis());
-        }
-
-        if (totalDePaginas > 1) {
-            const btnUltima = criarBotaoPagina(totalDePaginas, paginaAtual);
-            paginacaoContainer.appendChild(btnUltima);
-        }
-
-        if (paginaAtual < totalDePaginas) {
-            const btnNext = document.createElement('button');
-            btnNext.textContent = 'Next';
-            btnNext.addEventListener('click', () => {
-                paginaAtual++;
-                displayPage(usuariosFiltrados, paginaAtual);
-            });
-            paginacaoContainer.appendChild(btnNext);
-        }
-
-        function criarBotaoPagina(numero, paginaAtual) {
-            const btn = document.createElement('button');
-            btn.textContent = numero;
-            if (numero === paginaAtual) {
-                btn.classList.add('active');
-            }
-            btn.addEventListener('click', () => {
-                displayPage(usuariosFiltrados, numero);
-            });
-            return btn;
-        }
-
-        function criarEllipsis() {
-            const span = document.createElement('span');
-            span.textContent = '...';
-            span.classList.add('ellipsis');
-            return span;
-        }
-    }
-
-    function renderizarPaginacao(totalItems, paginaAtual) {
-        paginacaoContainer.innerHTML = '';
-
-        const totalDePaginas = Math.ceil(totalItems / linhasPorPagina);
-        const maxPaginasVisiveis = 5;
-
-        if (paginaAtual > 1) {
-            const btnPrev = document.createElement('button');
-            btnPrev.textContent = 'Previous';
-            btnPrev.addEventListener('click', () => {
-                paginaAtual--;
-                displayPage(usuariosFiltrados, paginaAtual);
-            });
-            paginacaoContainer.appendChild(btnPrev);
-        }
-
-        const btnPagina1 = criarBotaoPagina(1, paginaAtual);
-        paginacaoContainer.appendChild(btnPagina1);
-
-        let inicioJanela = Math.max(2, paginaAtual - 1);
-        let fimJanela = Math.min(totalDePaginas - 1, paginaAtual + 1);
-
-        if (paginaAtual > 4) {
-            paginacaoContainer.appendChild(criarEllipsis());
-        }
-
-        for (let i = inicioJanela; i <= fimJanela; i++) {
-            const btn = criarBotaoPagina(i, paginaAtual);
-            paginacaoContainer.appendChild(btn);
-        }
-
-        if (paginaAtual < totalDePaginas - 3) {
-            paginacaoContainer.appendChild(criarEllipsis());
-        }
-
-        if (totalDePaginas > 1) {
-            const btnUltima = criarBotaoPagina(totalDePaginas, paginaAtual);
-            paginacaoContainer.appendChild(btnUltima);
-        }
-
-        if (paginaAtual < totalDePaginas) {
-            const btnNext = document.createElement('button');
-            btnNext.textContent = 'Next';
-            btnNext.addEventListener('click', () => {
-                paginaAtual++;
-                displayPage(usuariosFiltrados, paginaAtual);
-            });
-            paginacaoContainer.appendChild(btnNext);
-        }
-
-        function criarBotaoPagina(numero, paginaAtual) {
-            const btn = document.createElement('button');
-            btn.textContent = numero;
-            if (numero === paginaAtual) {
-                btn.classList.add('active');
-            }
-            btn.addEventListener('click', () => {
-                displayPage(usuariosFiltrados, numero);
-            });
-            return btn;
-        }
-
-        function criarEllipsis() {
-            const span = document.createElement('span');
-            span.textContent = '...';
-            span.classList.add('ellipsis');
-            return span;
-        }
-    }
     function renderizarPaginacao(totalItems, paginaAtual) {
         paginacaoContainer.innerHTML = '';
 
@@ -653,7 +579,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 paginacaoContainer.appendChild(btnUltima);
             }
         } else {
-
             paginacaoContainer.appendChild(criarBotaoPagina(1, paginaAtual));
             paginacaoContainer.appendChild(criarEllipsis());
 
@@ -675,7 +600,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             paginacaoContainer.appendChild(criarEllipsis());
-
             paginacaoContainer.appendChild(criarBotaoPagina(totalDePaginas, paginaAtual));
         }
 

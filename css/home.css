@@ -29,7 +29,7 @@ main {
 .btn-saiba-mais-wrapper {
     display: flex;
     justify-content: flex-end;
-    margin-top: 1rem;
+    margin-top: 0,5rem;
 }
 
 .ocultar {

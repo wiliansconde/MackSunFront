@@ -5,7 +5,6 @@ const modalNovoFlare = document.getElementById('modal_novo_flare_solar');
 const modalEditarFlare = document.getElementById('modal_editar_evento');
 const modalExcluirFlare = document.getElementById('modal_excluir_evento');
 
-const btnAtivarEdicao = document.getElementById('btn_ativar_edicao');
 const btnSalvarEdicao = document.getElementById('btn_salvar_edicao');
 const btnCancelarEdicao = document.getElementById('cancelar_flare_editar');
 
@@ -23,6 +22,9 @@ const contentTelescopios = document.getElementById('dropdownContentTelescopiosNo
 
 const toggleTelescopiosEditar = document.getElementById('dropdownAlternarTelescopiosEditar');
 const contentTelescopiosEditar = document.getElementById('dropdownContentTelescopiosEditar');
+
+const toggleFiltroTelescopios = document.getElementById('btn-toggle-telescopios');
+const contentFiltroTelescopios = document.getElementById('lista-telescopios');
 
 let idEditar = null;
 let idExcluir = null;
@@ -52,6 +54,15 @@ if (toggleTelescopiosEditar) {
     });
 }
 
+if (toggleFiltroTelescopios) {
+    toggleFiltroTelescopios.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = contentFiltroTelescopios.style.display === 'block';
+        contentFiltroTelescopios.style.display = isOpen ? 'none' : 'block';
+        toggleFiltroTelescopios.classList.toggle('active', !isOpen);
+    });
+}
+
 window.addEventListener('click', (e) => {
     if (contentTelescopios && !contentTelescopios.contains(e.target) && !toggleTelescopios.contains(e.target)) {
         contentTelescopios.style.display = 'none';
@@ -61,6 +72,11 @@ window.addEventListener('click', (e) => {
     if (contentTelescopiosEditar && !contentTelescopiosEditar.contains(e.target) && !toggleTelescopiosEditar.contains(e.target)) {
         contentTelescopiosEditar.style.display = 'none';
         toggleTelescopiosEditar.classList.remove('active');
+    }
+
+    if (contentFiltroTelescopios && !contentFiltroTelescopios.contains(e.target) && !toggleFiltroTelescopios.contains(e.target)) {
+        contentFiltroTelescopios.style.display = 'none';
+        toggleFiltroTelescopios.classList.remove('active');
     }
 });
 
@@ -83,22 +99,6 @@ function exibirMensagensERecarregar(mensagemElemento, modalElemento, tempo = 150
 function obterTelescopiosSelecionados(containerId = 'dropdownContentTelescopiosNovo') {
     const checkboxes = document.querySelectorAll(`#${containerId} input[name="telescopios"]:checked`);
     return Array.from(checkboxes).map(cb => cb.value);
-}
-
-function setModoVisualizacaoEditar(isVisualizacao) {
-    const campos = [
-        document.getElementById('editar_data_evento'),
-        document.getElementById('editar_classificacao_flare'),
-        document.getElementById('editar_descricao_adicional'),
-    ];
-
-    const checkboxes = document.querySelectorAll('#dropdownContentTelescopiosEditar input[type="checkbox"]');
-
-    campos.forEach(campo => campo.disabled = isVisualizacao);
-    checkboxes.forEach(cb => cb.disabled = isVisualizacao);
-
-    btnAtivarEdicao.style.display = isVisualizacao ? 'inline-block' : 'none';
-    btnSalvarEdicao.classList.toggle('esconder', isVisualizacao);
 }
 
 function formatarData(dateString) {
@@ -315,6 +315,7 @@ async function carregarTelescopios() {
         const telescopios = result.data || [];
         preencherDropdownTelescopios('dropdownContentTelescopiosNovo', telescopios);
         preencherDropdownTelescopios('dropdownContentTelescopiosEditar', telescopios);
+        preencherDropdownTelescopios('lista-telescopios', telescopios);
     } catch (error) {
         console.error(error);
     }
@@ -346,7 +347,7 @@ function preencherTabela(flares) {
 
     if (!flares || flares.length === 0) {
         const row = tbody.insertRow();
-        row.innerHTML = `<td colspan="5">No flares found.</td>`;
+        row.innerHTML = `<td colspan="5">No results found for the selected filters.</td>`;
         return;
     }
 
@@ -372,7 +373,7 @@ function preencherTabela(flares) {
                 : '-'}</td>
             <td>${descricaoLimitada}</td>
             <td>
-                <button class="btnGray_table btn_gap" onclick="abrirModalEditar('${flare.id}')">View/Edit</button>
+                <button class="btnGray_table btn_gap" onclick="abrirModalEditar('${flare.id}')">Edit</button>
                 <button class="btnGray_table btn_gap" onclick="abrirModalExcluir('${flare.id}')">Delete</button>
             </td>
         `;
@@ -460,8 +461,8 @@ function renderizarPaginacao() {
 document.getElementById('btn_buscar').addEventListener('click', async () => {
     const dataFiltro = document.getElementById('filtro_data').value;
     const classificacaoFiltro = document.getElementById('filtro_classificacao').value.trim();
-    const telescopioFiltro = document.getElementById('filtro_telescopio').value.trim();
     const descricaoFiltro = document.getElementById('filtro_descricao').value.trim();
+    const telescopiosCheckboxFiltro = Array.from(document.querySelectorAll('#lista-telescopios input[type="checkbox"]:checked')).map(cb => cb.value);
 
     let url = `${BASE_URL}flares?`;
 
@@ -473,8 +474,8 @@ document.getElementById('btn_buscar').addEventListener('click', async () => {
     if (classificacaoFiltro) {
         params.push(`classType=${encodeURIComponent(classificacaoFiltro)}`);
     }
-    if (telescopioFiltro) {
-        params.push(`telescopes=${encodeURIComponent(telescopioFiltro)}`);
+    if (telescopiosCheckboxFiltro.length > 0) {
+        params.push(`telescopes=${encodeURIComponent(telescopiosCheckboxFiltro.join(';'))}`);
     }
     if (descricaoFiltro) {
         params.push(`description=${encodeURIComponent(descricaoFiltro)}`);
@@ -510,8 +511,9 @@ document.getElementById('btn_buscar').addEventListener('click', async () => {
 document.getElementById('btn_limpar_filtro').addEventListener('click', () => {
     document.getElementById('filtro_data').value = '';
     document.getElementById('filtro_classificacao').value = '';
-    document.getElementById('filtro_telescopio').value = '';
     document.getElementById('filtro_descricao').value = '';
+    const checkboxesFiltroTelescopios = document.querySelectorAll('#lista-telescopios input[type="checkbox"]');
+    checkboxesFiltroTelescopios.forEach(cb => cb.checked = false);
     carregarFlares();
 });
 
@@ -567,7 +569,7 @@ document.getElementById('form_novo_flare_solar').addEventListener('submit', asyn
     }
 
     const dateTimeNormalizado = dateTime.includes('T') ? `${dateTime}:00` : null;
-    
+
     if (!dateTimeNormalizado) {
         mensagemErro.textContent = 'Invalid date and time format. Use the picker.';
         mensagemErro.style.display = 'block';
@@ -606,7 +608,6 @@ function abrirModalEditar(id) {
             cb.checked = (data.telescopes || '').includes(cb.value);
         });
 
-        setModoVisualizacaoEditar(true);
         modalEditarFlare.style.display = 'flex';
         esconderMensagens();
     } catch (error) {
@@ -614,10 +615,6 @@ function abrirModalEditar(id) {
         mensagemErroEditar.style.display = 'block';
     }
 }
-
-btnAtivarEdicao.addEventListener('click', () => {
-    setModoVisualizacaoEditar(false);
-});
 
 document.getElementById('cancelar_flare_editar').addEventListener('click', () => {
     modalEditarFlare.style.display = 'none';
@@ -655,7 +652,7 @@ function abrirModalExcluir(id) {
     esconderMensagens();
 }
 
-document.querySelector('#modal_excluir_evento .btnGreen').addEventListener('click', async () => {
+document.querySelector('#modal_excluir_evento .btnRed').addEventListener('click', async () => {
     try {
         await deletarFlare(idExcluir);
         mensagemSucessoExcluir.textContent = 'Deleted successfully.';

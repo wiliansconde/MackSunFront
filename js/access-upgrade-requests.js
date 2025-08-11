@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let requests = [];
   let currentPage = 1;
-  const rowsPerPage = 5;
+  const rowsPerPage = 10;
 
   const tbody = document.getElementById('tbody_requests');
   const pagContainer = document.getElementById('paginacao_container');
@@ -46,6 +46,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const start = (currentPage - 1) * rowsPerPage;
     const paginated = filtered.slice(start, start + rowsPerPage);
 
+    if (filtered.length === 0) {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td colspan="5">
+          No results found for the selected filters.
+        </td>
+      `;
+      tbody.appendChild(row);
+      return;
+    }
+
     paginated.forEach(req => {
       const row = document.createElement('tr');
 
@@ -72,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const totalPages = Math.ceil(filtered.length / rowsPerPage);
     pagContainer.innerHTML = '';
 
-    if (totalPages <= 1) return;
+    if (filtered.length === 0 || totalPages <= 1) return;
 
     const criarBotao = (texto, pagina, isActive = false, isDisabled = false) => {
       const btn = document.createElement('button');

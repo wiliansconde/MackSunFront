@@ -5,12 +5,30 @@
     font-size: 1rem;
     background-color: var(--preto);
     color: var(--branco);
-    padding: 1rem 1.50rem;
+    padding: 1rem 1rem;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
     transition: ease-in-out 0.2s;
     white-space: nowrap;
+}
+
+#btn_buscar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    background-color: var(--vermelho);
+    color: var(--branco);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+    white-space: nowrap;
+}
+
+#btn_buscar:hover {
+    background-color: var(--preto);
 }
 
 .btnGray {
