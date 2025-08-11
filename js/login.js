@@ -141,6 +141,9 @@ export function submit() {
     function handleSubmit(event) {
         event.preventDefault();
 
+        const bt_login = document.getElementById('bt_login');
+        bt_login.disabled = true;
+
         const errorLogin = document.getElementById('error_login');
         const email = document.getElementById('input_email')?.value.trim();
         const senha = document.getElementById('input_senha')?.value.trim();
@@ -151,6 +154,7 @@ export function submit() {
                 errorLogin.textContent = 'Your email or password is incorrect.';
                 errorLogin.style.display = 'flex'; 
             }
+            bt_login.disabled = false;
             return;
         }
 
@@ -191,23 +195,21 @@ export function submit() {
                     localStorage.setItem('token', token);
 
                     document.dispatchEvent(new CustomEvent('loginSuccess'));
-                    console.log('Login manual bem-sucedido! Evento loginSuccess disparado.');
-
                     window.location.reload();
                 } else {
                     if (errorLogin) {
                         errorLogin.textContent = 'Your email or password is incorrect';
                         errorLogin.style.display = 'flex';
                     }
+                    bt_login.disabled = false;
                 }
             })
             .catch(error => {
-                console.error('Erro ao fazer login', error);
-                console.error('Erro ao fazer login', error);
                 if (errorLogin) {
                     errorLogin.textContent = 'Your email or password is incorrect.';
                     errorLogin.style.display = 'flex';
                 }
+                bt_login.disabled = false;
             });
     }
 }

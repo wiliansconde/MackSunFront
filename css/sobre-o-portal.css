@@ -1,0 +1,19 @@
+.texto_padrao {
+    font-size: 1.2rem;
+    color: var(--preto);
+    margin-top: 20px; 
+}
+
+.formulario-card_medio {
+    max-width: 80%;
+}
+
+@media (max-width: 500px) {
+    .formulario-card_medio {
+        max-width: 98%;
+        margin: 1rem 0 0 0;
+    }
+    .texto_padrao {
+    font-size: 1rem;
+}
+}

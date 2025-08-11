@@ -202,6 +202,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     approveBtn.onclick = async () => {
       hideMessages();
+      approveBtn.disabled = true;
       try {
         const res = await fetch(`https://macksunback.azurewebsites.net/profile-upgrades/${request.id}/approve`, {
           method: 'PUT',
@@ -217,6 +218,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       } catch {
         errorMessage.textContent = 'Failed to approve the request.';
         errorMessage.style.display = 'block';
+        setTimeout(() => {
+          approveBtn.disabled = false;
+        }, 2000);
       }
     };
 
@@ -231,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           errorMessage.style.display = 'block';
           return;
         }
-
+        rejectBtn.disabled = true;
         fetch(`https://macksunback.azurewebsites.net/profile-upgrades/${request.id}/reject?comment=${encodeURIComponent(comment)}`, {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${token}` }
@@ -248,6 +252,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         .catch(() => {
           errorMessage.textContent = 'Failed to reject the request.';
           errorMessage.style.display = 'block';
+          setTimeout(() => {
+            rejectBtn.disabled = false;
+          }, 2000);
         });
       }
     };

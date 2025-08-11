@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', function (event) {
     event.preventDefault();
 
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+
     const justification = document.getElementById('justification').value.trim();
     const requestedProfileInput = document.querySelector('input[name="requestedProfile"]:checked');
     const requestedProfile = requestedProfileInput ? requestedProfileInput.value : '';
@@ -34,7 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
       hasError = true;
     }
 
-    if (hasError) return;
+    if (hasError) {
+      if (submitBtn) submitBtn.disabled = false;
+      return;
+    }
 
     document.getElementById('success_processing').style.display = 'block';
 
@@ -75,6 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('success_processing').style.display = 'none';
         document.getElementById('error_submission').style.display = 'block';
         console.error('Erro na requisição:', error);
+      })
+      .finally(() => {
+        if (submitBtn) setTimeout(() => { submitBtn.disabled = false; }, 2000);
       });
   });
 });

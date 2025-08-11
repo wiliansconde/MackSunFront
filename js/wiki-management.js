@@ -169,7 +169,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       button.addEventListener('click', () => {
         const id = button.dataset.id;
         document.getElementById('modal_excluir_wiki').classList.remove('esconder');
-        document.getElementById('confirmar_exclusao_wiki').onclick = async () => {
+        const confirmBtn = document.getElementById('confirmar_exclusao_wiki');
+        confirmBtn.onclick = async () => {
+          confirmBtn.disabled = true;
           try {
             const response = await fetch(`https://macksunback.azurewebsites.net/wiki/${id}`, {
               method: 'DELETE',
@@ -182,6 +184,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               document.getElementById('modal_excluir_wiki').classList.add('esconder');
             }
           } catch {}
+          setTimeout(() => { confirmBtn.disabled = false; }, 2000);
         };
       });
     });
@@ -189,6 +192,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('form_nova_wiki').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const submitBtn = document.querySelector('#form_nova_wiki button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
     const instrument = document.getElementById('input_instrument').value;
     const format = document.getElementById('input_format').value;
     const description = document.getElementById('input_description').value;
@@ -207,10 +212,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         await fetchWikis();
       }
     } catch {}
+    setTimeout(() => { if (submitBtn) submitBtn.disabled = false; }, 2000);
   });
 
   document.getElementById('form_editar_wiki').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const submitBtn = document.querySelector('#form_editar_wiki button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
     const id = wikiData.find(w => w.instrument === document.getElementById('editar_instrument').value)?.id;
     const format = document.getElementById('editar_format').value;
     const description = document.getElementById('editar_description').value;
@@ -229,6 +237,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         await fetchWikis();
       }
     } catch {}
+    setTimeout(() => { if (submitBtn) submitBtn.disabled = false; }, 2000);
   });
 
   document.getElementById('cancelar_nova_wiki').addEventListener('click', () => {

@@ -192,6 +192,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     modal.querySelector('#approve-btn').onclick = async () => {
       hideMessages();
+      const approveBtn = modal.querySelector('#approve-btn');
+      approveBtn.disabled = true;
       try {
         const res = await fetch(`https://macksunback.azurewebsites.net/access-requests/${request.id}/approve`, {
           method: 'PUT',
@@ -207,11 +209,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       } catch {
         errorMessage.textContent = 'Failed to approve the request.';
         errorMessage.style.display = 'block';
+        setTimeout(() => {
+          approveBtn.disabled = false;
+        }, 2000);
       }
     };
 
     modal.querySelector('#reject-btn').onclick = () => {
       hideMessages();
+      const rejectBtn = modal.querySelector('#reject-btn');
       if (rejectTextarea.style.display === 'none') {
         rejectTextarea.style.display = 'block';
       } else {
@@ -221,7 +227,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           errorMessage.style.display = 'block';
           return;
         }
-
+        rejectBtn.disabled = true;
         fetch(`https://macksunback.azurewebsites.net/access-requests/${request.id}/reject`, {
           method: 'PUT',
           headers: {
@@ -242,6 +248,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         .catch(() => {
           errorMessage.textContent = 'Failed to reject the request.';
           errorMessage.style.display = 'block';
+          setTimeout(() => {
+            rejectBtn.disabled = false;
+          }, 2000);
         });
       }
     };

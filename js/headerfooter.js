@@ -20,24 +20,23 @@ document.addEventListener('DOMContentLoaded', () => {
         <li class="cadastro"><a href="/register.html">Register</a></li>
       `;
 
-      const featureList = user?.profile?.accessiblePages
-
+      const featureList = user?.profile?.accessiblePages;
 
       // Conteúdo para usuários logados
       const userAccount = `
-  <div class="divconta nome_usuario" id="conta">
-    <a class="nome_logado" id="name" href="#">${nomeUsuario}</a>
-    <ul class="access_profile menu_suspenso" id="access_profile">
-      ${featureList?.map(item =>
-        `<li><a href="/pages${item.url}">${item.name || 'Atualizar perfil'}</a></li>`
-      ).join('')}
-      <li><a href="#" id="botao-sair">Leave</a></li>
-    </ul>
-  </div>
-  <ul>
-    <li><button class="sair" id="leave">Leave</button></li>
-  </ul>
-`.trim();
+        <div class="divconta nome_usuario" id="conta">
+          <a class="nome_logado" id="name" href="#">${nomeUsuario}</a>
+          <ul class="access_profile menu_suspenso" id="access_profile">
+            ${featureList?.map(item =>
+              `<li><a href="/pages${item.url}">${item.name || 'Atualizar perfil'}</a></li>`
+            ).join('')}
+            <li><a href="#" id="botao-sair">Leave</a></li>
+          </ul>
+        </div>
+        <ul>
+          <li><button class="sair" id="leave">Leave</button></li>
+        </ul>
+      `.trim();
 
       // Verificamos se o token existe antes de decidir o que mostrar
       const isLoggedIn = verifyToken();
@@ -69,6 +68,23 @@ document.addEventListener('DOMContentLoaded', () => {
           menu.classList.toggle('active');
         });
       }
+      
+      // Adicionar dropdown Wiki para todos
+      const wikiActionsElement = document.getElementById('wikiActions');
+      if (wikiActionsElement) {
+        wikiActionsElement.innerHTML = `
+          <div class="divWiki" id="wikiDropdown">
+            <a class="nome_logado" href="#">Wiki</a>
+            <ul class="access_profile menu_suspenso_wiki" id="wiki_menu">
+              <li><a href="/pages/wiki/sobre-o-portal.html">About the portal</a></li>
+              <li><a href="/pages/wiki/como-exportar.html">How to export data</a></li>
+              <li><a href="/pages/wiki/telescopios.html">Available Telescopes</a></li>
+              <li><a href="/pages/wiki/arquivos-telescopios.html">Specification of Files by Telescope</a></li>
+              <li><a href="/pages/wiki/index.html">Code examples</a></li>
+            </ul>
+          </div>
+        `;
+      }
     });
   }
 
@@ -80,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Função para configurar os botões de logout
 function setupLogoutButtons() {
-  // Configurar botão Leave
   const leaveButton = document.getElementById('leave');
   if (leaveButton) {
     console.log("Botão Leave encontrado, adicionando evento de clique");
@@ -89,7 +104,6 @@ function setupLogoutButtons() {
     console.error("Botão Leave não encontrado após renderização!");
   }
 
-  // Configurar botão Sair no menu suspenso
   const botaoSair = document.getElementById('botao-sair');
   if (botaoSair) {
     console.log("Botão Sair encontrado, adicionando evento de clique");
@@ -143,7 +157,6 @@ function setupUserAccessMenu() {
 function handleLogout() {
   console.log("Função de logout chamada");
 
-  // Limpar todos os dados relevantes do localStorage
   localStorage.removeItem('userData');
   localStorage.removeItem('token');
   localStorage.removeItem('name');
@@ -154,7 +167,5 @@ function handleLogout() {
   localStorage.removeItem('salvarSenha');
 
   console.log("Dados de login removidos, redirecionando para index.html");
-
-  // Redirecionar para a página inicial
   window.location.href = '/index.html';
 }

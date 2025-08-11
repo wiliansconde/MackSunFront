@@ -318,9 +318,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = document.getElementById('emailNovoUsuario').value.trim();
         const perfilSelecionado = document.querySelector('input[name="perfilNovoUsuario"]:checked');
 
+        const submitBtn = formulario.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+
         if (!nome || !email || !perfilSelecionado) {
             mensagemErro.textContent = 'Fill in all required fields.';
             mensagemErro.style.display = 'block';
+            if (submitBtn) submitBtn.disabled = false;
             return;
         }
 
@@ -328,6 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!emailRegex.test(email)) {
             mensagemErro.textContent = 'Enter a valid email.';
             mensagemErro.style.display = 'block';
+            if (submitBtn) submitBtn.disabled = false;
             return;
         }
 
@@ -344,6 +349,9 @@ document.addEventListener('DOMContentLoaded', () => {
             mensagemErro.textContent = error.message || 'Error adding user';
             mensagemErro.style.display = 'block';
         }
+        setTimeout(() => {
+            if (submitBtn) submitBtn.disabled = false;
+        }, 2000);
     });
 
     btnCancelarEditar.addEventListener('click', () => {
@@ -360,9 +368,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = document.getElementById('emailEditarUsuario').value.trim();
         const perfilSelecionado = document.querySelector('input[name="perfilEditarUsuario"]:checked');
 
+        const submitBtn = formEditar.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+
         if (!nome || !email || !perfilSelecionado) {
             mensagemErroEdicao.textContent = 'Fill in all required fields.';
             mensagemErroEdicao.style.display = 'block';
+            if (submitBtn) submitBtn.disabled = false;
             return;
         }
 
@@ -380,6 +392,9 @@ document.addEventListener('DOMContentLoaded', () => {
             mensagemErroEdicao.textContent = error.message || 'Error updating user';
             mensagemErroEdicao.style.display = 'block';
         }
+        setTimeout(() => {
+            if (submitBtn) submitBtn.disabled = false;
+        }, 2000);
     });
 
     formAtualizarSenha.addEventListener('submit', async (event) => {
@@ -389,9 +404,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = inputEmailSenha.value.trim();
         const novaSenha = inputSenha.value.trim();
 
+        const submitBtn = formAtualizarSenha.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+
         if (!novaSenha) {
             mensagemErroAtualizarSenha.textContent = 'Fill in the new password.';
             mensagemErroAtualizarSenha.style.display = 'block';
+            if (submitBtn) submitBtn.disabled = false;
             return;
         }
 
@@ -404,6 +423,9 @@ document.addEventListener('DOMContentLoaded', () => {
             mensagemErroAtualizarSenha.textContent = error.message || 'Error updating password';
             mensagemErroAtualizarSenha.style.display = 'block';
         }
+        setTimeout(() => {
+            if (submitBtn) submitBtn.disabled = false;
+        }, 2000);
     });
 
     btnCancelarAtualizarSenha.addEventListener('click', () => {

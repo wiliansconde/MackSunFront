@@ -170,6 +170,43 @@ a:hover {
   position: relative;
 }
 
+.divWiki {
+  position: relative;
+  display: inline-block;
+}
+
+.menu_suspenso_wiki {
+  display: none;
+  position: absolute;
+  background-color: var(--branco);
+  color: var(--vermelho);
+  text-decoration: none;
+  min-width: 160px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.menu_suspenso_wiki li {
+  list-style: none;
+  padding: 10px;
+  text-align: left;
+}
+
+.menu_suspenso_wiki li a {
+  color: var(--vermelho);
+  text-decoration: none;
+}
+
+.menu_suspenso_wiki li a:hover {
+  background-color: var(--cinza-claro);
+}
+
+.divWiki:hover .menu_suspenso_wiki {
+  display: block;
+}
+
+
 @media (max-width: 767px) {
   .menu {
     display: none;

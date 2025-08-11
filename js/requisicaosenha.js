@@ -11,6 +11,7 @@ function recuperarSenha() {
     btnRecuperar.addEventListener('click', async (event) => {
         event.preventDefault();
 
+        btnRecuperar.disabled = true;
         msgErro.style.display = 'none';
         msgSucesso.style.display = 'none';
 
@@ -18,6 +19,7 @@ function recuperarSenha() {
 
         if (!email || !email.includes('@')) {
             msgErro.style.display = 'inline-block';
+            btnRecuperar.disabled = false;
             return;
         }
         try {
@@ -42,5 +44,8 @@ function recuperarSenha() {
         } catch (error) {
             console.log('erro na requisição:', error)
         }
+        setTimeout(() => {
+            btnRecuperar.disabled = false;
+        }, 2000);
     })
 }

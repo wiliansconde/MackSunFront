@@ -140,31 +140,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         changePasswordButton.addEventListener('click', async (event) => {
             event.preventDefault();
             hideAllMessages();
-            console.log('Botão de alterar senha clicado');
+            changePasswordButton.disabled = true;
 
             const currentPassword = document.getElementById('current-password')?.value;
             const newPassword = document.getElementById('new-password')?.value;
             const confirmPassword = document.getElementById('confirm-password')?.value;
 
             if (!currentPassword || !newPassword || !confirmPassword) {
-                console.log('Campos de senha incompletos');
                 if (errorMessage) {
                     errorMessage.textContent = 'Preencha todos os campos.';
                     errorMessage.style.display = 'block';
                 }
+                changePasswordButton.disabled = false;
                 return;
             }
 
             if (newPassword !== confirmPassword) {
-                console.log('Senhas não conferem');
                 if (matchErrorMessage) matchErrorMessage.style.display = 'block';
+                changePasswordButton.disabled = false;
                 return;
             }
 
             try {
                 const BASE_URL = window.BASE_URL || localStorage.getItem('baseUrl') || 'https://macksunback.azurewebsites.net/';
-                console.log('Enviando solicitação para atualizar senha');
-
                 const updateResponse = await fetch(`${BASE_URL}users/update-password`, {
                     method: 'PATCH',
                     headers: {
@@ -179,32 +177,32 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
 
                 const responseData = await updateResponse.json();
-                console.log('Resposta da atualização de senha:', responseData);
 
                 if (!updateResponse.ok || responseData.success === false) {
                     if (errorMessage) {
                         errorMessage.textContent = responseData.message || 'Erro ao atualizar senha.';
                         errorMessage.style.display = 'block';
                     }
+                    changePasswordButton.disabled = false;
                     return;
                 }
 
-                console.log('Senha atualizada com sucesso');
                 if (successMessage) successMessage.style.display = 'block';
 
                 document.getElementById('current-password').value = '';
                 document.getElementById('new-password').value = '';
                 document.getElementById('confirm-password').value = '';
             } catch (error) {
-                console.error('Erro ao mudar senha:', error);
                 if (errorMessage) {
                     errorMessage.textContent = 'Erro ao mudar senha. Tente novamente.';
                     errorMessage.style.display = 'block';
                 }
             }
+            setTimeout(() => {
+                changePasswordButton.disabled = false;
+            }, 2000);
         });
     } else {
         console.log('Botão de alterar senha não encontrado');
     }
 });
-    
