@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     background-color: white;
     width: 100%;
     max-width: 1380px;
@@ -10,23 +10,37 @@
 }
 
 .chart-container {
-    background: white;
-    padding: 1rem;
+    position: relative;
+    width: 100%;
+    padding-top: 0;
+    background: var(--branco);
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    flex: 1;
-    text-align: left;
-    width: 100%;
-    min-width: 0;
+    overflow: visible;
     min-height: 400px;
-    margin: 0;
 }
 
 .chart-container svg {
+    position: relative;
     width: 100% !important;
-    height: auto !important;
-    display: block;
-    max-height: 400px;
+    height: 100% !important;
+    object-fit: contain;
+    max-height: 600px;
+}
+
+#poemas,
+#sst {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+#poemas svg,
+#sst svg {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .chart-title {
@@ -176,29 +190,9 @@
     pointer-events: all;
 }
 
-@media (min-width: 768px) {
-    .graficos {
-        flex-direction: row;
-        width: 90%;
-    }
-}
-
-@media (min-width: 1024px) {
-    .graficos {
-        width: 80%;
-    }
-}
-
-@media (min-width: 1200px) {
-    .graficos {
-        width: 70%;
-    }
-}
-
 @media (max-width: 320px) {
     .chart-container {
         padding: 0.5rem;
-        min-height: 250px;
     }
 
     .legend {
@@ -225,9 +219,15 @@
 }
 
 @media (min-width: 768px) {
-    .chart-container {
+    .graficos {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .graficos .chart-container {
+        flex: 1 1 calc(50% - 0.75rem);
         padding: 2rem;
-        width: calc(50% - 1.25rem);
     }
 
     .line-405ghz {
@@ -295,21 +295,21 @@
     }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
-    .chart-container {
-        width: 90%;
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 2rem;
+@media (min-width: 1024px) {
+    .graficos {
+        width: 80%;
     }
 }
 
-@media (min-width: 1025px) and (max-width: 1199px) {
-    .chart-container {
-        width: calc(50% - 2rem);
-    }
-
+@media (min-width: 1200px) {
     .graficos {
-        gap: 1.5rem;
+        width: 70%;
+    }
+}
+
+@media (min-width: 1562px) {
+    .chart-container {
+        max-width: 700px;
+        margin: 0 auto;
     }
 }

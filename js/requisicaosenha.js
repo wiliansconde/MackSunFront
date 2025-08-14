@@ -2,6 +2,26 @@ document.addEventListener('DOMContentLoaded', () => {
     recuperarSenha();
 });
 
+function setEstadoDosBotoes(desejaDesabilitar = true) {
+    const botoes = document.querySelectorAll('button, input[type="submit"]');
+    botoes.forEach(botao => {
+        botao.disabled = desejaDesabilitar;
+    });
+
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        const tipo = input.type.toLowerCase();
+
+        if (input.tagName.toLowerCase() === 'select') {
+            input.disabled = desejaDesabilitar;
+        } else if (tipo === 'checkbox' || tipo === 'radio') {
+            input.disabled = desejaDesabilitar;
+        } else {
+            input.readOnly = desejaDesabilitar;
+        }
+    });
+}
+
 function recuperarSenha() {
     const btnRecuperar = document.getElementById('formulario_btn')
     const email_valido = document.getElementById('email_valido')
@@ -11,6 +31,8 @@ function recuperarSenha() {
     btnRecuperar.addEventListener('click', async (event) => {
         event.preventDefault();
 
+        setEstadoDosBotoes(true);
+
         btnRecuperar.disabled = true;
         msgErro.style.display = 'none';
         msgSucesso.style.display = 'none';
@@ -19,7 +41,7 @@ function recuperarSenha() {
 
         if (!email || !email.includes('@')) {
             msgErro.style.display = 'inline-block';
-            btnRecuperar.disabled = false;
+            setEstadoDosBotoes(false);
             return;
         }
         try {
@@ -45,7 +67,7 @@ function recuperarSenha() {
             console.log('erro na requisição:', error)
         }
         setTimeout(() => {
-            btnRecuperar.disabled = false;
+            setEstadoDosBotoes(false)
         }, 2000);
     })
 }

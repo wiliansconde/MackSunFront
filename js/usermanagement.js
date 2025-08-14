@@ -14,6 +14,30 @@ function liberarBotao(botao) {
     }
 }
 
+function setEstadoDosBotoes(desejaDesabilitar = true) {
+    // 🔘 Desabilita todos os botões e botões de envio (submit)
+    const botoes = document.querySelectorAll('button, input[type="submit"]');
+    botoes.forEach(botao => {
+        botao.disabled = desejaDesabilitar;
+        if (desejaDesabilitar) {
+            botao.classList.add('disabled');
+        } else {
+            botao.classList.remove('disabled');
+        }
+    });
+
+    // 🧩 Desabilita ou torna readonly todos os inputs e selects
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        const tipo = input.type.toLowerCase();
+        if (input.tagName.toLowerCase() === 'select' || tipo === 'checkbox' || tipo === 'radio') {
+            input.disabled = desejaDesabilitar;
+        } else {
+            input.readOnly = desejaDesabilitar;
+        }
+    });
+}
+
 function exibirMensagemERecarregar(mensagemElemento, tempo = 1500) {
     mensagemElemento.style.display = 'block';
     setTimeout(() => {
@@ -26,7 +50,7 @@ function formatarData(dataString) {
     if (!dataString) return 'N/A';
     try {
         const data = new Date(dataString);
-        return data.toLocaleDateString('pt-BR') + ' ' + data.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
+        return data.toLocaleDateString('pt-BR') + ' ' + data.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     } catch (error) {
         return 'N/A';
     }
@@ -201,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function carregarUsuarios() {
         try {
             const resposta = await listarUsuarios();
-            
+
             usuariosOriginais = (Array.isArray(resposta.data) ? resposta.data : [resposta]).map(usuario => {
                 usuario.deleted = usuario.deleted === true || usuario.isDelete === true;
                 return usuario;
@@ -270,8 +294,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         usuarios.forEach((usuario) => {
-            console.log('Processando usuário:', usuario); 
-            
+            console.log('Processando usuário:', usuario);
+
             const nome = usuario.name || usuario.fullName || usuario.username || 'N/A';
             const email = usuario.email || 'N/A';
             const perfil = perfilTotexto(usuario.profile?.type || usuario.profileType || 'N/A');
@@ -331,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         esconderMensagens();
 
-        bloquearBotao(event.submitter);
+        setEstadoDosBotoes(true);
 
         const nome = document.getElementById('nomeNovoUsuario').value.trim();
         const email = document.getElementById('emailNovoUsuario').value.trim();
@@ -380,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mensagemErro.textContent = error.message || 'Error adding user';
             mensagemErro.style.display = 'block';
         } finally {
-            liberarBotao(event.submitter);
+            setEstadoDosBotoes(false);
         }
         setTimeout(() => {
             if (submitBtn) submitBtn.disabled = false;
@@ -397,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         esconderMensagens();
 
-        bloquearBotao(event.submitter);
+        setEstadoDosBotoes(true);
 
         const nome = document.getElementById('nomeEditarUsuario').value.trim();
         const email = document.getElementById('emailEditarUsuario').value.trim();
@@ -428,7 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mensagemErroEdicao.textContent = error.message || 'Error updating user';
             mensagemErroEdicao.style.display = 'block';
         } finally {
-            liberarBotao(event.submitter);
+            setEstadoDosBotoes(false);
         }
         setTimeout(() => {
             if (submitBtn) submitBtn.disabled = false;
@@ -439,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         esconderMensagens();
 
-        bloquearBotao(event.submitter);
+        setEstadoDosBotoes(true);
 
         const email = inputEmailSenha.value.trim();
         const novaSenha = inputSenha.value.trim();
@@ -464,7 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mensagemErroAtualizarSenha.textContent = error.message || 'Error updating password';
             mensagemErroAtualizarSenha.style.display = 'block';
         } finally {
-            liberarBotao(event.submitter);
+            setEstadoDosBotoes(false);
         }
         setTimeout(() => {
             if (submitBtn) submitBtn.disabled = false;
@@ -527,8 +551,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnConfirmarExclusao.addEventListener('click', async () => {
 
-        bloquearBotao(btnConfirmarExclusao);
-        bloquearBotao(btnCancelarExclusao);
+        setEstadoDosBotoes(true);
 
         try {
             await deletarUsuario(emailParaExcluir);
@@ -553,6 +576,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             liberarBotao(btnConfirmarExclusao);
             liberarBotao(btnCancelarExclusao);
+        } finally {
+            setEstadoDosBotoes(false);
         }
     });
 
