@@ -18,6 +18,7 @@ html, body {
     display: flex;
     justify-content: center;
     padding: 20px;
+    margin-top: 1rem;
 }
 
 .formulario_padrao {
@@ -98,12 +99,6 @@ html, body {
     text-align: center;
     margin-top: 1rem;
     font-weight: bold;
-}
-
-@media (max-width: 921px) {
-   .container_wiki {
-    margin-top: 3rem;
-   }
 }
 
 @media (max-width: 768px) {

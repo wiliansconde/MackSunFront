@@ -26,6 +26,9 @@ body {
   color: var(--branco);
   height: 100%;
   background-image: url(../assets/img/ceuEstrelado.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 ul {

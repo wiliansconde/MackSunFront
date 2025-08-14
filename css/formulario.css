@@ -3,6 +3,7 @@
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    margin-top: 1rem;
 }
 
 .formulario_padrao {
@@ -13,6 +14,7 @@
     box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
     height: max-content;
     margin: 2.5rem;
+    width: 60%;
 }
 
 .formulario-card_menor {
@@ -33,27 +35,16 @@
     box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
     height: 100%;
     margin: 2.5rem;
+    width: 60%;
+    overflow-x: visible;
 }
 
-@media (max-width: 921px) {
-    .container_padrao {
-        margin-top: 3rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .formulario-card_medio {
-        width: 100%;
-        padding: 1rem;
-        box-sizing: border-box;
-        overflow: hidden;
-    }
-
-    .formulario-card_menor {
-        width: 100%;
-        padding: 1rem;
-        box-sizing: border-box;
-        overflow: hidden;
-    }
-
+.formulario_cards {
+    color: var(--preto);
+    background-color: var(--branco);
+    padding: 3.1rem;
+    border-radius: 0.6rem;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+    height: max-content;
+    margin: 2.5rem;
 }

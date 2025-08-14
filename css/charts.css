@@ -9,26 +9,6 @@
     gap: 1.5rem;
 }
 
-@media (min-width: 768px) {
-    .graficos {
-        flex-direction: row;
-        width: 90%;
-        margin-top: 2.5rem;
-    }
-}
-
-@media (min-width: 1024px) {
-    .graficos {
-        width: 80%;
-    }
-}
-
-@media (min-width: 1200px) {
-    .graficos {
-        width: 70%;
-    }
-}
-
 .chart-container {
     background: white;
     padding: 1rem;
@@ -39,38 +19,7 @@
     width: 100%;
     min-width: 0;
     min-height: 400px;
-}
-
-@media (min-width: 480px) {
-    .chart-container {
-        padding: 1.5rem;
-    }
-}
-
-@media (max-width: 767px) {
-    .chart-container {
-        width: 90%;
-        margin: 0 auto;
-        padding: 1rem;
-        box-sizing: border-box;
-    }
-}
-
-@media (min-width: 768px) {
-    .chart-container {
-        padding: 2rem;
-        width: calc(50% - 1.25rem);
-    }
-}
-
-@media (min-width: 1025px) and (max-width: 1199px) {
-    .chart-container {
-        width: calc(50% - 2rem);
-    }
-
-    .graficos {
-        gap: 1.5rem;
-    }
+    margin: 0;
 }
 
 .chart-container svg {
@@ -88,12 +37,6 @@
     margin-bottom: 5px;
 }
 
-@media (min-width: 768px) {
-    .chart-title {
-        font-size: 24px;
-    }
-}
-
 .chart-subtitle {
     text-align: left;
     font-size: 12px;
@@ -102,26 +45,11 @@
     margin-top: 15px;
 }
 
-@media (min-width: 768px) {
-    .chart-subtitle {
-        font-size: 14px;
-        margin-bottom: 20px;
-        margin-top: 20px;
-    }
-}
-
 .chart-updated {
     text-align: right;
     font-size: 10px;
     color: #999;
     margin-bottom: 10px;
-}
-
-@media (min-width: 768px) {
-    .chart-updated {
-        font-size: 12px;
-        margin-bottom: 15px;
-    }
 }
 
 .legend {
@@ -132,13 +60,6 @@
     flex-wrap: wrap;
 }
 
-@media (min-width: 768px) {
-    .legend {
-        gap: 30px;
-        margin-bottom: 20px;
-    }
-}
-
 .legend-item {
     display: flex;
     align-items: center;
@@ -147,24 +68,10 @@
     color: #999;
 }
 
-@media (min-width: 768px) {
-    .legend-item {
-        gap: 8px;
-        font-size: 14px;
-    }
-}
-
 .legend-color {
     width: 14px;
     height: 2px;
     border-radius: 2px;
-}
-
-@media (min-width: 768px) {
-    .legend-color {
-        width: 16px;
-        height: 3px;
-    }
 }
 
 .legend-45ghz {
@@ -186,12 +93,6 @@
 .axis text {
     font-size: 10px;
     fill: #666;
-}
-
-@media (min-width: 768px) {
-    .axis text {
-        font-size: 12px;
-    }
 }
 
 .axis path,
@@ -216,22 +117,10 @@
     stroke-width: 1.5;
 }
 
-@media (min-width: 768px) {
-    .line-45ghz {
-        stroke-width: 2;
-    }
-}
-
 .line-90ghz {
     fill: none;
     stroke: #0E7AB4;
     stroke-width: 1.5;
-}
-
-@media (min-width: 768px) {
-    .line-90ghz {
-        stroke-width: 2;
-    }
 }
 
 .line-212ghz {
@@ -240,22 +129,10 @@
     stroke-width: 1.5;
 }
 
-@media (min-width: 768px) {
-    .line-212ghz {
-        stroke-width: 2;
-    }
-}
-
 .line-405ghz {
     fill: none;
     stroke: #1ca83d;
     stroke-width: 1.5;
-}
-
-@media (min-width: 768px) {
-    .line-405ghz {
-        stroke-width: 2;
-    }
 }
 
 .tooltip {
@@ -272,33 +149,13 @@
     max-width: 150px;
 }
 
-@media (min-width: 768px) {
-    .tooltip {
-        padding: 10px;
-        font-size: 12px;
-        max-width: none;
-    }
-}
-
 .tooltip-time {
     font-weight: bold;
     margin-bottom: 3px;
 }
 
-@media (min-width: 768px) {
-    .tooltip-time {
-        margin-bottom: 5px;
-    }
-}
-
 .tooltip-value {
     margin: 1px 0;
-}
-
-@media (min-width: 768px) {
-    .tooltip-value {
-        margin: 2px 0;
-    }
 }
 
 .hover-line {
@@ -317,6 +174,25 @@
 .overlay {
     fill: none;
     pointer-events: all;
+}
+
+@media (min-width: 768px) {
+    .graficos {
+        flex-direction: row;
+        width: 90%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .graficos {
+        width: 80%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .graficos {
+        width: 70%;
+    }
 }
 
 @media (max-width: 320px) {
@@ -342,11 +218,98 @@
     }
 }
 
+@media (min-width: 480px) {
+    .chart-container {
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .chart-container {
+        padding: 2rem;
+        width: calc(50% - 1.25rem);
+    }
+
+    .line-405ghz {
+        stroke-width: 2;
+    }
+
+    .tooltip-value {
+        margin: 2px 0;
+    }
+
+    .tooltip-time {
+        margin-bottom: 5px;
+    }
+
+    .tooltip {
+        padding: 10px;
+        font-size: 12px;
+        max-width: none;
+    }
+
+    .line-212ghz {
+        stroke-width: 2;
+    }
+
+    .line-90ghz {
+        stroke-width: 2;
+    }
+
+    .axis text {
+        font-size: 12px;
+    }
+
+    .line-45ghz {
+        stroke-width: 2;
+    }
+
+    .legend-color {
+        width: 16px;
+        height: 3px;
+    }
+
+    .legend-item {
+        gap: 8px;
+        font-size: 14px;
+    }
+
+    .legend {
+        gap: 30px;
+        margin-bottom: 20px;
+    }
+
+    .chart-updated {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    .chart-subtitle {
+        font-size: 14px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .chart-title {
+        font-size: 24px;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 1024px) {
     .chart-container {
         width: 90%;
         max-width: 900px;
         margin: 0 auto;
         padding: 2rem;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1199px) {
+    .chart-container {
+        width: calc(50% - 2rem);
+    }
+
+    .graficos {
+        gap: 1.5rem;
     }
 }

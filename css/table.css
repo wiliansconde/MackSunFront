@@ -1,7 +1,5 @@
 html,
 body {
-  margin: 0;
-  padding: 0;
   width: 100%;
   overflow-x: hidden;
   box-sizing: border-box;
@@ -20,16 +18,15 @@ body {
   border-spacing: 0;
   margin-top: 20px;
   text-align: left;
-  font-family: Arial, sans-serif;
   background-color: var(--branco);
   border-radius: 0.6rem;
   overflow: hidden;
   box-sizing: border-box;
-  table-layout: fixed;
-  width: 930px; 
-  min-width: 930px;
+  table-layout: auto;
+  white-space: nowrap;
+  width: 100%;
+  min-width: max-content;
 }
-
 
 .access-table thead {
   background-color: var(--cinza-medio);
@@ -42,7 +39,12 @@ body {
   border: none;
   word-break: break-word;
   white-space: normal;
-  max-width: 440px;
+  max-width: unset;
+}
+
+.access-table th.acoes,
+.access-table td.acoes {
+  white-space: nowrap;
 }
 
 .access-table tbody tr:nth-child(odd) {
@@ -83,7 +85,7 @@ body {
 }
 
 @media (max-width: 768px) {
-  .access-table-wrapper {
+  /* .access-table-wrapper {
     width: 100%;
     overflow-x: auto;
     margin-top: 1rem;
@@ -99,7 +101,7 @@ body {
   .access-table td {
     padding: 10px;
     text-align: left;
-  }
+  } */
 
   .btn-criar-wrapper {
     display: flex;

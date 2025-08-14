@@ -2,23 +2,41 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: calc(100vh - 60px - 80px);
     background-color: var(--branco);
-    height: auto;
+    width: 100%;
+}
+
+.home-grid {
+    width: 65%;
+    max-width: 1380px;
+    margin: 1.5rem auto 1.5rem;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.home-grid .graficos {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    width: 100%;
 }
 
 .solarFlares {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 2.5rem;
 }
 
 .solarFlares .formulario-card_medio {
-    width: calc(33.54% * 2 + 3.8rem);
-    max-width: 1380px;
-    padding: 3rem 3rem;
+    width: 100%;
+    max-width: 600px;
+    padding: 2rem;
+    margin: 0 auto 1.5rem auto;
     box-sizing: border-box;
-    margin: 0 2.5rem 2.5rem;
 }
 
 .solarFlares .titulo_padrao {
@@ -29,44 +47,46 @@ main {
 .btn-saiba-mais-wrapper {
     display: flex;
     justify-content: flex-end;
-    margin-top: 0,5rem;
+    margin-top: 1.5rem;
 }
 
 .ocultar {
     display: none;
 }
 
-@media (max-width: 767px) {
-    .titulo_banner {
-        font-size: 2rem;
+@media (min-width: 768px) {
+    .home-grid .chart-container {
+        width: 100% !important;
+        flex: initial;
+        margin: 0;
     }
 
-    .titulo2_banner {
-        font-size: 3rem;
-        margin-left: 0;
-        text-align: center;
+    .home-grid {
+        grid-template-columns: 1fr 1fr;
+        justify-items: stretch;
     }
 
-    .titulo_padrao {
-        font-size: 1.2rem;
+    .home-grid .graficos {
+        display: contents;
     }
 
-    .btn-saiba-mais-wrapper {
-        justify-content: center;
+    .home-grid .solarFlares {
+        grid-column: 1 / -1;
+        margin-top: 0;
+    }
+
+    .home-grid .solarFlares .formulario-card_medio {
         width: 100%;
-    }
-
-    .solarFlares .formulario-card_medio {
-        width: 90%;
-        margin: 0 auto 2.5rem auto;
+        max-width: none;
+        margin: 0;
     }
 }
+
 
 @media (min-width: 768px) and (max-width: 1024px) {
     .solarFlares .formulario-card_medio {
         width: 90%;
         max-width: 900px;
-        margin: 0 auto 2.5rem auto;
     }
 }
 
@@ -74,5 +94,37 @@ main {
     .solarFlares .formulario-card_medio {
         width: 80%;
         margin: 0 auto 2.5rem auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .home-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 1rem;
+        box-sizing: border-box;
+    }
+
+    .home-grid .graficos {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .chart-container {
+        width: 100%;
+        max-width: 90%;
+        padding: 1rem;
+    }
+
+    .solarFlares {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .solarFlares .formulario-card_medio {
+        width: 100%;
+        max-width: 90%;
+        box-sizing: border-box;
     }
 }

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./css/login.css">
     <link rel="stylesheet" href="./css/alerts.css">
     <link rel="stylesheet" href="./css/table.css">
-    <link rel="stylesheet" href="./css/table-solar-flares.css">
+  
     <link rel="stylesheet" href="./css/filter.css">
     <link rel="stylesheet" href="./css/buttons.css">
     <link rel="stylesheet" href="./css/charts.css">
@@ -46,92 +46,93 @@
     </div>
 
     <main>
-        <div class="graficos">
+        <section class="home-grid">
+            <div class="graficos">
 
-            <div class="chart-container">
-                <h1 class="titulo_padrao">POEMAS</h1>
-                <h2 class="chart-subtitle">Comparison of combined raw data from 45 GHz and 90 GHz</h2>
-                <div class="chart-updated" id="updateTime">Updated on: </div>
+                <div class="chart-container">
+                    <h1 class="titulo_padrao">POEMAS</h1>
+                    <h2 class="chart-subtitle">Comparison of combined raw data from 45 GHz and 90 GHz</h2>
+                    <div class="chart-updated" id="updateTime">Updated on: </div>
 
-                <div class="legend">
-                    <div class="legend-item">
-                        <div class="legend-color legend-45ghz"></div>
-                        <span>45 GHz</span>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color legend-45ghz"></div>
+                            <span>45 GHz</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-90ghz"></div>
+                            <span>90 GHz</span>
+                        </div>
                     </div>
-                    <div class="legend-item">
-                        <div class="legend-color legend-90ghz"></div>
-                        <span>90 GHz</span>
-                    </div>
+
+                    <div id="poemas"></div>
                 </div>
 
-                <div id="poemas"></div>
+                <div class="chart-container">
+                    <h1 class="titulo_padrao">SST</h1>
+                    <h2 class="chart-subtitle">Comparison of combined raw data from 212 GHz and 405 GHz</h2>
+                    <div class="chart-updated" id="updateTime2">Updated on: </div>
+
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color legend-212ghz"></div>
+                            <span>212 GHz</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-405ghz"></div>
+                            <span>405 GHz</span>
+                        </div>
+                    </div>
+
+                    <div id="sst"></div>
+                </div>
+
             </div>
 
-            <div class="chart-container">
-                <h1 class="titulo_padrao">SST</h1>
-                <h2 class="chart-subtitle">Comparison of combined raw data from 212 GHz and 405 GHz</h2>
-                <div class="chart-updated" id="updateTime2">Updated on: </div>
+            <div class="solarFlares">
+                <section class="formulario-card_medio">
+                    <h1 class="titulo_padrao">Solar Flares</h1>
 
-                <div class="legend">
-                    <div class="legend-item">
-                        <div class="legend-color legend-212ghz"></div>
-                        <span>212 GHz</span>
+                    <div class="access-table-wrapper">
+                        <table class="access-table">
+                            <thead>
+                                <tr>
+                                    <th>Event date and time(UTC)</th>
+                                    <th>Flare Classification</th>
+                                    <th>Telescopes</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_main_flares"></tbody>
+                        </table>
                     </div>
-                    <div class="legend-item">
-                        <div class="legend-color legend-405ghz"></div>
-                        <span>405 GHz</span>
+                    <div class="btn-saiba-mais-wrapper">
+                        <button class="btnRed" onclick="window.location.href='exibir-flare.html'">View More
+                        </button>
                     </div>
-                </div>
-
-                <div id="sst"></div>
+                </section>
             </div>
 
-        </div>
+            <div class="latestData ocultar">
+                <section class="formulario-card_medio">
+                    <h1 class="titulo_padrao">Latest Data Available</h1>
 
-
-        <div class="solarFlares">
-            <section class="formulario-card_medio">
-                <h1 class="titulo_padrao">Solar Flares</h1>
-
-                <div class="access-table-wrapper1">
-                    <table class="access-table1">
-                        <thead>
-                            <tr>
-                                <th>Event date and time(UTC)</th>
-                                <th>Flare Classification</th>
-                                <th>Telescopes that captured the event</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody_main_flares"></tbody>
-                    </table>
-                </div>
-                <div class="btn-saiba-mais-wrapper">
-                    <button class="btnRed" onclick="window.location.href='exibir-flare.html'">View More
-                    </button>
-                </div>
-            </section>
-        </div>
-
-        <div class="latestData ocultar">
-            <section class="formulario-card_medio">
-                <h1 class="titulo_padrao">Latest Data Available</h1>
-
-                <div class="access-table-wrapper">
-                    <table class="access-table">
-                        <thead>
-                            <tr>
-                                <th>Telescope</th>
-                                <th>Last Update</th>
-                                <th>Coordinates</th>
-                                <th>Altitude</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </section>
-        </div>
+                    <div class="access-table-wrapper">
+                        <table class="access-table">
+                            <thead>
+                                <tr>
+                                    <th>Telescope</th>
+                                    <th>Last Update</th>
+                                    <th>Coordinates</th>
+                                    <th>Altitude</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </section>
     </main>
 
     <div id="footer"></div>
