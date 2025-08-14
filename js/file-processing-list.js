@@ -19,11 +19,33 @@ function formatarData(dateString) {
     return data.toLocaleString(userLang);
 }
 
+function setEstadoDosBotoes(desejaDesabilitar = true) {
+    const botoes = document.querySelectorAll('button, input[type="submit"]');
+    botoes.forEach(botao => {
+        botao.disabled = desejaDesabilitar;
+    });
+
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        const tipo = input.type.toLowerCase();
+
+        if (input.tagName.toLowerCase() === 'select') {
+            input.disabled = desejaDesabilitar;
+        } else if (tipo === 'checkbox' || tipo === 'radio') {
+            input.disabled = desejaDesabilitar;
+        } else {
+            input.readOnly = desejaDesabilitar;
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     carregarArquivos();
 });
 
 document.getElementById('btn_buscar').addEventListener('click', async () => {
+    setEstadoDosBotoes(true);
+
     const filePath = document.getElementById('filtro_Arquivo').value.trim();
     const status = document.getElementById('filtro_status').value;
     const dataInicial = document.getElementById('filtro_data_inicial').value.trim();
@@ -66,6 +88,8 @@ document.getElementById('btn_buscar').addEventListener('click', async () => {
         renderizarPagina();
     } catch (error) {
         console.error('Erro ao buscar dados:', error);
+    } finally {
+        setEstadoDosBotoes(false);
     }
 });
 
@@ -78,6 +102,8 @@ document.getElementById('btn_limpar').addEventListener('click', () => {
 });
 
 async function carregarArquivos() {
+    setEstadoDosBotoes(true)
+
     try {
         const response = await fetch(`${BASE_URL}traces`, {
             headers: { Authorization: `Bearer ${token}` }
@@ -88,6 +114,8 @@ async function carregarArquivos() {
         renderizarPagina();
     } catch (err) {
         console.error('Erro ao carregar arquivos:', err);
+    } finally {
+        setEstadoDosBotoes(false)
     }
 }
 
@@ -108,7 +136,7 @@ function renderizarTabela(dados) {
         return;
     }
 
-    
+
     if (todosArquivos.length === 0) {
         const row = document.createElement('tr');
         row.innerHTML = `

@@ -35,6 +35,25 @@ const flaresPorPagina = 10;
 
 const userLang = navigator.language || 'en-US';
 
+function setEstadoDosBotoes(desejaDesabilitar = true) {
+    const botoes = document.querySelectorAll('button, input[type="submit"]');
+    botoes.forEach(botao => {
+        botao.disabled = desejaDesabilitar;
+    });
+
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        const tipo = input.type.toLowerCase();
+
+        if (input.tagName.toLowerCase() === 'select') {
+            input.disabled = desejaDesabilitar;
+        } else if (tipo === 'checkbox' || tipo === 'radio') {
+            input.disabled = desejaDesabilitar;
+        } else {
+            input.readOnly = desejaDesabilitar;
+        }
+    });
+}
 
 if (toggleTelescopios) {
     toggleTelescopios.addEventListener('click', (e) => {
@@ -532,6 +551,7 @@ document.getElementById('cancelar_flare_solar').addEventListener('click', () => 
 document.getElementById('form_novo_flare_solar').addEventListener('submit', async (e) => {
     e.preventDefault();
     esconderMensagens();
+    setEstadoDosBotoes(true);
 
     let dateTime = document.getElementById('data_evento').value.trim();
     const classType = document.getElementById('classificacao_flare').value.trim();
@@ -591,6 +611,8 @@ document.getElementById('form_novo_flare_solar').addEventListener('submit', asyn
     } catch (error) {
         mensagemErro.textContent = error.message;
         mensagemErro.style.display = 'block';
+    } finally {
+        setEstadoDosBotoes(false);
     }
 });
 
@@ -624,6 +646,7 @@ document.getElementById('cancelar_flare_editar').addEventListener('click', () =>
 document.getElementById('form_editar_evento').addEventListener('submit', async (e) => {
     e.preventDefault();
     esconderMensagens();
+    setEstadoDosBotoes(true);
 
     const dateTime = document.getElementById('editar_data_evento').value.trim();
     const classType = document.getElementById('editar_classificacao_flare').value.trim();
@@ -643,6 +666,8 @@ document.getElementById('form_editar_evento').addEventListener('submit', async (
     } catch (error) {
         mensagemErroEditar.textContent = error.message;
         mensagemErroEditar.style.display = 'block';
+    } finally {
+        setEstadoDosBotoes(false);
     }
 });
 
@@ -653,6 +678,7 @@ function abrirModalExcluir(id) {
 }
 
 document.querySelector('#modal_excluir_evento .btnRed').addEventListener('click', async () => {
+    setEstadoDosBotoes(true);
     try {
         await deletarFlare(idExcluir);
         mensagemSucessoExcluir.textContent = 'Deleted successfully.';
@@ -661,6 +687,8 @@ document.querySelector('#modal_excluir_evento .btnRed').addEventListener('click'
     } catch (error) {
         mensagemErroExcluir.textContent = error.message;
         mensagemErroExcluir.style.display = 'block';
+    } finally {
+        setEstadoDosBotoes(false);
     }
 });
 
@@ -670,7 +698,14 @@ document.getElementById('excluir_evento').addEventListener('click', () => {
 });
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    carregarFlares();
-    carregarTelescopios();
+document.addEventListener('DOMContentLoaded', async () => {
+    setEstadoDosBotoes(true);
+    try {
+        await Promise.all([
+            carregarFlares(),
+            carregarTelescopios()
+        ]);
+    } finally {
+        setEstadoDosBotoes(false);
+    }
 });

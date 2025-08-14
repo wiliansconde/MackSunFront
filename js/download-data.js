@@ -1,3 +1,23 @@
+function setEstadoDosBotoes(desejaDesabilitar = true) {
+    const botoes = document.querySelectorAll('button, input[type="submit"]');
+    botoes.forEach(botao => {
+        botao.disabled = desejaDesabilitar;
+    });
+
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        const tipo = input.type.toLowerCase();
+
+        if (input.tagName.toLowerCase() === 'select') {
+            input.disabled = desejaDesabilitar;
+        } else if (tipo === 'checkbox' || tipo === 'radio') {
+            input.disabled = desejaDesabilitar;
+        } else {
+            input.readOnly = desejaDesabilitar;
+        }
+    });
+}
+
 let arquivosDisponiveisParaDownload = [];
 let totalArquivosDisponiveisNaBusca = 0;
 
@@ -203,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!validarDadosFormulario(corpoDaRequisicao)) return;
 
+        setEstadoDosBotoes(true);
         botaoEnviarExportacao.disabled = true;
         botaoEnviarExportacao.textContent = 'Loading...';
         elementoDivResultadoExportacao.style.display = 'block';
@@ -306,6 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
             botaoEnviarExportacao.disabled = false;
             botaoEnviarExportacao.textContent = 'Search';
             elementoDivResultadoExportacao.style.display = 'block';
+            setEstadoDosBotoes(false);
         }
     });
 
