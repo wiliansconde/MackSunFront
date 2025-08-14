@@ -25,10 +25,11 @@
     height: 250px;
     border-radius: 12px;
     object-fit: cover;
+    margin-top: 2rem;
 }
 
 .telescopio-section > div {
-    max-height: 250px;
+    max-height: auto;
     overflow-y: auto;
     flex: 1;
 }
