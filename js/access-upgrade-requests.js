@@ -69,6 +69,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td class="tdname">${req.fullName}</td>
         <td>${req.currentProfile}</td>
         <td>${req.requestedProfile}</td>
+        <td>${formatDate(req.createdAt)}</td>
+        <td>${formatDate(req.updatedAt)}</td>
         <td class="${statusClass}">${req.status}</td>
         <td><button class="btnGray btnSizeHeightLimited learn-more-btn" data-id="${req.id}">Learn More</button></td>
       `;

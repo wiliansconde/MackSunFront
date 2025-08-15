@@ -1,4 +1,4 @@
-* {
+    * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -37,7 +37,7 @@ html, body {
     margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+
 }
 
 .linha-filtros-superior,
@@ -50,7 +50,6 @@ html, body {
 .linha-filtros-superior input,
 .linha-filtros-inferior input {
     flex: 1;
-    min-width: 180px;
     padding: 10px;
 }
 
@@ -105,17 +104,14 @@ html, body {
     .titulo_padrao {
         font-size: 1.75rem;
     }
-
     .linha-filtros-superior,
     .linha-filtros-inferior {
         flex-direction: column;
     }
-
     .linha-filtros-superior input,
     .linha-filtros-inferior input {
         width: 100%;
     }
-
     .btnGray_table,
     .btnRed {
         width: 100%;
@@ -126,11 +122,9 @@ html, body {
     .titulo_padrao {
         font-size: 1.5rem;
     }
-
     .snippet-card h3 {
         font-size: 1.1rem;
     }
-
     .snippet-card p,
     .snippet-card pre {
         font-size: 0.95rem;
@@ -141,7 +135,6 @@ html, body {
     .titulo_padrao {
         font-size: 1.4rem;
     }
-
     .formulario_padrao {
         padding: 10px;
     }
@@ -151,11 +144,9 @@ html, body {
     .titulo_padrao {
         font-size: 1.2rem;
     }
-
     .snippet-card {
         padding: 12px;
     }
-
     .snippet-card p,
     .snippet-card pre {
         font-size: 0.9rem;

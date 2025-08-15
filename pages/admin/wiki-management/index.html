@@ -32,7 +32,10 @@
 
       <div class="barra_superior">
         <div class="linha-filtros-superior">
-          <input type="text" id="filtro_instrument" placeholder="Filter by Instrument">
+          <div class="dropdown-checkbox" id="filtro-telescopios">
+            <button type="button" id="btn-toggle-telescopios" class="dropdown-btn">Filter Telescopes</button>
+            <div id="lista-telescopios" class="dropdown-lista"></div>
+          </div>
           <input type="text" id="filtro_format" placeholder="Filter by Format">
 
           <div class="botoes-filtros-superior">
@@ -72,8 +75,13 @@
       <div class="modal-content">
         <h2 class="titulo_padrao sublinhado_titulo">Add New Wiki</h2>
         <form id="form_nova_wiki">
-          <label>Instrument:<span>*</span></label>
-          <input type="text" id="input_instrument" required />
+          <label>Telescopes:<span>*</span></label>
+          <div class="dropdown-checkbox">
+            <button type="button" id="dropdownToggleTelescopios" class="dropdown-button">
+              Select telescopes ▼
+            </button>
+            <div class="dropdown-content" id="dropdownContentTelescopiosNovo"></div>
+          </div>
 
           <label>Format:<span>*</span></label>
           <input type="text" id="input_format" required />
@@ -99,8 +107,13 @@
       <div class="modal-content">
         <h2 class="titulo_padrao sublinhado_editar_evento">Edit Wiki</h2>
         <form id="form_editar_wiki">
-          <label>Instrument:<span>*</span></label>
-          <input type="text" id="editar_instrument" required />
+          <label>Telescopes:<span>*</span></label>
+          <div class="dropdown-checkbox">
+            <button type="button" id="dropdownAlternarTelescopiosEditar" class="dropdown-button">
+              Select telescopes ▼
+            </button>
+            <div class="dropdown-content" id="dropdownContentTelescopiosEditar"></div>
+          </div>
 
           <label>Format:<span>*</span></label>
           <input type="text" id="editar_format" required />

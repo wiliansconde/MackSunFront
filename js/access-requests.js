@@ -64,10 +64,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     paginated.forEach(req => {
       const row = document.createElement('tr');
+      console.log(req);
       row.innerHTML = `
         <td class="tdname">${req.name}</td>
         <td>${req.email}</td>
         <td>${req.requestedProfile}</td>
+        <td>${formatDate(req.createdAt)}</td>
         <td class="status-cell status-${req.status.toLowerCase()}">${req.status}</td>
         <td><button class="btnGray btnSizeHeightLimited learn-more-btn" data-id="${req.id}">Learn More</button></td>
       `;

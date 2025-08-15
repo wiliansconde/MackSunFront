@@ -6,11 +6,71 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnBuscar = document.getElementById('btn_buscar');
   const btnLimpar = document.getElementById('btn_limpar_filtro');
   const paginacaoContainer = document.getElementById('paginacao_container');
+  const toggleFiltroTelescopios = document.getElementById('btn-toggle-telescopios');
+  const contentFiltroTelescopios = document.getElementById('lista-telescopios');
 
   let snippetsData = [];
   let dadosFiltrados = [];
   let paginaAtual = 1;
   const itensPorPagina = 10;
+  let telescopeOptions = [];
+
+  function initTelescopeDropdown() {
+    if (toggleFiltroTelescopios && contentFiltroTelescopios) {
+      toggleFiltroTelescopios.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = contentFiltroTelescopios.style.display === 'block';
+        contentFiltroTelescopios.style.display = isOpen ? 'none' : 'block';
+        toggleFiltroTelescopios.classList.toggle('active', !isOpen);
+      });
+
+      window.addEventListener('click', (e) => {
+        if (contentFiltroTelescopios && !contentFiltroTelescopios.contains(e.target) && 
+            toggleFiltroTelescopios && !toggleFiltroTelescopios.contains(e.target)) {
+          contentFiltroTelescopios.style.display = 'none';
+          toggleFiltroTelescopios.classList.remove('active');
+        }
+      });
+    }
+  }
+
+  function getSelectedTelescopes() {
+    if (!contentFiltroTelescopios) return [];
+    const checkboxes = document.querySelectorAll('#lista-telescopios input[type="checkbox"]:checked');
+    return Array.from(checkboxes).map(cb => cb.value);
+  }
+
+  async function loadTelescopeOptions() {
+    try {
+      const response = await fetch(`${BASE_URL}instruments`);
+      if (!response.ok) throw new Error('Error loading telescopes');
+      const result = await response.json();
+      if (!result.success) throw new Error('Failed to obtain telescope data');
+      
+      telescopeOptions = result.data || [];
+      populateTelescopeDropdown();
+    } catch (error) {
+      console.error('Error loading telescopes:', error);
+    }
+  }
+
+  function populateTelescopeDropdown() {
+    if (!contentFiltroTelescopios) return;
+    contentFiltroTelescopios.innerHTML = '';
+    telescopeOptions.forEach(telescope => {
+      const label = document.createElement('label');
+      label.style.display = 'block';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.name = 'telescopes';
+      checkbox.value = telescope.name;
+
+      label.appendChild(checkbox);
+      label.append(` ${telescope.name}`);
+      contentFiltroTelescopios.appendChild(label);
+    });
+  }
 
   async function fetchSnippets(params = {}) {
     try {
@@ -124,21 +184,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   btnBuscar.addEventListener('click', () => {
     const params = {};
-    const instrument = filtroInstrument.value.trim();
+    const selectedTelescopes = getSelectedTelescopes();
     const format = filtroFormat.value.trim();
     const description = filtroDescription.value.trim();
-    if (instrument) params.instrument = instrument;
+    
+    if (selectedTelescopes.length > 0) {
+      params.instrument = selectedTelescopes.join(',');
+    }
     if (format) params.format = format;
     if (description) params.description = description;
+    
     fetchSnippets(params);
   });
 
   btnLimpar.addEventListener('click', () => {
-    filtroInstrument.value = '';
     filtroFormat.value = '';
     filtroDescription.value = '';
+    if (contentFiltroTelescopios) {
+      const checkboxes = document.querySelectorAll('#lista-telescopios input[type="checkbox"]');
+      checkboxes.forEach(cb => cb.checked = false);
+    }
     fetchSnippets();
   });
 
-  fetchSnippets();
+  initTelescopeDropdown();
+  loadTelescopeOptions().then(() => fetchSnippets());
 });

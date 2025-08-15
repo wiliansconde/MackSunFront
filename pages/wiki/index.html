@@ -37,18 +37,21 @@
 
       <div class="barra_superior">
         <div class="linha-filtros-superior">
-            <input type="text" id="filtro_instrument" placeholder="Filter by Instrument">
-            <input type="text" id="filtro_format" placeholder="Filter by Format">
-            <div class="botoes-filtros-superior">
+          <div class="dropdown-checkbox" id="filtro-telescopios">
+            <button type="button" id="btn-toggle-telescopios" class="dropdown-btn">Filter Telescopes</button>
+            <div id="lista-telescopios" class="dropdown-lista"></div>
+          </div>
+          <input type="text" id="filtro_format" placeholder="Filter by Format">
+          <div class="botoes-filtros-superior">
             <button id="btn_limpar_filtro" class="btnGray_table">Clear Filters</button>
-            </div>
+          </div>
         </div>
 
         <div class="linha-filtros-inferior">
-            <input type="text" id="filtro_description" placeholder="Filter by Description">
-            <div class="btn-criar-wrapper">
+          <input type="text" id="filtro_description" placeholder="Filter by Description">
+          <div class="btn-criar-wrapper">
             <button class="btnRed btnSizeHeightLimited btnFilterRed" id="btn_buscar">Search</button>
-            </div>
+          </div>
         </div>
       </div>
 
