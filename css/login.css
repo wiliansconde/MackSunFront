@@ -13,7 +13,7 @@
     width: 21rem;
     min-height: 21rem;
     max-width: 60%;
-    height: auto;
+    /* height: auto; */
     background: transparent;
     border-radius: 20px;
     background-color: var(--branco);
