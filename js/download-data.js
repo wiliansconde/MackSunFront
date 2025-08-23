@@ -282,9 +282,31 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td>${item.date}</td>
                         <td>${item.instrument}</td>
                         <td>${item.resolution}</td>
-                        <td>${item.format}</td>
-                        <td class='alinhar_downloadFile'><a href="${item.publicUrl}" target="_blank" download>Download file</a></td>`;
+                        <td>${item.format}</td>                         
+                        <td class='alinhar_downloadFile'>
+                            <button class="copy_btn" title="Click to copy the direct URL of the file, ideal for use in Google Colab, for example.">Copy File URL</button>
+                            <a href="${item.publicUrl}" target="_blank" download>Download file</a>
+                        </td>`;
                     tbody.appendChild(tr);
+                });
+
+                document.querySelectorAll('.copy_btn').forEach(btn => {
+                    btn.addEventListener('click', event => {
+                        const url = btn.nextElementSibling?.href;
+                        if (url) {
+                            navigator.clipboard.writeText(url)
+                                .then(() => {
+                                    btn.textContent = 'Copied!';
+                                    setTimeout(() => {
+                                        btn.textContent = 'Copy File URL';
+                                    }, 2000);
+                                })
+                                .catch(err => {
+                                    console.error('Erro ao copiar URL:', err);
+                                    btn.textContent = 'Failed to copy';
+                                });
+                        }
+                    });
                 });
 
                 document.querySelector('.container-tabela').classList.remove('oculto');
