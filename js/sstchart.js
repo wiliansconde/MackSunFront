@@ -37,22 +37,17 @@ function processTelescopeData(data) {
     }));
 }
 
-
 function getChartDimensions(containerId) {
     const container = document.getElementById(containerId);
     const containerWidth = container.offsetWidth;
     
-   
     let margin;
     if (containerWidth < 480) {
-        // Mobile
-        margin = { top: 15, right: 15, bottom: 35, left: 45 };
+        margin = { top: 15, right: 15, bottom: 50, left: 45 };
     } else if (containerWidth < 768) {
-        // Tablet
-        margin = { top: 20, right: 25, bottom: 40, left: 50 };
+        margin = { top: 20, right: 25, bottom: 55, left: 50 };
     } else {
-        // Desktop
-        margin = { top: 20, right: 30, bottom: 40, left: 60 };
+        margin = { top: 20, right: 30, bottom: 60, left: 60 };
     }
     
     const width = containerWidth - margin.left - margin.right;
@@ -65,7 +60,6 @@ async function createChart() {
     const telescopeData = await fetchData();
     const data = processTelescopeData(telescopeData);
 
-   
     d3.select("#sst").select("svg").remove();
 
     const { width, height, margin } = getChartDimensions('sst');
@@ -79,7 +73,7 @@ async function createChart() {
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-   
+    
     const xExtent = d3.extent(data, d => d.timeMinutes);
     const x = d3.scaleLinear()
         .domain(xExtent)
@@ -104,11 +98,9 @@ async function createChart() {
         return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
     }
 
-    
     const xTicks = width < 300 ? 3 : width < 500 ? 4 : 6;
     const yTicks = height < 200 ? 4 : height < 300 ? 6 : 8;
 
-    
     svg.append("g")
         .attr("class", "grid")
         .attr("transform", `translate(0,${height})`)
@@ -126,7 +118,6 @@ async function createChart() {
             .ticks(yTicks)
         );
 
-    
     const xAxis = d3.axisBottom(x)
         .ticks(xTicks)
         .tickFormat(d => formatTime(d));
@@ -140,27 +131,23 @@ async function createChart() {
         .attr("class", "axis")
         .call(d3.axisLeft(y).ticks(yTicks));
 
-   
-    if (width > 400) {
-        svg.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 0 - margin.left)
-            .attr("x", 0 - (height / 2))
-            .attr("dy", "1em")
-            .style("text-anchor", "middle")
-            .style("font-size", "12px")
-            .style("fill", "#666")
-            .text("Flux (SFU)");
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .style("font-size", "12px")
+        .style("fill", "#666")
+        .text("Flux (SFU)");
 
-        svg.append("text")
-            .attr("transform", `translate(${width / 2}, ${height + margin.bottom})`)
-            .style("text-anchor", "middle")
-            .style("font-size", "12px")
-            .style("fill", "#666")
-            .text("Time (UTC)");
-    }
+    svg.append("text")
+        .attr("transform", `translate(${width / 2}, ${height + margin.bottom})`)
+        .style("text-anchor", "middle")
+        .style("font-size", "12px")
+        .style("fill", "#666")
+        .text("Time (UTC)");
 
-    
     const line1 = d3.line()
         .x(d => x(d.timeMinutes))
         .y(d => y(d.channel1))
@@ -181,7 +168,6 @@ async function createChart() {
         .attr("class", "line-405ghz")
         .attr("d", line2);
 
-    
     setupTooltip(svg, data, x, y, width, height);
 }
 
@@ -276,13 +262,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-   
     createChart();
-    
     
     window.addEventListener('resize', debounce(resizeChart, 250));
 });
-
 
 function debounce(func, wait) {
     let timeout;
