@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Specification of files by telescope</title>
+    <title>Telescopes Data Dictionary</title>
 
     <link rel="icon" href="./assets/img/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="../../../css/global.css">
@@ -32,107 +32,577 @@
 
     <main class="container_padrao">
         <section class="formulario-card_medio">
-            <h1 class="titulo_padrao">Specification of files by telescope</h1>
-            <p class="titulo_telescopio">SST</p>
+            <h1 class="titulo_padrao">Telescopes Data Dictionary</h1>
+
+            <p class="titulo_telescopio">POEMAS FITS</p>
+            <p class="subtitulo_telescopio">Format: FITS File    |    Encoding: Binary    |    Structure: Header + DataTable Fields</p>
             <div class="access-table-wrapper">
+                <p class="nometable_telescopio">Header</p>
                 <table class="access-table">
                     <thead>
                         <tr>
                             <th>Field name</th>
                             <th>Data type</th>
-                            <th>Unit of measurement</th>
                             <th>Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Lorem field</td>
+                            <td>FILENAME</td>
                             <td>String</td>
-                            <td>m</td>
-                            <td>Lorem ipsum dolor sit amet</td>
+                            <td>Name of the generated FITS file</td>
                         </tr>
                         <tr>
-                            <td>Ipsum data</td>
-                            <td>Integer</td>
-                            <td>kg</td>
-                            <td>Consectetur adipiscing elit</td>
+                            <td>ORIGIN</td>
+                            <td>String</td>
+                            <td>Institution responsible for data generation</td>
                         </tr>
                         <tr>
-                            <td>Dolor value</td>
-                            <td>Float</td>
-                            <td>s</td>
-                            <td>Sed do eiusmod tempor incididunt</td>
+                            <td>TELESCOP</td>
+                            <td>String</td>
+                            <td>Name of the telescope used (POEMAS)</td>
                         </tr>
                         <tr>
-                            <td>Sit code</td>
-                            <td>Boolean</td>
-                            <td>-</td>
-                            <td>Ut labore et dolore magna aliqua</td>
+                            <td>INSTRUME</td>
+                            <td>String</td>
+                            <td>Name of the instrument used (POEMAS)</td>
                         </tr>
                         <tr>
-                            <td>Amet info</td>
+                            <td>OBSERVAT</td>
+                            <td>String</td>
+                            <td>Name of the observatory where the observation took place</td>
+                        </tr>
+                        <tr>
+                            <td>STATION</td>
+                            <td>String</td>
+                            <td>Geographic coordinates and altitude of the station</td>
+                        </tr>
+                        <tr>
+                            <td>TZ</td>
+                            <td>String</td>
+                            <td>Time zone reference</td>
+                        </tr>
+                        <tr>
+                            <td>DATE-OBS</td>
                             <td>Date</td>
-                            <td>yyyy-mm-dd</td>
-                            <td>Ut enim ad minim veniam</td>
+                            <td>Date of the observation (YYYY-MM-DD)</td>
                         </tr>
                         <tr>
-                            <td>Consectetur key</td>
-                            <td>Decimal</td>
-                            <td>°C</td>
-                            <td>Quis nostrud exercitation ullamco</td>
+                            <td>T_START</td>
+                            <td>DateTime</td>
+                            <td>Start time of the observation in ISO 8601 format</td>
+                        </tr>
+                        <tr>
+                            <td>T_END</td>
+                            <td>DateTime</td>
+                            <td>End time of the observation in ISO 8601 format</td>
+                        </tr>
+                        <tr>
+                            <td>N_RECORD</td>
+                            <td>Integer</td>
+                            <td>Number of data records in the binary table</td>
+                        </tr>
+                        <tr>
+                            <td>FREQUEN</td>
+                            <td>String</td>
+                            <td>Observed frequency bands (45GHz / 90GHz)</td>
                         </tr>
                     </tbody>
                 </table>
-                <p class="titulo_telescopio">POEMAS</p>
+                <br>
+                <p class="nometable_telescopio">DataTable Fields</p>
                 <table class="access-table">
                     <thead>
                         <tr>
                             <th>Field name</th>
                             <th>Data type</th>
-                            <th>Unit of measurement</th>
                             <th>Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Lorem field</td>
+                            <td>ISO_DATETIME</td>
                             <td>String</td>
-                            <td>m</td>
-                            <td>Lorem ipsum dolor sit amet</td>
+                            <td>Timestamp in ISO 8601 format with milliseconds</td>
                         </tr>
                         <tr>
-                            <td>Ipsum data</td>
-                            <td>Integer</td>
-                            <td>kg</td>
-                            <td>Consectetur adipiscing elit</td>
-                        </tr>
-                        <tr>
-                            <td>Dolor value</td>
+                            <td>TBMAX</td>
                             <td>Float</td>
-                            <td>s</td>
-                            <td>Sed do eiusmod tempor incididunt</td>
+                            <td>Maximum brightness temperature (Kelvin)</td>
                         </tr>
                         <tr>
-                            <td>Sit code</td>
-                            <td>Boolean</td>
-                            <td>-</td>
-                            <td>Ut labore et dolore magna aliqua</td>
+                            <td>TBMIN</td>
+                            <td>Float</td>
+                            <td>Minimum brightness temperature (Kelvin)</td>
                         </tr>
                         <tr>
-                            <td>Amet info</td>
-                            <td>Date</td>
-                            <td>yyyy-mm-dd</td>
-                            <td>Ut enim ad minim veniam</td>
+                            <td>NFREQ</td>
+                            <td>Integer</td>
+                            <td>Number of observed frequencies</td>
                         </tr>
                         <tr>
-                            <td>Consectetur key</td>
-                            <td>Decimal</td>
-                            <td>°C</td>
-                            <td>Quis nostrud exercitation ullamco</td>
+                            <td>ELE</td>
+                            <td>Float</td>
+                            <td>Telescope elevation angle (degrees)</td>
+                        </tr>
+                        <tr>
+                            <td>AZI</td>
+                            <td>Float</td>
+                            <td>Telescope azimuth angle (degrees)</td>
+                        </tr>
+                        <tr>
+                            <td>TBL45</td>
+                            <td>Float</td>
+                            <td>Left polarization brightness temperature at 45 GHz</td>
+                        </tr>
+                        <tr>
+                            <td>TBR45</td>
+                            <td>Float</td>
+                            <td>Right polarization brightness temperature at 45 GHz</td>
+                        </tr>
+                        <tr>
+                            <td>TBL90</td>
+                            <td>Float</td>
+                            <td>Left polarization brightness temperature at 90 GHz</td>
+                        </tr>
+                        <tr>
+                            <td>TBR90</td>
+                            <td>Float</td>
+                            <td>Right polarization brightness temperature at 90 GHz</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+            <p class="titulo_telescopio">POEMAS CSV</p>
+            <p class="subtitulo_telescopio">Delimiter: Pipe (|)    |    Encoding: UTF-8    |    Structure: Header + Observation Data Fields</p>
+            <div class="access-table-wrapper">
+                <p class="nometable_telescopio">Header</p>
+                <table class="access-table">
+                    <thead>
+                        <tr>
+                            <th>Field name</th>
+                            <th>Data type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FILENAME</td>
+                            <td>String</td>
+                            <td>Name of the generated file</td>
+                        </tr>
+                        <tr>
+                            <td>ORIGIN</td>
+                            <td>String</td>
+                            <td>Institution responsible for data generation</td>
+                        </tr>
+                        <tr>
+                            <td>TELESCOP</td>
+                            <td>String</td>
+                            <td>Name of the telescope used (POEMAS)</td>
+                        </tr>
+                        <tr>
+                            <td>INSTRUME</td>
+                            <td>String</td>
+                            <td>Name of the instrument used (POEMAS)</td>
+                        </tr>
+                        <tr>
+                            <td>OBSERVAT</td>
+                            <td>String</td>
+                            <td>Name of the observatory</td>
+                        </tr>
+                        <tr>
+                            <td>STATION</td>
+                            <td>String</td>
+                            <td>Geographic coordinates and altitude</td>
+                        </tr>
+                        <tr>
+                            <td>TZ</td>
+                            <td>String</td>
+                            <td>Time zone reference</td>
+                        </tr>
+                        <tr>
+                            <td>DATE-OBS</td>
+                            <td>Date</td>
+                            <td>Date of the observation</td>
+                        </tr>
+                        <tr>
+                            <td>T_START</td>
+                            <td>DateTime</td>
+                            <td>Start time of the observation</td>
+                        </tr>
+                        <tr>
+                            <td>T_END</td>
+                            <td>DateTime</td>
+                            <td>End time of the observation</td>
+                        </tr>
+                        <tr>
+                            <td>N_RECORD</td>
+                            <td>Integer</td>
+                            <td>Number of data records</td>
+                        </tr>
+                        <tr>
+                            <td>FREQUEN</td>
+                            <td>String</td>
+                            <td>Observed frequency bands (e.g., 45GHz / 90GHz)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <p class="nometable_telescopio">Observation Data Fields</p>
+                <table class="access-table">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Column Name</th>
+                            <th>Data type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>ISO_DATETIME</td>
+                            <td>String</td>
+                            <td>Timestamp in ISO 8601 format with milliseconds</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>TBMAX</td>
+                            <td>Float</td>
+                            <td>Maximum brightness temperature (Kelvin)</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>TBMIN</td>
+                            <td>Float</td>
+                            <td>Minimum brightness temperature (Kelvin)</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>NFREQ</td>
+                            <td>Integer</td>
+                            <td>Number of observed frequencies</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>ELE</td>
+                            <td>Float</td>
+                            <td>Telescope elevation angle (degrees)</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>AZI</td>
+                            <td>Float</td>
+                            <td>Telescope azimuth angle (degrees)</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>TBL45</td>
+                            <td>Float</td>
+                            <td>Left polarization brightness temperature at 45 GHz</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>TBR45</td>
+                            <td>Float</td>
+                            <td>Right polarization brightness temperature at 45 GHz</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>TBL90</td>
+                            <td>Float</td>
+                            <td>Left polarization brightness temperature at 90 GHz</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>TBR90</td>
+                            <td>Float</td>
+                            <td>Right polarization brightness temperature at 90 GHz</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="titulo_telescopio">Example</p>
+                <pre class="example_telescopio">FILENAME|poemas_20250629_1200.csv
+ORIGIN|CRAAM/Universidade Presbiteriana Mackenzie
+TELESCOP|POlarization Emission of Millimeter Activity at the Sun (POEMAS)
+INSTRUME|POlarization Emission of Millimeter Activity at the Sun (POEMAS)
+OBSERVAT|CASLEO
+STATION|Lat = -31.79852700, Lon = -69.29558300, Height = 2.552 km
+TZ|GMT-3
+DATE-OBS|2025-06-29
+T_START|2025-06-29T12:00:00
+T_END|2025-06-29T12:59:59
+N_RECORD|3600
+FREQUEN|45GHz / 90GHz
+
+ISO_DATETIME|TBMAX|TBMIN|NFREQ|ELE|AZI|TBL45|TBR45|TBL90|TBR90
+2025-08-22T09:00:00.000-03:00|305.2|298.7|2|45.0|180.0|302.1|303.3|299.8|300.5
+2025-08-22T09:00:01.000-03:00|306.0|299.1|2|45.1|180.2|302.5|303.7|300.0|300.9
+2025-08-22T09:00:02.000-03:00|304.8|298.5|2|45.2|180.4|301.9|303.0|299.6|300.2</pre>
+                
+            </div>
+
+            <p class="titulo_telescopio">SST FITS</p>
+            <div class="access-table-wrapper">
+                <p class="nometable_telescopio">Header</p>
+                <table class="access-table">
+                    <thead>
+                        <tr>
+                            <th>Field name</th>
+                            <th>Data type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FILENAME</td>
+                            <td>String</td>
+                            <td>Name of the generated FITS file</td>
+                        </tr>
+                        <tr>
+                            <td>ORIGIN</td>
+                            <td>String</td>
+                            <td>Institution responsible for data generation</td>
+                        </tr>
+                        <tr>
+                            <td>TELESCOP</td>
+                            <td>String</td>
+                            <td>Name of the telescope used (SST)</td>
+                        </tr>
+                        <tr>
+                            <td>INSTRUME</td>
+                            <td>String</td>
+                            <td>Name of the instrument used (SST)</td>
+                        </tr>
+                        <tr>
+                            <td>OBSERVAT</td>
+                            <td>String</td>
+                            <td>Name of the observatory where the observation took place</td>
+                        </tr>
+                        <tr>
+                            <td>STATION</td>
+                            <td>String</td>
+                            <td>Geographic coordinates and altitude of the station</td>
+                        </tr>
+                        <tr>
+                            <td>TZ</td>
+                            <td>String</td>
+                            <td>Time zone reference</td>
+                        </tr>
+                        <tr>
+                            <td>DATE-OBS</td>
+                            <td>Date</td>
+                            <td>Date of the observation (YYYY-MM-DD)</td>
+                        </tr>
+                        <tr>
+                            <td>T_START</td>
+                            <td>DateTime</td>
+                            <td>Start time of the observation in ISO 8601 format</td>
+                        </tr>
+                        <tr>
+                            <td>T_END</td>
+                            <td>DateTime</td>
+                            <td>End time of the observation in ISO 8601 format</td>
+                        </tr>
+                        <tr>
+                            <td>N_RECORD</td>
+                            <td>Integer</td>
+                            <td>Number of data records in the binary table</td>
+                        </tr>
+                        <tr>
+                            <td>DATA_TYP</td>
+                            <td>String</td>
+                            <td>Type of SST data (e.g., FAST, INTG)</td>
+                        </tr>
+                        <tr>
+                            <td>ORIGFILE</td>
+                            <td>String</td>
+                            <td>Original binary file name</td>
+                        </tr>
+                        <tr>
+                            <td>FREQUEN</td>
+                            <td>String</td>
+                            <td>Frequency bands and channel mapping</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <p class="nometable_telescopio">DataTable Fields</p>
+                <table class="access-table">
+                    <thead>
+                        <tr>
+                            <th>Field name</th>
+                            <th>Data type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ISO_DATETIME</td>
+                            <td>String</td>
+                            <td>Timestamp in ISO 8601 format with milliseconds</td>
+                        </tr>
+                        <tr>
+                            <td>ADCVAL_1 to ADCVAL_6</td>
+                            <td>Integer</td>
+                            <td>ADC channel values (uint16)</td>
+                        </tr>
+                        <tr>
+                            <td>POS_TIME</td>
+                            <td>Integer</td>
+                            <td>Position timestamp (int32)</td>
+                        </tr>
+                        <tr>
+                            <td>AZIPOS</td>
+                            <td>Integer</td>
+                            <td>Azimuth position (.001 degrees)</td>
+                        </tr>
+                        <tr>
+                            <td>ELEPOS</td>
+                            <td>Integer</td>
+                            <td>Elevation position (.001 degrees)</td>
+                        </tr>
+                        <tr>
+                            <td>PM_DAZ</td>
+                            <td>Integer</td>
+                            <td>Pointing model correction in azimuth (int16)</td>
+                        </tr>
+                        <tr>
+                            <td>PM_DEL</td>
+                            <td>Integer</td>
+                            <td>Pointing model correction in elevation (int16)</td>
+                        </tr>
+                        <tr>
+                            <td>AZIERR</td>
+                            <td>Integer</td>
+                            <td>Azimuth pointing error (.001 degrees)</td>
+                        </tr>
+                        <tr>
+                            <td>ELEERR</td>
+                            <td>Integer</td>
+                            <td>Elevation pointing error (.001 degrees)</td>
+                        </tr>
+                        <tr>
+                            <td>X_OFF</td>
+                            <td>Integer</td>
+                            <td>Offset in X direction to target center (int16)</td>
+                        </tr>
+                        <tr>
+                            <td>Y_OFF</td>
+                            <td>Integer</td>
+                            <td>Offset in Y direction to target center (int16)</td>
+                        </tr>
+                        <tr>
+                            <td>OFF_1 to OFF_6</td>
+                            <td>Integer</td>
+                            <td>Attenuator settings (int16)</td>
+                        </tr>
+                        <tr>
+                            <td>TARGET</td>
+                            <td>Byte</td>
+                            <td>Observed target or mirror position (int8)</td>
+                        </tr>
+                        <tr>
+                            <td>OPMODE</td>
+                            <td>Byte</td>
+                            <td>Operation mode (int8)</td>
+                        </tr>
+                        <tr>
+                            <td>GPS_STATUS</td>
+                            <td>Integer</td>
+                            <td>GPS status (int16)</td>
+                        </tr>
+                        <tr>
+                            <td>RECNUM</td>
+                            <td>Integer</td>
+                            <td>Record number (int32)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="titulo_telescopio">SST CSV - Data Dictionary</p>
+            <p class="subtitulo_telescopio">Delimiter: Pipe (|)   |   Encoding: UTF-8   |   Structure: Header + Observation Data Fields</p>
+            <div class="access-table-wrapper">
+                <p class="nometable_telescopio">Header</p>
+                <table class="access-table">
+                    <thead>
+                        <tr>
+                            <th>Field name</th>
+                            <th>Data type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>FILENAME</td><td>String</td><td>Name of the generated file</td></tr>
+                        <tr><td>ORIGIN</td><td>String</td><td>Institution responsible for data generation</td></tr>
+                        <tr><td>TELESCOP</td><td>String</td><td>Name of the telescope used (SST)</td></tr>
+                        <tr><td>INSTRUME</td><td>String</td><td>Name of the instrument used (SST)</td></tr>
+                        <tr><td>OBSERVAT</td><td>String</td><td>Name of the observatory</td></tr>
+                        <tr><td>STATION</td><td>String</td><td>Geographic coordinates and altitude</td></tr>
+                        <tr><td>TZ</td><td>String</td><td>Time zone reference</td></tr>
+                        <tr><td>DATE-OBS</td><td>Date</td><td>Date of the observation (YYYY-MM-DD)</td></tr>
+                        <tr><td>T_START</td><td>DateTime</td><td>Start time of the observation in ISO 8601 format</td></tr>
+                        <tr><td>T_END</td><td>DateTime</td><td>End time of the observation in ISO 8601 format</td></tr>
+                        <tr><td>N_RECORD</td><td>Integer</td><td>Number of data records</td></tr>
+                        <tr><td>DATA_TYP</td><td>String</td><td>Type of SST data (e.g., FAST, INTG)</td></tr>
+                        <tr><td>ORIGFILE</td><td>String</td><td>Original binary file name</td></tr>
+                        <tr><td>FREQUEN</td><td>String</td><td>Frequency bands and channel mapping</td></tr>
+                    </tbody>
+                </table>
+                <br>
+                <p class="nometable_telescopio">Observation Data Fields</p>
+                <table class="access-table">
+                    <thead>
+                        <tr>
+                            <th>Column Name</th>
+                            <th>Data type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>ISO_DATETIME</td><td>String</td><td>Timestamp in ISO 8601 format with milliseconds</td></tr>
+                        <tr><td>ADCVAL_1 to ADCVAL_6</td><td>Integer</td><td>ADC channel values (uint16)</td></tr>
+                        <tr><td>POS_TIME</td><td>Integer</td><td>Position timestamp (int32)</td></tr>
+                        <tr><td>AZIPOS</td><td>Integer</td><td>Azimuth position (.001 degrees)</td></tr>
+                        <tr><td>ELEPOS</td><td>Integer</td><td>Elevation position (.001 degrees)</td></tr>
+                        <tr><td>PM_DAZ</td><td>Integer</td><td>Pointing model correction in azimuth (int16)</td></tr>
+                        <tr><td>PM_DEL</td><td>Integer</td><td>Pointing model correction in elevation (int16)</td></tr>
+                        <tr><td>AZIERR</td><td>Integer</td><td>Azimuth pointing error (.001 degrees)</td></tr>
+                        <tr><td>ELEERR</td><td>Integer</td><td>Elevation pointing error (.001 degrees)</td></tr>
+                        <tr><td>X_OFF</td><td>Integer</td><td>Offset in X direction to target center (int16)</td></tr>
+                        <tr><td>Y_OFF</td><td>Integer</td><td>Offset in Y direction to target center (int16)</td></tr>
+                        <tr><td>OFF_1 to OFF_6</td><td>Integer</td><td>Attenuator settings (int16)</td></tr>
+                        <tr><td>TARGET</td><td>Byte</td><td>Observed target or mirror position (int8)</td></tr>
+                        <tr><td>OPMODE</td><td>Byte</td><td>Operation mode (int8)</td></tr>
+                        <tr><td>GPS_STATUS</td><td>Integer</td><td>GPS status (int16)</td></tr>
+                        <tr><td>RECNUM</td><td>Integer</td><td>Record number (int32)</td></tr>
+                    </tbody>
+                </table>
+                <p class="titulo_telescopio">Example</p>
+                <pre class="example_telescopio">FILENAME|sst_20250629_1200.csv
+ORIGIN|CRAAM/Universidade Presbiteriana Mackenzie
+TELESCOP|Solar Submillimeter Telescope (SST)
+INSTRUME|Solar Submillimeter Telescope (SST)
+OBSERVAT|CASLEO
+STATION|Lat = -31.79852700, Lon = -69.29558300, Height = 2.552 km
+TZ|GMT-3
+DATE-OBS|2025-06-29
+T_START|2025-06-29T12:00:00
+T_END|2025-06-29T12:59:59
+N_RECORD|3600
+DATA_TYP|FAST
+ORIGFILE|sst_raw_20250629_1200.bin
+FREQUEN|212GHz / 405GHz
+
+ISO_DATETIME|ADCVAL_1|ADCVAL_2|ADCVAL_3|ADCVAL_4|ADCVAL_5|ADCVAL_6|POS_TIME|AZIPOS|ELEPOS|PM_DAZ|PM_DEL|AZIERR|ELEERR|X_OFF|Y_OFF|OFF_1|OFF_2|OFF_3|OFF_4|OFF_5|OFF_6|TARGET|OPMODE|GPS_STATUS|RECNUM
+2025-06-29T12:00:00.000-03:00|1023|980|1001|995|1005|1010|1432567890|123456|654321|5|3|2|1|0|0|10|10|10|10|10|10|1|2|0|1
+2025-06-29T12:00:01.000-03:00|1025|982|1003|997|1007|1012|1432567891|123457|654322|5|3|2|1|0|0|10|10|10|10|10|10|1|2|0|2</pre>
+            </div>
+
+
         </section>
     </main>
 

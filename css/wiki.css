@@ -87,8 +87,10 @@ html, body {
 .snippet-card pre {
     background-color: #eee;
     padding: 10px;
+    max-height: 25rem;
     border-radius: 4px;
     overflow-x: auto;
+    overflow-y: auto;
     font-size: 0.95rem;
     white-space: pre-wrap;
 }
@@ -99,6 +101,27 @@ html, body {
     margin-top: 1rem;
     font-weight: bold;
 }
+
+.code-wrapper {
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.7rem;
+  margin-right: 1.4rem;
+}
+
+.copy-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
 
 @media (max-width: 768px) {
     .titulo_padrao {

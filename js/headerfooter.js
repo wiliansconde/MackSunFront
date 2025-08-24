@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <ul class="access_profile menu_suspenso_wiki" id="wiki_menu">
               <li><a href="/pages/wiki/como-exportar.html">How to export data</a></li>
               <li><a href="/pages/wiki/telescopios.html">Available Telescopes</a></li>
-              <li><a href="/pages/wiki/arquivos-telescopios.html">Specification of Files by Telescope</a></li>
+              <li><a href="/pages/wiki/arquivos-telescopios.html">Telescopes Data Dictionary</a></li>
               <li><a href="/pages/wiki/index.html">Code examples</a></li>
             </ul>
           </div>

@@ -177,6 +177,10 @@ textarea {
     background-color: var(--cinza-claro);
 }
 
+.bigger_area{
+    height: 8rem;
+}
+
 @media (max-width: 768px) {
     .modal-content {
         padding: 1.5rem;

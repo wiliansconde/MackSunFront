@@ -1,15 +1,48 @@
 .titulo_padrao {
-    font-size: clamp(2rem, 3vw, 2.8rem);
     font-weight: bold;
 }
 
+.access-table-wrapper {
+    margin-top: 0rem;
+}
+
 .titulo_telescopio {
-    font-size: clamp(1.1rem, 1.5vw, 1.5rem);
+    font-size: clamp(0.9rem, 1.4vw, 1.3rem);
     color: var(--preto);
     font-weight: bold;
     margin-top: 2rem;
+    margin-bottom: 0.1rem;
+}
+
+.subtitulo_telescopio {
+    font-size: clamp(0.7rem, 1.1vw, 1rem);
+    color: var(--preto);
     margin-bottom: 0.5rem;
-    letter-spacing: 0.5px;
+}
+
+.nometable_telescopio {
+    font-size: clamp(0.8rem, 1.3vw, 1.2rem);
+    color: var(--preto);
+    font-weight: bold;
+    text-align: center;
+
+}
+
+.example_telescopio {
+    background-color: var(--cinza-claro);
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    font-family: monospace;
+    white-space: pre;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+
+.access-table{
+    margin-top: 0.5rem;
 }
 
 .telescopio-section {
