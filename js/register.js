@@ -89,13 +89,10 @@ document.addEventListener('DOMContentLoaded', function () {
       body: JSON.stringify(formData)
     })
       .then(response => {
-        console.log('Response status:', response.status);
         return response.json();
       })
       .then(data => {
-        console.log('Response data:', data);
         if (data.success === false) {
-          console.log('API returned success: false, throwing error');
           throw new Error(data.message || 'Error sending form');
         }
         showMessageById('success_submission');
@@ -103,15 +100,10 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('password').value = '12345678';
       })
       .catch(error => {
-        console.error('Caught error:', error);
-        console.log('Error message:', error.message);
-        
         if (error.message && error.message.includes('email already exists')) {
-          console.log('Showing email exists error');
-          showMessageById('error_email');
+          showMessageById('error_email_exists');
           document.getElementById('email').focus();
         } else {
-          console.log('Showing generic error');
           showMessageById('error_submission');
         }
       })
