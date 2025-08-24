@@ -39,12 +39,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!name) {
       showMessageById('error_name');
       document.getElementById('name').focus();
+      if (submitBtn) submitBtn.disabled = false;
       return;
     }
 
     if (!email) {
       showMessageById('error_email');
       document.getElementById('email').focus();
+      if (submitBtn) submitBtn.disabled = false;
       return;
     }
 
@@ -52,17 +54,20 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!emailRegex.test(email)) {
       showMessageById('error_email_format');
       document.getElementById('email').focus();
+      if (submitBtn) submitBtn.disabled = false;
       return;
     }
 
     if (!requestedProfile) {
       showMessageById('error_profile');
+      if (submitBtn) submitBtn.disabled = false;
       return;
     }
 
     if (!justification) {
       showMessageById('error_justification');
       document.getElementById('justification').focus();
+      if (submitBtn) submitBtn.disabled = false;
       return;
     }
 
@@ -84,30 +89,29 @@ document.addEventListener('DOMContentLoaded', function () {
       body: JSON.stringify(formData)
     })
       .then(response => {
-        if (!response.ok) {
-          return response.json().then(errorData => {
-            throw new Error(errorData.message || 'Error sending form');
-          });
-        }
+        console.log('Response status:', response.status);
         return response.json();
       })
       .then(data => {
+        console.log('Response data:', data);
+        if (data.success === false) {
+          console.log('API returned success: false, throwing error');
+          throw new Error(data.message || 'Error sending form');
+        }
         showMessageById('success_submission');
         document.getElementById('registrationForm').reset();
         document.getElementById('password').value = '12345678';
       })
       .catch(error => {
-        console.error('Error:', error);
-     
-        if (error.message && (
-            error.message.includes('email já cadastrado') || 
-            error.message.includes('email already exists') ||
-            error.message.includes('duplicate email') ||
-            error.message.toLowerCase().includes('email') && error.message.toLowerCase().includes('exists')
-          )) {
-          showMessageById('error_email_exists');
+        console.error('Caught error:', error);
+        console.log('Error message:', error.message);
+        
+        if (error.message && error.message.includes('email already exists')) {
+          console.log('Showing email exists error');
+          showMessageById('error_email');
           document.getElementById('email').focus();
         } else {
+          console.log('Showing generic error');
           showMessageById('error_submission');
         }
       })
