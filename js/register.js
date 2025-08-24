@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .catch(error => {
         console.error('Error:', error);
-        
+     
         if (error.message && (
             error.message.includes('email já cadastrado') || 
             error.message.includes('email already exists') ||
