@@ -87,12 +87,13 @@ html, body {
 .snippet-card pre {
     background-color: #eee;
     padding: 10px;
-    max-height: 25rem;
+    max-height: 23rem;
     border-radius: 4px;
     overflow-x: auto;
     overflow-y: auto;
     font-size: 0.95rem;
     white-space: pre-wrap;
+    margin-top: 1rem;
 }
 
 .invalid_message_error {
@@ -106,20 +107,38 @@ html, body {
   position: relative;
 }
 
-.copy-btn {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  margin-top: 0.7rem;
-  margin-right: 1.4rem;
+.snippet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5rem;
+
 }
 
-.copy-btn svg {
-  width: 20px;
-  height: 20px;
+.snippet-actions {
+    display: flex;
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.snippet-header h3 {
+    margin: 0;
+}
+
+.show-code-btn{
+    width: 6rem;
+}
+
+.copy-btn{
+    width: 6rem;
+}
+
+@media (max-width: 1106px) {
+    .formulario_padrao {
+        min-width: 98%;
+    }
+    
 }
 
 
@@ -137,6 +156,20 @@ html, body {
     }
     .btnGray_table,
     .btnRed {
+        width: 100%;
+    }
+
+    .snippet-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .snippet-header .show-code-btn {
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    .snippet-actions {
         width: 100%;
     }
 }

@@ -110,55 +110,58 @@ document.addEventListener('DOMContentLoaded', () => {
       const codeId = `code-${Math.random().toString(36).substring(2, 9)}`;
 
       card.innerHTML = `
-        <h3>Instrument: ${snippet.instrument}</h3>
-        <p><strong>Format:</strong> ${snippet.format}</p>
-        <p><strong>Description:</strong> ${snippet.description}</p>
-        <div class="code-wrapper">
-          <button class="copy-btn" data-target="${codeId}">
-            <!-- Ícone copiar -->
-            <svg class="icon-copy" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
-              <g transform="translate(1.4066 1.4066) scale(2.81 2.81)">
-                <path d="M70.315 0H34.203c-6.852 0-12.425 5.574-12.425 12.425v2.093h-2.093c-6.852 0-12.425 5.574-12.425 12.425v50.632C7.259 84.426 12.833 90 19.685 90h36.112c6.852 0 12.426-5.574 12.426-12.425v-2.094h2.093c6.852 0 12.426-5.574 12.426-12.425V12.425C82.741 5.574 77.167 0 70.315 0zM64.223 77.575c0 4.646-3.78 8.425-8.426 8.425H19.685c-4.646 0-8.425-3.779-8.425-8.425V26.943c0-4.646 3.78-8.425 8.425-8.425h2.093v44.538c0 6.851 5.574 12.425 12.425 12.425h30.02V77.575zM78.741 63.057c0 4.646-3.78 8.425-8.426 8.425h-2.093h-34.02c-4.646 0-8.425-3.779-8.425-8.425V14.519v-2.093C25.778 7.78 29.558 4 34.203 4h36.112c4.646 0 8.426 3.78 8.426 8.425V63.057z" fill="black"/>
-              </g>
-            </svg>
-            <!-- Ícone copiado -->
-            <svg class="icon-done" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" style="display:none;">
-              <g transform="translate(1.4066 1.4066) scale(2.81 2.81)">
-                <path d="M65.456 81.712c0 4.57-3.717 8.288-8.288 8.288h-40.7c-4.57 0-8.288-3.717-8.288-8.288V24.65c0-4.57 3.718-8.288 8.288-8.288h1.152V65.35c0 8.387 6.823 15.211 15.211 15.211h32.624V81.712zM81.819 65.35c0 4.57-3.717 8.288-8.288 8.288h-1.152H32.832c-4.57 0-8.288-3.717-8.288-8.288V9.439V8.288c0-4.57 3.718-8.288 8.288-8.288h40.699c4.57 0 8.288 3.718 8.288 8.288V65.35z" fill="black"/>
-              </g>
-            </svg>
-          </button>
-          <pre><code id="${codeId}" class="language-python">
+        <div class="snippet-header">
+          <div>
+            <h3>Instrument: ${snippet.instrument}</h3>
+            <p><strong>Format:</strong> ${snippet.format}</p>
+            <p><strong>Description:</strong> ${snippet.description}</p>
+          </div>
+          <div class="snippet-actions">
+            <button class="btnGray_table show-code-btn" data-target="${codeId}">Show Code</button>
+            <button class="btnGray_table copy-btn" data-target="${codeId}">Copy code</button>
+          </div>
+        </div>
+        <div class="code-wrapper" id="${codeId}" style="display:none;">
+          <pre><code class="language-python">
   ${Prism.highlight(snippet.code, Prism.languages.python, 'python')}
           </code></pre>
         </div>
       `;
       snippetsContainer.appendChild(card);
-    });
 
-    document.querySelectorAll('.copy-btn').forEach(btn => {
+      document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const targetId = btn.getAttribute('data-target');
         const codeElement = document.getElementById(targetId);
         if (!codeElement) return;
 
         navigator.clipboard.writeText(codeElement.textContent).then(() => {
-          const copyIcon = btn.querySelector('.icon-copy');
-          const doneIcon = btn.querySelector('.icon-done');
-          if (copyIcon && doneIcon) {
-            copyIcon.style.display = 'none';
-            doneIcon.style.display = 'inline';
+            const originalText = "Copy code";
+            btn.textContent = 'Copied!';
             setTimeout(() => {
-              copyIcon.style.display = 'inline';
-              doneIcon.style.display = 'none';
+              btn.textContent = originalText;
             }, 2000);
           }
-        });
+        );
+      });
+    });
+    });
+
+    // Ativar eventos dos botões
+    const buttons = document.querySelectorAll('.show-code-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.dataset.target);
+        if (target.style.display === 'none') {
+          target.style.display = 'block';
+          btn.textContent = 'Hide Code';
+        } else {
+          target.style.display = 'none';
+          btn.textContent = 'Show Code';
+        }
       });
     });
   }
-
-
 
   function renderizarPagina() {
     const inicio = (paginaAtual - 1) * itensPorPagina;
