@@ -39,12 +39,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!name) {
       showMessageById('error_name');
       document.getElementById('name').focus();
+      if (submitBtn) submitBtn.disabled = false;
       return;
     }
 
     if (!email) {
       showMessageById('error_email');
       document.getElementById('email').focus();
+      if (submitBtn) submitBtn.disabled = false;
       return;
     }
 
@@ -52,17 +54,20 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!emailRegex.test(email)) {
       showMessageById('error_email_format');
       document.getElementById('email').focus();
+      if (submitBtn) submitBtn.disabled = false;
       return;
     }
 
     if (!requestedProfile) {
       showMessageById('error_profile');
+      if (submitBtn) submitBtn.disabled = false;
       return;
     }
 
     if (!justification) {
       showMessageById('error_justification');
       document.getElementById('justification').focus();
+      if (submitBtn) submitBtn.disabled = false;
       return;
     }
 
@@ -84,27 +89,18 @@ document.addEventListener('DOMContentLoaded', function () {
       body: JSON.stringify(formData)
     })
       .then(response => {
-        if (!response.ok) {
-          return response.json().then(errorData => {
-            throw new Error(errorData.message || 'Error sending form');
-          });
-        }
         return response.json();
       })
       .then(data => {
+        if (data.success === false) {
+          throw new Error(data.message || 'Error sending form');
+        }
         showMessageById('success_submission');
         document.getElementById('registrationForm').reset();
         document.getElementById('password').value = '12345678';
       })
       .catch(error => {
-        console.error('Error:', error);
-     
-        if (error.message && (
-            error.message.includes('email já cadastrado') || 
-            error.message.includes('email already exists') ||
-            error.message.includes('duplicate email') ||
-            error.message.toLowerCase().includes('email') && error.message.toLowerCase().includes('exists')
-          )) {
+        if (error.message && error.message.includes('email already exists')) {
           showMessageById('error_email_exists');
           document.getElementById('email').focus();
         } else {
