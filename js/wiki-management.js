@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       tr.innerHTML = `
         <td>${wiki.instrument}</td>
         <td>${wiki.format}</td>
-        <td>${wiki.description || ''}</td>
+        <td class="texto-longo" title="${wiki.description}">${wiki.description || ''}</td>
         <td>${wiki.author || ''}</td>
         <td>
           <button class="btnGray_table btn_gap btn-edit" data-id="${wiki.id}">Edit</button>

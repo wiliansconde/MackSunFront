@@ -67,10 +67,10 @@ function preencherTabela(flares) {
             : '-';
 
         row.innerHTML = `
-            <td>${dataFormatada}</td>
-            <td>${flare.classType || ''}</td>
-            <td>${telescopesFormatados}</td>
-            <td>${descricaoLimitada}</td>
+            <td class="principal" title="${dataFormatada}">${dataFormatada}</td>
+            <td class="principal" title="${flare.dateTime}">${flare.classType || ''}</td>
+            <td class="principal" title="${flare.telescopes}">${telescopesFormatados}</td>
+            <td class="texto-longo" title="${flare.description}">${descricaoLimitada}</td>
             <td>
                 <button class="btnGray_table btn_gap" onclick="abrirModalView('${flare.id}')">View</button>
             </td>

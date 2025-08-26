@@ -311,17 +311,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${nome}</td>
-                <td>${email}</td>
-                <td>${perfil}</td>
-                <td><span class="${statusClasse}">${statusTexto}</span></td>
-                <td>${updatedBy}</td>
-                <td>${createdAt}</td>
-                <td>${updatedAt}</td>
+                <td class="principal" title="${nome}">${nome}</td>
+                <td class="principal" title="${email}">${email}</td>
+                <td class="principal" title="${perfil}">${perfil}</td>
+                <td class="principal" title="${statusClasse}"><span class="${statusClasse}">${statusTexto}</span></td>
+                <td class="secundario" title="${updatedBy}">${updatedBy}</td>
+               
+                <td class="secundario" title="${updatedAt}">${updatedAt}</td>
                 <td class="acoes">
                     <div class="botoes_responsivo">
                         <button class="edit btnGray_table" data-email="${email}">Edit</button>
-                        <button class="resetar_password btnGray_table" data-email="${email}">Reset Password</button>
+                        <button class="resetar_password btnGray_table" data-email="${email}">Update Pass</button>
                         <button class="deletar btnGray_table" data-email="${email}">Delete</button> 
                     </div>
                 </td>

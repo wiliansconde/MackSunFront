@@ -376,22 +376,24 @@ function preencherTabela(flares) {
             ? formatarData(flare.dateTime)
             : 'No date';
 
-        const descricaoLimitada = flare.description
-            ? (flare.description.length > 80
-                ? flare.description.slice(0, 80) + '...'
-                : flare.description)
+        const telescopesText = flare.telescopes
+            ? (Array.isArray(flare.telescopes)
+                ? flare.telescopes.join(', ')
+                : flare.telescopes.replace(/;/g, ', '))
             : '-';
 
+            const descricaoLimitada = flare.description
+            ? (flare.description.length > 60
+                ? flare.description.slice(0, 60) + '...'
+                : flare.description)
+            : '-';            
+
         row.innerHTML = `
-            <td>${dataFormatada}</td>
-            <td>${flare.classType || ''}</td>
-            <td>${flare.telescopes
-                ? (Array.isArray(flare.telescopes)
-                    ? flare.telescopes.join(', ')
-                    : flare.telescopes.replace(/;/g, ', '))
-                : '-'}</td>
-            <td>${descricaoLimitada}</td>
-            <td>
+            <td class="principal" title="${dataFormatada}">${dataFormatada}</td>
+            <td class="principal">${flare.classType || ''}</td>
+            <td class="principal" title="${telescopesText}">${telescopesText}</td>
+            <td class="texto-longo" title="${flare.description}">${descricaoLimitada}</td>
+            <td class="acoes">
                 <button class="btnGray_table btn_gap" onclick="abrirModalEditar('${flare.id}')">Edit</button>
                 <button class="btnGray_table btn_gap" onclick="abrirModalExcluir('${flare.id}')">Delete</button>
             </td>

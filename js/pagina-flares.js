@@ -71,7 +71,7 @@ function preencherTabelaParaInicio(flares) {
                     ? flare.telescopes.join(', ')
                     : flare.telescopes.replace(/;/g, ', '))
                 : '-'}</td>
-            <td>${descricaoLimitada}</td>
+            <td class="texto-longo">${descricaoLimitada}</td>
         `;
     });
 }

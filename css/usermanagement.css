@@ -113,13 +113,6 @@ form {
         width: 90%;
     }
 
-    /* .formulario-card_medio {
-        width: 100%;
-        padding: 1rem;
-        box-sizing: border-box;
-        overflow: hidden;
-    } */
-
     .botoes_responsivo {
         display: flex;
         gap: 0.5rem;
@@ -142,16 +135,8 @@ form {
         box-sizing: border-box;
     }
 
-    /* .formulario-card_medio {
-        width: 100%;
-        overflow: hidden;
-    } */
-
     .botoes_responsivo {
         display: flex;
         gap: 0.5rem;
     }
-
-
-
 }

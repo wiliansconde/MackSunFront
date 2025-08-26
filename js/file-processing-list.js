@@ -151,11 +151,11 @@ function renderizarTabela(dados) {
     dados.forEach((item, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${item.filePath}</td>
-            <td>${item.user}</td>
+            <td class="texto-longo" title="${item.fiilePath}">${item.filePath}</td>
+            <td class="principal" title="${item.user}">${item.user}</td>
             <td class="${classeStatus(item.status)}">${item.status}</td>
-            <td>${formatarData(item.createdTimestamp)}</td>
-            <td>${item.lastUpdatedTimestamp ? formatarData(item.lastUpdatedTimestamp) : '-'}</td>
+            <td class="secundario" title="${item.createdTimestamp}">${formatarData(item.createdTimestamp)}</td>
+            <td class="secundario" title="${item.lastUpdatedTimesTamp}">${item.lastUpdatedTimestamp ? formatarData(item.lastUpdatedTimestamp) : '-'}</td>
             <td>
                 ${item.actions.length} action(s)
                 <button class="btn-saiba-mais btnGray_table btn_gap" data-index="${index}">See more</button>
