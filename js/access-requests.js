@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const approveBtn = modal.querySelector('#approve-btn');
       approveBtn.disabled = true;
       try {
-        const res = await fetch(`https://macksunback.azurewebsites.net/access-requests/${request.id}/approve`, {
+        const res = await fetch(`https://macksunback1.azurewebsites.net/access-requests/${request.id}/approve`, {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           return;
         }
         rejectBtn.disabled = true;
-        fetch(`https://macksunback.azurewebsites.net/access-requests/${request.id}/reject`, {
+        fetch(`https://macksunback1.azurewebsites.net/access-requests/${request.id}/reject`, {
           method: 'PUT',
           headers: {
             'Authorization': `Bearer ${token}`,
