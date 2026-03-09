@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('error_email_format').style.display = 'block';
       hasError = true;
     }
+    
 
     if (hasError) {
       if (submitBtn) submitBtn.disabled = false;
