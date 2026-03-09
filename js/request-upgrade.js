@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const token = localStorage.getItem('token');
-    const BASE_URL = "https://macksunback.azurewebsites.net/";
+    const BASE_URL = "https://macksunback1.azurewebsites.net/";
 
     fetch(`${BASE_URL}/profile-upgrades`, {
       method: 'POST',
