@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const fetchRequests = async () => {
     try {
       const status = document.getElementById('filtro_status').value;
-      let url = 'https://macksunback.azurewebsites.net/profile-upgrades';
+      let url = 'https://macksunback1.azurewebsites.net/profile-upgrades';
       if (status) url += `?status=${encodeURIComponent(status)}`;
 
       const res = await fetch(url, {
