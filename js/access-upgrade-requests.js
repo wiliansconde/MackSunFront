@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       hideMessages();
       approveBtn.disabled = true;
       try {
-        const res = await fetch(`https://macksunback.azurewebsites.net/profile-upgrades/${request.id}/approve`, {
+        const res = await fetch(`https://macksunback1.azurewebsites.net/profile-upgrades/${request.id}/approve`, {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           return;
         }
         rejectBtn.disabled = true;
-        fetch(`https://macksunback.azurewebsites.net/profile-upgrades/${request.id}/reject?comment=${encodeURIComponent(comment)}`, {
+        fetch(`https://macksunback1.azurewebsites.net/profile-upgrades/${request.id}/reject?comment=${encodeURIComponent(comment)}`, {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${token}` }
         })
