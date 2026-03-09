@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const fetchRequests = async () => {
     try {
       const query = buildQuery();
-      const res = await fetch(`https://macksunback.azurewebsites.net/access-requests${query}`, {
+      const res = await fetch(`https://macksunback1.azurewebsites.net/access-requests${query}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
