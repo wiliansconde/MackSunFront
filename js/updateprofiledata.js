@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             try {
-                const BASE_URL = window.BASE_URL || localStorage.getItem('baseUrl') || 'https://macksunback.azurewebsites.net/';
+                const BASE_URL = window.BASE_URL || localStorage.getItem('baseUrl') || 'https://macksunback1.azurewebsites.net/';
                 const updateResponse = await fetch(`${BASE_URL}users/update-password`, {
                     method: 'PATCH',
                     headers: {
