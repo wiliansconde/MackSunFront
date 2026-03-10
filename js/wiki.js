@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function fetchSnippets(params = {}) {
     try {
       const query = new URLSearchParams(params).toString();
-      const url = `https://macksunback.azurewebsites.net/wiki${query ? `?${query}` : ''}`;
+      const url = `https://macksunback1.azurewebsites.net/wiki${query ? `?${query}` : ''}`;
       const response = await fetch(url, {
         headers: {
           'Content-Type': 'application/json'
