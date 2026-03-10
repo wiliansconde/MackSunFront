@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   async function fetchWikis(query = '') {
     try {
-      const response = await fetch(`https://macksunback.azurewebsites.net/wiki${query}`, {
+      const response = await fetch(`https://macksunback1.azurewebsites.net/wiki${query}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-      const response = await fetch('https://macksunback.azurewebsites.net/wiki', {
+      const response = await fetch('https://macksunback1.azurewebsites.net/wiki', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-      const response = await fetch(`https://macksunback.azurewebsites.net/wiki/${currentEditId}`, {
+      const response = await fetch(`https://macksunback1.azurewebsites.net/wiki/${currentEditId}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (confirmBtn) confirmBtn.disabled = true;
 
     try {
-      const response = await fetch(`https://macksunback.azurewebsites.net/wiki/${id}`, {
+      const response = await fetch(`https://macksunback1.azurewebsites.net/wiki/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
