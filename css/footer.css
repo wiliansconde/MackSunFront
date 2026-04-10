@@ -37,3 +37,16 @@ footer a:hover {
     color: #777;
     margin-top: 5px;
 }
+
+.footer-seo {
+    max-width: 900px;
+    margin: 20px auto 0 auto;
+    text-align: center;
+}
+
+.footer-seo p {
+    margin: 6px 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #fff;
+}
