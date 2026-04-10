@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+Disallow: /login
+Disallow: /register
+Disallow: /esquecisenha
+Disallow: /requisicaosenha
+Disallow: /change-password
+Disallow: /request-upgrade
+Disallow: /export-history
+Disallow: /admin/
+
+Sitemap: https://www.macksun.org/sitemap.xml
