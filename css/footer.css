@@ -31,6 +31,13 @@ footer a:hover {
         margin: 0.3rem 0;
     }
 }
+.footer-seo {
+    width: 100%;
+    max-width: 100%;
+    margin: 20px auto 0 auto;
+    text-align: center;
+}
+
 .footer-seo p {
     margin-top: 10px;
     font-size: 11px;
@@ -39,4 +46,5 @@ footer a:hover {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
 }
