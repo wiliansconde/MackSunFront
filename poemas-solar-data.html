@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>POEMAS Solar Data – High Resolution Astronomical Time Series (10 ms) | MackSun</title>
+    <meta name="description"
+        content="Access high-resolution POEMAS solar data (10 ms). Astronomical time series dataset with billions of records, FITS products, and MongoDB-based processing validated in peer-reviewed research." />
+    <meta name="keywords"
+        content="POEMAS solar data, solar time series data, astronomical time series, solar radio telescope data, solar flare data, scientific data portal, FITS products, MongoDB scalability, MackSun, CRAAM" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="MackSun / CRAAM" />
+    <link rel="canonical" href="https://www.macksun.org/poemas-solar-data" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="POEMAS Solar Data – High Resolution Astronomical Time Series (10 ms) | MackSun" />
+    <meta property="og:description"
+        content="High-resolution solar time-series data, FITS products, and scientific infrastructure associated with a peer-reviewed Astronomy and Computing publication." />
+    <meta property="og:url" content="https://www.macksun.org/poemas-solar-data" />
+    <meta property="og:site_name" content="MackSun" />
+    <meta property="og:image" content="https://www.macksun.org/assets/img/macksun-og.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="POEMAS Solar Data – High Resolution Astronomical Time Series (10 ms) | MackSun" />
+    <meta name="twitter:description"
+        content="Peer-reviewed POEMAS solar dataset, astronomical time series data, FITS products, and scalable scientific data processing through MackSun." />
+    <meta name="twitter:image" content="https://www.macksun.org/assets/img/macksun-og.png" />
+
+    <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/formulario.css" />
+    <link rel="stylesheet" href="/css/titles.css" />
+    <link rel="stylesheet" href="/css/buttons.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+
+    <script src="/js/const.js" defer></script>
+    <script type="module" src="/js/login.js" defer></script>
+    <script type="module" src="/js/headerfooter.js" defer></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "headline": "MongoDB scalability for astronomical time series: The POEMAS solar radio telescope evaluation without HPC",
+      "name": "MongoDB scalability for astronomical time series: The POEMAS solar radio telescope evaluation without HPC",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "W. Conde"
+        },
+        {
+          "@type": "Person",
+          "name": "A. Valio"
+        },
+        {
+          "@type": "Person",
+          "name": "C.G.G. de Castro"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "Astronomy and Computing"
+      },
+      "isPartOf": {
+        "@type": "Periodical",
+        "name": "Astronomy and Computing"
+      },
+      "url": "https://doi.org/10.1016/j.ascom.2025.101053",
+      "sameAs": [
+        "https://doi.org/10.1016/j.ascom.2025.101053",
+        "https://www.sciencedirect.com/science/article/abs/pii/S221313372500126X",
+        "https://www.macksun.org/poemas-solar-data"
+      ],
+      "about": [
+        "POEMAS solar data",
+        "solar time series data",
+        "astronomical time series",
+        "solar radio telescope data",
+        "MongoDB scalability",
+        "scientific data engineering",
+        "FITS products",
+        "solar flare data"
+      ]
+    }
+    </script>
+
+    <style>
+        .paper-highlight-page .paper-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .paper-highlight-page .paper-links a {
+            text-decoration: none;
+        }
+
+        .paper-highlight-page .section-spacing {
+            margin-top: 32px;
+        }
+
+        .paper-highlight-page .info-secao strong {
+            color: #111;
+        }
+
+        .paper-highlight-page .citation-box {
+            background: #f7f7f7;
+            border-left: 4px solid #b22222;
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 16px;
+            word-break: break-word;
+        }
+
+        .paper-highlight-page .paper-subtitle {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-top: 12px;
+            color: #333;
+        }
+
+        .paper-highlight-page .paper-title-ref {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-top: 8px;
+        }
+
+        .paper-highlight-page .info-secao ul,
+        .paper-highlight-page ul.info-secao {
+            padding-left: 20px;
+        }
+
+        .paper-highlight-page .info-secao li,
+        .paper-highlight-page ul.info-secao li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="estruturaLogin"></div>
+    <div id="header"></div>
+
+    <main class="container_padrao paper-highlight-page">
+        <div class="formulario_padrao">
+            <h1 class="titulo_padrao">POEMAS Solar Dataset and Infrastructure</h1>
+
+            <p class="paper-subtitle">
+                High-resolution solar time-series data, scientific infrastructure, and consolidated FITS products
+                associated with a peer-reviewed publication in <em>Astronomy and Computing</em>.
+            </p>
+
+            <section class="section-spacing">
+                <h2 class="titulo-secao">Published scientific paper</h2>
+
+                <p class="paper-title-ref info-secao">
+                    <strong>MongoDB scalability for astronomical time series: The POEMAS solar radio telescope evaluation without HPC</strong>
+                </p>
+
+                <p class="info-secao">
+                    This page connects the MackSun portal to the peer-reviewed paper that evaluated MongoDB scalability
+                    for astronomical time series under constrained computational resources, using real POEMAS solar
+                    radio observations.
+                </p>
+
+                <p class="info-secao">
+                    The publication demonstrates practical scalability boundaries for scientific data processing without
+                    HPC and strengthens the scientific foundation of MackSun as a solar data portal focused on
+                    accessibility, reuse, and long-duration astronomical time-series analysis.
+                </p>
+
+                <div class="paper-links">
+                    <a class="btnRed" href="https://doi.org/10.1016/j.ascom.2025.101053" target="_blank"
+                        rel="noopener noreferrer">Open DOI</a>
+                    <a class="btnGray_table"
+                        href="https://www.sciencedirect.com/science/article/abs/pii/S221313372500126X"
+                        target="_blank" rel="noopener noreferrer">Open article page</a>
+                </div>
+            </section>
+
+            <section class="section-spacing">
+                <h2 class="titulo-secao">About the POEMAS solar dataset</h2>
+
+                <p class="info-secao">
+                    POEMAS (POlarization Emission of Millimeter Activity at the Sun) is a solar radio telescope that
+                    monitors the Sun at 45 GHz and 90 GHz, with left and right circular polarization, at a temporal
+                    resolution of 10 milliseconds.
+                </p>
+
+                <p class="info-secao">
+                    This acquisition model generates a dense solar time series dataset with millions of records per day
+                    and approximately 1.1 billion observations per year. In the production deployment described in the
+                    paper, the full historical POEMAS dataset reached approximately 3.3 billion records and generated
+                    around 50 GB of consolidated FITS products.
+                </p>
+
+                <p class="info-secao">
+                    The resulting data products and metadata support scientific reuse in solar physics, astrophysics,
+                    radio astronomy, and large-scale scientific data engineering, while improving access to high
+                    resolution solar observations through the MackSun portal.
+                </p>
+            </section>
+
+            <section class="section-spacing">
+                <h2 class="titulo-secao">Why this work matters</h2>
+
+                <p class="info-secao">
+                    Modern solar instruments generate increasingly dense and heterogeneous observational data. This
+                    creates practical challenges for scientific teams that need to store, query, aggregate, compress,
+                    and preserve large astronomical time series datasets over long time spans.
+                </p>
+
+                <p class="info-secao">
+                    At CRAAM, this problem was evaluated under a strict resource-constrained scenario: a single virtual
+                    machine with 32 GB of RAM, with 16 GB allocated to MongoDB. The central question was whether a
+                    virtualized sharded cluster on a single physical host could offer practical scalability advantages
+                    over a standalone deployment.
+                </p>
+
+                <p class="info-secao">
+                    This makes the study especially relevant for observatories, laboratories, and research groups that
+                    need to manage scientific data at scale without access to dedicated HPC infrastructure.
+                </p>
+            </section>
+
+            <section class="section-spacing">
+                <h2 class="titulo-secao">Astronomical time series evaluation scope</h2>
+
+                <p class="info-secao">
+                    The empirical evaluation used real POEMAS solar radio telescope data and compared performance at
+                    three dataset scales:
+                </p>
+
+                <ul class="info-secao">
+                    <li>15 million documents</li>
+                    <li>150 million documents</li>
+                    <li>500 million documents</li>
+                </ul>
+
+                <p class="info-secao">
+                    The workloads included selective queries, range filters, sequential reads, and global aggregations,
+                    representing realistic analytical demands found in scientific and astronomical time series access.
+                </p>
+            </section>
+
+            <section class="section-spacing">
+                <h2 class="titulo-secao">Main results</h2>
+
+                <ul class="info-secao">
+                    <li>Sharding introduced coordination overhead for selective queries.</li>
+                    <li>Sharding delivered substantial gains for global aggregations.</li>
+                    <li>Aggregation speedups exceeded 600% in the evaluated scenarios.</li>
+                    <li>Compression ratios remained near 85%.</li>
+                    <li>An operational threshold of roughly 150 million documents per collection was identified to
+                        sustain stable performance under the available resources.</li>
+                </ul>
+
+                <p class="info-secao">
+                    These results provide practical evidence that billion-scale astronomical time series can be managed
+                    efficiently in constrained environments when architecture, partitioning strategy, and workload
+                    profile are carefully aligned.
+                </p>
+            </section>
+
+            <section class="section-spacing">
+                <h2 class="titulo-secao">MackSun as a solar data portal</h2>
+
+                <p class="info-secao">
+                    MackSun was created to improve access to solar data, solar time series datasets, solar flare
+                    observations, and scientific products derived from long-term monitoring instruments. In this
+                    context, the POEMAS publication strengthens the portal by linking peer-reviewed evidence to real
+                    operational data products.
+                </p>
+
+                <p class="info-secao">
+                    This page supports discovery and indexing for topics such as:
+                </p>
+
+                <ul class="info-secao">
+                    <li>solar data</li>
+                    <li>solar time series data</li>
+                    <li>solar flare data</li>
+                    <li>solar radio telescope data</li>
+                    <li>astronomical time series</li>
+                    <li>scientific data engineering</li>
+                    <li>MongoDB scalability for scientific workloads</li>
+                    <li>FITS products from solar instruments</li>
+                </ul>
+
+                <p class="info-secao">
+                    MackSun provides open access to solar data, solar time series datasets, and solar flare
+                    observations, supporting research in astrophysics, radio astronomy, and large-scale scientific data
+                    processing.
+                </p>
+            </section>
+
+            <section class="section-spacing">
+                <h2 class="titulo-secao">Access and related pages</h2>
+
+                <p class="info-secao">
+                    To explore more content related to this project, visit the MackSun sections below:
+                </p>
+
+                <ul class="info-secao">
+                    <li><a href="/download-data">Download data</a></li>
+                    <li><a href="/wiki">Wiki</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </section>
+
+            <section class="section-spacing">
+                <h2 class="titulo-secao">Recommended citation</h2>
+
+                <p class="info-secao">
+                    If you use this page, the associated infrastructure description, or the scientific context related
+                    to the POEMAS dataset, please cite the published paper below:
+                </p>
+
+                <div class="citation-box info-secao">
+                    Conde, W., Valio, A., de Castro, C.G.G. <br>
+                    <strong>MongoDB scalability for astronomical time series: The POEMAS solar radio telescope
+                        evaluation without HPC</strong><br>
+                    Astronomy and Computing.<br>
+                    DOI: https://doi.org/10.1016/j.ascom.2025.101053
+                </div>
+            </section>
+
+            <section class="section-spacing">
+                <h2 class="titulo-secao">Scientific and educational value</h2>
+
+                <p class="info-secao">
+                    Beyond database benchmarking, this work serves as a practical reference for research groups,
+                    observatories, data engineers, and students interested in handling large astronomical datasets
+                    without HPC, while preserving accessibility, analytical performance, and reproducibility.
+                </p>
+
+                <p class="info-secao">
+                    It also reinforces the role of MackSun as a scientific portal for solar observation products,
+                    astronomical time series datasets, and operationally realistic data architectures in astronomy.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+</body>
+
+</html>
