@@ -1,6 +1,8 @@
+# Permitir acesso geral
 User-agent: *
 Allow: /
 
+# Bloquear páginas sensíveis ou irrelevantes
 Disallow: /login
 Disallow: /register
 Disallow: /esquecisenha
@@ -10,4 +12,13 @@ Disallow: /request-upgrade
 Disallow: /export-history
 Disallow: /admin/
 
+# Sitemap para facilitar indexação
 Sitemap: https://www.macksun.org/sitemap.xml
+
+# Regras específicas para Googlebot (opcional)
+User-agent: Googlebot
+Allow: /
+
+# Regras específicas para Bingbot (opcional)
+User-agent: Bingbot
+Allow: /
