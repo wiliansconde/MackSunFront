@@ -5,9 +5,17 @@
             background: #000;
             color: #fff;
             width: 100%;
-            padding: 40px 80px 30px;
+            padding: 40px 0 30px; /* remove padding lateral */
             box-sizing: border-box;
             font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* CONTAINER CENTRAL (ALINHA COM O SITE) */
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            box-sizing: border-box;
         }
 
         .footer-top {
@@ -32,9 +40,9 @@
             margin: 0;
         }
 
-        /* LINKS BRANCOS (OU QUASE) */
+        /* LINKS */
         .footer-macksun .rodape a {
-            color: #f5f5f5;      /* branco suave */
+            color: #f5f5f5;
             text-decoration: none;
             font-size: 15px;
             font-weight: 400;
@@ -43,7 +51,7 @@
         }
 
         .footer-macksun .rodape a:hover {
-            color: #ffffff;      /* branco puro no hover */
+            color: #ffffff;
         }
 
         /* LOGOS */
@@ -72,20 +80,9 @@
             max-height: 130px;
         }
 
-        /* TEXTO */
-        .footer-bottom {
-            margin-top: 45px;
-            text-align: center;
-        }
-
-        .footer-bottom p {
-            margin: 0;
-            color: #d0d0d0;
-            font-size: 16px;
-        }
-
+        /* SEO */
         .footer-seo {
-            margin-top: 18px;
+            margin-top: 30px;
             text-align: center;
         }
 
@@ -111,43 +108,46 @@
         }
     </style>
 
-    <div class="footer-top">
+    <div class="footer-container">
 
-        <!-- LINKS -->
-        <div class="footer-links">
-            <ul class="rodape">
-                <li><a href="/about.html">About</a></li>
-                <li><a href="/download-data.html">Download Data</a></li>
-                <li><a href="/pages/wiki/index.html">Wiki</a></li>
-                <li><a href="/terms-of-use.html">Terms of Use</a></li>
-                <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-                <li><a href="/contact-and-support.html">Contact and Support</a></li>
-            </ul>
+        <div class="footer-top">
+
+            <!-- LINKS -->
+            <div class="footer-links">
+                <ul class="rodape">
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/download-data.html">Download Data</a></li>
+                    <li><a href="/pages/wiki/index.html">Wiki</a></li>
+                    <li><a href="/terms-of-use.html">Terms of Use</a></li>
+                    <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="/contact-and-support.html">Contact and Support</a></li>
+                </ul>
+            </div>
+
+            <!-- LOGOS -->
+            <div class="footer-partners">
+                <a href="https://www.mackenzie.br/" target="_blank" rel="noopener">
+                    <img src="/assets/img/logo-m-mackenzie.png" class="logo-mackenzie">
+                </a>
+
+                <a href="https://www.linea.org.br/" target="_blank" rel="noopener">
+                    <img src="/assets/img/logo-linea.png" class="logo-linea">
+                </a>
+
+                <a href="https://www.gov.br/capes/" target="_blank" rel="noopener">
+                    <img src="/assets/img/logo-capes.jpg" class="logo-capes">
+                </a>
+            </div>
+
         </div>
 
-        <!-- LOGOS -->
-        <div class="footer-partners">
-            <a href="https://www.mackenzie.br/" target="_blank" rel="noopener">
-                <img src="/assets/img/logo-m-mackenzie.png" class="logo-mackenzie">
-            </a>
-
-            <a href="https://www.linea.org.br/" target="_blank" rel="noopener">
-                <img src="/assets/img/logo-linea.png" class="logo-linea">
-            </a>
-
-            <a href="https://www.gov.br/capes/" target="_blank" rel="noopener">
-                <img src="/assets/img/logo-capes.jpg" class="logo-capes">
-            </a>
+        <!-- SEO -->
+        <div class="footer-seo">
+            <p>
+                MackSun provides solar data, including solar time series data, solar flare data and solar radio data from instruments such as POEMAS and SST. Data collected from observational instruments located in South America.
+            </p>
         </div>
 
-    </div>
-
-
-    <!-- SEO -->
-    <div class="footer-seo">
-        <p>
-            MackSun v0 provides solar data, including solar time series data, solar flare data and solar radio data from instruments such as POEMAS and SST. Data collected from observational instruments located in South America.
-        </p>
     </div>
 
 </footer>
