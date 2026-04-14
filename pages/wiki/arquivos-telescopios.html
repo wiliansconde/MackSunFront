@@ -4,17 +4,31 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Solar Data Files and Formats | POEMAS and SST | MackSun</title>
 
-    <meta name="description" content="Reference for POEMAS and SST file formats, including FITS and CSV structures, headers, observation fields and example records.">
-    
-    <link rel="canonical" href="https://www.macksun.org/pages/wiki/arquivos-telescopios">
-    
-    <meta name="robots" content="index, follow">
-    
-    <meta name="keywords" content="solar data files, solar file formats, FITS solar data, CSV solar data, POEMAS FITS, SST FITS, solar data dictionary">
+    <title>Solar Data Dictionary | POEMAS and SST Formats (FITS and CSV) | MackSun</title>
+    <meta name="description"
+        content="Complete data dictionary for POEMAS and SST solar datasets. Explore FITS and CSV formats, field definitions, timestamps, frequencies, and observation data structure." />
+    <meta name="keywords"
+        content="solar data dictionary, POEMAS FITS format, SST FITS format, solar CSV data format, astronomical data fields, solar time series structure, radio astronomy data format, MackSun" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="MackSun / CRAAM" />
+    <link rel="canonical" href="https://www.macksun.org/pages/wiki/arquivos-telescopios.html" />
 
-    <link rel="icon" href="./assets/img/favicon-32x32.png" type="image/x-icon">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Solar Data Dictionary | POEMAS and SST Formats | MackSun" />
+    <meta property="og:description"
+        content="Explore the structure of POEMAS and SST datasets, including FITS and CSV formats, headers, and observation data fields." />
+    <meta property="og:url" content="https://www.macksun.org/pages/wiki/arquivos-telescopios.html" />
+    <meta property="og:image" content="https://www.macksun.org/assets/img/macksun-og.png" />
+    <meta property="og:site_name" content="MackSun" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Solar Data Dictionary | POEMAS and SST Formats | MackSun" />
+    <meta name="twitter:description"
+        content="Understand the structure of solar datasets including FITS and CSV formats from POEMAS and SST." />
+    <meta name="twitter:image" content="https://www.macksun.org/assets/img/macksun-og.png" />
+
+    <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="../../../css/global.css">
     <link rel="stylesheet" href="../../../css/buttons.css">
     <link rel="stylesheet" href="../../../css/titles.css">
@@ -37,19 +51,30 @@
     <div id="estruturaLogin"></div>
     <div id="header"></div>
 
-
     <main class="container_padrao">
         <section class="formulario-card_medio">
-            <h1 class="titulo_padrao">Telescopes Data Dictionary</h1>
-        
-            <section class="seo-intro">
-                <p>
-                    This reference page describes the file formats available in MackSun for POEMAS and SST,
-                    including FITS and CSV structures, headers, observation fields and example records.
-                </p>
-            </section>
-        
-            <h2 class="titulo_telescopio">POEMAS FITS</h2>
+            <h1 class="titulo_padrao">Solar Data Dictionary for POEMAS and SST</h1>
+
+            <p class="texto_padrao">
+                This page describes the structure of solar datasets available in MackSun, including POEMAS and SST instruments.
+                It provides detailed information about FITS and CSV formats, header fields, and observation data fields used in
+                solar radio observations and astronomical time series.
+            </p>
+
+            <p class="texto_padrao">
+                The data dictionary is intended for researchers, developers, and users who need to understand the structure,
+                meaning, and usage of each field when working with solar data.
+            </p>
+
+            <p class="texto_padrao">
+                Related pages:
+                <a href="/download-data.html">download solar data</a>,
+                <a href="/pages/wiki/telescopios.html">solar radio telescopes</a>,
+                <a href="/pages/wiki/como-exportar.html">how to export solar data</a>,
+                <a href="/poemas-solar-data">POEMAS solar dataset</a>.
+            </p>
+
+            <p class="titulo_telescopio">POEMAS FITS</p>
             <p class="subtitulo_telescopio">Format: FITS File    |    Encoding: Binary    |    Structure: Header + Observation Data Fields</p>
             <div class="access-table-wrapper">
                 <p class="nometable_telescopio">Header</p>
@@ -189,6 +214,7 @@
                 </table>
             </div>
         </section>
+
         <section class="formulario-card_medio">
             <p class="titulo_telescopio">POEMAS CSV</p>
             <p class="subtitulo_telescopio">Delimiter: Pipe (|)    |    Encoding: UTF-8    |    Structure: Header + Observation Data Fields</p>
@@ -357,9 +383,10 @@ ISO_DATETIME|TBMAX|TBMIN|NFREQ|ELE|AZI|TBL45|TBR45|TBL90|TBR90
 2025-08-22T09:00:00.000-03:00|305.2|298.7|2|45.0|180.0|302.1|303.3|299.8|300.5
 2025-08-22T09:00:01.000-03:00|306.0|299.1|2|45.1|180.2|302.5|303.7|300.0|300.9
 2025-08-22T09:00:02.000-03:00|304.8|298.5|2|45.2|180.4|301.9|303.0|299.6|300.2</pre>
-                
+
             </div>
         </section>
+
         <section class="formulario-card_medio">
             <p class="titulo_telescopio">SST FITS</p>
             <div class="access-table-wrapper">
@@ -540,6 +567,7 @@ ISO_DATETIME|TBMAX|TBMIN|NFREQ|ELE|AZI|TBL45|TBR45|TBL90|TBR90
                 </table>
             </div>
         </section>
+
         <section class="formulario-card_medio">
             <p class="titulo_telescopio">SST CSV</p>
             <p class="subtitulo_telescopio">Delimiter: Pipe (|)   |   Encoding: UTF-8   |   Structure: Header + Observation Data Fields</p>
@@ -619,13 +647,11 @@ ISO_DATETIME|ADCVAL_1|ADCVAL_2|ADCVAL_3|ADCVAL_4|ADCVAL_5|ADCVAL_6|POS_TIME|AZIP
 2025-06-29T12:00:00.000-03:00|1023|980|1001|995|1005|1010|1432567890|123456|654321|5|3|2|1|0|0|10|10|10|10|10|10|1|2|0|1
 2025-06-29T12:00:01.000-03:00|1025|982|1003|997|1007|1012|1432567891|123457|654322|5|3|2|1|0|0|10|10|10|10|10|10|1|2|0|2</pre>
             </div>
-
-
         </section>
     </main>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons/ionicons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 </body>
 
