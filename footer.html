@@ -1,180 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+<footer class="footer-macksun">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="footer-top">
 
-    <link rel="stylesheet" href="/css/global.css">
-    <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
-
-    <title>MackSun</title>
-
-    <style>
-        /* ===== FOOTER BASE ===== */
-        .footer-macksun {
-            background-color: #000 !important;
-            background-image: none !important;
-            color: #eaeaea;
-            padding: 36px 28px 24px;
-            margin-top: 60px;
-            width: 100%;
-        }
-
-        /* ===== LAYOUT ===== */
-        .footer-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 40px;
-        }
-
-        /* ===== LINKS ===== */
-        .footer-links {
-            flex: 0 0 auto;
-        }
-
-        .rodape {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .rodape li {
-            margin-bottom: 10px;
-        }
-
-        .rodape a {
-            color: #eaeaea;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        .rodape a:hover {
-            opacity: 0.7;
-        }
-
-        /* ===== LOGOS ===== */
-        .footer-partners {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .footer-partners img {
-            max-height: 40px;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            opacity: 0.9;
-        }
-
-        /* ===== LINHA INFERIOR ===== */
-        .footer-bottom {
-            margin-top: 28px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255,255,255,0.15);
-            text-align: center;
-        }
-
-        .direitosAutorais {
-            margin: 0;
-            font-size: 14px;
-            color: #cfcfcf;
-        }
-
-        /* ===== SEO TEXT ===== */
-        .footer-seo {
-            margin-top: 16px;
-            text-align: center;
-        }
-
-        .footer-seo p {
-            margin: 0;
-            font-size: 13px;
-            line-height: 1.6;
-            color: #9f9f9f;
-            max-width: 980px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* ===== RESPONSIVO ===== */
-        @media (max-width: 768px) {
-            .footer-top {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 24px;
-            }
-
-            .footer-partners {
-                justify-content: flex-start;
-                flex-wrap: wrap;
-                gap: 20px;
-            }
-
-            .footer-partners img {
-                max-height: 32px;
-            }
-
-            .footer-bottom,
-            .footer-seo {
-                text-align: left;
-            }
-
-            .footer-seo p {
-                margin-left: 0;
-                margin-right: 0;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <footer class="footer-macksun">
-
-        <!-- TOPO -->
-        <div class="footer-top">
-
-            <!-- LINKS -->
-            <div class="footer-links">
-                <ul class="rodape">
-                    <li><a href="/about.html">About</a></li>
-                    <li><a href="/download-data.html">Download Data</a></li>
-                    <li><a href="/pages/wiki/index.html">Wiki</a></li>
-                    <li><a href="/terms-of-use.html">Terms of Use</a></li>
-                    <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-                    <li><a href="/contact-and-support.html">Contact and Support</a></li>
-                </ul>
-            </div>
-
-            <!-- LOGOS -->
-            <div class="footer-partners">
-                <img src="/assets/img/logo-m-mackenzie.png" alt="Mackenzie Presbyterian University">
-                <img src="/assets/img/logo-linea.png" alt="LINEA">
-                <img src="/assets/img/logo-capes.jpg" alt="CAPES">
-            </div>
-
+        <!-- LINKS -->
+        <div class="footer-links">
+            <ul class="rodape">
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/download-data.html">Download Data</a></li>
+                <li><a href="/pages/wiki/index.html">Wiki</a></li>
+                <li><a href="/terms-of-use.html">Terms of Use</a></li>
+                <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="/contact-and-support.html">Contact and Support</a></li>
+            </ul>
         </div>
 
-        <!-- TEXTO INSTITUCIONAL -->
-        <div class="footer-bottom">
-            <p class="direitosAutorais">
-                MackSun is supported by Mackenzie Presbyterian University, CAPES, and LINEA.
-            </p>
+        <!-- PARCEIROS -->
+        <div class="footer-partners">
+            <img src="/assets/img/logo-m-mackenzie.png" alt="Mackenzie Presbyterian University">
+            <img src="/assets/img/logo-linea.png" alt="LINEA">
+            <img src="/assets/img/logo-capes.jpg" alt="CAPES">
         </div>
 
-        <!-- SEO -->
-        <div class="footer-seo">
-            <p>
-                MackSun provides solar data, including solar time series data, solar flare data and solar radio data from instruments such as POEMAS and SST. Data collected from observational instruments located in South America.
-            </p>
-        </div>
+    </div>
 
-    </footer>
+    <!-- TEXTO -->
+    <div class="footer-bottom">
+        <p class="direitosAutorais">
+            MackSun is supported by Mackenzie Presbyterian University, CAPES, and LINEA.
+        </p>
+    </div>
 
-</body>
+    <!-- SEO -->
+    <div class="footer-seo">
+        <p>
+            MackSun provides solar data, including solar time series data, solar flare data and solar radio data from instruments such as POEMAS and SST. Data collected from observational instruments located in South America.
+        </p>
+    </div>
 
-</html>
+</footer>
