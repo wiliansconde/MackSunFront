@@ -5,132 +5,112 @@
             background: #000000;
             color: #ffffff;
             width: 100%;
-            padding: 36px 60px 24px;
+            padding: 40px 80px 28px;
             box-sizing: border-box;
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        .footer-macksun * {
-            box-sizing: border-box;
-        }
-
-        .footer-macksun .footer-top {
+        .footer-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 40px;
-            width: 100%;
+            gap: 60px;
         }
 
-        .footer-macksun .footer-links {
-            flex: 1 1 auto;
+        /* LINKS EMPILHADOS */
+        .footer-links {
+            flex: 1;
         }
 
-        .footer-macksun .rodape {
+        .rodape {
             margin: 0;
             padding: 0;
             list-style: none;
         }
 
-        .footer-macksun .rodape li {
-            margin: 0 0 10px 0;
+        .rodape li {
+            margin-bottom: 12px;
         }
 
-        .footer-macksun .rodape li:last-child {
-            margin-bottom: 0;
-        }
-
-        .footer-macksun .rodape a {
+        .rodape a {
             color: #d9d9d9;
             text-decoration: none;
-            font-size: 16px;
-            line-height: 1.4;
+            font-size: 18px;
+            display: inline-block;
         }
 
-        .footer-macksun .rodape a:hover {
+        .rodape a:hover {
             color: #ffffff;
         }
 
-        .footer-macksun .footer-partners {
-            flex: 0 0 auto;
+        /* LOGOS MAIORES */
+        .footer-partners {
             display: flex;
+            align-items: center;
             justify-content: flex-end;
-            align-items: center;
-            gap: 36px;
-            text-align: right;
+            gap: 60px;
         }
 
-        .footer-macksun .footer-partners a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
-
-        .footer-macksun .footer-partners img {
-            display: block;
+        .footer-partners img {
             width: auto;
             height: auto;
-            max-width: 100%;
             object-fit: contain;
         }
 
-        .footer-macksun .logo-mackenzie {
-            max-height: 54px;
+        .logo-mackenzie {
+            max-height: 70px;
         }
 
-        .footer-macksun .logo-linea {
-            max-height: 64px;
+        .logo-linea {
+            max-height: 80px;
         }
 
-        .footer-macksun .logo-capes {
-            max-height: 52px;
+        .logo-capes {
+            max-height: 65px;
         }
 
-        .footer-macksun .footer-bottom {
-            margin-top: 32px;
+        /* TEXTO */
+        .footer-bottom {
+            margin-top: 40px;
             text-align: center;
         }
 
-        .footer-macksun .footer-bottom p {
+        .footer-bottom p {
             margin: 0;
             color: #d0d0d0;
             font-size: 16px;
-            line-height: 1.5;
         }
 
-        .footer-macksun .footer-seo {
+        .footer-seo {
             margin-top: 16px;
             text-align: center;
         }
 
-        .footer-macksun .footer-seo p {
+        .footer-seo p {
             margin: 0;
             color: #9f9f9f;
             font-size: 13px;
             line-height: 1.5;
         }
 
+        /* RESPONSIVO */
         @media (max-width: 900px) {
-            .footer-macksun {
-                padding: 30px 20px 22px;
-            }
-
-            .footer-macksun .footer-top {
+            .footer-top {
                 flex-direction: column;
-                align-items: flex-start;
             }
 
-            .footer-macksun .footer-partners {
+            .footer-partners {
                 justify-content: flex-start;
+                gap: 30px;
+                margin-top: 20px;
                 flex-wrap: wrap;
-                gap: 24px;
-                margin-top: 8px;
             }
         }
     </style>
 
     <div class="footer-top">
+
+        <!-- LINKS -->
         <div class="footer-links">
             <ul class="rodape">
                 <li><a href="/about.html">About</a></li>
@@ -142,19 +122,21 @@
             </ul>
         </div>
 
+        <!-- LOGOS -->
         <div class="footer-partners">
-            <a href="https://www.mackenzie.br/" target="_blank" rel="noopener noreferrer">
-                <img src="/assets/img/logo-m-mackenzie.png" alt="Mackenzie Presbyterian University" class="logo-mackenzie">
+            <a href="https://www.mackenzie.br/" target="_blank" rel="noopener">
+                <img src="/assets/img/logo-m-mackenzie.png" class="logo-mackenzie">
             </a>
 
-            <a href="https://www.linea.org.br/" target="_blank" rel="noopener noreferrer">
-                <img src="/assets/img/logo-linea.png" alt="LINEA" class="logo-linea">
+            <a href="https://www.linea.org.br/" target="_blank" rel="noopener">
+                <img src="/assets/img/logo-linea.png" class="logo-linea">
             </a>
 
-            <a href="https://www.gov.br/capes/" target="_blank" rel="noopener noreferrer">
-                <img src="/assets/img/logo-capes.jpg" alt="CAPES" class="logo-capes">
+            <a href="https://www.gov.br/capes/" target="_blank" rel="noopener">
+                <img src="/assets/img/logo-capes.jpg" class="logo-capes">
             </a>
         </div>
+
     </div>
 
     <div class="footer-bottom">
