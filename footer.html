@@ -1,8 +1,136 @@
 <footer class="footer-macksun">
 
-    <div class="footer-top">
+    <style>
+        .footer-macksun {
+            background: #000000;
+            color: #ffffff;
+            width: 100%;
+            padding: 36px 60px 24px;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-        <!-- LINKS -->
+        .footer-macksun * {
+            box-sizing: border-box;
+        }
+
+        .footer-macksun .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            width: 100%;
+        }
+
+        .footer-macksun .footer-links {
+            flex: 1 1 auto;
+        }
+
+        .footer-macksun .rodape {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .footer-macksun .rodape li {
+            margin: 0 0 10px 0;
+        }
+
+        .footer-macksun .rodape li:last-child {
+            margin-bottom: 0;
+        }
+
+        .footer-macksun .rodape a {
+            color: #d9d9d9;
+            text-decoration: none;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .footer-macksun .rodape a:hover {
+            color: #ffffff;
+        }
+
+        .footer-macksun .footer-partners {
+            flex: 0 0 auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 36px;
+            text-align: right;
+        }
+
+        .footer-macksun .footer-partners a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .footer-macksun .footer-partners img {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .footer-macksun .logo-mackenzie {
+            max-height: 54px;
+        }
+
+        .footer-macksun .logo-linea {
+            max-height: 64px;
+        }
+
+        .footer-macksun .logo-capes {
+            max-height: 52px;
+        }
+
+        .footer-macksun .footer-bottom {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .footer-macksun .footer-bottom p {
+            margin: 0;
+            color: #d0d0d0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .footer-macksun .footer-seo {
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .footer-macksun .footer-seo p {
+            margin: 0;
+            color: #9f9f9f;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 900px) {
+            .footer-macksun {
+                padding: 30px 20px 22px;
+            }
+
+            .footer-macksun .footer-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-macksun .footer-partners {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 24px;
+                margin-top: 8px;
+            }
+        }
+    </style>
+
+    <div class="footer-top">
         <div class="footer-links">
             <ul class="rodape">
                 <li><a href="/about.html">About</a></li>
@@ -14,23 +142,27 @@
             </ul>
         </div>
 
-        <!-- PARCEIROS -->
         <div class="footer-partners">
-            <img src="/assets/img/logo-m-mackenzie.png" alt="Mackenzie Presbyterian University">
-            <img src="/assets/img/logo-linea.png" alt="LINEA">
-            <img src="/assets/img/logo-capes.jpg" alt="CAPES">
-        </div>
+            <a href="https://www.mackenzie.br/" target="_blank" rel="noopener noreferrer">
+                <img src="/assets/img/logo-m-mackenzie.png" alt="Mackenzie Presbyterian University" class="logo-mackenzie">
+            </a>
 
+            <a href="https://www.linea.org.br/" target="_blank" rel="noopener noreferrer">
+                <img src="/assets/img/logo-linea.png" alt="LINEA" class="logo-linea">
+            </a>
+
+            <a href="https://www.gov.br/capes/" target="_blank" rel="noopener noreferrer">
+                <img src="/assets/img/logo-capes.jpg" alt="CAPES" class="logo-capes">
+            </a>
+        </div>
     </div>
 
-    <!-- TEXTO -->
     <div class="footer-bottom">
-        <p class="direitosAutorais">
+        <p>
             MackSun is supported by Mackenzie Presbyterian University, CAPES, and LINEA.
         </p>
     </div>
 
-    <!-- SEO -->
     <div class="footer-seo">
         <p>
             MackSun provides solar data, including solar time series data, solar flare data and solar radio data from instruments such as POEMAS and SST. Data collected from observational instruments located in South America.
