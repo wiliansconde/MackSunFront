@@ -2,10 +2,10 @@
 
     <style>
         .footer-macksun {
-            background: #000000;
-            color: #ffffff;
+            background: #000;
+            color: #fff;
             width: 100%;
-            padding: 40px 80px 28px;
+            padding: 40px 80px 30px;
             box-sizing: border-box;
             font-family: Arial, Helvetica, sans-serif;
         }
@@ -14,41 +14,40 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 60px;
+            gap: 80px;
         }
 
-        /* LINKS EMPILHADOS */
-        .footer-links {
-            flex: 1;
-        }
-
-        .rodape {
+        /* FORÇA COLUNA (ignora CSS externo) */
+        .footer-macksun .rodape {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 14px;
             margin: 0;
             padding: 0;
             list-style: none;
         }
 
-        .rodape li {
-            margin-bottom: 12px;
+        .footer-macksun .rodape li {
+            margin: 0;
         }
 
-        .rodape a {
+        .footer-macksun .rodape a {
             color: #d9d9d9;
             text-decoration: none;
             font-size: 18px;
-            display: inline-block;
         }
 
-        .rodape a:hover {
+        .footer-macksun .rodape a:hover {
             color: #ffffff;
         }
 
-        /* LOGOS MAIORES */
+        /* LOGOS GRANDES */
         .footer-partners {
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            gap: 60px;
+            gap: 80px;
         }
 
         .footer-partners img {
@@ -57,21 +56,21 @@
             object-fit: contain;
         }
 
+        /* AUMENTO AGRESSIVO */
         .logo-mackenzie {
-            max-height: 70px;
+            max-height: 90px;
         }
 
         .logo-linea {
-            max-height: 80px;
+            max-height: 100px;
         }
 
         .logo-capes {
-            max-height: 65px;
+            max-height: 85px;
         }
 
-        /* TEXTO */
         .footer-bottom {
-            margin-top: 40px;
+            margin-top: 45px;
             text-align: center;
         }
 
@@ -82,7 +81,7 @@
         }
 
         .footer-seo {
-            margin-top: 16px;
+            margin-top: 18px;
             text-align: center;
         }
 
@@ -97,20 +96,19 @@
         @media (max-width: 900px) {
             .footer-top {
                 flex-direction: column;
+                gap: 30px;
             }
 
             .footer-partners {
                 justify-content: flex-start;
-                gap: 30px;
-                margin-top: 20px;
                 flex-wrap: wrap;
+                gap: 40px;
             }
         }
     </style>
 
     <div class="footer-top">
 
-        <!-- LINKS -->
         <div class="footer-links">
             <ul class="rodape">
                 <li><a href="/about.html">About</a></li>
@@ -122,7 +120,6 @@
             </ul>
         </div>
 
-        <!-- LOGOS -->
         <div class="footer-partners">
             <a href="https://www.mackenzie.br/" target="_blank" rel="noopener">
                 <img src="/assets/img/logo-m-mackenzie.png" class="logo-mackenzie">
@@ -147,7 +144,7 @@
 
     <div class="footer-seo">
         <p>
-            MackSun v1 provides solar data, including solar time series data, solar flare data and solar radio data from instruments such as POEMAS and SST. Data collected from observational instruments located in South America.
+            MackSun v2 provides solar data, including solar time series data, solar flare data and solar radio data from instruments such as POEMAS and SST. Data collected from observational instruments located in South America.
         </p>
     </div>
 
