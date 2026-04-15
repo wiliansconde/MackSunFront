@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>POEMAS Solar Radio Data - 1s Resolution (2024-10-01) | MackSun Datasets</title>
+  <meta name="description" content="Derived POEMAS solar radio dataset at 1-second resolution for 2024-10-01. Structured solar time series data for solar flare analysis, radio astronomy, machine learning, and scientific data engineering." />
+  <meta name="keywords" content="solar data, solar time series, POEMAS, solar flare, radio astronomy, scientific dataset, MackSun, data engineering, machine learning, astrophysics" />
+  <meta name="author" content="Wilians Conde" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://www.macksun.org/datasets/poemas-2024-10-01-1s/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="POEMAS Solar Radio Data - 1s Resolution (2024-10-01)" />
+  <meta property="og:description" content="Derived solar radio dataset from the POEMAS instrument aggregated at 1-second resolution from 10ms acquisition." />
+  <meta property="og:url" content="https://www.macksun.org/datasets/poemas-2024-10-01-1s/" />
+  <meta property="og:site_name" content="MackSun" />
+  <meta property="og:image" content="https://www.macksun.org/assets/img/solar-data-macksun.webp" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="POEMAS Solar Radio Data - 1s Resolution (2024-10-01)" />
+  <meta name="twitter:description" content="Derived solar radio dataset from POEMAS for solar flare analysis, time series modeling, and scientific workflows." />
+  <meta name="twitter:image" content="https://www.macksun.org/assets/img/solar-data-macksun.webp" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Dataset",
+    "name": "POEMAS Solar Radio Data - 1s Resolution (2024-10-01)",
+    "description": "Derived solar radio dataset from the POEMAS instrument aggregated at 1-second resolution from 10ms acquisition. Suitable for solar flare detection, radio astronomy, time series analysis, machine learning, and scientific data engineering workflows.",
+    "url": "https://www.macksun.org/datasets/poemas-2024-10-01-1s/",
+    "keywords": [
+      "solar data",
+      "solar time series",
+      "solar flare",
+      "radio astronomy",
+      "POEMAS",
+      "scientific dataset",
+      "machine learning",
+      "data engineering",
+      "astrophysics",
+      "MackSun"
+    ],
+    "creator": {
+      "@type": "Person",
+      "name": "Wilians Conde"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MackSun",
+      "url": "https://www.macksun.org"
+    },
+    "includedInDataCatalog": {
+      "@type": "DataCatalog",
+      "name": "MackSun Datasets",
+      "url": "https://www.macksun.org/datasets/"
+    },
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "temporalCoverage": "2024-10-01/2024-10-01",
+    "spatialCoverage": {
+      "@type": "Place",
+      "name": "San Juan, Argentina"
+    },
+    "measurementTechnique": "Median aggregation over non-overlapping 1-second intervals from 10ms acquisition",
+    "variableMeasured": [
+      "ISO_DATETIME",
+      "TBMAX",
+      "TBMIN",
+      "NFREQ",
+      "ELE",
+      "AZI",
+      "TBL45",
+      "TBR45",
+      "TBL90",
+      "TBR90"
+    ],
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "name": "Direct download",
+        "contentUrl": "https://www.macksun.org/datasets/poemas-2024-10-01-1s/files/POEMAS_derived_1s_CSV_71df02fe5fee.csv.zip",
+        "encodingFormat": "application/zip"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "Kaggle dataset",
+        "contentUrl": "COLE_AQUI_O_LINK_DO_KAGGLE"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "Zenodo dataset",
+        "contentUrl": "https://doi.org/10.5281/zenodo.19599749"
+      }
+    ],
+    "sameAs": [
+      "COLE_AQUI_O_LINK_DO_KAGGLE",
+      "https://doi.org/10.5281/zenodo.19599749",
+      "https://www.macksun.org/pages/wiki/arquivos-telescopios.html",
+      "https://www.macksun.org/pages/wiki/index.html"
+    ],
+    "isAccessibleForFree": true
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0b0b0d;
+      --card: #15161a;
+      --card-2: #1d1f25;
+      --text: #f3f4f6;
+      --muted: #b8bec9;
+      --line: #2a2f39;
+      --accent: #ffb400;
+      --accent-2: #ffd166;
+      --link: #7cc7ff;
+      --max: 1120px;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(255,180,0,0.08), transparent 20%),
+        linear-gradient(180deg, #0a0b0f 0%, #0f1116 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .topbar {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(8, 10, 14, 0.75);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topbar-inner {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+
+    .brand-badge {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), #ff7b00);
+      box-shadow: 0 0 12px rgba(255,180,0,0.45);
+    }
+
+    .nav {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+
+    .nav a {
+      color: var(--muted);
+    }
+
+    .hero {
+      padding: 52px 0 28px;
+    }
+
+    .breadcrumb {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .breadcrumb span {
+      margin: 0 8px;
+      color: #737b88;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.9fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .hero-side,
+    .section-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 28px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: 42px;
+      line-height: 1.12;
+      letter-spacing: -0.6px;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 90%;
+    }
+
+    .hero-side {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat {
+      background: var(--card-2);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #ff8a00);
+      color: #111;
+    }
+
+    .btn-primary:hover {
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: rgba(255,255,255,0.14);
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      text-decoration: none;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .sections {
+      padding: 8px 0 60px;
+      display: grid;
+      gap: 20px;
+    }
+
+    .section-card {
+      padding: 24px;
+    }
+
+    .section-card h2 {
+      margin: 0 0 14px;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .section-card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .meta-item {
+      background: var(--card-2);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .meta-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .meta-item span {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .feature-list,
+    .columns-list {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .feature-list li,
+    .columns-list li {
+      margin-bottom: 8px;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .link-card {
+      background: var(--card-2);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .link-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .link-card p {
+      margin: 0 0 10px;
+      font-size: 14px;
+    }
+
+    .note {
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: rgba(255,180,0,0.08);
+      border-radius: 10px;
+      color: #f4ead4;
+      margin-top: 16px;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 26px 0 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer strong {
+      color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .meta-grid,
+      .links-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .lead {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar-inner {
+        align-items: flex-start;
+        padding: 12px 0;
+        flex-direction: column;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      h1 {
+        font-size: 29px;
+      }
+
+      .section-card h2 {
+        font-size: 22px;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="brand-badge"></span>
+        <span>MackSun Datasets</span>
+      </div>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="https://www.macksun.org/">Portal</a>
+        <a href="https://www.macksun.org/datasets/">Datasets</a>
+        <a href="https://www.macksun.org/pages/wiki/index.html">Wiki</a>
+        <a href="https://www.macksun.org/pages/wiki/arquivos-telescopios.html">Specification</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="breadcrumb" aria-label="Breadcrumb">
+          <a href="https://www.macksun.org/">Home</a>
+          <span>/</span>
+          <a href="https://www.macksun.org/datasets/">Datasets</a>
+          <span>/</span>
+          <span>POEMAS 2024-10-01 1s</span>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-main">
+            <span class="eyebrow">Official dataset page</span>
+            <h1>POEMAS Solar Radio Data - 1s Resolution (2024-10-01)</h1>
+            <p class="lead">
+              Derived solar radio time series generated from POEMAS high-frequency acquisition.
+              This dataset is structured for solar flare analysis, radio astronomy, time series modeling,
+              machine learning, and scientific data engineering workflows.
+            </p>
+          </div>
+
+          <aside class="hero-side" aria-label="Dataset quick facts">
+            <div class="stat-grid">
+              <div class="stat">
+                <span class="stat-label">Instrument</span>
+                <span class="stat-value">POEMAS</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Resolution</span>
+                <span class="stat-value">1 second</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Type</span>
+                <span class="stat-value">Derived</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Source</span>
+                <span class="stat-value">10ms acquisition</span>
+              </div>
+            </div>
+
+            <div class="cta-group">
+              <a class="btn btn-primary" href="https://www.macksun.org/datasets/poemas-2024-10-01-1s/files/POEMAS_derived_1s_CSV_71df02fe5fee.csv.zip">Direct download</a>
+              <a class="btn btn-secondary" href="https://www.kaggle.com/datasets/wiliansconde/poemas-solar-radio-data-1s-solar-data">Kaggle</a>
+              <a class="btn btn-secondary" href="https://doi.org/10.5281/zenodo.19599749">Zenodo</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="sections">
+      <div class="container">
+        <section class="section-card" id="summary">
+          <h2>Dataset Summary</h2>
+          <div class="meta-grid">
+            <div class="meta-item">
+              <strong>Instrument</strong>
+              <span>POEMAS (Polarization Emission of Millimeter Activity at the Sun)</span>
+            </div>
+            <div class="meta-item">
+              <strong>Observatory</strong>
+              <span>CASLEO</span>
+            </div>
+            <div class="meta-item">
+              <strong>Frequency bands</strong>
+              <span>45 GHz / 90 GHz</span>
+            </div>
+            <div class="meta-item">
+              <strong>Temporal coverage</strong>
+              <span>2024-10-01</span>
+            </div>
+            <div class="meta-item">
+              <strong>Temporal resolution</strong>
+              <span>1 second</span>
+            </div>
+            <div class="meta-item">
+              <strong>Dataset type</strong>
+              <span>Derived from 10ms acquisition</span>
+            </div>
+            <div class="meta-item">
+              <strong>Institution</strong>
+              <span>CRAAM / Mackenzie Presbiterian University / MackSun</span>
+            </div>
+            <div class="meta-item">
+              <strong>License</strong>
+              <span>CC-BY 4.0</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-card" id="description">
+          <h2>Description</h2>
+          <p>
+            This dataset contains derived solar radio observations from the POEMAS instrument,
+            aggregated at 1-second resolution from high-frequency 10ms acquisition. The aggregation
+            strategy applies median reduction over non-overlapping windows, preserving relevant temporal
+            patterns while reducing noise and stabilizing the resulting time series.
+          </p>
+          <p>
+            The dataset is suitable for solar flare detection and analysis, radio astronomy studies,
+            time series modeling, signal exploration, machine learning experiments, and data engineering
+            workflows involving real scientific observations.
+          </p>
+          <div class="note">
+            This page is the official dataset landing page within the MackSun platform and is intended
+            to support indexing in general search engines and Google Dataset Search.
+          </div>
+        </section>
+
+        <section class="section-card" id="structure">
+          <h2>Data Structure</h2>
+          <p>
+            The file is distributed as CSV with pipe (<strong>|</strong>) delimiter and UTF-8 encoding.
+            It includes a metadata header and observation data fields.
+          </p>
+
+          <h3>Core observation fields</h3>
+          <ul class="columns-list">
+            <li><strong>ISO_DATETIME</strong> — Timestamp in ISO 8601 format with milliseconds</li>
+            <li><strong>TBMAX</strong> — Maximum brightness temperature in Kelvin</li>
+            <li><strong>TBMIN</strong> — Minimum brightness temperature in Kelvin</li>
+            <li><strong>NFREQ</strong> — Number of observed frequencies</li>
+            <li><strong>ELE</strong> — Telescope elevation angle in degrees</li>
+            <li><strong>AZI</strong> — Telescope azimuth angle in degrees</li>
+            <li><strong>TBL45</strong> — Left polarization brightness temperature at 45 GHz</li>
+            <li><strong>TBR45</strong> — Right polarization brightness temperature at 45 GHz</li>
+            <li><strong>TBL90</strong> — Left polarization brightness temperature at 90 GHz</li>
+            <li><strong>TBR90</strong> — Right polarization brightness temperature at 90 GHz</li>
+          </ul>
+        </section>
+
+        <section class="section-card" id="use-cases">
+          <h2>Use Cases</h2>
+          <ul class="feature-list">
+            <li>Solar flare detection and analysis</li>
+            <li>Solar radio emission studies</li>
+            <li>Radio astronomy exploratory workflows</li>
+            <li>Time series analysis and forecasting experiments</li>
+            <li>Machine learning pipelines using scientific data</li>
+            <li>Data engineering validation using real-world observational datasets</li>
+          </ul>
+        </section>
+
+        <section class="section-card" id="access">
+          <h2>Access and External References</h2>
+          <div class="links-grid">
+            <div class="link-card">
+              <strong>Direct download</strong>
+              <p>Official file hosted within the MackSun dataset structure.</p>
+              <a href="https://www.macksun.org/datasets/poemas-2024-10-01-1s/files/POEMAS_derived_1s_CSV_71df02fe5fee.csv.zip">
+                https://www.macksun.org/datasets/poemas-2024-10-01-1s/files/POEMAS_derived_1s_CSV_71df02fe5fee.csv.zip
+              </a>
+            </div>
+
+            <div class="link-card">
+              <strong>Kaggle</strong>
+              <p>Public distribution for broader discovery and applied data workflows.</p>
+              <a href="COLE_AQUI_O_LINK_DO_KAGGLE">COLE_AQUI_O_LINK_DO_KAGGLE</a>
+            </div>
+
+            <div class="link-card">
+              <strong>Zenodo</strong>
+              <p>Persistent DOI-based scientific reference for citation and archival access.</p>
+              <a href="https://doi.org/10.5281/zenodo.19599749">https://doi.org/10.5281/zenodo.19599749</a>
+            </div>
+
+            <div class="link-card">
+              <strong>Scientific article</strong>
+              <p>Experimental validation related to infrastructure constraints and processing strategy.</p>
+              <a href="https://www.sciencedirect.com/science/article/pii/S221313372500126X">
+                https://www.sciencedirect.com/science/article/pii/S221313372500126X
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-card" id="documentation">
+          <h2>Documentation</h2>
+          <p>
+            Full data format specifications, telescope file structure, metadata conventions,
+            and additional usage examples are available in the MackSun wiki.
+          </p>
+
+          <div class="links-grid">
+            <div class="link-card">
+              <strong>Dataset specification</strong>
+              <p>Technical specification for telescope file formats and field organization.</p>
+              <a href="https://www.macksun.org/pages/wiki/arquivos-telescopios.html">
+                https://www.macksun.org/pages/wiki/arquivos-telescopios.html
+              </a>
+            </div>
+
+            <div class="link-card">
+              <strong>Wiki index</strong>
+              <p>Additional examples, project documentation, and supporting information.</p>
+              <a href="https://www.macksun.org/pages/wiki/index.html">
+                https://www.macksun.org/pages/wiki/index.html
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-card" id="macksun">
+          <h2>About MackSun</h2>
+          <p>
+            MackSun is a solar data platform focused on ingestion, processing, organization,
+            and availability of high-frequency solar time series data. The platform is designed
+            to support scientific research, reproducible data workflows, and large-scale data
+            engineering scenarios without requiring HPC infrastructure.
+          </p>
+          <p>
+            Explore the full platform:
+          </p>
+          <p>
+            <a href="https://www.macksun.org">https://www.macksun.org</a>
+          </p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p><strong>MackSun</strong> — Solar data, solar time series, radio astronomy, and scientific data engineering.</p>
+      <p>Official dataset page for indexing, discovery, and scientific access.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const pageTitle = document.title;
+      const datasetName = "POEMAS Solar Radio Data - 1s Resolution (2024-10-01)";
+      const canonical = document.querySelector('link[rel="canonical"]')?.href || window.location.href;
+
+      console.log("MackSun dataset page loaded");
+      console.log("Title:", pageTitle);
+      console.log("Dataset:", datasetName);
+      console.log("Canonical:", canonical);
+    })();
+  </script>
+</body>
+</html>
