@@ -11,7 +11,7 @@
         content="MackSun is a solar data portal providing access to solar data, solar flare observations, radio astronomy products, and astronomical time series. Developed with CRAAM, Mackenzie, CAPES support, and LINEA infrastructure for scientific research and data access." />
 
     <meta name="keywords"
-        content="MackSun, solar data portal, solar data, solar flare data, radio astronomy, astronomical time series, CRAAM, POEMAS, SST, astrophysics data, scientific data, CAPES, LINEA, Mackenzie, solar physics, space weather" />
+        content="MackSun, solar data portal, solar data, solar flare data, radio astronomy, astronomical time series, CRAAM, POEMAS, SST, astrophysics data, scientific data, CAPES, LINEA, Mackenzie, solar physics, space weather, data engineering, solar datasets, solar observations" />
 
     <meta name="robots" content="index, follow" />
     <meta name="author" content="MackSun / CRAAM" />
@@ -58,7 +58,124 @@
         .about-cta-box a {
             font-weight: 600;
         }
+
+        .team-section-intro {
+            margin-bottom: 16px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .team-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .team-photo {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 14px;
+            display: block;
+            margin-bottom: 14px;
+            background: #f3f4f6;
+        }
+
+        .team-name {
+            font-size: 20px;
+            line-height: 1.2;
+            margin: 0 0 8px;
+            color: #111827;
+        }
+
+        .team-role {
+            font-size: 14px;
+            font-weight: 700;
+            color: #374151;
+            margin: 0 0 12px;
+        }
+
+        .team-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #4b5563;
+            margin: 0 0 14px;
+        }
+
+        .team-contact {
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .team-contact a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .team-contact a:hover {
+            text-decoration: underline;
+        }
+
+        .team-note-box {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        @media (max-width: 980px) {
+            .team-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-photo {
+                width: 110px;
+                height: 110px;
+            }
+        }
     </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "About MackSun",
+      "url": "https://www.macksun.org/about.html",
+      "description": "About MackSun, a solar data portal for solar observations, solar flare data, radio astronomy products, and astronomical time series.",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "MackSun",
+        "url": "https://www.macksun.org",
+        "sameAs": [
+          "https://www.mackenzie.br/centro-de-radio-astronomia-e-astrofisica-mackenzie",
+          "https://linea.org.br",
+          "https://www.gov.br/capes"
+        ]
+      }
+    }
+    </script>
 </head>
 
 <body>
@@ -236,59 +353,177 @@
             </section>
 
             <section>
-                <h2 class="titulo-secao">Technical And Scientific Team</h2>
-
-                <ul class="info-secao">
-                    <li>
-                        Adriana Valio – Idealization and scientific leadership of the MackSun initiative,
-                        contributing to the definition of the platform objectives, scientific direction,
-                        and integration with solar physics and space weather research.
-                    </li>
-
-                    <li>
-                        Carlos Giménez de Castro – Scientific support, data validation, and contribution to
-                        solar radio astronomy research, including observational analysis and interpretation
-                        of solar flare events and astronomical time series.
-                    </li>
-
-                    <li>
-                        Wilians Conde – Solution architecture, data engineering, automation, and large-scale
-                        data processing infrastructure, enabling the ingestion, processing, organization,
-                        and availability of high-volume astronomical datasets.
-                    </li>
-                </ul>
-
-                <p class="info-secao">
-                    The development of MackSun is the result of a combined effort between scientific research,
-                    observational expertise, software architecture, and large-scale data processing, ensuring
-                    that the platform aligns with both scientific validation requirements and real-world data
-                    engineering challenges.
+                <h2 class="titulo-secao">Scientific Leadership</h2>
+                <p class="info-secao team-section-intro">
+                    MackSun combines solar physics expertise, scientific validation, data engineering, interface design,
+                    and quality assurance to support reliable access to solar data, radio astronomy products, and
+                    astronomical time series.
                 </p>
+
+                <div class="team-grid">
+                    <article class="team-card">
+                        <img class="team-photo"
+                            src="/assets/img/adriana-valio-solar-physics-craam-macksun.webp"
+                            alt="Adriana Valio solar physics CRAAM MackSun"
+                            loading="lazy" width="120" height="120">
+                        <h3 class="team-name">Adriana Valio</h3>
+                        <p class="team-role">Scientific Leadership</p>
+                        <p class="team-desc">
+                            Idealization and scientific leadership of the MackSun initiative, contributing to the
+                            definition of platform objectives, scientific direction, and integration with solar physics
+                            and space weather research.
+                        </p>
+                        <p class="team-contact">
+                            <a href="mailto:avalio@craam.mackenzie.br">avalio@craam.mackenzie.br</a><br>
+                            <a href="https://scholar.google.com.br/citations?user=JGulLCgAAAAJ&hl=pt-BR" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+                        </p>
+                    </article>
+
+                    <article class="team-card">
+                        <img class="team-photo"
+                            src="/assets/img/carlos-gimenez-de-castro-radio-astronomy-craam-macksun.webp"
+                            alt="Carlos Gimenez de Castro radio astronomy CRAAM MackSun"
+                            loading="lazy" width="120" height="120">
+                        <h3 class="team-name">Carlos Giménez de Castro</h3>
+                        <p class="team-role">Scientific Research and Data Validation</p>
+                        <p class="team-desc">
+                            Scientific support, data validation, and contribution to solar radio astronomy research,
+                            including observational analysis and interpretation of solar flare events and astronomical
+                            time series.
+                        </p>
+                        <p class="team-contact">
+                            <a href="mailto:guigue@craam.mackenzie.br">guigue@craam.mackenzie.br</a><br>
+                            <a href="https://scholar.google.com.br/citations?user=1ZfNPiYAAAAJ&hl=pt-BR" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+                        </p>
+                    </article>
+                </div>
             </section>
 
             <section>
-                <h2 class="titulo-secao">UX/UI Team</h2>
+                <h2 class="titulo-secao">Data Engineering and Platform Architecture</h2>
 
-                <p class="info-secao">
-                    <a href="http://www.linkedin.com/in/camila-ranieri/" target="_blank" rel="noopener noreferrer">Camila Ranieri</a>,
-                    <a href="https://www.linkedin.com/in/eduardodiaslima/" target="_blank" rel="noopener noreferrer">Eduardo Dias</a>
-                    and
-                    <a href="https://www.linkedin.com/in/felipecgonzalez/" target="_blank" rel="noopener noreferrer">Felipe Gonzalez</a>
-                    contributed to interface design, user experience, front-end development, and integration with
-                    back-end services.
+                <div class="team-grid">
+                    <article class="team-card">
+                        <img class="team-photo"
+                            src="/assets/img/wilians-conde-software-architecture-data-engineering-macksun.webp"
+                            alt="Wilians Conde software architecture data engineering MackSun"
+                            loading="lazy" width="120" height="120">
+                        <h3 class="team-name">Wilians Conde</h3>
+                        <p class="team-role">Software Architecture and Data Engineering</p>
+                        <p class="team-desc">
+                            Solution architecture, data engineering, automation, and large-scale data processing
+                            infrastructure, enabling ingestion, processing, organization, and availability of
+                            high-volume astronomical datasets.
+                        </p>
+                        <p class="team-contact">
+                            <a href="mailto:wilians.conde@gmail.com">wilians.conde@gmail.com</a><br>
+                            <a href="https://www.linkedin.com/in/will-conde/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="titulo-secao">UX UI and Front End Development</h2>
+                <p class="info-secao team-section-intro">
+                    This team helped transform a scientifically rigorous platform into an accessible and usable portal,
+                    improving interface quality, user experience, and interaction with solar datasets and export
+                    workflows.
                 </p>
 
-                <p class="info-secao">
-                    Their work was essential to transform a scientifically rigorous platform into an accessible
-                    and usable portal, helping different audiences explore solar data, astronomical time series,
-                    export workflows, and observational products in a clearer and more intuitive way.
-                </p>
+                <div class="team-grid">
+                    <article class="team-card">
+                        <img class="team-photo"
+                            src="/assets/img/camila-ranieri-ux-ui-design-macksun.webp"
+                            alt="Camila Ranieri ux ui design MackSun"
+                            loading="lazy" width="120" height="120">
+                        <h3 class="team-name">Camila Ranieri</h3>
+                        <p class="team-role">UX UI and Front End</p>
+                        <p class="team-desc">
+                            Interface design, user experience, and front-end development, contributing to accessibility,
+                            usability, and interaction with solar data and astronomical time series.
+                        </p>
+                        <p class="team-contact">
+                            <a href="mailto:camilaranieri2@gmail.com">camilaranieri2@gmail.com</a><br>
+                            <a href="http://www.linkedin.com/in/camila-ranieri/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        </p>
+                    </article>
 
-                <p class="info-secao">
-                    This contribution helped ensure that MackSun is not only scientifically relevant, but also
-                    functional, responsive, and aligned with the practical needs of researchers, students,
-                    professors, and users interested in solar data and radio astronomy.
-                </p>
+                    <article class="team-card">
+                        <img class="team-photo"
+                            src="/assets/img/eduardo-dias-lima-frontend-ux-ui-macksun.webp"
+                            alt="Eduardo Dias Lima frontend ux ui MackSun"
+                            loading="lazy" width="120" height="120">
+                        <h3 class="team-name">Eduardo Dias Lima</h3>
+                        <p class="team-role">Front End and Integration</p>
+                        <p class="team-desc">
+                            Front-end development and integration with back-end services, enabling interaction with
+                            platform features, data workflows, and export functionalities.
+                        </p>
+                        <p class="team-contact">
+                            <a href="mailto:eduardodlima1708@gmail.com">eduardodlima1708@gmail.com</a><br>
+                            <a href="https://www.linkedin.com/in/eduardodiaslima/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        </p>
+                    </article>
+
+                    <article class="team-card">
+                        <img class="team-photo"
+                            src="/assets/img/felipe-gonzalez-frontend-ux-ui-macksun.webp"
+                            alt="Felipe Gonzalez frontend ux ui MackSun"
+                            loading="lazy" width="120" height="120">
+                        <h3 class="team-name">Felipe Gonzalez</h3>
+                        <p class="team-role">Front End and UX UI</p>
+                        <p class="team-desc">
+                            Front-end development and user experience design using modern technologies, contributing to
+                            responsive interfaces and integration with APIs and data services.
+                        </p>
+                        <p class="team-contact">
+                            <a href="mailto:felipecgonzalez2305@gmail.com">felipecgonzalez2305@gmail.com</a><br>
+                            <a href="https://www.linkedin.com/in/felipecgonzalez/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="titulo-secao">Quality Assurance and Validation</h2>
+
+                <div class="team-grid">
+                    <article class="team-card">
+                        <img class="team-photo"
+                            src="/assets/img/monica-campos-quality-assurance-cypress-macksun.webp"
+                            alt="Monica Campos quality assurance Cypress MackSun"
+                            loading="lazy" width="120" height="120">
+                        <h3 class="team-name">Monica Campos</h3>
+                        <p class="team-role">Quality Assurance and Validation</p>
+                        <p class="team-desc">
+                            Responsible for validating front-end and back-end processes, ensuring data consistency,
+                            system reliability, and quality assurance across the MackSun platform, including validation
+                            of data pipelines and system behavior.
+                        </p>
+                        <p class="team-contact">
+                            <a href="mailto:monica.rcampos31@gmail.com">monica.rcampos31@gmail.com</a><br>
+                            <a href="https://www.linkedin.com/in/m%C3%B4nica-campos/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="titulo-secao">Instrument Integration and Scientific Plugins</h2>
+
+                <div class="team-note-box">
+                    <p class="info-secao">
+                        This section will include future contributors responsible for instrument-specific integrations,
+                        data ingestion modules, and scientific plugins related to solar observation systems such as
+                        POEMAS and other radio astronomy instruments.
+                    </p>
+
+                    <p class="info-secao">
+                        The goal is to expand MackSun to support multiple instruments, enabling standardized access,
+                        processing, and distribution of solar data across different observational systems.
+                    </p>
+                </div>
             </section>
 
             <section>
