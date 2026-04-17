@@ -8,10 +8,10 @@
     <title>About MackSun | Solar Data Portal, Solar Flare Data, Radio Astronomy and Astronomical Time Series</title>
 
     <meta name="description"
-        content="Learn about MackSun, a solar data portal focused on solar data, solar flare observations, radio astronomy products, and astronomical time series for research, education, and scientific data access." />
+        content="Learn about MackSun, a solar data portal focused on solar data, solar flare observations, radio astronomy products, and astronomical time series for research, education, scientific infrastructure, and data access." />
 
     <meta name="keywords"
-        content="MackSun, solar data portal, solar data, solar flare data, solar flare observations, radio astronomy, astronomical time series, CRAAM, POEMAS, SST, astrophysics data, scientific data, solar datasets, solar observations, solar time series data, space weather, data engineering, LINEA, CAPES, Mackenzie" />
+        content="MackSun, solar data portal, solar data, solar flare data, solar flare observations, radio astronomy, astronomical time series, solar time series data, solar datasets, solar observations, CRAAM, POEMAS, SST, astrophysics data, scientific data, data engineering, scientific platform, LINEA, CAPES, Mackenzie" />
 
     <meta name="robots" content="index, follow" />
     <meta name="author" content="MackSun / CRAAM" />
@@ -67,7 +67,7 @@
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 24px;
-            margin-top: 20px;
+            margin-top: 92px;
             margin-bottom: 10px;
         }
 
@@ -81,12 +81,14 @@
         }
 
         .team-card {
+            position: relative;
             background: #ffffff;
             border: 1px solid #e5e7eb;
-            border-radius: 14px;
-            padding: 28px 22px 22px;
+            border-radius: 18px;
+            padding: 96px 22px 22px;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: visible;
         }
 
         .team-card:hover {
@@ -95,21 +97,23 @@
         }
 
         .team-card-top {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             text-align: center;
             margin-bottom: 18px;
         }
 
         .team-photo {
+            position: absolute;
+            top: -56px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 140px;
             height: 140px;
             object-fit: cover;
-            border-radius: 16px;
+            border-radius: 18px;
             display: block;
-            margin: 0 auto 16px;
             background: #f3f4f6;
+            border: 4px solid #ffffff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
 
         .team-name {
@@ -176,6 +180,7 @@
             .team-grid,
             .team-grid.team-grid-2 {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
+                margin-top: 88px;
             }
 
             .team-grid.team-grid-1 {
@@ -188,15 +193,17 @@
             .team-grid.team-grid-2,
             .team-grid.team-grid-1 {
                 grid-template-columns: 1fr;
+                margin-top: 78px;
+            }
+
+            .team-card {
+                padding: 86px 18px 20px;
             }
 
             .team-photo {
                 width: 120px;
                 height: 120px;
-            }
-
-            .team-card {
-                padding: 24px 18px 20px;
+                top: -48px;
             }
         }
     </style>
@@ -430,9 +437,9 @@
                         <div class="team-card-top">
                             <img class="team-photo"
                                 src="/assets/img/carlos-gimenez-de-castro-radio-astronomy-craam-macksun.webp"
-                                alt="Guillermo Gimenez de Castro radio astronomy CRAAM MackSun"
+                                alt="Carlos Gimenez de Castro radio astronomy CRAAM MackSun"
                                 loading="lazy" width="140" height="140">
-                            <h3 class="team-name">Guillermo G. de Castro</h3>
+                            <h3 class="team-name">Carlos Giménez de Castro</h3>
                             <p class="team-role">Scientific Research and Data Validation</p>
                         </div>
 
@@ -479,11 +486,11 @@
             </section>
 
             <section>
-                <h2 class="titulo-secao">UX UI and Front End Development</h2>
+                <h2 class="titulo-secao">UX UI, Front End and Integration</h2>
                 <p class="info-secao team-section-intro">
-                    This team helped transform a scientifically rigorous platform into an accessible and usable portal,
-                    improving interface quality, user experience, responsive behavior, and interaction with solar
-                    datasets, APIs, filters, exports, and platform workflows.
+                    This team contributed to user experience design, interface development, and front-end integration,
+                    helping transform MackSun into a more accessible, responsive, and usable platform for scientific
+                    data exploration, filtering, export workflows, and interaction with APIs and back-end services.
                 </p>
 
                 <div class="team-grid">
@@ -491,18 +498,24 @@
                         <div class="team-card-top">
                             <img class="team-photo"
                                 src="/assets/img/camila-ranieri-ux-ui-design-macksun.webp"
-                                alt="Camila Ranieri UX UI design and front end development for MackSun"
+                                alt="Camila Ranieri UX UI front end and integration for MackSun"
                                 loading="lazy" width="140" height="140">
                             <h3 class="team-name">Camila Ranieri</h3>
-                            <p class="team-role">UX UI and Front End</p>
+                            <p class="team-role">UX UI, Front End and Integration</p>
                         </div>
 
                         <p class="team-desc">
-                            Interface design, user experience, and front-end development, contributing to usability,
-                            accessibility, visual consistency, and interaction flows across the MackSun portal.
+                            UX UI, front-end development, and integration with back-end services, contributing to
+                            accessible interfaces, responsive design, consistent user experience, and reliable
+                            interaction with platform workflows, APIs, filters, and export resources.
                         </p>
 
                         <p class="team-stack-title">Specialties</p>
+                        <p class="team-stack">
+                            HTML, CSS, JavaScript, React, React Router, Tailwind CSS, TypeScript, REST APIs, Git and GitHub.
+                        </p>
+
+                        <p class="team-stack-title">Additional Skills</p>
                         <p class="team-stack">
                             HTML, CSS, JavaScript, React, SQL, REST APIs, Git, GitHub, Figma, UI Design and Responsive Design.
                         </p>
@@ -517,20 +530,26 @@
                         <div class="team-card-top">
                             <img class="team-photo"
                                 src="/assets/img/eduardo-dias-lima-frontend-ux-ui-macksun.webp"
-                                alt="Eduardo Dias Lima front end integration and web development for MackSun"
+                                alt="Eduardo Dias Lima UX UI front end and integration for MackSun"
                                 loading="lazy" width="140" height="140">
                             <h3 class="team-name">Eduardo Dias Lima</h3>
-                            <p class="team-role">Front End and Integration</p>
+                            <p class="team-role">UX UI, Front End and Integration</p>
                         </div>
 
                         <p class="team-desc">
-                            Front-end development and integration with back-end services, enabling interaction with
-                            platform features, data workflows, export functionalities, and API-based resources.
+                            UX UI, front-end development, and integration with back-end services, contributing to
+                            accessible interfaces, responsive design, consistent user experience, and reliable
+                            interaction with platform workflows, APIs, filters, and export resources.
                         </p>
 
                         <p class="team-stack-title">Specialties</p>
                         <p class="team-stack">
                             HTML, CSS, JavaScript, React, React Router, Tailwind CSS, TypeScript, REST APIs, Git and GitHub.
+                        </p>
+
+                        <p class="team-stack-title">Additional Skills</p>
+                        <p class="team-stack">
+                            HTML, CSS, JavaScript, React, SQL, REST APIs, Git, GitHub, Figma, UI Design and Responsive Design.
                         </p>
 
                         <p class="team-contact">
@@ -543,20 +562,26 @@
                         <div class="team-card-top">
                             <img class="team-photo"
                                 src="/assets/img/felipe-gonzalez-frontend-ux-ui-macksun.webp"
-                                alt="Felipe Gonzalez front end UX UI and responsive interfaces for MackSun"
+                                alt="Felipe Gonzalez UX UI front end and integration for MackSun"
                                 loading="lazy" width="140" height="140">
                             <h3 class="team-name">Felipe Gonzalez</h3>
-                            <p class="team-role">Front End and UX UI</p>
+                            <p class="team-role">UX UI, Front End and Integration</p>
                         </div>
 
                         <p class="team-desc">
-                            Front-end development and user experience design using modern technologies, contributing to
-                            responsive interfaces, UI quality, integration with APIs, and user-oriented platform flows.
+                            UX UI, front-end development, and integration with back-end services, contributing to
+                            accessible interfaces, responsive design, consistent user experience, and reliable
+                            interaction with platform workflows, APIs, filters, and export resources.
                         </p>
 
                         <p class="team-stack-title">Specialties</p>
                         <p class="team-stack">
                             HTML, CSS, JavaScript, React, React Router, Tailwind CSS, TypeScript, REST APIs, Git and GitHub.
+                        </p>
+
+                        <p class="team-stack-title">Additional Skills</p>
+                        <p class="team-stack">
+                            HTML, CSS, JavaScript, React, SQL, REST APIs, Git, GitHub, Figma, UI Design and Responsive Design.
                         </p>
 
                         <p class="team-contact">
@@ -571,7 +596,8 @@
                 <h2 class="titulo-secao">Quality Assurance and Validation</h2>
                 <p class="info-secao team-section-intro">
                     Quality assurance in MackSun supports platform reliability, validation of user flows, front-end and
-                    back-end behavior, export consistency, and confidence in critical interactions across the portal.
+                    back-end behavior, export consistency, automated checks, and confidence in critical interactions
+                    across the portal.
                 </p>
 
                 <div class="team-grid team-grid-1">
@@ -586,8 +612,9 @@
                         </div>
 
                         <p class="team-desc">
-                            Responsible for validating front-end and back-end processes, ensuring system reliability,
-                            consistency of critical flows, and quality assurance across the MackSun platform.
+                            Responsible for quality assurance, automated validation, and verification of critical user
+                            flows, contributing to platform reliability, regression control, functional consistency,
+                            workflow validation, and confidence in front-end and back-end behavior.
                         </p>
 
                         <p class="team-stack-title">Specialties</p>
