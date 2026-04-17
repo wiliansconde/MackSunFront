@@ -69,6 +69,7 @@
             gap: 24px;
             margin-top: 92px;
             margin-bottom: 10px;
+            align-items: start;
         }
 
         .team-grid.team-grid-2 {
@@ -89,6 +90,7 @@
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             overflow: visible;
+            box-sizing: border-box;
         }
 
         .team-card:hover {
@@ -157,6 +159,8 @@
             font-size: 14px;
             line-height: 1.7;
             margin: 0;
+            word-break: break-word;
+            overflow-wrap: anywhere;
         }
 
         .team-contact a {
@@ -193,17 +197,51 @@
             .team-grid.team-grid-2,
             .team-grid.team-grid-1 {
                 grid-template-columns: 1fr;
-                margin-top: 78px;
+                gap: 72px;
+                margin-top: 72px;
+                justify-items: center;
             }
 
             .team-card {
-                padding: 86px 18px 20px;
+                width: 100%;
+                max-width: 420px;
+                padding: 82px 20px 20px;
+                border-radius: 16px;
             }
 
             .team-photo {
-                width: 120px;
-                height: 120px;
-                top: -48px;
+                width: 110px;
+                height: 110px;
+                top: -42px;
+                border-radius: 16px;
+            }
+
+            .team-card-top {
+                margin-bottom: 14px;
+            }
+
+            .team-name {
+                font-size: 18px;
+                line-height: 1.2;
+                margin: 0 0 8px;
+            }
+
+            .team-role {
+                font-size: 13px;
+                line-height: 1.4;
+                margin: 0;
+            }
+
+            .team-desc,
+            .team-stack,
+            .team-contact {
+                font-size: 14px;
+                line-height: 1.65;
+            }
+
+            .team-stack-title {
+                font-size: 14px;
+                margin: 0 0 6px;
             }
         }
     </style>
@@ -402,26 +440,26 @@
 
             <section>
                 <h2 class="titulo-secao">Our Team</h2>
-            
+
                 <p class="info-secao team-section-intro">
                     The MackSun platform is developed and maintained by a multidisciplinary team combining
                     solar physics, scientific validation, data engineering, platform architecture,
                     user experience, and quality assurance.
                 </p>
-            
+
                 <p class="info-secao">
                     This section presents the professionals responsible for building, validating,
                     and evolving the platform, ensuring that solar data, solar flare observations,
                     radio astronomy products, and astronomical time series are reliable, accessible,
                     and usable in real-world research, engineering, and educational contexts.
                 </p>
-            
+
                 <p class="info-secao">
                     Below, the team is organized by area of expertise, covering scientific leadership,
                     data engineering, front-end development, and quality assurance.
                 </p>
             </section>
-            
+
             <section>
                 <h2 class="titulo-secao">Scientific Leadership</h2>
                 <p class="info-secao team-section-intro">
@@ -530,14 +568,9 @@
                             interaction with platform workflows, APIs, filters, and export resources.
                         </p>
 
-                        <p class="team-stack-title">Specialties</p>
+                        <p class="team-stack-title">Core Skills</p>
                         <p class="team-stack">
-                            HTML, CSS, JavaScript, React, React Router, Tailwind CSS, TypeScript, REST APIs, Git and GitHub.
-                        </p>
-
-                        <p class="team-stack-title">Additional Skills</p>
-                        <p class="team-stack">
-                            HTML, CSS, JavaScript, React, SQL, REST APIs, Git, GitHub, Figma, UI Design and Responsive Design.
+                            HTML, CSS, JavaScript, React, React Router, Tailwind CSS, TypeScript, REST APIs, Git, GitHub, SQL, Figma, UI Design and Responsive Design.
                         </p>
 
                         <p class="team-contact">
@@ -562,14 +595,9 @@
                             interaction with platform workflows, APIs, filters, and export resources.
                         </p>
 
-                        <p class="team-stack-title">Specialties</p>
+                        <p class="team-stack-title">Core Skills</p>
                         <p class="team-stack">
-                            HTML, CSS, JavaScript, React, React Router, Tailwind CSS, TypeScript, REST APIs, Git and GitHub.
-                        </p>
-
-                        <p class="team-stack-title">Additional Skills</p>
-                        <p class="team-stack">
-                            HTML, CSS, JavaScript, React, SQL, REST APIs, Git, GitHub, Figma, UI Design and Responsive Design.
+                            HTML, CSS, JavaScript, React, React Router, Tailwind CSS, TypeScript, REST APIs, Git, GitHub, SQL, Figma, UI Design and Responsive Design.
                         </p>
 
                         <p class="team-contact">
@@ -594,14 +622,9 @@
                             interaction with platform workflows, APIs, filters, and export resources.
                         </p>
 
-                        <p class="team-stack-title">Specialties</p>
+                        <p class="team-stack-title">Core Skills</p>
                         <p class="team-stack">
-                            HTML, CSS, JavaScript, React, React Router, Tailwind CSS, TypeScript, REST APIs, Git and GitHub.
-                        </p>
-
-                        <p class="team-stack-title">Additional Skills</p>
-                        <p class="team-stack">
-                            HTML, CSS, JavaScript, React, SQL, REST APIs, Git, GitHub, Figma, UI Design and Responsive Design.
+                            HTML, CSS, JavaScript, React, React Router, Tailwind CSS, TypeScript, REST APIs, Git, GitHub, SQL, Figma, UI Design and Responsive Design.
                         </p>
 
                         <p class="team-contact">
@@ -637,7 +660,7 @@
                             workflow validation, and confidence in front-end and back-end behavior.
                         </p>
 
-                        <p class="team-stack-title">Specialties</p>
+                        <p class="team-stack-title">Core Skills</p>
                         <p class="team-stack">
                             Cypress, test automation, end-to-end testing, functional validation, regression testing,
                             exploratory testing, scenario validation, bug analysis, workflow verification and quality assurance.
