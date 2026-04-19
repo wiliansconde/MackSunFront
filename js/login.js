@@ -266,7 +266,7 @@ function limparSessaoExpirada() {
 
 export function verifyToken() {
     const token = localStorage.getItem('token');
-    alert('a');
+    alert('b');
     if (!token) {
         return false;
     }
@@ -287,8 +287,14 @@ export function verifyToken() {
         }
 
         const dataExpiracao = new Date(payload.exp * 1000);
-        alert('Token expira em: ' + dataExpiracao.toLocaleString());
-
+        alert('Forcando expirado Token expira em: ' + dataExpiracao.toLocaleString());
+        localStorage.removeItem('userData');
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('userInfo');
+        document.dispatchEvent(new CustomEvent('logoutSuccess'));
+        return false;
+        
+        
         const agora = Math.floor(Date.now() / 1000);
 
         if (payload.exp <= agora) {
