@@ -266,28 +266,45 @@ function limparSessaoExpirada() {
 
 export function verifyToken() {
     const token = localStorage.getItem('token');
-
+    alert('a');
     if (!token) {
         return false;
     }
 
-    const payload = decodificarPayloadJwt(token);
+    try {
+        const partes = token.split('.');
+        if (partes.length < 2) return false;
 
-    if (!payload || !payload.exp) {
-        limparSessaoExpirada();
-        document.dispatchEvent(new CustomEvent('logoutSuccess'));
+        const payloadBase64 = partes[1]
+            .replace(/-/g, '+')
+            .replace(/_/g, '/');
+
+        const padding = '='.repeat((4 - (payloadBase64.length % 4)) % 4);
+        const payload = JSON.parse(atob(payloadBase64 + padding));
+
+        if (!payload || !payload.exp) {
+            return false;
+        }
+
+        const dataExpiracao = new Date(payload.exp * 1000);
+        alert('Token expira em: ' + dataExpiracao.toLocaleString());
+
+        const agora = Math.floor(Date.now() / 1000);
+
+        if (payload.exp <= agora) {
+            localStorage.removeItem('userData');
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('userInfo');
+            document.dispatchEvent(new CustomEvent('logoutSuccess'));
+            return false;
+        }
+
+        return true;
+
+    } catch (erro) {
+        console.error('Erro ao validar token:', erro);
         return false;
     }
-
-    const agoraEmSegundos = Math.floor(Date.now() / 1000);
-
-    if (payload.exp <= agoraEmSegundos) {
-        limparSessaoExpirada();
-        document.dispatchEvent(new CustomEvent('logoutSuccess'));
-        return false;
-    }
-
-    return true;
 }
 
 export function loadUserData() {
