@@ -94,12 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 limiteDiasMaximoExportacaoPorPerfil = 9999;
                 break;
             case 'CRAAM_RESEARCHER':
-                limiteDiasMaximoExportacaoPorPerfil = 3;
+                limiteDiasMaximoExportacaoPorPerfil = 90;
                 break;
             case 'SOLAR_PHYSICIST':
             case 'VISITOR':
             default:
-                limiteDiasMaximoExportacaoPorPerfil = 2;
+                limiteDiasMaximoExportacaoPorPerfil = 30;
                 break;
         }
     }
