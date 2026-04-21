@@ -7,6 +7,14 @@
   font-weight: bold;
 }
 
+.wiki-intro-links {
+  margin-top: 12px;
+}
+
+.wiki-intro-links a {
+  font-weight: 600;
+}
+
 .access-table-wrapper {
   margin-top: 0rem;
 }
