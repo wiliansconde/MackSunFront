@@ -1,97 +1,87 @@
 .container_padrao {
-    flex-direction: column;
-    align-items: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .titulo_padrao {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .access-table-wrapper {
-    margin-top: 0rem;
+  margin-top: 0rem;
 }
 
 .titulo_telescopio {
-    font-size: clamp(0.9rem, 1.4vw, 1.3rem);
-    color: var(--preto);
-    font-weight: bold;
-    margin-top: 2rem;
-    margin-bottom: 0.1rem;
+  font-size: clamp(0.9rem, 1.4vw, 1.3rem);
+  color: var(--preto);
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 0.1rem;
 }
 
 .subtitulo_telescopio {
-    font-size: clamp(0.7rem, 1.1vw, 1rem);
-    color: var(--preto);
-    margin-bottom: 0.5rem;
+  font-size: clamp(0.7rem, 1.1vw, 1rem);
+  color: var(--preto);
+  margin-bottom: 0.5rem;
 }
 
 .nometable_telescopio {
-    font-size: clamp(0.8rem, 1.3vw, 1.2rem);
-    color: var(--preto);
-    font-weight: bold;
+  font-size: clamp(0.8rem, 1.3vw, 1.2rem);
+  color: var(--preto);
+  font-weight: bold;
 }
 
 .example_telescopio {
-    background-color: var(--cinza-claro);
-    padding: 10px;
-    border-radius: 4px;
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
-    font-family: monospace;
-    white-space: pre;
-    overflow-x: auto;
-    max-width: 100%;
+  background-color: var(--cinza-claro);
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  font-family: monospace;
+  white-space: pre;
+  overflow-x: auto;
+  max-width: 100%;
 }
 
-
-.access-table{
-    margin-top: 0.5rem;
+.access-table {
+  margin-top: 0.5rem;
 }
 
 .telescopio-section {
-    display: flex;
-    align-items: stretch;
-    gap: 2rem;
-    margin-bottom: 2rem;
+  display: flex;
+  align-items: stretch;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .telescopio-section img {
-    width: 320px;
-    max-width: 30vw;
-    height: 100%;
-    border-radius: 12px;
-    object-fit: cover;
-    margin-top: 2rem;
+  width: 320px;
+  max-width: 30vw;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-top: 2rem;
 }
 
 .telescopio-section > div {
-    max-height: auto;
-    overflow-y: auto;
-    flex: 1;
+  max-height: auto;
+  overflow-y: auto;
+  flex: 1;
 }
 
 @media (max-width: 900px) {
-    .telescopio-section {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .telescopio-section img {
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        margin-bottom: 1rem;
-    }
-    .telescopio-section > div {
-        max-height: none;
-        overflow-y: visible;
-    }
-}
-
-@media (max-width: 600px) {
-    .formulario-card_medio {
-        width: 100%;
-        margin: 2.5rem 1rem 0 1rem;
-    }
-    
+  .telescopio-section {
+    flex-direction: column;
+    margin: 0;
+  }
+  .telescopio-section img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0 0 1rem 0;
+  }
+  .telescopio-section > div {
+    max-height: none;
+    overflow-y: visible;
+  }
 }
