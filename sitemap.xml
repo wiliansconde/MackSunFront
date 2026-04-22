@@ -1,84 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Páginas da raiz -->
   <url>
     <loc>https://www.macksun.org/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  
   <url>
-    <loc>  https://www.macksun.org/dataset/index.html/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  
-  <url>
-    <loc>https://www.macksun.org/poemas-solar-data.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <loc>https://www.macksun.org/about.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.macksun.org/about</loc>
+    <loc>https://www.macksun.org/contact-and-support.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.macksun.org/contact-and-support</loc>
+    <loc>https://www.macksun.org/download-data.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.macksun.org/exibir-flare.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.macksun.org/poemas-solar-data.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.macksun.org/privacy-policy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://www.macksun.org/terms-of-use.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://www.macksun.org/dataset/index.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.macksun.org/pages/about-me/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://www.macksun.org/download-data</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.macksun.org/exibir-flare</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.macksun.org/privacy-policy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-
-  <url>
-    <loc>https://www.macksun.org/terms-of-use</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-
-  <!-- Páginas da Wiki -->
-  <url>
-    <loc>https://www.macksun.org/pages/wiki/</loc>
+    <loc>https://www.macksun.org/pages/wiki/index.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.macksun.org/pages/wiki/arquivos-telescopios</loc>
+    <loc>https://www.macksun.org/pages/wiki/como-exportar.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.macksun.org/pages/wiki/como-exportar</loc>
+    <loc>https://www.macksun.org/pages/wiki/telescopios.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.macksun.org/pages/wiki/telescopios</loc>
+    <loc>https://www.macksun.org/pages/wiki/arquivos-telescopios.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
