@@ -312,9 +312,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             await navigator.clipboard.writeText(url);
                 
                             btn.textContent = 'URL copied!';
+                            btn.classList.add('copied');
                 
                             setTimeout(() => {
                                 btn.textContent = textoOriginal;
+                                btn.classList.remove('copied');
                             }, 2000);
                 
                         } catch (err) {
@@ -328,6 +330,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                 });
+
+                
 
                 document.querySelector('.container-tabela').classList.remove('oculto');
                 document.querySelector('.container-tabela').style.display = 'block';
