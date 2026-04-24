@@ -306,19 +306,25 @@ body.visitante input[type="checkbox"]:not([value="1s"]) {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.8rem;
-  background-color: var(--cinza-claro);
+  font-size: 0.9rem;
+  background-color: #b8b8b8;
   color: var(--branco);
-  padding: 0.2rem 0.3rem;
+  padding: 0.45rem 0.7rem;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: ease-in-out 0.2s;
   white-space: nowrap;
+  min-width: 7.5rem;
 }
 
 .copy_btn:hover {
-  background-color: var(--cinza-escuro);
+  background-color: #9f9f9f;
+}
+
+.copy_btn.copied {
+  background-color: var(--verde);
+  color: var(--branco);
 }
 
 @media (max-width: 868px) {
