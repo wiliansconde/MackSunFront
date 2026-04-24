@@ -466,33 +466,39 @@ document.addEventListener('DOMContentLoaded', () => {
         modalConfirmacao.classList.remove('oculto');
     });
 
-    botaoCancelar.addEventListener('click', () => {
+    botaoCancelar.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+    
         modalConfirmacao.classList.add('oculto');
     });
 
-    botaoConfirmar.addEventListener('click', async () => {
+    botaoConfirmar.addEventListener('click', async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+    
         modalConfirmacao.classList.add('oculto');
-
+    
         const corpoBuscaCompleta = {
             ...ultimaBuscaRealizada,
             page: 0,
             size: 9999
         };
-
+    
         try {
             const headers = { 'Content-Type': 'application/json' };
             const tokenAtual = localStorage.getItem('token');
             if (tokenAtual) headers['Authorization'] = `Bearer ${tokenAtual}`;
-
+    
             const resposta = await fetch(`${BASE_URL}public/search-files`, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify(corpoBuscaCompleta)
             });
-
+    
             const resultado = await resposta.json();
             const todosArquivos = resultado?.data?.content || [];
-
+    
             todosArquivos.forEach((arquivo, index) => {
                 setTimeout(() => {
                     const link = document.createElement('a');
@@ -503,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.body.removeChild(link);
                 }, index * 5000);
             });
-
+    
         } catch (erro) {
             console.error("Erro ao buscar todos os arquivos:", erro);
         }
