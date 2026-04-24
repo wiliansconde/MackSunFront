@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             >
                                 Copy File URL
                             </button>
-                            <a href="${item.publicUrl}" target="_blank" download>Download file</a>
+                            <a href="${item.publicUrl}" download>Download file</a>
                         </td>`;
                     tbody.appendChild(tr);
                 });
