@@ -457,12 +457,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const botaoConfirmar = document.getElementById('btn_confirmar_download');
     const botaoCancelar = document.getElementById('btn_cancelar_download');
 
-    botaoDownloadAll.addEventListener('click', async () => {
+    botaoDownloadAll.addEventListener('click', async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+    
         if (arquivosDisponiveisParaDownload.length === 0) return;
-
+    
         const textoModal = modalConfirmacao.querySelector('p');
         textoModal.textContent = `Are you sure you want to download ${totalArquivosDisponiveisNaBusca} files?`;
-
+    
         modalConfirmacao.classList.remove('oculto');
     });
 
