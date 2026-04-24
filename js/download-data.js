@@ -285,27 +285,46 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td>${item.resolution}</td>
                         <td>${item.format}</td>                         
                         <td class='alinhar_downloadFile'>
-                            <button class="copy_btn" title="Click to copy the direct URL of the file, ideal for use in Google Colab, for example.">Copy File URL</button>
+                            <button 
+                                type="button"
+                                class="copy_btn"
+                                data-url="${item.publicUrl}"
+                                title="Click to copy the direct URL of the file, ideal for use in Google Colab, for example."
+                            >
+                                Copy File URL
+                            </button>
                             <a href="${item.publicUrl}" target="_blank" download>Download file</a>
                         </td>`;
                     tbody.appendChild(tr);
                 });
 
                 document.querySelectorAll('.copy_btn').forEach(btn => {
-                    btn.addEventListener('click', event => {
-                        const url = btn.nextElementSibling?.href;
-                        if (url) {
-                            navigator.clipboard.writeText(url)
-                                .then(() => {
-                                    btn.textContent = 'Copied!';
-                                    setTimeout(() => {
-                                        btn.textContent = 'Copy File URL';
-                                    }, 2000);
-                                })
-                                .catch(err => {
-                                    console.error('Erro ao copiar URL:', err);
-                                    btn.textContent = 'Failed to copy';
-                                });
+                    btn.addEventListener('click', async (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                
+                        const url = btn.dataset.url;
+                        if (!url) return;
+                
+                        const textoOriginal = btn.textContent;
+                
+                        try {
+                            await navigator.clipboard.writeText(url);
+                
+                            btn.textContent = 'URL copied!';
+                
+                            setTimeout(() => {
+                                btn.textContent = textoOriginal;
+                            }, 2000);
+                
+                        } catch (err) {
+                            console.error('Erro ao copiar URL:', err);
+                
+                            btn.textContent = 'Failed to copy';
+                
+                            setTimeout(() => {
+                                btn.textContent = textoOriginal;
+                            }, 2000);
                         }
                     });
                 });
