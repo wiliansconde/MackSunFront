@@ -41,68 +41,69 @@ document.addEventListener('DOMContentLoaded', () => {
     let itensPorPaginaSelecionado = 10;
 
     function atualizarEstadoLoginECheckboxes() {
-        const tokenAutenticacaoUsuario = localStorage.getItem('token');
-        let dadosInformacaoUsuario = null;
-        try {
-            const dadosInformacaoUsuarioRaw = sessionStorage.getItem('userInfo');
-            dadosInformacaoUsuario = dadosInformacaoUsuarioRaw ? JSON.parse(dadosInformacaoUsuarioRaw) : null;
-        } catch (erro) {
-            console.error("Erro ao processar dados de informação do usuário:", erro);
-            dadosInformacaoUsuario = null;
-        }
+    const tokenAutenticacaoUsuario = localStorage.getItem('token');
 
-        const usuarioAutenticado = Boolean(
-            tokenAutenticacaoUsuario &&
-            dadosInformacaoUsuario &&
-            dadosInformacaoUsuario.success &&
-            dadosInformacaoUsuario.data &&
-            dadosInformacaoUsuario.data.token
-        );
-
-        const tipoDePerfilDoUsuario = usuarioAutenticado
-            ? dadosInformacaoUsuario?.data?.user?.profile?.type || 'VISITOR'
-            : 'VISITOR';
-
-        document.body.classList.toggle('visitante', !usuarioAutenticado);
-
-        const permissoesSolarPhysicist = new Set([
-            'poemas_45_100ms',
-            'poemas_45_1s',
-            'sst_212_100ms',
-            'sst_212_1s'
-        ]);
-
-        document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-            const idCompleto = cb.id;
-
-            const deveDesabilitar =
-                (!usuarioAutenticado && cb.value !== '1s') ||
-                (tipoDePerfilDoUsuario === 'SOLAR_PHYSICIST' && !permissoesSolarPhysicist.has(idCompleto));
-
-            cb.disabled = deveDesabilitar;
-            cb.classList.toggle('desabilitado', deveDesabilitar);
-
-            if (deveDesabilitar) {
-                cb.closest('label')?.setAttribute('title', 'To enable this filter, please request access or a profile upgrade.');
-            } else {
-                cb.closest('label')?.removeAttribute('title');
-            }
-        });
-
-        switch (tipoDePerfilDoUsuario) {
-            case 'ADMINISTRATOR':
-                limiteDiasMaximoExportacaoPorPerfil = 9999;
-                break;
-            case 'CRAAM_RESEARCHER':
-                limiteDiasMaximoExportacaoPorPerfil = 90;
-                break;
-            case 'SOLAR_PHYSICIST':
-            case 'VISITOR':
-            default:
-                limiteDiasMaximoExportacaoPorPerfil = 30;
-                break;
-        }
+    let dadosUsuarioLocal = null;
+    try {
+        const dadosUsuarioLocalRaw = localStorage.getItem('userData');
+        dadosUsuarioLocal = dadosUsuarioLocalRaw ? JSON.parse(dadosUsuarioLocalRaw) : null;
+    } catch (erro) {
+        console.error("Erro ao processar dados do usuário no localStorage:", erro);
+        dadosUsuarioLocal = null;
     }
+
+    const usuarioAutenticado = Boolean(
+        tokenAutenticacaoUsuario &&
+        dadosUsuarioLocal
+    );
+
+    const tipoDePerfilDoUsuario = usuarioAutenticado
+        ? dadosUsuarioLocal?.profile?.type || 'VISITOR'
+        : 'VISITOR';
+
+    document.body.classList.toggle('visitante', !usuarioAutenticado);
+
+    const permissoesSolarPhysicist = new Set([
+        'poemas_45_100ms',
+        'poemas_45_1s',
+        'sst_212_100ms',
+        'sst_212_1s'
+    ]);
+
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        const idCompleto = cb.id;
+
+        const deveDesabilitar =
+            (!usuarioAutenticado && cb.value !== '1s') ||
+            (tipoDePerfilDoUsuario === 'SOLAR_PHYSICIST' && !permissoesSolarPhysicist.has(idCompleto));
+
+        cb.disabled = deveDesabilitar;
+        cb.classList.toggle('desabilitado', deveDesabilitar);
+
+        if (deveDesabilitar) {
+            cb.closest('label')?.setAttribute(
+                'title',
+                'To enable this filter, please request access or a profile upgrade.'
+            );
+        } else {
+            cb.closest('label')?.removeAttribute('title');
+        }
+    });
+
+    switch (tipoDePerfilDoUsuario) {
+        case 'ADMINISTRATOR':
+            limiteDiasMaximoExportacaoPorPerfil = 9999;
+            break;
+        case 'CRAAM_RESEARCHER':
+            limiteDiasMaximoExportacaoPorPerfil = 90;
+            break;
+        case 'SOLAR_PHYSICIST':
+        case 'VISITOR':
+        default:
+            limiteDiasMaximoExportacaoPorPerfil = 30;
+            break;
+    }
+}
 
     atualizarEstadoLoginECheckboxes();
     document.addEventListener('loginSuccess', atualizarEstadoLoginECheckboxes);
