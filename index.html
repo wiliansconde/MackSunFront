@@ -24,202 +24,181 @@
     <script type="module" src="./js/menuhamburger.js"></script>
     <script src="./js/pagina-flares.js" defer></script>
     <script type="module" src="js/headerfooter.js"></script>
-     <!-- Estilo -->
 
-
-
-<style>
-    .available-instruments {
-        --instrument-image-height: 220px;
-        --instrument-image-overlap: 70px;
-        --title-image-gap: 28px;
-
-        max-width: 1050px;
-        margin: 40px auto;
-        padding: 0 16px;
-    }
-
-    .available-instruments .titulo_padrao {
-        margin-bottom: 0;
-        position: relative;
-        z-index: 5;
-    }
-
-    .instrument-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 40px;
-        align-items: stretch;
-
-        padding-top: calc(var(--instrument-image-overlap) + var(--title-image-gap));
-    }
-
-    .instrument-card {
-        position: relative;
-        background: #ffffff;
-        color: #333333;
-        border-radius: 24px;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-
-        padding: calc(var(--instrument-image-height) - var(--instrument-image-overlap) + 24px) 28px 28px 28px;
-
-        display: flex;
-        flex-direction: column;
-        overflow: visible;
-    }
-
-    .instrument-image-wrapper {
-        position: absolute;
-        top: calc(var(--instrument-image-overlap) * -1);
-        left: 50%;
-        transform: translateX(-50%);
-
-        width: auto;
-        height: var(--instrument-image-height);
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        background: transparent;
-        border: 3px solid #ffffff;
-        border-radius: 18px;
-        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.14);
-        overflow: hidden;
-        z-index: 2;
-    }
-
-    .instrument-image-wrapper img {
-        width: auto;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-    }
-
-    .instrument-body {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-
-    .instrument-body h2 {
-        margin: 0 0 12px 0;
-        color: #001b2b;
-        font-size: 28px;
-        font-weight: 700;
-    }
-
-    .instrument-body p {
-        margin: 0 0 16px 0;
-        color: #333333;
-        line-height: 1.6;
-        font-size: 15px;
-    }
-
-    .instrument-details {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin: 16px 0 26px 0;
-        font-size: 14px;
-        line-height: 1.45;
-    }
-
-    .detail-row {
-        display: grid;
-        grid-template-columns: 150px 1fr;
-        gap: 10px;
-        align-items: start;
-    }
-
-    .detail-row strong {
-        color: #001b2b;
-        font-weight: 700;
-    }
-
-    .detail-row span {
-        color: #333333;
-    }
-
-    .instrument-actions {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 12px 18px;
-        align-items: center;
-        margin-top: auto;
-    }
-
-    .instrument-actions .btnRed {
-        grid-column: 2;
-        justify-self: end;
-        min-width: 150px;
-        padding: 12px 20px;
-        text-align: center;
-        display: inline-block;
-        color: #ffffff;
-    }
-
-    .instrument-link {
-        color: #001b2b;
-        text-decoration: underline;
-        font-weight: 500;
-        font-size: 14px;
-        text-align: right;
-    }
-
-    .instrument-actions .instrument-link:first-of-type {
-        grid-column: 1;
-        grid-row: 2;
-        justify-self: end;
-    }
-
-    .instrument-actions .instrument-link:last-of-type {
-        grid-column: 2;
-        grid-row: 2;
-        justify-self: end;
-    }
-
-    @media (max-width: 768px) {
+    <style>
         .available-instruments {
-            --instrument-image-height: 180px;
-            --instrument-image-overlap: 55px;
-            --title-image-gap: 24px;
+            --instrument-image-height: 220px;
+            --instrument-image-overlap: 70px;
+            --title-image-gap: 32px;
+
+            max-width: 1050px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+
+        .available-instruments .titulo_padrao {
+            margin-bottom: 0;
+            position: relative;
+            z-index: 5;
         }
 
         .instrument-grid {
-            grid-template-columns: 1fr;
-            gap: 80px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 40px;
+            align-items: stretch;
+            padding-top: calc(var(--instrument-image-overlap) + var(--title-image-gap));
+        }
+
+        .instrument-card {
+            position: relative;
+            background: #ffffff;
+            color: #333333;
+            border-radius: 24px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+            padding: calc(var(--instrument-image-height) - var(--instrument-image-overlap) + 28px) 28px 28px 28px;
+            display: flex;
+            flex-direction: column;
+            overflow: visible;
+        }
+
+        .instrument-image-wrapper {
+            position: absolute;
+            top: calc(var(--instrument-image-overlap) * -1);
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            height: var(--instrument-image-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 3px solid #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.14);
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .instrument-image-wrapper img {
+            width: auto;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .instrument-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .instrument-body h2 {
+            margin: 0 0 12px 0;
+            color: #001b2b;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .instrument-body p {
+            margin: 0 0 16px 0;
+            color: #333333;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .instrument-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 16px 0 26px 0;
+            font-size: 14px;
+            line-height: 1.45;
         }
 
         .detail-row {
-            grid-template-columns: 1fr;
-            gap: 4px;
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 10px;
+            align-items: start;
+        }
+
+        .detail-row strong {
+            color: #001b2b;
+            font-weight: 700;
+        }
+
+        .detail-row span {
+            color: #333333;
         }
 
         .instrument-actions {
             display: flex;
             flex-direction: column;
-            align-items: stretch;
-            gap: 10px;
+            gap: 14px;
+            margin-top: auto;
         }
 
         .instrument-actions .btnRed {
-            width: 100%;
-            justify-self: auto;
+            align-self: flex-end;
+            min-width: 150px;
+            padding: 12px 20px;
+            text-align: center;
+            display: inline-block;
+            color: #ffffff;
+        }
+
+        .instrument-links-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 18px;
+            flex-wrap: nowrap;
+            white-space: nowrap;
         }
 
         .instrument-link {
-            text-align: center;
+            color: #001b2b;
+            text-decoration: underline;
+            font-weight: 500;
+            font-size: 14px;
+            text-align: right;
         }
-    }
-</style>
 
+        @media (max-width: 768px) {
+            .available-instruments {
+                --instrument-image-height: 180px;
+                --instrument-image-overlap: 55px;
+                --title-image-gap: 28px;
+            }
 
-    
-    
-     <!-- Estilo FIM -->
-    
+            .instrument-grid {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .detail-row {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+
+            .instrument-actions .btnRed {
+                width: 100%;
+                align-self: stretch;
+            }
+
+            .instrument-links-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                white-space: normal;
+            }
+
+            .instrument-link {
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -237,43 +216,41 @@
 
     <main>
 
-        <!-- INSTRUMENTOS -->
         <section class="available-instruments">
             <h1 class="titulo_padrao">Available Instruments</h1>
-            <br>
+
             <div class="instrument-grid">
-        
-                <!-- POEMAS -->
+
                 <article class="instrument-card">
                     <div class="instrument-image-wrapper">
                         <img src="./assets/img/poemas-solar-radio-telescope.webp"
                              alt="POEMAS solar radio telescope used for solar data acquisition and solar flare observation">
                     </div>
-        
+
                     <div class="instrument-body">
                         <h2>POEMAS</h2>
-        
+
                         <p>
                             Solar radio telescope operating at millimeter wavelengths, designed for high temporal
                             resolution observations of solar flares and fast transient events.
                         </p>
-        
+
                         <div class="instrument-details">
                             <div class="detail-row">
                                 <strong>Frequencies:</strong>
                                 <span>45 / 90 GHz</span>
                             </div>
-        
+
                             <div class="detail-row">
                                 <strong>Type:</strong>
                                 <span>Solar radio time series</span>
                             </div>
-        
+
                             <div class="detail-row">
                                 <strong>Resolution:</strong>
                                 <span>10ms</span>
                             </div>
-        
+
                             <div class="detail-row detail-row-block">
                                 <strong>Available periods:</strong>
                                 <span>
@@ -284,87 +261,91 @@
                                     2024 (Apr–Nov)
                                 </span>
                             </div>
-        
+
                             <div class="detail-row detail-row-block">
                                 <strong>Note:</strong>
                                 <span>Data coverage is not continuous due to instrument maintenance and operational downtime.</span>
                             </div>
-        
+
                             <div class="detail-row">
                                 <strong>Location:</strong>
                                 <span>CASLEO, Argentina</span>
                             </div>
                         </div>
-        
+
                         <div class="instrument-actions">
                             <a class="btnRed" href="./download-data.html?instrument=POEMAS">Download Data</a>
-                            <a class="instrument-link" href="./pages/wiki/telescopios.html#poemas">See more about POEMAS</a>
-                            <a class="instrument-link" href="./pages/wiki/arquivos-telescopios.html">See POEMAS data dictionary</a>
-                            <a class="instrument-link" href="./pages/wiki/index.html">See POEMAS code examples</a>
+
+                            <div class="instrument-links-row">
+                                <a class="instrument-link" href="./pages/wiki/telescopios.html#poemas">About POEMAS</a>
+                                <a class="instrument-link" href="./pages/wiki/arquivos-telescopios.html">Data dictionary</a>
+                                <a class="instrument-link" href="./pages/wiki/index.html">Code examples</a>
+                            </div>
                         </div>
                     </div>
                 </article>
-        
-                <!-- SST -->
+
                 <article class="instrument-card">
                     <div class="instrument-image-wrapper">
                         <img src="./assets/img/sst-solar-submillimeter-telescope.webp"
                              alt="SST solar submillimeter telescope used for high frequency solar data and solar flare monitoring">
                     </div>
-        
+
                     <div class="instrument-body">
                         <h2>SST</h2>
-        
+
                         <p>
                             Solar submillimeter telescope used for high-frequency solar observations,
                             supporting studies of energetic processes and particle acceleration.
                         </p>
-        
+
                         <div class="instrument-details">
                             <div class="detail-row">
                                 <strong>Frequencies:</strong>
                                 <span>212 / 405 GHz</span>
                             </div>
-        
+
                             <div class="detail-row">
                                 <strong>Type:</strong>
                                 <span>Solar submillimeter monitoring</span>
                             </div>
-        
+
                             <div class="detail-row">
                                 <strong>Resolution:</strong>
                                 <span>5ms, 40ms and 1s products</span>
                             </div>
-        
+
                             <div class="detail-row detail-row-block">
                                 <strong>Available periods:</strong>
                                 <span>Available through the MackSun data portal according to product availability.</span>
                             </div>
-        
+
                             <div class="detail-row detail-row-block">
                                 <strong>Note:</strong>
                                 <span>Data coverage may vary according to instrument operation, calibration routines and product availability.</span>
                             </div>
-        
+
                             <div class="detail-row">
                                 <strong>Location:</strong>
                                 <span>CASLEO, Argentina</span>
                             </div>
                         </div>
-        
+
                         <div class="instrument-actions">
                             <a class="btnRed" href="./download-data.html?instrument=SST">Download Data</a>
-                            <a class="instrument-link" href="./pages/wiki/telescopios.html#sst">See more about SST</a>
-                            <a class="instrument-link" href="./pages/wiki/arquivos-telescopios.html">See SST data dictionary</a>
-                            <a class="instrument-link" href="./pages/wiki/index.html">See SST code examples</a>
+
+                            <div class="instrument-links-row">
+                                <a class="instrument-link" href="./pages/wiki/telescopios.html#sst">About SST</a>
+                                <a class="instrument-link" href="./pages/wiki/arquivos-telescopios.html">Data dictionary</a>
+                                <a class="instrument-link" href="./pages/wiki/index.html">Code examples</a>
+                            </div>
                         </div>
                     </div>
                 </article>
-        
+
             </div>
         </section>
 
-        <!-- FLARES -->
         <section class="home-grid">
             <div class="solarFlares">
                 <section class="formulario-card_medio">
