@@ -25,125 +25,138 @@
     <script src="./js/pagina-flares.js" defer></script>
     <script type="module" src="js/headerfooter.js"></script>
     
-    <style>
-        .available-instruments {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 16px;
-        }
-    
+   <style>
+    .available-instruments {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 16px;
+    }
+
+    .instrument-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    .instrument-card {
+        background: #ffffff;
+        color: #333333;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .instrument-image-wrapper {
+        width: 100%;
+        height: 280px;
+        max-height: 280px;
+        overflow: hidden;
+        background: #f3f3f3;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .instrument-image-wrapper img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    .instrument-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .instrument-body h2 {
+        margin: 0 0 10px 0;
+        color: #001b2b;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .instrument-body p {
+        margin: 0 0 14px 0;
+        color: #333333;
+        line-height: 1.5;
+        font-size: 15px;
+    }
+
+    .instrument-details {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 16px 0 20px 0;
+        color: #333333;
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+    .detail-row {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 10px;
+        align-items: start;
+    }
+
+    .detail-row strong {
+        color: #001b2b;
+        font-weight: 700;
+    }
+
+    .detail-row span {
+        color: #333333;
+    }
+
+    .instrument-actions {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: auto;
+    }
+
+    .instrument-actions .btnRed {
+        width: auto;
+        min-width: 140px;
+        padding: 12px 18px;
+        text-align: center;
+        display: inline-block;
+        color: #ffffff;
+    }
+
+    .instrument-link {
+        font-weight: 600;
+        color: #001b2b;
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
         .instrument-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 24px;
+            grid-template-columns: 1fr;
         }
-    
-        .instrument-card {
-            background: #ffffff;
-            color: #333333;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
-            display: flex;
-            flex-direction: column;
-        }
-    
-        .instrument-card * {
-            color: inherit;
-        }
-    
+
         .instrument-image-wrapper {
-            width: 100%;
-            height: 220px;
-            max-height: 220px;
-            overflow: hidden;
-            background: #eeeeee;
+            height: 240px;
+            max-height: 240px;
         }
-    
-        .instrument-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+
+        .detail-row {
+            grid-template-columns: 1fr;
+            gap: 2px;
         }
-    
-        .instrument-body {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-    
-        .instrument-body h2 {
-            margin: 0 0 10px 0;
-            color: #001b2b;
-            font-size: 24px;
-            font-weight: 700;
-        }
-    
-        .instrument-body p {
-            margin: 0 0 14px 0;
-            color: #333333;
-            line-height: 1.5;
-            font-size: 15px;
-        }
-    
-        .instrument-body ul {
-            margin: 0 0 18px 0;
-            padding-left: 18px;
-            color: #333333;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-    
-        .instrument-body li {
-            margin-bottom: 6px;
-            color: #333333;
-        }
-    
-        .instrument-body strong {
-            color: #001b2b;
-            font-weight: 700;
-        }
-    
+
         .instrument-actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-top: auto;
+            align-items: stretch;
         }
-    
-        .instrument-actions .btnRed {
-            width: auto;
-            min-width: 140px;
-            padding: 12px 18px;
-            text-align: center;
-            display: inline-block;
-            color: #ffffff;
-        }
-    
-        .instrument-link {
-            font-weight: 600;
-            color: #001b2b;
-            text-decoration: underline;
-        }
-    
-        @media (max-width: 768px) {
-            .instrument-grid {
-                grid-template-columns: 1fr;
-            }
-    
-            .instrument-image-wrapper {
-                height: 200px;
-                max-height: 200px;
-            }
-    
-            .instrument-actions {
-                align-items: stretch;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body>
@@ -169,7 +182,6 @@
         
                 <!-- POEMAS -->
                 <article class="instrument-card">
-        
                     <div class="instrument-image-wrapper">
                         <img src="./assets/img/poemas-solar-radio-telescope.webp"
                              alt="POEMAS solar radio telescope used for solar data acquisition and solar flare observation">
@@ -183,26 +195,54 @@
                             resolution observations of solar flares and fast transient events.
                         </p>
         
-                        <ul>
-                            <li><strong>Frequencies:</strong> 45 / 90 GHz</li>
-                            <li><strong>Type:</strong> Solar radio time series</li>
-                            <li><strong>Resolution:</strong> up to 10ms</li>
-                            <li><strong>Available periods:</strong> 2011 (Nov–Dec); 2012 (Jan–Dec); 2013 (Jan–Dec); 2019 (Jun–Jul, Sep–Dec); 2020 (Jan–Mar, Sep–Nov); 2024 (Apr–Nov)</li>
-                            <li><strong>Location:</strong> CASLEO, Argentina</li>
-                            <li><strong>Note:</strong> Data coverage is not continuous due to instrument maintenance and operational downtime.</li>
-                        </ul>
+                        <div class="instrument-details">
+                            <div class="detail-row">
+                                <strong>Frequencies:</strong>
+                                <span>45 / 90 GHz</span>
+                            </div>
+        
+                            <div class="detail-row">
+                                <strong>Type:</strong>
+                                <span>Solar radio time series</span>
+                            </div>
+        
+                            <div class="detail-row">
+                                <strong>Resolution:</strong>
+                                <span>10ms</span>
+                            </div>
+        
+                            <div class="detail-row detail-row-block">
+                                <strong>Available periods:</strong>
+                                <span>
+                                    2011 (Nov–Dec);<br>
+                                    2012 and 2013 (Jan–Dec);<br>
+                                    2019 (Jun–Jul, Sep–Dec);<br>
+                                    2020 (Jan–Mar, Sep–Nov);<br>
+                                    2024 (Apr–Nov)
+                                </span>
+                            </div>
+        
+                            <div class="detail-row detail-row-block">
+                                <strong>Note:</strong>
+                                <span>Data coverage is not continuous due to instrument maintenance and operational downtime.</span>
+                            </div>
+        
+                            <div class="detail-row">
+                                <strong>Location:</strong>
+                                <span>CASLEO, Argentina</span>
+                            </div>
+                        </div>
         
                         <div class="instrument-actions">
                             <a class="btnRed" href="./download-data.html?instrument=POEMAS">Download Data</a>
-                            <a class="instrument-link" href="./pages/wiki/telescopios.html#poemas">Details</a>
+                            <a class="instrument-link" href="./pages/wiki/telescopios.html#poemas">See more about instrument</a>
+                            <a class="instrument-link" href="./pages/wiki/dicionario-dados.html">See data dictionary</a>
                         </div>
                     </div>
-        
                 </article>
         
                 <!-- SST -->
                 <article class="instrument-card">
-        
                     <div class="instrument-image-wrapper">
                         <img src="./assets/img/sst-solar-submillimeter-telescope.webp"
                              alt="SST solar submillimeter telescope used for high frequency solar data and solar flare monitoring">
@@ -216,19 +256,44 @@
                             supporting studies of energetic processes and particle acceleration.
                         </p>
         
-                        <ul>
-                            <li><strong>Frequencies:</strong> 212 / 405 GHz</li>
-                            <li><strong>Type:</strong> Solar submillimeter monitoring</li>
-                            <li><strong>Resolution:</strong> 5ms, 40ms and 1s products</li>
-                            <li><strong>Location:</strong> CASLEO, Argentina</li>
-                        </ul>
+                        <div class="instrument-details">
+                            <div class="detail-row">
+                                <strong>Frequencies:</strong>
+                                <span>212 / 405 GHz</span>
+                            </div>
+        
+                            <div class="detail-row">
+                                <strong>Type:</strong>
+                                <span>Solar submillimeter monitoring</span>
+                            </div>
+        
+                            <div class="detail-row">
+                                <strong>Resolution:</strong>
+                                <span>5ms, 40ms and 1s products</span>
+                            </div>
+        
+                            <div class="detail-row detail-row-block">
+                                <strong>Available periods:</strong>
+                                <span>Available through the MackSun data portal according to product availability.</span>
+                            </div>
+        
+                            <div class="detail-row detail-row-block">
+                                <strong>Note:</strong>
+                                <span>Data coverage may vary according to instrument operation, calibration routines and product availability.</span>
+                            </div>
+        
+                            <div class="detail-row">
+                                <strong>Location:</strong>
+                                <span>CASLEO, Argentina</span>
+                            </div>
+                        </div>
         
                         <div class="instrument-actions">
                             <a class="btnRed" href="./download-data.html?instrument=SST">Download Data</a>
-                            <a class="instrument-link" href="./pages/wiki/telescopios.html#sst">Details</a>
+                            <a class="instrument-link" href="./pages/wiki/telescopios.html#sst">See more about instrument</a>
+                            <a class="instrument-link" href="./pages/wiki/dicionario-dados.html">See data dictionary</a>
                         </div>
                     </div>
-        
                 </article>
         
             </div>
