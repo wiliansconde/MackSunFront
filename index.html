@@ -40,11 +40,8 @@
     <link rel="stylesheet" href="./css/table.css">
     <link rel="stylesheet" href="./css/filter.css">
     <link rel="stylesheet" href="./css/buttons.css">
-    <link rel="stylesheet" href="./css/charts.css">
 
     <script src="./js/const.js" defer></script>
-    <script type="module" src="/js/poemaschart.js"></script>
-    <script type="module" src="/js/sstchart.js"></script>
     <script type="module" src="/js/loaders.js"></script>
     <script type="module" src="/js/login.js" defer></script>
     <script type="module" src="./js/menuhamburger.js"></script>
@@ -98,47 +95,73 @@
 
     <main>
         <section class="home-grid">
-            <div class="graficos">
 
-                <div class="chart-container">
-                    <h1 class="titulo_padrao">POEMAS</h1>
-                    <h2 class="chart-subtitle">Comparison of combined raw data from 45 GHz and 90 GHz</h2>
-                    <div class="chart-updated" id="updateTime">Updated on: </div>
+            <section class="available-instruments">
+                <h1 class="titulo_padrao">Available Instruments</h1>
 
-                    <div class="legend">
-                        <div class="legend-item">
-                            <div class="legend-color legend-45ghz"></div>
-                            <span>45 GHz</span>
+                <div class="instrument-grid">
+
+                    <article class="instrument-card">
+                        <img src="/assets/img/poemas-solar-radio-telescope.webp"
+                            alt="POEMAS solar radio telescope used for solar data acquisition and solar flare observation"
+                            class="instrument-image">
+
+                        <div class="instrument-content">
+                            <h2>POEMAS</h2>
+
+                            <p>
+                                Solar radio telescope operating at millimeter wavelengths, providing high temporal
+                                resolution observations for solar flare and astronomical time series research.
+                            </p>
+
+                            <ul>
+                                <li><strong>Frequencies:</strong> 45 / 90 GHz</li>
+                                <li><strong>Type:</strong> Solar radio time series</li>
+                                <li><strong>Resolution:</strong> up to 10ms</li>
+                                <li><strong>Available periods:</strong> 2011 (Nov–Dec); 2012 (Jan–Dec); 2013 (Jan–Dec); 2019 (Jun–Jul, Sep–Dec); 2020 (Jan–Mar, Sep–Nov); 2024 (Apr–Nov)</li>
+                                <li><strong>Records:</strong> billions</li>
+                                <li><strong>Location:</strong> CASLEO, Argentina</li>
+                                <li><strong>Note:</strong> Data coverage is not continuous due to instrument maintenance and operational downtime.</li>
+                            </ul>
+
+                            <div class="instrument-actions">
+                                <a class="btnRed" href="/download-data.html?instrument=POEMAS">Download Data</a>
+                                <a class="btnSecondary" href="/pages/wiki/telescopios.html#poemas">Instrument Details</a>
+                                <a class="btnSecondary" href="/pages/wiki/dicionario-dados.html">Data Dictionary</a>
+                            </div>
                         </div>
-                        <div class="legend-item">
-                            <div class="legend-color legend-90ghz"></div>
-                            <span>90 GHz</span>
-                        </div>
-                    </div>
+                    </article>
 
-                    <div id="poemas"></div>
+                    <article class="instrument-card">
+                        <img src="/assets/img/sst-solar-submillimeter-telescope.webp"
+                            alt="SST solar submillimeter telescope used for high frequency solar data and solar flare monitoring"
+                            class="instrument-image">
+
+                        <div class="instrument-content">
+                            <h2>SST</h2>
+
+                            <p>
+                                Solar submillimeter telescope used for high-frequency solar observations, supporting
+                                studies of energetic processes and particle acceleration during solar flares.
+                            </p>
+
+                            <ul>
+                                <li><strong>Frequencies:</strong> 212 / 405 GHz</li>
+                                <li><strong>Type:</strong> Solar submillimeter monitoring</li>
+                                <li><strong>Resolution:</strong> 5ms, 40ms and 1s products</li>
+                                <li><strong>Location:</strong> CASLEO, Argentina</li>
+                            </ul>
+
+                            <div class="instrument-actions">
+                                <a class="btnRed" href="/download-data.html?instrument=SST">Download Data</a>
+                                <a class="btnSecondary" href="/pages/wiki/telescopios.html#sst">Instrument Details</a>
+                                <a class="btnSecondary" href="/pages/wiki/dicionario-dados.html">Data Dictionary</a>
+                            </div>
+                        </div>
+                    </article>
+
                 </div>
-
-                <div class="chart-container">
-                    <h1 class="titulo_padrao">SST</h1>
-                    <h2 class="chart-subtitle">Comparison of combined raw data from 212 GHz and 405 GHz</h2>
-                    <div class="chart-updated" id="updateTime2">Updated on: </div>
-
-                    <div class="legend">
-                        <div class="legend-item">
-                            <div class="legend-color legend-212ghz"></div>
-                            <span>212 GHz</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color legend-405ghz"></div>
-                            <span>405 GHz</span>
-                        </div>
-                    </div>
-
-                    <div id="sst"></div>
-                </div>
-
-            </div>
+            </section>
 
             <div class="solarFlares">
                 <section class="formulario-card_medio">
@@ -189,9 +212,7 @@
     <div id="footer"></div>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons/ionicons.js"></script>
 </body>
 
 </html>
-
