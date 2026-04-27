@@ -31,55 +31,104 @@
             margin: 40px auto;
             padding: 0 16px;
         }
-
+    
         .instrument-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 24px;
         }
-
+    
         .instrument-card {
-            background: #fff;
+            background: #ffffff;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
             display: flex;
             flex-direction: column;
         }
-
-        .instrument-card img {
+    
+        .instrument-image-wrapper {
             width: 100%;
             height: 220px;
+            max-height: 220px;
+            overflow: hidden;
+            background: #eeeeee;
+        }
+    
+        .instrument-image-wrapper img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            display: block;
         }
-
+    
         .instrument-body {
-            padding: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
-
+    
         .instrument-body h2 {
-            margin-bottom: 8px;
+            margin: 0 0 10px 0;
+            color: #001b2b;
+            font-size: 24px;
+            font-weight: 700;
         }
-
+    
         .instrument-body p {
-            margin-bottom: 12px;
+            margin: 0 0 14px 0;
+            color: #333333;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+    
+        .instrument-body ul {
+            margin: 0 0 18px 0;
+            padding-left: 18px;
+            color: #333333;
+            font-size: 14px;
             line-height: 1.5;
         }
-
-        .instrument-body ul {
-            margin-bottom: 16px;
-            padding-left: 16px;
+    
+        .instrument-body li {
+            margin-bottom: 6px;
         }
-
-        .actions {
+    
+        .instrument-actions {
             display: flex;
-            justify-content: space-between;
+            gap: 12px;
             align-items: center;
+            flex-wrap: wrap;
+            margin-top: auto;
         }
-
+    
+        .instrument-actions .btnRed {
+            width: auto;
+            min-width: 140px;
+            padding: 12px 18px;
+            text-align: center;
+            display: inline-block;
+        }
+    
+        .instrument-link {
+            font-weight: 600;
+            color: #001b2b;
+            text-decoration: underline;
+        }
+    
         @media (max-width: 768px) {
             .instrument-grid {
                 grid-template-columns: 1fr;
+            }
+    
+            .instrument-image-wrapper {
+                height: 200px;
+                max-height: 200px;
+            }
+    
+            .instrument-actions {
+                align-items: stretch;
             }
         }
     </style>
