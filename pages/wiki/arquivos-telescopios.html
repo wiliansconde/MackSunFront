@@ -41,6 +41,33 @@
     <link rel="stylesheet" href="../../../css/telescopios.css">
     <link rel="stylesheet" href="../../../css/login.css">
 
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        [id] {
+            scroll-margin-top: 120px;
+        }
+
+        .dictionary-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 24px 0 8px;
+        }
+
+        .dictionary-nav a {
+            text-decoration: none;
+        }
+
+        .dictionary-nav a.ativo {
+            background-color: #1e88e5;
+            color: #ffffff;
+            border-color: #1e88e5;
+        }
+    </style>
+
     <script src="../../../js/const.js" defer></script>
     <script type="module" src="../../../js/headerfooter.js"></script>
     <script src="../../../js/headerlogado.js"></script>
@@ -52,7 +79,7 @@
     <div id="header"></div>
 
     <main class="container_padrao">
-        <section class="formulario-card_medio">
+        <section class="formulario-card_medio" id="poemas">
             <h1 class="titulo_padrao">Solar Data Dictionary for POEMAS and SST</h1>
 
             <p class="texto_padrao">
@@ -74,7 +101,16 @@
                 <a href="/poemas-solar-data">POEMAS solar dataset</a>.
             </p>
 
-            <p class="titulo_telescopio">POEMAS FITS</p>
+            <nav class="dictionary-nav" aria-label="Instrument data dictionary navigation">
+                <a href="#poemas" class="botao_padrao botao_secundario">POEMAS</a>
+                <a href="#poemas-fits" class="botao_padrao botao_secundario">POEMAS FITS</a>
+                <a href="#poemas-csv" class="botao_padrao botao_secundario">POEMAS CSV</a>
+                <a href="#sst" class="botao_padrao botao_secundario">SST</a>
+                <a href="#sst-fits" class="botao_padrao botao_secundario">SST FITS</a>
+                <a href="#sst-csv" class="botao_padrao botao_secundario">SST CSV</a>
+            </nav>
+
+            <p class="titulo_telescopio" id="poemas-fits">POEMAS FITS</p>
             <p class="subtitulo_telescopio">Format: FITS File    |    Encoding: Binary    |    Structure: Header + Observation Data Fields</p>
             <div class="access-table-wrapper">
                 <p class="nometable_telescopio">Header</p>
@@ -215,7 +251,7 @@
             </div>
         </section>
 
-        <section class="formulario-card_medio">
+        <section class="formulario-card_medio" id="poemas-csv">
             <p class="titulo_telescopio">POEMAS CSV</p>
             <p class="subtitulo_telescopio">Delimiter: Pipe (|)    |    Encoding: UTF-8    |    Structure: Header + Observation Data Fields</p>
             <div class="access-table-wrapper">
@@ -387,8 +423,8 @@ ISO_DATETIME|TBMAX|TBMIN|NFREQ|ELE|AZI|TBL45|TBR45|TBL90|TBR90
             </div>
         </section>
 
-        <section class="formulario-card_medio">
-            <p class="titulo_telescopio">SST FITS</p>
+        <section class="formulario-card_medio" id="sst">
+            <p class="titulo_telescopio" id="sst-fits">SST FITS</p>
             <div class="access-table-wrapper">
                 <p class="nometable_telescopio">Header</p>
                 <table class="access-table">
@@ -568,7 +604,7 @@ ISO_DATETIME|TBMAX|TBMIN|NFREQ|ELE|AZI|TBL45|TBR45|TBL90|TBR90
             </div>
         </section>
 
-        <section class="formulario-card_medio">
+        <section class="formulario-card_medio" id="sst-csv">
             <p class="titulo_telescopio">SST CSV</p>
             <p class="subtitulo_telescopio">Delimiter: Pipe (|)   |   Encoding: UTF-8   |   Structure: Header + Observation Data Fields</p>
             <div class="access-table-wrapper">
@@ -649,6 +685,56 @@ ISO_DATETIME|ADCVAL_1|ADCVAL_2|ADCVAL_3|ADCVAL_4|ADCVAL_5|ADCVAL_6|POS_TIME|AZIP
             </div>
         </section>
     </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+
+            const instrument = params.get("instrument");
+            const format = params.get("format");
+
+            let targetId = null;
+
+            if (instrument && format) {
+                targetId = `${instrument.trim().toLowerCase()}-${format.trim().toLowerCase()}`;
+            } else if (instrument) {
+                targetId = instrument.trim().toLowerCase();
+            }
+
+            const links = document.querySelectorAll(".dictionary-nav a");
+
+            function setActive(hash) {
+                links.forEach(link => {
+                    link.classList.toggle("ativo", link.getAttribute("href") === hash);
+                });
+            }
+
+            if (targetId) {
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                        setActive(`#${targetId}`);
+                    }, 300);
+                }
+            }
+
+            if (window.location.hash) {
+                setActive(window.location.hash);
+            }
+
+            links.forEach(link => {
+                link.addEventListener("click", () => {
+                    setActive(link.getAttribute("href"));
+                });
+            });
+        });
+    </script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons/ionicons.js"></script>
