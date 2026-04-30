@@ -41,7 +41,7 @@
     <link rel="stylesheet" href="../../../css/telescopios.css">
     <link rel="stylesheet" href="../../../css/login.css">
 
-    <style>
+   <style>
     html {
         scroll-behavior: smooth;
     }
@@ -51,71 +51,80 @@
     }
 
     .dictionary-menu {
-        margin: 28px 0 34px;
-        padding: 20px;
-        border: 1px solid #e3e3e3;
-        border-radius: 12px;
-        background: #f8f8f8;
+        margin: 24px 0 34px;
+        border-top: 1px solid #dddddd;
+        border-bottom: 1px solid #dddddd;
     }
 
-    .dictionary-menu-title-main {
-        margin: 0 0 14px;
-        font-size: 16px;
-        font-weight: 800;
-        color: #111111;
-    }
-
-    .dictionary-menu-list {
+    .dictionary-menu-row {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 14px;
+        grid-template-columns: 130px 1fr auto;
+        gap: 16px;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px solid #eeeeee;
     }
 
-    .dictionary-menu-item {
-        padding: 14px;
-        border: 1px solid #dddddd;
-        border-radius: 10px;
-        background: #ffffff;
+    .dictionary-menu-row:last-child {
+        border-bottom: none;
     }
 
-    .dictionary-menu-title {
-        margin-bottom: 10px;
+    .dictionary-menu-label {
         font-size: 15px;
         font-weight: 800;
         color: #111111;
     }
 
-    .dictionary-menu-subitems {
+    .dictionary-menu-description {
+        font-size: 14px;
+        color: #555555;
+        line-height: 1.35;
+    }
+
+    .dictionary-menu-links {
         display: flex;
         flex-wrap: wrap;
+        justify-content: flex-end;
         gap: 8px;
     }
 
-    .dictionary-menu-subitems a {
+    .dictionary-menu-links a {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 34px;
-        padding: 7px 12px;
+        min-height: 32px;
+        padding: 6px 11px;
         border: 1px solid #111111;
-        border-radius: 7px;
+        border-radius: 6px;
         background: #ffffff;
         color: #111111;
         font-size: 13px;
         font-weight: 700;
         text-decoration: none;
         transition: all 0.2s ease;
+        white-space: nowrap;
     }
 
-    .dictionary-menu-subitems a:hover {
+    .dictionary-menu-links a:hover {
         background: #111111;
         color: #ffffff;
     }
 
-    .dictionary-menu-subitems a.ativo {
+    .dictionary-menu-links a.ativo {
         background: #c4001a;
         border-color: #c4001a;
         color: #ffffff;
+    }
+
+    @media (max-width: 800px) {
+        .dictionary-menu-row {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        .dictionary-menu-links {
+            justify-content: flex-start;
+        }
     }
 </style>
 
@@ -134,41 +143,36 @@
             <h1 class="titulo_padrao">Solar Data Dictionary</h1>
 
             <p class="texto_padrao">
-                This page documents the structure of solar datasets available in MackSun. 
+                2 This page documents the structure of solar datasets available in MackSun. 
                 It provides a description of FITS and CSV formats, including header fields, 
                 observation data fields, and how each value should be interpreted.
             </p>
           
-            <!-- CONTEXTO LEVE (não é título) -->
-<p class="texto_padrao" style="margin-top: 20px; margin-bottom: 12px; font-size: 14px; color: #555;">
-    Select an instrument to explore its data dictionary and available formats.
-</p>
+           
 
-<nav class="dictionary-menu" aria-label="Available data dictionaries">
+<div class="dictionary-menu" aria-label="Available data dictionaries">
 
-    <div class="dictionary-menu-list">
-
-        <div class="dictionary-menu-item">
-            <div class="dictionary-menu-title">POEMAS</div>
-            <div class="dictionary-menu-subitems">
-                <a href="#poemas">Overview</a>
-                <a href="#poemas-fits">FITS file</a>
-                <a href="#poemas-csv">CSV file</a>
-            </div>
+    <div class="dictionary-menu-row">
+        <span class="dictionary-menu-label">POEMAS</span>
+        <span class="dictionary-menu-description">45 / 90 GHz solar radio time-series data</span>
+        <div class="dictionary-menu-links">
+            <a href="#poemas">Overview</a>
+            <a href="#poemas-fits">FITS file</a>
+            <a href="#poemas-csv">CSV file</a>
         </div>
-
-        <div class="dictionary-menu-item">
-            <div class="dictionary-menu-title">SST</div>
-            <div class="dictionary-menu-subitems">
-                <a href="#sst">Overview</a>
-                <a href="#sst-fits">FITS file</a>
-                <a href="#sst-csv">CSV file</a>
-            </div>
-        </div>
-
     </div>
 
-</nav>
+    <div class="dictionary-menu-row">
+        <span class="dictionary-menu-label">SST</span>
+        <span class="dictionary-menu-description">212 / 405 GHz submillimeter solar observations</span>
+        <div class="dictionary-menu-links">
+            <a href="#sst">Overview</a>
+            <a href="#sst-fits">FITS file</a>
+            <a href="#sst-csv">CSV file</a>
+        </div>
+    </div>
+
+</div>
             
 
             <p class="titulo_telescopio" id="poemas-fits">POEMAS FITS</p>
@@ -762,7 +766,7 @@ ISO_DATETIME|ADCVAL_1|ADCVAL_2|ADCVAL_3|ADCVAL_4|ADCVAL_5|ADCVAL_6|POS_TIME|AZIP
                 targetId = instrument.trim().toLowerCase();
             }
 
-            const links = document.querySelectorAll(".dictionary-menu-subitems a");
+            const links = document.querySelectorAll(".dictionary-menu-links a");
             
             function setActive(hash) {
                 links.forEach(link => {
