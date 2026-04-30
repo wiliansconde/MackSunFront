@@ -40,8 +40,7 @@
     <link rel="stylesheet" href="../../../css/sobre-o-portal.css">
     <link rel="stylesheet" href="../../../css/telescopios.css">
     <link rel="stylesheet" href="../../../css/login.css">
-
-     <style>
+<style>
     html {
         scroll-behavior: smooth;
     }
@@ -58,22 +57,24 @@
     }
 
     .dictionary-menu {
-        margin: 24px 0 34px;
+        margin: 20px 0 34px;
         border-top: 1px solid #dddddd;
         border-bottom: 1px solid #dddddd;
     }
 
     .dictionary-menu-row {
-        display: grid;
-        grid-template-columns: 130px 1fr auto;
-        gap: 16px;
-        align-items: center;
         padding: 16px 0;
         border-bottom: 1px solid #eeeeee;
     }
 
     .dictionary-menu-row:last-child {
         border-bottom: none;
+    }
+
+    .dictionary-menu-block {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
     }
 
     .dictionary-menu-label {
@@ -92,8 +93,8 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: flex-end;
         gap: 8px;
+        margin-top: 4px;
     }
 
     .dictionary-format-label {
@@ -133,13 +134,8 @@
     }
 
     @media (max-width: 800px) {
-        .dictionary-menu-row {
-            grid-template-columns: 1fr;
-            gap: 8px;
-        }
-
         .dictionary-menu-links {
-            justify-content: flex-start;
+            align-items: flex-start;
         }
     }
 </style>
@@ -163,45 +159,51 @@
                 It provides a description of FITS and CSV formats, including header fields, 
                 observation data fields, and how each value should be interpreted.
             </p>
-          
-           
-            <p class="texto_padrao dictionary-menu-intro">
-                Available instruments and their data formats:
-            </p>
-            
-            <div class="dictionary-menu" aria-label="Available data dictionaries">
-            
-                <div class="dictionary-menu-row">
-                    <span class="dictionary-menu-label">POEMAS</span>
-            
-                    <span class="dictionary-menu-description">
-                        45 / 90 GHz solar radio time-series data
-                    </span>
-            
-                    <div class="dictionary-menu-links">
-                        <span class="dictionary-format-label">Formats:</span>
-                        <a href="#poemas">Overview</a>
-                        <a href="#poemas-fits">FITS file</a>
-                        <a href="#poemas-csv">CSV file</a>
-                    </div>
-                </div>
-            
-                <div class="dictionary-menu-row">
-                    <span class="dictionary-menu-label">SST</span>
-            
-                    <span class="dictionary-menu-description">
-                        212 / 405 GHz submillimeter solar observations
-                    </span>
-            
-                    <div class="dictionary-menu-links">
-                        <span class="dictionary-format-label">Formats:</span>
-                        <a href="#sst">Overview</a>
-                        <a href="#sst-fits">FITS file</a>
-                        <a href="#sst-csv">CSV file</a>
-                    </div>
-                </div>
-            
+          <p class="texto_padrao dictionary-menu-intro">
+    Available instruments and their data formats:
+</p>
+
+<div class="dictionary-menu" aria-label="Available data dictionaries">
+
+    <div class="dictionary-menu-row">
+
+        <div class="dictionary-menu-block">
+            <div class="dictionary-menu-label">POEMAS</div>
+
+            <div class="dictionary-menu-description">
+                45 / 90 GHz solar radio time-series data
             </div>
+
+            <div class="dictionary-menu-links">
+                <span class="dictionary-format-label">Formats:</span>
+                <a href="#poemas">Overview</a>
+                <a href="#poemas-fits">FITS file</a>
+                <a href="#poemas-csv">CSV file</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="dictionary-menu-row">
+
+        <div class="dictionary-menu-block">
+            <div class="dictionary-menu-label">SST</div>
+
+            <div class="dictionary-menu-description">
+                212 / 405 GHz submillimeter solar observations
+            </div>
+
+            <div class="dictionary-menu-links">
+                <span class="dictionary-format-label">Formats:</span>
+                <a href="#sst">Overview</a>
+                <a href="#sst-fits">FITS file</a>
+                <a href="#sst-csv">CSV file</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
             
 
             <p class="titulo_telescopio" id="poemas-fits">POEMAS FITS</p>
