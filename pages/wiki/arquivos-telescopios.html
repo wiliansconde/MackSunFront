@@ -41,13 +41,20 @@
     <link rel="stylesheet" href="../../../css/telescopios.css">
     <link rel="stylesheet" href="../../../css/login.css">
 
-   <style>
+     <style>
     html {
         scroll-behavior: smooth;
     }
 
     [id] {
         scroll-margin-top: 120px;
+    }
+
+    .dictionary-menu-intro {
+        margin-top: 18px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #666666;
     }
 
     .dictionary-menu {
@@ -61,7 +68,7 @@
         grid-template-columns: 130px 1fr auto;
         gap: 16px;
         align-items: center;
-        padding: 14px 0;
+        padding: 16px 0;
         border-bottom: 1px solid #eeeeee;
     }
 
@@ -84,8 +91,17 @@
     .dictionary-menu-links {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
         justify-content: flex-end;
         gap: 8px;
+    }
+
+    .dictionary-format-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #666666;
+        margin-right: 4px;
+        align-self: center;
     }
 
     .dictionary-menu-links a {
@@ -143,36 +159,49 @@
             <h1 class="titulo_padrao">Solar Data Dictionary</h1>
 
             <p class="texto_padrao">
-                2 This page documents the structure of solar datasets available in MackSun. 
+                This page documents the structure of solar datasets available in MackSun. 
                 It provides a description of FITS and CSV formats, including header fields, 
                 observation data fields, and how each value should be interpreted.
             </p>
           
            
-
-<div class="dictionary-menu" aria-label="Available data dictionaries">
-
-    <div class="dictionary-menu-row">
-        <span class="dictionary-menu-label">POEMAS</span>
-        <span class="dictionary-menu-description">45 / 90 GHz solar radio time-series data</span>
-        <div class="dictionary-menu-links">
-            <a href="#poemas">Overview</a>
-            <a href="#poemas-fits">FITS file</a>
-            <a href="#poemas-csv">CSV file</a>
-        </div>
-    </div>
-
-    <div class="dictionary-menu-row">
-        <span class="dictionary-menu-label">SST</span>
-        <span class="dictionary-menu-description">212 / 405 GHz submillimeter solar observations</span>
-        <div class="dictionary-menu-links">
-            <a href="#sst">Overview</a>
-            <a href="#sst-fits">FITS file</a>
-            <a href="#sst-csv">CSV file</a>
-        </div>
-    </div>
-
-</div>
+            <p class="texto_padrao dictionary-menu-intro">
+                Available instruments and their data formats:
+            </p>
+            
+            <div class="dictionary-menu" aria-label="Available data dictionaries">
+            
+                <div class="dictionary-menu-row">
+                    <span class="dictionary-menu-label">POEMAS</span>
+            
+                    <span class="dictionary-menu-description">
+                        45 / 90 GHz solar radio time-series data
+                    </span>
+            
+                    <div class="dictionary-menu-links">
+                        <span class="dictionary-format-label">Formats:</span>
+                        <a href="#poemas">Overview</a>
+                        <a href="#poemas-fits">FITS file</a>
+                        <a href="#poemas-csv">CSV file</a>
+                    </div>
+                </div>
+            
+                <div class="dictionary-menu-row">
+                    <span class="dictionary-menu-label">SST</span>
+            
+                    <span class="dictionary-menu-description">
+                        212 / 405 GHz submillimeter solar observations
+                    </span>
+            
+                    <div class="dictionary-menu-links">
+                        <span class="dictionary-format-label">Formats:</span>
+                        <a href="#sst">Overview</a>
+                        <a href="#sst-fits">FITS file</a>
+                        <a href="#sst-csv">CSV file</a>
+                    </div>
+                </div>
+            
+            </div>
             
 
             <p class="titulo_telescopio" id="poemas-fits">POEMAS FITS</p>
