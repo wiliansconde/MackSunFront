@@ -50,67 +50,72 @@
         scroll-margin-top: 120px;
     }
 
-    .dictionary-nav {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+    .dictionary-menu {
         margin: 28px 0 34px;
+        padding: 20px;
+        border: 1px solid #e3e3e3;
+        border-radius: 12px;
+        background: #f8f8f8;
     }
 
-    .dictionary-group {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-        padding: 14px 16px;
-        background: #f7f7f7;
-        border: 1px solid #e2e2e2;
+    .dictionary-menu-title-main {
+        margin: 0 0 14px;
+        font-size: 16px;
+        font-weight: 800;
+        color: #111111;
+    }
+
+    .dictionary-menu-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 14px;
+    }
+
+    .dictionary-menu-item {
+        padding: 14px;
+        border: 1px solid #dddddd;
         border-radius: 10px;
+        background: #ffffff;
     }
 
-    .dictionary-group-title {
-        font-weight: 700;
-        font-size: 14px;
-        color: #333;
-        margin-right: 8px;
-        min-width: 140px;
+    .dictionary-menu-title {
+        margin-bottom: 10px;
+        font-size: 15px;
+        font-weight: 800;
+        color: #111111;
     }
 
-    .dictionary-group a {
+    .dictionary-menu-subitems {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .dictionary-menu-subitems a {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 8px 14px;
-        border-radius: 6px;
-        border: 1px solid #111;
-        background: #fff;
-        color: #111;
+        min-height: 34px;
+        padding: 7px 12px;
+        border: 1px solid #111111;
+        border-radius: 7px;
+        background: #ffffff;
+        color: #111111;
         font-size: 13px;
-        font-weight: 600;
+        font-weight: 700;
         text-decoration: none;
         transition: all 0.2s ease;
     }
 
-    .dictionary-group a:hover {
-        background: #111;
-        color: #fff;
+    .dictionary-menu-subitems a:hover {
+        background: #111111;
+        color: #ffffff;
     }
 
-    .dictionary-group a.ativo {
+    .dictionary-menu-subitems a.ativo {
         background: #c4001a;
-        color: #fff;
         border-color: #c4001a;
-    }
-
-    @media (max-width: 600px) {
-        .dictionary-group {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .dictionary-group-title {
-            min-width: auto;
-        }
+        color: #ffffff;
     }
 </style>
 
@@ -129,35 +134,35 @@
             <h1 class="titulo_padrao">Solar Data Dictionary</h1>
 
             <p class="texto_padrao">
-                This page documents the structure of solar datasets available in MackSun,
-                focusing on POEMAS and SST instruments. It provides a clear description of
-                FITS and CSV formats, including header fields, observation data fields,
-                and how each value should be interpreted in scientific and engineering contexts.
+                This page documents the structure of solar datasets available in MackSun. 
+                It provides a description of FITS and CSV formats, including header fields, 
+                observation data fields, and how each value should be interpreted.
             </p>
-            
-            <p class="texto_padrao">
-                The objective is to allow researchers and developers to understand the data
-                structure without needing prior knowledge of the instruments or raw acquisition formats.
-            </p>
-            
+          
             <!-- NAV COMO BOTÕES -->
-           <nav class="dictionary-nav">
-    
-                <div class="dictionary-group">
-                    <span class="dictionary-group-title">POEMAS</span>
-                    <a href="#poemas">Overview</a>
-                    <a href="#poemas-fits">FITS</a>
-                    <a href="#poemas-csv">CSV</a>
-                </div>
-            
-                <div class="dictionary-group">
-                    <span class="dictionary-group-title">SST</span>
-                    <a href="#sst">Overview</a>
-                    <a href="#sst-fits">FITS</a>
-                    <a href="#sst-csv">CSV</a>
-                </div>
-            
-            </nav>
+           <nav class="dictionary-menu" aria-label="Available data dictionaries">
+    <p class="dictionary-menu-title-main">Available Data Dictionaries</p>
+
+    <div class="dictionary-menu-list">
+        <div class="dictionary-menu-item">
+            <div class="dictionary-menu-title">Instrument: POEMAS</div>
+            <div class="dictionary-menu-subitems">
+                <a href="#poemas">Overview</a>
+                <a href="#poemas-fits">FITS file</a>
+                <a href="#poemas-csv">CSV file</a>
+            </div>
+        </div>
+
+        <div class="dictionary-menu-item">
+            <div class="dictionary-menu-title">Instrument: SST</div>
+            <div class="dictionary-menu-subitems">
+                <a href="#sst">Overview</a>
+                <a href="#sst-fits">FITS file</a>
+                <a href="#sst-csv">CSV file</a>
+            </div>
+        </div>
+    </div>
+</nav>
             
 
             <p class="titulo_telescopio" id="poemas-fits">POEMAS FITS</p>
@@ -751,8 +756,8 @@ ISO_DATETIME|ADCVAL_1|ADCVAL_2|ADCVAL_3|ADCVAL_4|ADCVAL_5|ADCVAL_6|POS_TIME|AZIP
                 targetId = instrument.trim().toLowerCase();
             }
 
-            const links = document.querySelectorAll(".dictionary-nav a");
-
+            const links = document.querySelectorAll(".dictionary-menu-subitems a");
+            
             function setActive(hash) {
                 links.forEach(link => {
                     link.classList.toggle("ativo", link.getAttribute("href") === hash);
