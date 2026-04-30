@@ -51,30 +51,33 @@
 
     .dictionary-menu-intro {
         margin-top: 18px;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         font-size: 14px;
         color: #666666;
     }
 
     .dictionary-menu {
-        margin: 20px 0 34px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin: 18px 0 36px;
+        padding-top: 16px;
         border-top: 1px solid #dddddd;
         border-bottom: 1px solid #dddddd;
+        padding-bottom: 16px;
     }
 
     .dictionary-menu-row {
-        padding: 16px 0;
-        border-bottom: 1px solid #eeeeee;
-    }
-
-    .dictionary-menu-row:last-child {
-        border-bottom: none;
+        padding: 14px;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        background: #fafafa;
     }
 
     .dictionary-menu-block {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 7px;
     }
 
     .dictionary-menu-label {
@@ -84,6 +87,7 @@
     }
 
     .dictionary-menu-description {
+        min-height: 38px;
         font-size: 14px;
         color: #555555;
         line-height: 1.35;
@@ -98,11 +102,10 @@
     }
 
     .dictionary-format-label {
+        width: 100%;
         font-size: 12px;
         font-weight: 700;
         color: #666666;
-        margin-right: 4px;
-        align-self: center;
     }
 
     .dictionary-menu-links a {
@@ -133,9 +136,15 @@
         color: #ffffff;
     }
 
-    @media (max-width: 800px) {
-        .dictionary-menu-links {
-            align-items: flex-start;
+    @media (max-width: 1000px) {
+        .dictionary-menu {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 700px) {
+        .dictionary-menu {
+            grid-template-columns: 1fr;
         }
     }
 </style>
@@ -160,50 +169,63 @@
                 observation data fields, and how each value should be interpreted.
             </p>
           <p class="texto_padrao dictionary-menu-intro">
-    Available instruments and their data formats:
-</p>
-
-<div class="dictionary-menu" aria-label="Available data dictionaries">
-
-    <div class="dictionary-menu-row">
-
-        <div class="dictionary-menu-block">
-            <div class="dictionary-menu-label">POEMAS</div>
-
-            <div class="dictionary-menu-description">
-                45 / 90 GHz solar radio time-series data
+            Available instruments and their data formats:
+        </p>
+        
+        <div class="dictionary-menu" aria-label="Available data dictionaries">
+        
+            <div class="dictionary-menu-row">
+                <div class="dictionary-menu-block">
+                    <div class="dictionary-menu-label">POEMAS</div>
+        
+                    <div class="dictionary-menu-description">
+                        45 / 90 GHz solar radio time-series data
+                    </div>
+        
+                    <div class="dictionary-menu-links">
+                        <span class="dictionary-format-label">Formats:</span>
+                        <a href="#poemas">Overview</a>
+                        <a href="#poemas-fits">FITS file</a>
+                        <a href="#poemas-csv">CSV file</a>
+                    </div>
+                </div>
             </div>
-
-            <div class="dictionary-menu-links">
-                <span class="dictionary-format-label">Formats:</span>
-                <a href="#poemas">Overview</a>
-                <a href="#poemas-fits">FITS file</a>
-                <a href="#poemas-csv">CSV file</a>
+        
+            <div class="dictionary-menu-row">
+                <div class="dictionary-menu-block">
+                    <div class="dictionary-menu-label">SST</div>
+        
+                    <div class="dictionary-menu-description">
+                        212 / 405 GHz submillimeter solar observations
+                    </div>
+        
+                    <div class="dictionary-menu-links">
+                        <span class="dictionary-format-label">Formats:</span>
+                        <a href="#sst">Overview</a>
+                        <a href="#sst-fits">FITS file</a>
+                        <a href="#sst-csv">CSV file</a>
+                    </div>
+                </div>
             </div>
+        
+            <div class="dictionary-menu-row">
+                <div class="dictionary-menu-block">
+                    <div class="dictionary-menu-label">HATS</div>
+        
+                    <div class="dictionary-menu-description">
+                        H-alpha solar observation data dictionary under preparation
+                    </div>
+        
+                    <div class="dictionary-menu-links">
+                        <span class="dictionary-format-label">Formats:</span>
+                        <a href="#hats">Overview</a>
+                        <a href="#hats-fits">FITS file</a>
+                        <a href="#hats-csv">CSV file</a>
+                    </div>
+                </div>
+            </div>
+        
         </div>
-
-    </div>
-
-    <div class="dictionary-menu-row">
-
-        <div class="dictionary-menu-block">
-            <div class="dictionary-menu-label">SST</div>
-
-            <div class="dictionary-menu-description">
-                212 / 405 GHz submillimeter solar observations
-            </div>
-
-            <div class="dictionary-menu-links">
-                <span class="dictionary-format-label">Formats:</span>
-                <a href="#sst">Overview</a>
-                <a href="#sst-fits">FITS file</a>
-                <a href="#sst-csv">CSV file</a>
-            </div>
-        </div>
-
-    </div>
-
-</div>
             
 
             <p class="titulo_telescopio" id="poemas-fits">POEMAS FITS</p>
