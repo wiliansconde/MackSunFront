@@ -42,31 +42,65 @@
     <link rel="stylesheet" href="../../../css/login.css">
 
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
+    html {
+        scroll-behavior: smooth;
+    }
 
-        [id] {
-            scroll-margin-top: 120px;
-        }
+    [id] {
+        scroll-margin-top: 120px;
+    }
 
-        .dictionary-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 24px 0 8px;
-        }
+    .dictionary-nav {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        margin: 28px 0 34px;
+        padding: 18px;
+        background: #f7f7f7;
+        border: 1px solid #e2e2e2;
+        border-radius: 12px;
+    }
 
-        .dictionary-nav a {
-            text-decoration: none;
-        }
+    .dictionary-nav a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 38px;
+        padding: 9px 16px;
+        border-radius: 8px;
+        border: 1px solid #111111;
+        background: #ffffff;
+        color: #111111;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
 
-        .dictionary-nav a.ativo {
-            background-color: #1e88e5;
-            color: #ffffff;
-            border-color: #1e88e5;
-        }
-    </style>
+    .dictionary-nav a:hover {
+        background: #111111;
+        color: #ffffff;
+        border-color: #111111;
+        transform: translateY(-1px);
+    }
+
+    .dictionary-nav a.ativo {
+        background-color: #c4001a;
+        color: #ffffff;
+        border-color: #c4001a;
+    }
+
+    .dictionary-related {
+        margin-top: 38px;
+    }
+
+    .dictionary-related .dictionary-nav {
+        margin-bottom: 0;
+    }
+</style>
 
     <script src="../../../js/const.js" defer></script>
     <script type="module" src="../../../js/headerfooter.js"></script>
@@ -83,29 +117,7 @@
             <h1 class="titulo_padrao">Solar Data Dictionary</h1>
 
             <p class="texto_padrao">
-                2. This page documents the structure of solar datasets available in MackSun,
-                focusing on POEMAS and SST instruments. It provides a clear description of
-                FITS and CSV formats, including header fields, observation data fields,
-                and how each value should be interpreted in scientific and engineering contexts.
-            </p>
-            
-            <p class="texto_padrao">
-                The objective is to allow researchers and developers to understand the data
-                structure without needing prior knowledge of the instruments or raw acquisition formats.
-            </p>
-            
-            <!-- NAV COMO BOTÕES -->
-            <nav class="dictionary-nav">
-                <a href="#poemas" class="botao_padrao botao_secundario">POEMAS</a>
-                <a href="#poemas-fits" class="botao_padrao botao_secundario">POEMAS FITS</a>
-                <a href="#poemas-csv" class="botao_padrao botao_secundario">POEMAS CSV</a>
-                <a href="#sst" class="botao_padrao botao_secundario">SST</a>
-                <a href="#sst-fits" class="botao_padrao botao_secundario">SST FITS</a>
-                <a href="#sst-csv" class="botao_padrao botao_secundario">SST CSV</a>
-            </nav><h1 class="titulo_padrao">Solar Data Dictionary for POEMAS and SST</h1>
-            
-            <p class="texto_padrao">
-                This page documents the structure of solar datasets available in MackSun,
+                3 This page documents the structure of solar datasets available in MackSun,
                 focusing on POEMAS and SST instruments. It provides a clear description of
                 FITS and CSV formats, including header fields, observation data fields,
                 and how each value should be interpreted in scientific and engineering contexts.
@@ -125,6 +137,7 @@
                 <a href="#sst-fits" class="botao_padrao botao_secundario">SST FITS</a>
                 <a href="#sst-csv" class="botao_padrao botao_secundario">SST CSV</a>
             </nav>
+            
 
             <p class="titulo_telescopio" id="poemas-fits">POEMAS FITS</p>
             <p class="subtitulo_telescopio">Format: FITS File    |    Encoding: Binary    |    Structure: Header + Observation Data Fields</p>
