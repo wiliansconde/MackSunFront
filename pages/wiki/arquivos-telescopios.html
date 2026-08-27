@@ -227,7 +227,69 @@
         
         </div>
             
+            <!-- INÍCIO: EXPLICAÇÃO SOBRE DERIVED DATA PRODUCTS -->
 
+<div class="access-table-wrapper"
+    style="
+        margin-top: 28px;
+        margin-bottom: 34px;
+        padding: 20px 24px;
+        border: 1px solid #dddddd;
+        border-radius: 10px;
+        background: #fafafa;
+    ">
+
+    <p class="nometable_telescopio">Derived Data Products</p>
+
+    <p class="texto_padrao">
+        Derived data products are generated from the original observations by applying temporal aggregation
+        procedures defined for each instrument and product resolution. Depending on the product, consecutive
+        samples are grouped into fixed, non-overlapping time windows and reduced to a representative value.
+    </p>
+
+    <p class="texto_padrao">
+        The processing applied to each derived product is documented according to the corresponding instrument
+        and temporal resolution.
+    </p>
+
+    <p class="texto_padrao">
+        The MackSun import and export pipeline does not apply additional scientific calibration, compensation,
+        or correction unless explicitly stated in the documentation of the corresponding instrument.
+    </p>
+
+    <br>
+
+    <p class="nometable_telescopio">POEMAS derived_1s</p>
+
+    <p class="texto_padrao">
+        The <code>derived_1s</code> product is generated from the 10 ms raw data by grouping 100 consecutive
+        samples into non-overlapping windows and calculating the median of the scientific fields for each group.
+    </p>
+
+    <p class="texto_padrao">
+        The timestamp of each 1 s record represents approximately the center of the aggregation window.
+        In the current implementation, the timestamp of sample index 50 within each group of 100 samples is
+        used as the temporal reference.
+    </p>
+
+    <p class="texto_padrao">
+        FITS and CSV files are generated from the same scientific data and use the same processing.
+        The differences are related to the file format and the representation of metadata and timestamps.
+    </p>
+
+    <p class="texto_padrao">
+        No additional compensation or correction is applied to the POEMAS antenna temperature values during
+        the MackSun import or export process.
+    </p>
+
+    <p class="texto_padrao">
+        For scientific research, MackSun recommends the FITS format because it provides a more stable and
+        appropriate structure for scientific data than CSV.
+    </p>
+
+</div>
+
+<!-- FIM: EXPLICAÇÃO SOBRE DERIVED DATA PRODUCTS -->
             <p class="titulo_telescopio" id="poemas-fits">POEMAS FITS</p>
             <p class="subtitulo_telescopio">Format: FITS File    |    Encoding: Binary    |    Structure: Header + Observation Data Fields</p>
             <div class="access-table-wrapper">
