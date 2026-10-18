@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +15,239 @@
   <link rel="stylesheet" href="/css/formulario.css">
   <link rel="stylesheet" href="/css/login.css">
 
-  <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/x-icon">
+  <link rel="icon"
+        href="/assets/img/favicon-32x32.png"
+        type="image/x-icon">
+
+  <title>Register</title>
+
+  <!-- =====================================================
+       PROTECAO TEMPORARIA CONTRA SPAM
+       Valida antes dos eventos normais do register.js
+       ===================================================== -->
+
+  <script>
+    (function () {
+      "use strict";
+
+      function validarRegistro() {
+
+        const form = document.getElementById("registrationForm");
+
+        if (!form) {
+          return false;
+        }
+
+        const nome = document.getElementById("name")
+          .value.trim().replace(/\s+/g, " ");
+
+        const email = document.getElementById("email")
+          .value.trim();
+
+        const justificativa = document.getElementById("justification")
+          .value.trim();
+
+        const perfil = form.querySelector(
+          'input[name="requestedProfile"]:checked'
+        );
+
+        const honeypot = document.getElementById("website");
+
+        // -------------------------------------------------
+        // 1. VALIDACAO DO NOME
+        // -------------------------------------------------
+
+        // Aceita letras Unicode, acentos, espaços,
+        // pontos, apóstrofos e hífens.
+        // Rejeita emojis, números e URLs.
+
+        const regexNome =
+          /^[\p{L}\p{M}][\p{L}\p{M}\s.'’-]*$/u;
+
+        if (
+          nome.length < 2 ||
+          nome.length > 100 ||
+          !regexNome.test(nome)
+        ) {
+          return false;
+        }
+
+        // -------------------------------------------------
+        // 2. VALIDACAO DO EMAIL
+        // -------------------------------------------------
+
+        const regexEmail =
+          /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+        if (
+          email.length > 254 ||
+          !regexEmail.test(email)
+        ) {
+          return false;
+        }
+
+        // -------------------------------------------------
+        // 3. VALIDACAO DO PERFIL
+        // -------------------------------------------------
+
+        const perfisPermitidos = [
+          "CRAAM_RESEARCHER",
+          "SOLAR_PHYSICIST",
+          "ADMINISTRATOR"
+        ];
+
+        if (
+          !perfil ||
+          !perfisPermitidos.includes(perfil.value)
+        ) {
+          return false;
+        }
+
+        // -------------------------------------------------
+        // 4. VALIDACAO DA JUSTIFICATIVA
+        // -------------------------------------------------
+
+        if (
+          justificativa.length < 10 ||
+          justificativa.length > 2000
+        ) {
+          return false;
+        }
+
+        // Nome e justificativa não podem ser iguais.
+
+        if (
+          nome.toLowerCase() ===
+          justificativa.toLowerCase()
+        ) {
+          return false;
+        }
+
+        // -------------------------------------------------
+        // 5. BLOQUEIO DE LINKS
+        // -------------------------------------------------
+
+        // Bloqueio temporário de URLs em solicitações.
+        // O solicitante deve descrever sua necessidade
+        // sem inserir links externos.
+
+        const regexLinks =
+          /https?:\/\/|www\.|bit\.ly|tinyurl\.com|cutt\.ly|t\.co\/|is\.gd|rb\.gy|shorturl\.at/i;
+
+        if (
+          regexLinks.test(nome) ||
+          regexLinks.test(justificativa)
+        ) {
+          return false;
+        }
+
+        // -------------------------------------------------
+        // 6. BLOQUEIO DO SPAM IDENTIFICADO
+        // -------------------------------------------------
+
+        const regexSpam =
+          /15[.,]000\s*TL|ucretsiz\s*bakaye|ücretsiz\s*bakiye|kap\s+bunu|4jT5Vq2/i;
+
+        if (
+          regexSpam.test(nome) ||
+          regexSpam.test(justificativa)
+        ) {
+          return false;
+        }
+
+        // -------------------------------------------------
+        // 7. IDENTIFICACAO DE BOTS - HONEYPOT
+        // -------------------------------------------------
+
+        // Usuários comuns não visualizam este campo.
+        // Alguns bots preenchem todos os inputs.
+
+        if (
+          honeypot &&
+          honeypot.value.trim() !== ""
+        ) {
+          return false;
+        }
+
+        // Evita enviar o campo auxiliar ao backend.
+
+        if (honeypot) {
+          honeypot.disabled = true;
+        }
+
+        return true;
+      }
+
+      // ---------------------------------------------------
+      // EXIBE ERRO E INTERROMPE O EVENTO
+      // ---------------------------------------------------
+
+      function bloquearEnvio(evento) {
+
+        evento.preventDefault();
+        evento.stopImmediatePropagation();
+
+        const mensagem = document.getElementById(
+          "security_message"
+        );
+
+        if (mensagem) {
+          mensagem.style.display = "block";
+        }
+      }
+
+      // ---------------------------------------------------
+      // INTERCEPTA CLIQUE NO BOTAO REQUEST
+      // ---------------------------------------------------
+
+      // Fase de captura: executa antes dos listeners
+      // usuais do formulário e do botão.
+
+      window.addEventListener("click", function (evento) {
+
+        if (!(evento.target instanceof Element)) {
+          return;
+        }
+
+        const botao = evento.target.closest(
+          '#registrationForm button[type="submit"]'
+        );
+
+        if (!botao) {
+          return;
+        }
+
+        if (!validarRegistro()) {
+          bloquearEnvio(evento);
+        }
+
+      }, true);
+
+      // ---------------------------------------------------
+      // INTERCEPTA SUBMISSAO DO FORMULARIO
+      // ---------------------------------------------------
+
+      // Abrange também envio por Enter ou requestSubmit().
+
+      window.addEventListener("submit", function (evento) {
+
+        if (
+          !evento.target ||
+          evento.target.id !== "registrationForm"
+        ) {
+          return;
+        }
+
+        if (!validarRegistro()) {
+          bloquearEnvio(evento);
+        }
+
+      }, true);
+
+    })();
+  </script>
+
+  <!-- SCRIPTS ORIGINAIS -->
 
   <script src="./js/const.js" defer></script>
   <script src="./js/menuhamburger.js" defer></script>
@@ -22,67 +255,275 @@
   <script type="module" src="/js/login.js" defer></script>
   <script type="module" src="js/headerfooter.js"></script>
 
-  <title>Register</title>
 </head>
 
 <body>
+
   <div id="estruturaLogin"></div>
   <div id="header"></div>
 
   <main class="container_padrao">
+
     <div class="formulario_cards">
+
       <h1 class="titulo_padrao">Register</h1>
-      <form id="registrationForm" class="formRegister" novalidate>
+
+      <form
+        id="registrationForm"
+        class="formRegister"
+        novalidate>
+
+        <!-- NOME -->
 
         <div class="container-input-label">
-          <label class="labelRegister" for="name">Name: <span>*</span></label>
-          <input class="inputRegister" type="text" id="name" name="name">
+
+          <label class="labelRegister" for="name">
+            Name: <span>*</span>
+          </label>
+
+          <input
+            class="inputRegister"
+            type="text"
+            id="name"
+            name="name"
+            maxlength="100"
+            required>
+
         </div>
+
+        <!-- EMAIL -->
 
         <div class="container-input-label">
-          <label class="labelRegister" for="email">Email: <span>*</span></label>
-          <input class="inputRegister" type="email" id="email" name="email">
+
+          <label class="labelRegister" for="email">
+            Email: <span>*</span>
+          </label>
+
+          <input
+            class="inputRegister"
+            type="email"
+            id="email"
+            name="email"
+            maxlength="254"
+            required>
+
         </div>
 
-        <div class="container-input-label" style="display: none;">
-          <label class="labelRegister" for="password">Password: <span>*</span></label>
-          <input class="inputRegister" type="password" id="password" name="password" value="12345678">
+        <!-- SENHA ORIGINAL -->
+
+        <div
+          class="container-input-label"
+          style="display: none;">
+
+          <label class="labelRegister" for="password">
+            Password: <span>*</span>
+          </label>
+
+          <input
+            class="inputRegister"
+            type="password"
+            id="password"
+            name="password"
+            value="12345678">
+
         </div>
 
-        <h2 class="subtitulo_padrao">Requested profile: <span>*</span></h2>
+        <!-- HONEYPOT: CAMPO INVISIVEL -->
+
+        <div
+          aria-hidden="true"
+          style="
+            position: absolute;
+            left: -10000px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+          ">
+
+          <label for="website">
+            Website
+          </label>
+
+          <input
+            type="text"
+            id="website"
+            name="website"
+            tabindex="-1"
+            autocomplete="off">
+
+        </div>
+
+        <!-- PERFIL SOLICITADO -->
+
+        <h2 class="subtitulo_padrao">
+          Requested profile: <span>*</span>
+        </h2>
 
         <div class="radioGroupRegister">
-          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="CRAAM_RESEARCHER"> CRAAM Researcher</label>
-          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="SOLAR_PHYSICIST"> Solar Physicist</label>
-          <label class="labelRadioRegister"><input class="inputRadio" type="radio" name="requestedProfile" value="ADMINISTRATOR"> Administrator</label>
+
+          <label class="labelRadioRegister">
+
+            <input
+              class="inputRadio"
+              type="radio"
+              name="requestedProfile"
+              value="CRAAM_RESEARCHER">
+
+            CRAAM Researcher
+
+          </label>
+
+          <label class="labelRadioRegister">
+
+            <input
+              class="inputRadio"
+              type="radio"
+              name="requestedProfile"
+              value="SOLAR_PHYSICIST">
+
+            Solar Physicist
+
+          </label>
+
+          <label class="labelRadioRegister">
+
+            <input
+              class="inputRadio"
+              type="radio"
+              name="requestedProfile"
+              value="ADMINISTRATOR">
+
+            Administrator
+
+          </label>
+
         </div>
+
+        <!-- JUSTIFICATIVA -->
 
         <div class="containerJustification">
-          <label class="justificationLabel" for="justification">Justification: <span>*</span></label>
-          <textarea id="justification" name="justification"></textarea>
+
+          <label
+            class="justificationLabel"
+            for="justification">
+
+            Justification: <span>*</span>
+
+          </label>
+
+          <textarea
+            id="justification"
+            name="justification"
+            maxlength="2000"
+            required></textarea>
+
         </div>
+
+        <!-- MENSAGENS ORIGINAIS -->
 
         <div class="errorMessage">
-          <div class="invalid_message_error" id="error_name">Please fill in the Name field.</div>
-          <div class="invalid_message_error" id="error_email">Please fill in the Email field.</div>
-          <div class="invalid_message_error" id="error_email_format">Please enter a valid email address.</div>
-          <div class="invalid_message_error" id="error_email_exists">Email already registered. Please use a different email.</div>
-          <div class="invalid_message_error" id="error_profile">Please select a profile.</div>
-          <div class="invalid_message_error" id="error_justification">Please fill in the Justification field.</div>
-          <div class="valid_message_error" id="success_processing">Processing your request...</div>
-          <div class="valid_message_error" id="success_submission">Request sent! Please wait while we review it.</div>
-          <div class="invalid_message_error" id="error_submission">Error submitting form. Please try again.</div>
+
+          <div
+            class="invalid_message_error"
+            id="error_name">
+            Please fill in the Name field.
+          </div>
+
+          <div
+            class="invalid_message_error"
+            id="error_email">
+            Please fill in the Email field.
+          </div>
+
+          <div
+            class="invalid_message_error"
+            id="error_email_format">
+            Please enter a valid email address.
+          </div>
+
+          <div
+            class="invalid_message_error"
+            id="error_email_exists">
+            Email already registered. Please use a different email.
+          </div>
+
+          <div
+            class="invalid_message_error"
+            id="error_profile">
+            Please select a profile.
+          </div>
+
+          <div
+            class="invalid_message_error"
+            id="error_justification">
+            Please fill in the Justification field.
+          </div>
+
+          <div
+            class="valid_message_error"
+            id="success_processing">
+            Processing your request...
+          </div>
+
+          <div
+            class="valid_message_error"
+            id="success_submission">
+            Request sent! Please wait while we review it.
+          </div>
+
+          <div
+            class="invalid_message_error"
+            id="error_submission">
+            Error submitting form. Please try again.
+          </div>
+
         </div>
 
-        <button class="btnBlack btnSizeSmall btnPositionRight" type="submit">Request</button>
+        <!-- MENSAGEM DE VALIDACAO ADICIONAL -->
+
+        <div
+          id="security_message"
+          role="alert"
+          style="
+            display: none;
+            color: #b42318;
+            margin-top: 12px;
+            margin-bottom: 12px;
+          ">
+
+          Please review the information provided.
+          Use your real name and a valid justification
+          without external links.
+
+        </div>
+
+        <!-- BOTAO ORIGINAL -->
+
+        <button
+          class="btnBlack btnSizeSmall btnPositionRight"
+          type="submit">
+
+          Request
+
+        </button>
+
+      </form>
 
     </div>
-    </form>
+
   </main>
 
+  <!-- ICONES ORIGINAIS -->
 
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script
+    type="module"
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js">
+  </script>
+
+  <script
+    nomodule
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js">
+  </script>
+
 </body>
-
 </html>
